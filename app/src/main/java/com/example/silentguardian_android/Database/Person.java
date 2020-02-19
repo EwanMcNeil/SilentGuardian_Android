@@ -7,6 +7,17 @@ public class Person {
     private String Name;
     private String PhoneNumber;
 
+    public Person(int ID, String name, String phoneNumber) {
+        this.ID = ID;
+        Name = name;
+        PhoneNumber = phoneNumber;
+    }
+
+    public Person(String name, String phoneNumber) {
+        Name = name;
+        PhoneNumber = phoneNumber;
+    }
+
     public int getID() {
         return ID;
     }

@@ -38,9 +38,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
 
-        String CREATE_TABLE_COURSE = "CREATE TABLE " + Config.COURSE_TABLE_NAME + " (" + Config.COLUMN_COURSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + Config.COLUMN_COURSE_TITLE + " TEXT NOT NULL, "
-                + Config.Column_COURSE_CODE + " TEXT NOT NULL)";
+        String CREATE_TABLE_COURSE = "CREATE TABLE " + Config.COURSE_TABLE_NAME + " (" + Config.COLUMN_PERSON_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + Config.COLUMN_PERSON_NAME + " TEXT NOT NULL, "
+                + Config.COLUMN_PERSON_NUMBER + " TEXT NOT NULL)";
 
         Log.d(TAG, CREATE_TABLE_COURSE);
 
@@ -59,15 +59,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    public long insertCourse(Course course)
+    public long insertCourse(Person person)
     {
         long id = -1;
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(Config.COLUMN_COURSE_TITLE, course.getTitle());
-        contentValues.put(Config.Column_COURSE_CODE, course.getCode());
+        contentValues.put(Config.COLUMN_PERSON_NAME, person.getName());
+        contentValues.put(Config.COLUMN_PERSON_NUMBER, person.getPhoneNumber());
 
         try{
 
@@ -87,7 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public List<Course> getAllCourses()
+    public List<Person> getAllPeople()
     {
         SQLiteDatabase db = this.getReadableDatabase(); //open database in readmode
         Cursor cursor = null;
@@ -99,14 +99,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             {
                 if(cursor.moveToFirst())
                 {
-                    List<Course> courses = new ArrayList<>();
+                    List<Person> courses = new ArrayList<>();
 
                     do{
-                        int id = cursor.getInt(cursor.getColumnIndex(Config.COLUMN_COURSE_ID));
-                        String title = cursor.getString(cursor.getColumnIndex(Config.COLUMN_COURSE_TITLE));
-                        String code = cursor.getString(cursor.getColumnIndex((Config.Column_COURSE_CODE)));
+                        int id = cursor.getInt(cursor.getColumnIndex(Config.COLUMN_PERSON_ID));
+                        String name = cursor.getString(cursor.getColumnIndex(Config.COLUMN_PERSON_NAME));
+                        String phone = cursor.getString(cursor.getColumnIndex((Config.COLUMN_PERSON_NUMBER)));
 
-                        courses.add(new Course(id,title,code)); //makes a new course and add its to the list
+                        courses.add(new Person(id,name,phone)); //makes a new course and add its to the list
                     }while(cursor.moveToNext());
 
                     return courses;
@@ -129,9 +129,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //deletes a course from the database tables
-    public void deleteCourse(long id){
+    public void deletePerson(long id){
         SQLiteDatabase db = this.getReadableDatabase();
-        db.delete(Config.COURSE_TABLE_NAME,Config.COLUMN_COURSE_ID+ " = ?",
+        db.delete(Config.COURSE_TABLE_NAME,Config.COLUMN_PERSON_ID+ " = ?",
                 new String[] { String.valueOf(id)});
 
     }
