@@ -9,8 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ThresholdActivity"></activity>
-        <activity android:name=".BubbleActivity" />
+        <activity android:name=".ThresholdActivity"
+            android:label = "ThresholdActivity"
+            android:parentActivityName=".MainActivity"
+            ></activity>
+        <activity android:name=".BubbleActivity"
+            android:label="BubbleActivity"
+            android:parentActivityName=".MainActivity"
+            ></activity>
         <activity
             android:name=".profileActivity"
             android:label="@string/title_activity_profile"
