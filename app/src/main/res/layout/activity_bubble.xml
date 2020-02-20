@@ -18,6 +18,7 @@
         app:layout_constraintTop_toBottomOf="@+id/deleteContactButton" />
 
     <ListView
+        android:id="@+id/ContactListView"
         android:layout_width="234dp"
         android:layout_height="732dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/addProfileButton"
+        android:id="@+id/addContactButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="264dp"
@@ -44,5 +45,5 @@
         android:layout_marginRight="24dp"
         android:text="Delete Contact"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addProfileButton" />
+        app:layout_constraintTop_toBottomOf="@+id/addContactButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

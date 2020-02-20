@@ -40,7 +40,7 @@ public class insertContactDialogFragment extends DialogFragment {
                 if (!(name.equals(""))) {
                     DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
                     dbhelper.insertPerson(new Person(name, number));
-                    //load the list view here
+                    ((BubbleActivity)getActivity()).loadContactsListView();
                     getDialog().dismiss();
 
                 }
