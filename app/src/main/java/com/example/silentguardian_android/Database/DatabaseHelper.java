@@ -69,7 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         contentValues.put(Config.COLUMN_PERSON_NAME, person.getName());
         contentValues.put(Config.COLUMN_PERSON_NUMBER, person.getPhoneNumber());
-        contentValues.put(Config.COLUMN_PERSON_THESHOLD, 0);
+        contentValues.put(Config.COLUMN_PERSON_THESHOLD, person.getThreshold());
         ///threshold value is intalized to zero
 
         try{
@@ -112,8 +112,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         int id = cursor.getInt(cursor.getColumnIndex(Config.COLUMN_PERSON_ID));
                         String name = cursor.getString(cursor.getColumnIndex(Config.COLUMN_PERSON_NAME));
                         String phone = cursor.getString(cursor.getColumnIndex((Config.COLUMN_PERSON_NUMBER)));
-
-                        courses.add(new Person(id,name,phone)); //makes a new course and add its to the list
+                        int threshold = cursor.getInt(cursor.getColumnIndex((Config.COLUMN_PERSON_THESHOLD)));
+                        courses.add(new Person(id,name,phone,threshold)); //makes a new course and add its to the list
                     }while(cursor.moveToNext());
 
                     return courses;
