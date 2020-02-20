@@ -40,7 +40,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String CREATE_TABLE_COURSE = "CREATE TABLE " + Config.COURSE_TABLE_NAME + " (" + Config.COLUMN_PERSON_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + Config.COLUMN_PERSON_NAME + " TEXT NOT NULL, "
-                + Config.COLUMN_PERSON_NUMBER + " TEXT NOT NULL)";
+                + Config.COLUMN_PERSON_NUMBER + " TEXT NOT NULL, "
+                + Config.COLUMN_PERSON_THESHOLD + " TEXT NOT NULL)";
 
         Log.d(TAG, CREATE_TABLE_COURSE);
 
@@ -68,6 +69,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         contentValues.put(Config.COLUMN_PERSON_NAME, person.getName());
         contentValues.put(Config.COLUMN_PERSON_NUMBER, person.getPhoneNumber());
+        contentValues.put(Config.COLUMN_PERSON_THESHOLD, 0);
+        ///threshold value is intalized to zero
 
         try{
 
@@ -86,6 +89,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return id;
     }
+
+    ///need a function to set the threshold value for a person
+
+    //and another to return all the people assocated with a value
 
     public List<Person> getAllPeople()
     {

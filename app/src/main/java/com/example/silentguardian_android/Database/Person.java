@@ -6,16 +6,25 @@ public class Person {
     private int ID;
     private String Name;
     private String PhoneNumber;
+    private int threshold;
 
-    public Person(int ID, String name, String phoneNumber) {
+    public Person(int ID, String name, String phoneNumber, int threshold) {
         this.ID = ID;
         Name = name;
         PhoneNumber = phoneNumber;
     }
 
-    public Person(String name, String phoneNumber) {
+    public Person(String name, String phoneNumber, int threshold) {
         Name = name;
         PhoneNumber = phoneNumber;
+    }
+
+    public int getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(int threshold) {
+        this.threshold = threshold;
     }
 
     public int getID() {

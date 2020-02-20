@@ -9,5 +9,6 @@ public class Config {
     public static final String COLUMN_PERSON_ID = "_id";
     public static final String COLUMN_PERSON_NAME = "name";
     public static final String COLUMN_PERSON_NUMBER = "code";
+    public static final String COLUMN_PERSON_THESHOLD = "threshold";
 
 }
