@@ -59,7 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    public long insertCourse(Person person)
+    public long insertPerson(Person person)
     {
         long id = -1;
         SQLiteDatabase db = this.getWritableDatabase();
