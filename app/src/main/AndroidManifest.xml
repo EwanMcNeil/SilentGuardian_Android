@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.silentguardian_android">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,14 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ThresholdActivity"
-            android:label = "ThresholdActivity"
-            android:parentActivityName=".MainActivity"
-            ></activity>
-        <activity android:name=".BubbleActivity"
+        <activity android:name=".ThresholdSettingActivity"></activity>
+        <activity
+            android:name=".ThresholdActivity"
+            android:label="ThresholdActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".BubbleActivity"
             android:label="BubbleActivity"
-            android:parentActivityName=".MainActivity"
-            ></activity>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".profileActivity"
             android:label="@string/title_activity_profile"

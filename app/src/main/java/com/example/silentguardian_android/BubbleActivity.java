@@ -65,7 +65,7 @@ public class BubbleActivity extends AppCompatActivity {
 
         contactListview.setAdapter(arrayAdapter);
 
-        
+
 
 
     }
