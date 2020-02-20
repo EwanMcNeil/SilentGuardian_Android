@@ -34,6 +34,8 @@ public class BubbleActivity extends AppCompatActivity {
         importContactsButton = findViewById(R.id.importContactButton);
         contactListview = findViewById(R.id.ContactListView);
 
+        loadContactsListView();
+
         addContactButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,9 +66,6 @@ public class BubbleActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, contactListText);
 
         contactListview.setAdapter(arrayAdapter);
-
-
-
 
     }
 }
