@@ -7,6 +7,7 @@ public class Person {
     private String Name;
     private String PhoneNumber;
     private int threshold;
+    private String password;
 
     public Person(int ID, String name, String phoneNumber, int threshold) {
         this.ID = ID;
@@ -18,6 +19,8 @@ public class Person {
         Name = name;
         PhoneNumber = phoneNumber;
     }
+
+
 
     public int getThreshold() {
         return threshold;
@@ -50,4 +53,6 @@ public class Person {
     public void setPhoneNumber(String phoneNumber) {
         PhoneNumber = phoneNumber;
     }
+
+
 }
