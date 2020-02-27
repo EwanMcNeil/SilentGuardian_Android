@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ThresholdSettingActivity"></activity>
+        <activity
+            android:name=".ThresholdSettingActivity">
+            android:parentActivityName=".ThresholdActivity"
+
+        </activity>
         <activity
             android:name=".ThresholdActivity"
             android:label="ThresholdActivity"
