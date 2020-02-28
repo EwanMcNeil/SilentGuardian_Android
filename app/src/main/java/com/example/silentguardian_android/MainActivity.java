@@ -1,7 +1,9 @@
 package com.example.silentguardian_android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected TextView longitudeTextView;
     protected TextView latitudeTextView;
 
-    messageGPSHelper gpsHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +32,12 @@ public class MainActivity extends AppCompatActivity {
         thresholdButton = findViewById(R.id.thresholdButton);
         bubbleButton = findViewById(R.id.bubbleButton);
 
-        gpsHelper = new messageGPSHelper(this);
+        ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
 
         longitudeTextView = findViewById(R.id.longtextView);
         latitudeTextView = findViewById(R.id.latTextView);
 
-        longitudeTextView.setText("Longitude: " + gpsHelper.getLong());
-        latitudeTextView.setText("Latitude: " +gpsHelper.getLat());
 
 
         profileButton.setOnClickListener(new View.OnClickListener() {
@@ -66,5 +67,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        messageGPSHelper gpsHelper;
+        gpsHelper = new messageGPSHelper(this);
+        longitudeTextView.setText("Longitude: " + gpsHelper.getLong());
+        latitudeTextView.setText("Latitude: " +gpsHelper.getLat());
 
+    }
 }
