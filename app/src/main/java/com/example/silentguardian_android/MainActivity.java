@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
-        ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.SEND_SMS}, 3);
         longitudeTextView = findViewById(R.id.longtextView);
         latitudeTextView = findViewById(R.id.latTextView);
 
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ActivityCompat.requestPermissions((Activity)v.getContext(), new String[]{Manifest.permission.SEND_SMS}, 3);
                 gpsHelper.sendMessage("7786898291", "test" );
             }
         });

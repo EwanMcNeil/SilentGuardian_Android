@@ -113,6 +113,7 @@ public class messageGPSHelper {
 
     protected void sendMessage(String number, String message){
         try{
+
             SmsManager smgr = SmsManager.getDefault();
             smgr.sendTextMessage(number,null,message,null,null);
             //Toast.makeText(MainActivity.class, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
