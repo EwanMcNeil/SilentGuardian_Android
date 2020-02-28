@@ -6,10 +6,13 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected Button thresholdButton;
     protected Button bubbleButton;
 
+    protected Button sendMessageButton;
 
     protected TextView longitudeTextView;
     protected TextView latitudeTextView;
@@ -31,10 +35,13 @@ public class MainActivity extends AppCompatActivity {
         profileButton = findViewById(R.id.profileButton);
         thresholdButton = findViewById(R.id.thresholdButton);
         bubbleButton = findViewById(R.id.bubbleButton);
+        sendMessageButton = findViewById(R.id.sendMessageButton);
+
+
 
         ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
-
+        ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.SEND_SMS}, 3);
         longitudeTextView = findViewById(R.id.longtextView);
         latitudeTextView = findViewById(R.id.latTextView);
 
@@ -70,10 +77,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        messageGPSHelper gpsHelper;
+        final messageGPSHelper gpsHelper;
         gpsHelper = new messageGPSHelper(this);
         longitudeTextView.setText("Longitude: " + gpsHelper.getLong());
         latitudeTextView.setText("Latitude: " +gpsHelper.getLat());
 
+        sendMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                gpsHelper.sendMessage("7786898291", "test" );
+            }
+        });
+
     }
+
 }
