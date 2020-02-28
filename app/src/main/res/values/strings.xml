@@ -2,4 +2,5 @@
     <string name="app_name">SilentGuardian_Android</string>
     <string name="title_activity_profile">profileActivity</string>
     <string name="title_activity_threshold_setting">thresholdSettingActivity</string>
+    <string name="ProfileInfo">Person</string>
 </resources>

@@ -14,11 +14,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
+
 public class MainActivity extends AppCompatActivity {
 
     protected Button profileButton;
     protected Button thresholdButton;
     protected Button bubbleButton;
+    protected SharePreferenceHelper sharePreferenceHelper;
 
     protected Button sendMessageButton;
 
@@ -35,14 +38,16 @@ public class MainActivity extends AppCompatActivity {
         profileButton = findViewById(R.id.profileButton);
         thresholdButton = findViewById(R.id.thresholdButton);
         bubbleButton = findViewById(R.id.bubbleButton);
-        sendMessageButton = findViewById(R.id.sendMessageButton);
 
+        sharePreferenceHelper = new SharePreferenceHelper(this);
+        sendMessageButton = findViewById(R.id.sendMessageButton);
 
 
         ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
         longitudeTextView = findViewById(R.id.longtextView);
         latitudeTextView = findViewById(R.id.latTextView);
+
 
 
 
@@ -58,8 +63,18 @@ public class MainActivity extends AppCompatActivity {
        thresholdButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Intent intent = new Intent(MainActivity.this , ThresholdActivity.class);
-               startActivity(intent);
+
+               //checking if password macthes from user to sharedpreferences
+              // if( sharePreferenceHelper.passwordReturn() ==  )
+               InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
+
+               dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
+
+
+               // if (InsertPasswordCheckFragment.)
+
+              // Intent intent = new Intent(MainActivity.this , ThresholdActivity.class);
+               //startActivity(intent);
            }
        });
 
@@ -71,11 +86,26 @@ public class MainActivity extends AppCompatActivity {
            }
        });
 
+
+       //if the user doesn't have an account existing, this if statement takes them to profile activity to create first profile
+        if(sharePreferenceHelper.userNameReturn() == null){
+            Intent intent = new Intent(MainActivity.this , profileActivity.class);
+            startActivity(intent);
+        }
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+
+        // Upon resuming the mainActivity, if the user has a name saved into sharedpreferences, then replace the text on the profile button to their name.
+        if(sharePreferenceHelper.userNameReturn()!= null) {
+            profileButton.setText(sharePreferenceHelper.userNameReturn() + "'s Profile Page ");
+        }
+
         final messageGPSHelper gpsHelper;
         gpsHelper = new messageGPSHelper(this);
         longitudeTextView.setText("Longitude: " + gpsHelper.getLong());
@@ -93,4 +123,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+       
+    }
 }
