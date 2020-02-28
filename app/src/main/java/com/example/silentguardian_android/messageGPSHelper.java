@@ -124,6 +124,13 @@ public class messageGPSHelper {
 
     }
 
+    protected String messageLocationLink(double latitude, double longitude){
+
+        String output = "https://www.google.com/maps/search/?api=1&query=" +latitude + "," +longitude;
+
+        return output;
+    }
+
 
 }
 

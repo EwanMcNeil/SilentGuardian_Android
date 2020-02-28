@@ -85,7 +85,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ActivityCompat.requestPermissions((Activity)v.getContext(), new String[]{Manifest.permission.SEND_SMS}, 3);
-                gpsHelper.sendMessage("7786898291", "test" );
+
+                //really dumb way to write to this function neeed to refactor
+                gpsHelper.sendMessage("7786898291", gpsHelper.messageLocationLink(gpsHelper.getLat(), gpsHelper.getLong()));
             }
         });
 
