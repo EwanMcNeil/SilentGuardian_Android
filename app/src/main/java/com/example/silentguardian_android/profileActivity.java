@@ -35,6 +35,7 @@ public class profileActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
         cancelButton = findViewById(R.id.cancelButton);
 
+        //instantiating the sharepreferences helper
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +49,7 @@ public class profileActivity extends AppCompatActivity {
 
                 sharePreferenceHelper.saveProfile( temp_name,temp_password);
 
-
+                // after entering information, go back into the main activity
                 Intent intent = new Intent(profileActivity.this , MainActivity.class);
                 startActivity(intent);
             }

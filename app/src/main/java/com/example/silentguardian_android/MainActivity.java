@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         bubbleButton = findViewById(R.id.bubbleButton);
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
+
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,8 +40,18 @@ public class MainActivity extends AppCompatActivity {
        thresholdButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Intent intent = new Intent(MainActivity.this , ThresholdActivity.class);
-               startActivity(intent);
+
+               //checking if password macthes from user to sharedpreferences
+              // if( sharePreferenceHelper.passwordReturn() ==  )
+               InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
+
+               dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
+
+
+               // if (InsertPasswordCheckFragment.)
+
+              // Intent intent = new Intent(MainActivity.this , ThresholdActivity.class);
+               //startActivity(intent);
            }
        });
 
@@ -52,12 +63,22 @@ public class MainActivity extends AppCompatActivity {
            }
        });
 
+
+       //if the user doesn't have an account existing, this if statement takes them to profile activity to create first profile
+        if(sharePreferenceHelper.userNameReturn() == null){
+            Intent intent = new Intent(MainActivity.this , profileActivity.class);
+            startActivity(intent);
+        }
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
+
+        // Upon resuming the mainActivity, if the user has a name saved into sharedpreferences, then replace the text on the profile button to their name.
         if(sharePreferenceHelper.userNameReturn()!= null) {
 
 
