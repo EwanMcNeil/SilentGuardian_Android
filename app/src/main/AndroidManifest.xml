@@ -3,6 +3,8 @@
     package="com.example.silentguardian_android">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:allowBackup="true"
@@ -11,11 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Bluetooth.BluetoothActivity"></activity>
         <activity
-            android:name=".ThresholdSettingActivity">
-            android:parentActivityName=".ThresholdActivity"
-
-        </activity>
+            android:name=".ThresholdSettingActivity"
+            android:parentActivityName=".ThresholdActivity"></activity>
         <activity
             android:name=".ThresholdActivity"
             android:label="ThresholdActivity"
