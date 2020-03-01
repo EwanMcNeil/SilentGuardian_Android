@@ -2,7 +2,10 @@ package com.example.silentguardian_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -22,11 +25,13 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected int thresholdVal;
     protected ListView wholeContactsListView;
     protected ListView threshHoldContactsListView;
+    protected List<Person> mainList = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_threshold_setting);
         thresholdEditText = findViewById(R.id.thresholdEditText);
         thresholdVal = getIntent().getIntExtra("THRESHOLDVAL", 0);
@@ -35,14 +40,27 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         threshHoldContactsListView = findViewById(R.id.thresholdContactsListView);
 
         loadContactsListView();
+        loadThresholdContactListView();
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         thresholdVal = getIntent().getIntExtra("THRESHOLDVAL", 0);
+        loadContactsListView();
+        loadThresholdContactListView();
 
         thresholdEditText.setText("Contacts in Threshold:" + thresholdVal);
+        wholeContactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent selectedContactIntent = new Intent(ThresholdSettingActivity.this, AddContactToThreshload.class);
+                selectedContactIntent.putExtra("contactSelected", mainList.get(position).getID());
+                selectedContactIntent.putExtra("ThresholdNumber", thresholdVal);
+                startActivity(selectedContactIntent);
+            }
+        });
     }
 
     protected void loadContactsListView(){
@@ -55,7 +73,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         for(int i = 0;i < people.size(); i++ ){
             String temp = "";
             temp += people.get(i).getName() + '\n';
-            temp += people.get(i).getPhoneNumber();
+            temp += people.get(i).getPhoneNumber() + '\n';
+            temp += "Threshold: " + people.get(i).getThreshold();
 
             contactListText.add(temp);
         }
@@ -65,5 +84,24 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         wholeContactsListView.setAdapter(arrayAdapter);
 
+    }
+    protected void loadThresholdContactListView(){
+        DatabaseHelper dbhelper = new DatabaseHelper(this);
+        List<Person> people = dbhelper.getAllPeople();
+        mainList = people;
+
+        ArrayList<String> contactListText = new ArrayList<>();
+
+        for(int i = 0;i < people.size(); i++ ){
+            String temp = "";
+            temp += people.get(i).getName() + '\n';
+            temp += people.get(i).getPhoneNumber() + '\n';
+            temp += "Threshold: " + people.get(i).getThreshold();
+            if(people.get(i).getThreshold()== thresholdVal)
+                contactListText.add(temp);
+        }
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, contactListText);
+        threshHoldContactsListView.setAdapter(arrayAdapter);
     }
 }

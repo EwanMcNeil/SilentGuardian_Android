@@ -10,40 +10,37 @@
         android:id="@+id/importContactButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="importContacts"
+        android:layout_marginBottom="284dp"
+        android:text="Import Contacts"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deleteContactButton" />
+        app:layout_constraintTop_toBottomOf="@+id/addContactButton" />
 
     <ListView
         android:id="@+id/ContactListView"
-        android:layout_width="234dp"
-        android:layout_height="732dp"
+        android:layout_width="0dp"
+        android:layout_height="571dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/addContactButton"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/addContactButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:text="Add Contact"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/deleteContactButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_width="140dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="258dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:text="Delete Contact"
+        android:layout_marginBottom="81dp"
+        android:text="Add Contact"
+        app:layout_constraintBottom_toTopOf="@+id/importContactButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addContactButton" />
+        app:layout_constraintStart_toEndOf="@+id/ContactListView"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

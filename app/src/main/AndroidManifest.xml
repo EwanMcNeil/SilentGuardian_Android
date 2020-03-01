@@ -14,7 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ThresholdSettingActivity"></activity>
+        <activity android:name=".AddContactToThreshload"></activity>
+        <activity android:name=".deleteModifyContactActivity" />
+        <activity
+            android:name=".ThresholdSettingActivity"
+            android:parentActivityName=".ThresholdActivity" />
         <activity
             android:name=".ThresholdActivity"
             android:label="ThresholdActivity"

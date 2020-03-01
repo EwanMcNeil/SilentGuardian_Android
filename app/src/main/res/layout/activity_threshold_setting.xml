@@ -7,58 +7,76 @@
     tools:context=".ThresholdSettingActivity">
 
 
-    <ListView
-        android:id="@+id/wholecontactsListView"
-        android:layout_width="203dp"
-        android:layout_height="481dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.015"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addContactToThresholdButton"
-        app:layout_constraintVertical_bias="0.494" />
-
-    <Button
-        android:id="@+id/addContactToThresholdButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Add contact to threshold"
+    <TextView
+        android:id="@+id/bubbleTextView"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:textAlignment="center"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginRight="59dp"
+        android:layout_marginBottom="19dp"
+        android:text="Bubble:"
+        app:layout_constraintBottom_toTopOf="@+id/wholecontactsListView"
+        app:layout_constraintEnd_toStartOf="@+id/thresholdEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/thresholdEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        android:layout_marginBottom="16dp"
         android:text="people in threhold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addContactToThresholdButton" />
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/thresholdContactsListView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bubbleTextView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/defineMessageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginLeft="46dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginRight="46dp"
+        android:layout_marginBottom="23dp"
         android:text="Define message"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/addContactToThresholdButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.031" />
+        app:layout_constraintEnd_toStartOf="@+id/thresholdEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wholecontactsListView" />
+
+    <ListView
+        android:id="@+id/wholecontactsListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="23dp"
+        app:layout_constraintBottom_toTopOf="@+id/defineMessageButton"
+        app:layout_constraintEnd_toStartOf="@+id/thresholdContactsListView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bubbleTextView" />
 
     <ListView
         android:id="@+id/thresholdContactsListView"
-        android:layout_width="197dp"
-        android:layout_height="481dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="97dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="156dp" />
+        app:layout_constraintStart_toEndOf="@+id/wholecontactsListView"
+        app:layout_constraintTop_toBottomOf="@+id/thresholdEditText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
