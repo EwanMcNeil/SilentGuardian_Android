@@ -8,13 +8,19 @@ public class Person {
     private String PhoneNumber;
     private int threshold;
 
-    public Person(int ID, String name, String phoneNumber, int threshold) {
+    public Person(int ID, String name, String phoneNumber, int threshold1) {
         this.ID = ID;
         Name = name;
         PhoneNumber = phoneNumber;
+        threshold = threshold1;
     }
 
-    public Person(String name, String phoneNumber, int threshold) {
+    public Person(String name, String phoneNumber, int threshold1) {
+        Name = name;
+        PhoneNumber = phoneNumber;
+        threshold = threshold1;
+    }
+    public Person(String name, String phoneNumber) {
         Name = name;
         PhoneNumber = phoneNumber;
     }
