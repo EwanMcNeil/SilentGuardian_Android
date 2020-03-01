@@ -143,4 +143,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public void updatePerson(Person person){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(Config.COLUMN_PERSON_NAME, person.getName());
+        contentValues.put(Config.COLUMN_PERSON_NUMBER, person.getPhoneNumber());
+        contentValues.put(Config.COLUMN_PERSON_THESHOLD, person.getThreshold());
+
+        db.update(Config.COURSE_TABLE_NAME, contentValues,Config.COLUMN_PERSON_ID + " = ?", new String[] { String.valueOf(person.getID())});
+    }
+
 }
