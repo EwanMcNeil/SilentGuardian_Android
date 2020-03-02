@@ -31,6 +31,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected ListView wholeContactsListView;
     protected ListView threshHoldContactsListView;
     protected List<Person> mainList = null;
+    protected Button defineMessageButton;
 
 
     @Override
@@ -43,7 +44,24 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         wholeContactsListView = findViewById(R.id.wholecontactsListView);
         threshHoldContactsListView = findViewById(R.id.thresholdContactsListView);
+
+
+        defineMessageButton = findViewById(R.id.defineMessageButton);
+
+        defineMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //instantiating fragment code
+                InsertThresholdMessageDialogFragment dialog = new InsertThresholdMessageDialogFragment();
+
+                dialog.show(getSupportFragmentManager(),"InsertThresholdMessageFragment");
+            }
+        });
+
+
         changeThresholdButton = findViewById(R.id.changeThresholdButton);
+
         loadContactsListView();
         loadThresholdContactListView();
 
