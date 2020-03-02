@@ -67,7 +67,12 @@ public class profileActivity extends AppCompatActivity {
 
 
 
+
+
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 }
+

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected ListView wholeContactsListView;
     protected ListView threshHoldContactsListView;
     protected List<Person> mainList = null;
+    protected Button defineMessageButton;
 
 
     @Override
@@ -38,6 +40,19 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         wholeContactsListView = findViewById(R.id.wholecontactsListView);
         threshHoldContactsListView = findViewById(R.id.thresholdContactsListView);
+
+        defineMessageButton = findViewById(R.id.defineMessageButton);
+
+        defineMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //instantiating fragment code
+                InsertThresholdMessageDialogFragment dialog = new InsertThresholdMessageDialogFragment();
+
+                dialog.show(getSupportFragmentManager(),"InsertThresholdMessageFragment");
+            }
+        });
 
         loadContactsListView();
         loadThresholdContactListView();

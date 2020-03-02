@@ -40,6 +40,29 @@ public class SharePreferenceHelper extends AppCompatActivity {
 
     }
 
+    //function to save the first threshold message
+    public void saveThresholdOneMessage( String message)
+    {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("Threshold One Message", message);
+
+        editor.commit();
+
+    }
+
+    //function to save the second threshold message
+    public void saveThresholdTwoMessage( String message)
+    {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("Threshold Two Message", message);
+
+        editor.commit();
+    }
+
+
+
     //at somepoint use this function
     /*public Person getProfile();
     {
@@ -80,6 +103,21 @@ public class SharePreferenceHelper extends AppCompatActivity {
         return password;
     }
 
+    //functions to get the messages set for each thresholds
+    public String ThresholdOneMessageReturn()
+    {
+        String ThresholdMessage = sharedPreferences.getString("Threshold One Message", null);
+
+        return ThresholdMessage;
+    }
+
+
+    public String ThresholdTwoMessageReturn()
+    {
+        String ThresholdMessage = sharedPreferences.getString("Threshold Two Message", null);
+
+        return ThresholdMessage;
+    }
 
 
 }
