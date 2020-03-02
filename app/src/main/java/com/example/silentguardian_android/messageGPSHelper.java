@@ -47,7 +47,13 @@ public class messageGPSHelper {
             return TODO;
         }
 
+
+
         Location location = getLastKnownLocation();
+        if(location == null){
+            return 88.0;
+        }
+
         double longitude = location.getLongitude();
 
         return longitude;
@@ -66,6 +72,9 @@ public class messageGPSHelper {
         }
 
         Location location = getLastKnownLocation();
+        if(location == null){
+            return 88.0;
+        }
 
         double latitude = location.getLatitude();
         return latitude;
@@ -81,6 +90,7 @@ public class messageGPSHelper {
             if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
+
             }
             Location l = mLocationManager.getLastKnownLocation(provider);
             if (l == null) {
