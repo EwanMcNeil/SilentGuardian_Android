@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     //thresholdVal is either One or Two depending on the droplink
 
     protected int thresholdVal;
+    protected Button changeThresholdButton;
     protected ListView wholeContactsListView;
     protected ListView threshHoldContactsListView;
     protected List<Person> mainList = null;
@@ -41,7 +43,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         wholeContactsListView = findViewById(R.id.wholecontactsListView);
         threshHoldContactsListView = findViewById(R.id.thresholdContactsListView);
-
+        changeThresholdButton = findViewById(R.id.changeThresholdButton);
         loadContactsListView();
         loadThresholdContactListView();
 
@@ -50,10 +52,21 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        thresholdVal = getIntent().getIntExtra("THRESHOLDVAL", 0);
+        thresholdVal = 1;  //threshold value is defaulted to One
         loadContactsListView();
         loadThresholdContactListView();
 
+        changeThresholdButton.setText("Current Threshold is:" + thresholdVal + "Click to Change threshold");
+        changeThresholdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(thresholdVal == 1){
+                    thresholdVal =2;
+                }else{
+                    thresholdVal =1;
+                }
+            }
+        });
         thresholdEditText.setText("Contacts in Threshold:" + thresholdVal);
         wholeContactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
