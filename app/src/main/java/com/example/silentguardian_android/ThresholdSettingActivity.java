@@ -22,6 +22,9 @@ import java.util.List;
 public class ThresholdSettingActivity extends AppCompatActivity {
 
     protected TextView thresholdEditText;
+
+    //thresholdVal is either One or Two depending on the droplink
+
     protected int thresholdVal;
     protected ListView wholeContactsListView;
     protected ListView threshHoldContactsListView;
@@ -57,7 +60,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent selectedContactIntent = new Intent(ThresholdSettingActivity.this, AddContactToThreshload.class);
                 selectedContactIntent.putExtra("contactSelected", mainList.get(position).getID());
-                selectedContactIntent.putExtra("ThresholdNumber", thresholdVal);
+                selectedContactIntent.putExtra("ThresholdNumber", thresholdVal); //sends either a one or a two to the next activity
                 startActivity(selectedContactIntent);
             }
         });
@@ -74,7 +77,10 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             String temp = "";
             temp += people.get(i).getName() + '\n';
             temp += people.get(i).getPhoneNumber() + '\n';
-            temp += "Threshold: " + people.get(i).getThreshold();
+
+            //dont think we need to display the threshold values
+            //or maybe we do
+            //temp += "Threshold: " + people.get(i).getThreshold();
 
             contactListText.add(temp);
         }
@@ -96,9 +102,17 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             String temp = "";
             temp += people.get(i).getName() + '\n';
             temp += people.get(i).getPhoneNumber() + '\n';
-            temp += "Threshold: " + people.get(i).getThreshold();
-            if(people.get(i).getThreshold()== thresholdVal)
-                contactListText.add(temp);
+
+           // temp += "Threshold: " + people.get(i).getThreshold();
+            //redundant line
+
+            if(thresholdVal == 1){
+                if(people.get(i).getThresholdOne()== 1) //because threshold One is set to One if they are added to list(boolean but int)
+                    contactListText.add(temp);
+            }else if (thresholdVal == 2) {
+                if (people.get(i).getThresholdTwo() == 1)
+                    contactListText.add(temp);
+            }
         }
 
         ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, contactListText);
