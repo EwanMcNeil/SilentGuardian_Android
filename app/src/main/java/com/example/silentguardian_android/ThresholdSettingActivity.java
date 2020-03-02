@@ -74,7 +74,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         loadContactsListView();
         loadThresholdContactListView();
 
-        changeThresholdButton.setText("Current Threshold is:" + thresholdVal + "Click to Change threshold");
+        changeThresholdButton.setText("Current Threshold is: " + thresholdVal + " Click to Change threshold");
         changeThresholdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +83,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 }else{
                     thresholdVal =1;
                 }
+                changeThresholdButton.setText("Current Threshold is: " + thresholdVal + " Click to Change threshold");
             }
         });
         thresholdEditText.setText("Contacts in Threshold:" + thresholdVal);
@@ -96,6 +97,9 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
     protected void loadContactsListView(){
 
