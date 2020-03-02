@@ -23,6 +23,9 @@ public class profileActivity extends AppCompatActivity {
     protected SharePreferenceHelper sharePreferenceHelper;
 
 
+    ///Activty to create a local profile to save a username
+    ///ensuring others can't edit things
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
