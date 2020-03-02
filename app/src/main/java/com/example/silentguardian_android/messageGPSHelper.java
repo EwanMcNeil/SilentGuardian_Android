@@ -19,6 +19,10 @@ import androidx.core.app.ActivityCompat;
 import java.util.List;
 
 
+
+///MessagerGPSHElper has the functions to get GPS coordinates and to send a SMS message with a configureable message
+
+
 public class messageGPSHelper {
     private static double TODO = 1;
 
@@ -30,26 +34,25 @@ public class messageGPSHelper {
         this.mContext = in_context;
     }
 
+
+    //fucntion to return the logitude of the current location
     protected double getLong() {
-
-
         LocationManager lm = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //ActivityCompat.requestPermissions((Activity) mContext, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            //ActivityCompat.requestPermissions((Activity) mContext, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return TODO;
         }
 
 
-        Location location = getLastKnownLocation();
 
+        Location location = getLastKnownLocation();
+        if(location == null){
+            return 88.0;
+        }
 
         double longitude = location.getLongitude();
 
@@ -57,30 +60,28 @@ public class messageGPSHelper {
     }
 
 
+    //function to return the latitude of the current location
     protected double getLat() {
-
-
 
         LocationManager lm = (LocationManager)  mContext.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults
-           // ActivityCompat.requestPermissions((Activity) mContext, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-           // ActivityCompat.requestPermissions((Activity) mContext, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
+
             return TODO;
         }
 
         Location location = getLastKnownLocation();
+        if(location == null){
+            return 88.0;
+        }
 
         double latitude = location.getLatitude();
         return latitude;
     }
 
 
-
+        // methods getlat() and getLong() call this function in order to find the previous location
     private Location getLastKnownLocation() {
         LocationManager mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         List<String> providers = mLocationManager.getProviders(true);
@@ -89,11 +90,6 @@ public class messageGPSHelper {
             if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
 
             }
             Location l = mLocationManager.getLastKnownLocation(provider);
@@ -109,27 +105,33 @@ public class messageGPSHelper {
     }
 
 
-    //possibly add in the two things for latitude and longitude
 
+
+    //takes in a phone number and a string to send a message
+    //possibly within here call the local methods getlat and getlong
     protected void sendMessage(String number, String message){
         try{
 
             SmsManager smgr = SmsManager.getDefault();
             smgr.sendTextMessage(number,null,message,null,null);
-            //Toast.makeText(MainActivity.class, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
         }
         catch (Exception e){
-            //Toast.makeText(MainActivity.this, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
         }
 
     }
 
+
+    //local location link to create the link for google maps
     protected String messageLocationLink(double latitude, double longitude){
 
         String output = "https://www.google.com/maps/search/?api=1&query=" +latitude + "," +longitude;
 
         return output;
     }
+
+
 
 
 }

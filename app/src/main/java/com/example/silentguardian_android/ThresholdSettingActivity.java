@@ -23,7 +23,11 @@ import java.util.List;
 public class ThresholdSettingActivity extends AppCompatActivity {
 
     protected TextView thresholdEditText;
+
+    //thresholdVal is either One or Two depending on the droplink
+
     protected int thresholdVal;
+    protected Button changeThresholdButton;
     protected ListView wholeContactsListView;
     protected ListView threshHoldContactsListView;
     protected List<Person> mainList = null;
@@ -41,6 +45,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         wholeContactsListView = findViewById(R.id.wholecontactsListView);
         threshHoldContactsListView = findViewById(R.id.thresholdContactsListView);
 
+
         defineMessageButton = findViewById(R.id.defineMessageButton);
 
         defineMessageButton.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +59,9 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             }
         });
 
+
+        changeThresholdButton = findViewById(R.id.changeThresholdButton);
+
         loadContactsListView();
         loadThresholdContactListView();
 
@@ -62,17 +70,28 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        thresholdVal = getIntent().getIntExtra("THRESHOLDVAL", 0);
+        thresholdVal = 1;  //threshold value is defaulted to One
         loadContactsListView();
         loadThresholdContactListView();
 
+        changeThresholdButton.setText("Current Threshold is:" + thresholdVal + "Click to Change threshold");
+        changeThresholdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(thresholdVal == 1){
+                    thresholdVal =2;
+                }else{
+                    thresholdVal =1;
+                }
+            }
+        });
         thresholdEditText.setText("Contacts in Threshold:" + thresholdVal);
         wholeContactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent selectedContactIntent = new Intent(ThresholdSettingActivity.this, AddContactToThreshload.class);
                 selectedContactIntent.putExtra("contactSelected", mainList.get(position).getID());
-                selectedContactIntent.putExtra("ThresholdNumber", thresholdVal);
+                selectedContactIntent.putExtra("ThresholdNumber", thresholdVal); //sends either a one or a two to the next activity
                 startActivity(selectedContactIntent);
             }
         });
@@ -89,7 +108,10 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             String temp = "";
             temp += people.get(i).getName() + '\n';
             temp += people.get(i).getPhoneNumber() + '\n';
-            temp += "Threshold: " + people.get(i).getThreshold();
+
+            //dont think we need to display the threshold values
+            //or maybe we do
+            //temp += "Threshold: " + people.get(i).getThreshold();
 
             contactListText.add(temp);
         }
@@ -111,9 +133,17 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             String temp = "";
             temp += people.get(i).getName() + '\n';
             temp += people.get(i).getPhoneNumber() + '\n';
-            temp += "Threshold: " + people.get(i).getThreshold();
-            if(people.get(i).getThreshold()== thresholdVal)
-                contactListText.add(temp);
+
+           // temp += "Threshold: " + people.get(i).getThreshold();
+            //redundant line
+
+            if(thresholdVal == 1){
+                if(people.get(i).getThresholdOne()== 1) //because threshold One is set to One if they are added to list(boolean but int)
+                    contactListText.add(temp);
+            }else if (thresholdVal == 2) {
+                if (people.get(i).getThresholdTwo() == 1)
+                    contactListText.add(temp);
+            }
         }
 
         ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, contactListText);

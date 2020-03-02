@@ -63,8 +63,14 @@ public class AddContactToThreshload extends AppCompatActivity {
             public void onClick(View view) {
                 String name = selectedPerson.getName();
                 String number = selectedPerson.getPhoneNumber();
-                Person tempPerson = new Person(selectedPerson.getID(),name,number,thresholdVal);
 
+                Person tempPerson = new Person(null, null);
+                //its making me intialize like this may cause issues
+                if(thresholdVal == 1) {
+                    tempPerson = new Person(selectedPerson.getID(), name, number, 1, selectedPerson.getThresholdTwo());
+                } else if (thresholdVal == 2){
+                    tempPerson = new Person(selectedPerson.getID(), name, number, selectedPerson.getThresholdOne(), 1);
+                }
                 DatabaseHelper dbhelper = new DatabaseHelper(AddContactToThreshload.this);
                 dbhelper.updatePerson(tempPerson);
 
