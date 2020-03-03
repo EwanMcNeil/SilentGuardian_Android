@@ -48,6 +48,7 @@ public class BluetoothMainActivity extends ListActivity {
         ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
        // setContentView(R.layout.listitem_device);
         getActionBar().setTitle(R.string.title_devices);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         mHandler = new Handler();
 
         // Use this check to determine whether BLE is supported on the device.  Then you can
@@ -97,6 +98,9 @@ public class BluetoothMainActivity extends ListActivity {
             case R.id.menu_stop:
                 scanLeDevice(false);
                 break;
+            case android.R.id.home:
+                    onBackPressed();
+                    break;
         }
         return true;
     }
