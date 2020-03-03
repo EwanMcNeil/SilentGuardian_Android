@@ -58,6 +58,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
                 if(tempPasswordCheck.equals(sharePreferenceHelper.passwordReturn())){
                     Log.d(TAG, "entered if statement");
                     Intent intent = new Intent(getActivity(), ThresholdSettingActivity.class);
+                    intent.putExtra("THRESHOLDVAL", 1);
                     getActivity().startActivity(intent);
                     Log.d(TAG, "compared temp password to stored password");
                 }

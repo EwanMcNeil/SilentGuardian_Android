@@ -115,7 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         String name = cursor.getString(cursor.getColumnIndex(Config.COLUMN_PERSON_NAME));
                         String phone = cursor.getString(cursor.getColumnIndex((Config.COLUMN_PERSON_NUMBER)));
                         int thresholdOne = cursor.getInt(cursor.getColumnIndex((Config.COLUMN_PERSON_THESHOLD_ONE)));
-                        int thresholdTwo = cursor.getInt(cursor.getColumnIndex((Config.COLUMN_PERSON_THESHOLD_ONE)));
+                        int thresholdTwo = cursor.getInt(cursor.getColumnIndex((Config.COLUMN_PERSON_THESHOLD_TWO)));
                         people.add(new Person(id,name,phone,thresholdOne,thresholdTwo)); //makes a new course and add its to the list
                     }while(cursor.moveToNext());
 
