@@ -55,6 +55,11 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 //instantiating fragment code
                 InsertThresholdMessageDialogFragment dialog = new InsertThresholdMessageDialogFragment();
 
+                Bundle bundle = new Bundle();
+                bundle.putInt("threshold number", thresholdVal );
+
+                dialog.setArguments(bundle);
+
                 dialog.show(getSupportFragmentManager(),"InsertThresholdMessageFragment");
             }
         });

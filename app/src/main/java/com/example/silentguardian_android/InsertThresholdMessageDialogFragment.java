@@ -24,6 +24,7 @@ public class InsertThresholdMessageDialogFragment extends DialogFragment {
     protected Button saveMessage;
     protected Button cancelButton;
     protected SharePreferenceHelper sharePreferenceHelper;
+    protected int ThresholdValue;
 
 
     @Nullable
@@ -40,6 +41,9 @@ public class InsertThresholdMessageDialogFragment extends DialogFragment {
 
         sharePreferenceHelper = new SharePreferenceHelper(getContext());
 
+        ThresholdValue = getArguments().getInt("threshold number");
+
+
 
         saveMessage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,20 +52,26 @@ public class InsertThresholdMessageDialogFragment extends DialogFragment {
                 String temp_message = userDefinedThresholdMessage.getText().toString();
 
 
-                sharePreferenceHelper.saveThresholdOneMessage(temp_message);
-                sharePreferenceHelper.saveThresholdTwoMessage(temp_message);
 
+                if (ThresholdValue == 1){
 
+                    sharePreferenceHelper.saveThresholdOneMessage(temp_message);
+                    Toast.makeText(getContext()," Threshold One message = " + sharePreferenceHelper.ThresholdOneMessageReturn(), Toast.LENGTH_LONG).show();
+
+                }
+
+                else {
+                    sharePreferenceHelper.saveThresholdTwoMessage(temp_message);
+                    Toast.makeText(getContext()," Threshold Two message = " + sharePreferenceHelper.ThresholdTwoMessageReturn(), Toast.LENGTH_LONG).show();
+                }
 
 
                 //checking the logcat to see if the correct messages have been stored
                 Log.d(TAG, "Threshold Message One = " + sharePreferenceHelper.ThresholdOneMessageReturn());
                 Log.d(TAG, "Threshold Message Two = " + sharePreferenceHelper.ThresholdTwoMessageReturn());
 
-                Toast.makeText(getContext()," Threshold One message = " + sharePreferenceHelper.ThresholdOneMessageReturn(), Toast.LENGTH_LONG).show();
-                Toast.makeText(getContext()," Threshold Two message = " + sharePreferenceHelper.ThresholdTwoMessageReturn(), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getActivity(), ThresholdSettingActivity.class);
-                getActivity().startActivity(intent);
+
+                getDialog().dismiss();
             }
         });
 
