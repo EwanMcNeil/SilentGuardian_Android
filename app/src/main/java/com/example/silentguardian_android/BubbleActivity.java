@@ -73,8 +73,8 @@ public class BubbleActivity extends AppCompatActivity {
             String temp = "";
             temp += people.get(i).getName() + '\n';
             temp += people.get(i).getPhoneNumber() + '\n';
-            temp += "Threshold: " + people.get(i).getThreshold();
-
+            temp += "Threshold Two : " + people.get(i).getThresholdOne()+ '\n';
+            temp += "Threshold One: " + people.get(i).getThresholdTwo();
             contactListText.add(temp);
         }
 

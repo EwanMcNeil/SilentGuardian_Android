@@ -18,7 +18,7 @@
         <activity android:name=".deleteModifyContactActivity" />
         <activity
             android:name=".ThresholdSettingActivity"
-            android:parentActivityName=".ThresholdActivity" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ThresholdActivity"
             android:label="ThresholdActivity"

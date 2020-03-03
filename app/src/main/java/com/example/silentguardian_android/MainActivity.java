@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
            @Override
            public void onClick(View view) {
 
-               //checking if password macthes from user to sharedpreferences
-              // if( sharePreferenceHelper.passwordReturn() ==  )
+               //checking if password matches from user to sharedpreferences
+
                InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
 
                dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
