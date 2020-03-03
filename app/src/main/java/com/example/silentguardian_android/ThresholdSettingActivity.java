@@ -32,7 +32,11 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected ListView wholeContactsListView;
     protected ListView threshHoldContactsListView;
     protected List<Person> mainList = null;
+
     protected ArrayList<Person> thresholdList = new ArrayList<>();
+
+    protected Button defineMessageButton;
+
 
 
     @Override
@@ -45,7 +49,29 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         wholeContactsListView = findViewById(R.id.wholecontactsListView);
         threshHoldContactsListView = findViewById(R.id.thresholdContactsListView);
+
+
+        defineMessageButton = findViewById(R.id.defineMessageButton);
+
+        defineMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //instantiating fragment code
+                InsertThresholdMessageDialogFragment dialog = new InsertThresholdMessageDialogFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("threshold number", thresholdVal );
+
+                dialog.setArguments(bundle);
+
+                dialog.show(getSupportFragmentManager(),"InsertThresholdMessageFragment");
+            }
+        });
+
+
         changeThresholdButton = findViewById(R.id.changeThresholdButton);
+
         loadContactsListView();
         loadThresholdContactListView();
 
@@ -59,6 +85,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         loadThresholdContactListView();
 
         changeThresholdButton.setText("Current Threshold is: " + thresholdVal + '\n' +"Click to Change threshold");
+
         changeThresholdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,13 +94,18 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 }else{
                     thresholdVal =1;
                 }
+
                 finish();
                 overridePendingTransition(0, 0);
                 Intent intent = new Intent(ThresholdSettingActivity.this, ThresholdSettingActivity.class);
                 intent.putExtra("THRESHOLDVAL", thresholdVal);
                 startActivity(intent);
                 overridePendingTransition(0, 0);
+
+                changeThresholdButton.setText("Current Threshold is: " + thresholdVal + " Click to Change threshold");
+
             }
+          
         });
         thresholdEditText.setText("Contacts in Threshold:" + thresholdVal);
         wholeContactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,6 +138,9 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
     protected void loadContactsListView(){
 
