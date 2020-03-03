@@ -3,8 +3,16 @@
     package="com.example.silentguardian_android">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +21,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Bluetooth.BluetoothActivity"></activity>
+
+
+        <activity android:name=".Bluetooth.DeviceControlActivity"
+            android:theme="@android:style/Theme.Holo.Light"
+            ></activity>
+        <activity android:name=".AddContactToThreshload"></activity>
+        <activity android:name=".deleteModifyContactActivity"></activity>
+
+        <activity android:name=".Bluetooth.BluetoothMainActivity"
+            android:theme="@android:style/Theme.Holo.Light"
+            >
+
+        </activity>
+
+        <service android:name=".Bluetooth.BluetoothLeService" android:enabled="true"/>
+
         <activity
             android:name=".ThresholdSettingActivity"
             android:parentActivityName=".ThresholdActivity"></activity>
@@ -41,6 +64,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

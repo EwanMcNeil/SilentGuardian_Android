@@ -2,14 +2,12 @@ package com.example.silentguardian_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.silentguardian_android.Bluetooth.BluetoothActivity;
+import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         mBluetoothButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
+                Intent intent = new Intent(MainActivity.this, BluetoothMainActivity.class);
                 startActivity(intent);
             }
         });

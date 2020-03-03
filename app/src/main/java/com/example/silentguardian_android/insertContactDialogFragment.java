@@ -28,8 +28,8 @@ public class insertContactDialogFragment extends DialogFragment {
 
         nameEditText = view.findViewById(R.id.nameEditText);
         numberEditText = view.findViewById(R.id.numberEditText);
-        saveButton = view.findViewById(R.id.saveButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        saveButton = view.findViewById(R.id.saveAddButton);
+        cancelButton = view.findViewById(R.id.cancelAddButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
