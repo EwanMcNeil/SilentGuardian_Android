@@ -10,19 +10,19 @@ public class Person {
     private int thresholdTwo;
     private String password;
 
-    public Person(int ID, String name, String phoneNumber, int thresholdOne, int thresholdTwo) {
+    public Person(int ID, String name, String phoneNumber, int thresholdOne1, int thresholdTwo1) {
         this.ID = ID;
         Name = name;
         PhoneNumber = phoneNumber;
-        thresholdOne = thresholdOne;
-        thresholdTwo = thresholdTwo;
+        thresholdOne = thresholdOne1;
+        thresholdTwo = thresholdTwo1;
     }
 
-    public Person(String name, String phoneNumber, int thresholdOne, int thresholdTwo) {
+    public Person(String name, String phoneNumber, int thresholdOne1, int thresholdTwo1) {
         Name = name;
         PhoneNumber = phoneNumber;
-        thresholdOne = thresholdOne;
-        thresholdTwo = thresholdTwo;
+        thresholdOne = thresholdOne1;
+        thresholdTwo = thresholdTwo1;
     }
     public Person(String name, String phoneNumber) {
         Name = name;
@@ -70,6 +70,11 @@ public class Person {
 
     public void setPhoneNumber(String phoneNumber) {
         PhoneNumber = phoneNumber;
+    }
+
+    public Person getPerson(){
+        Person temp = new Person(ID, Name, PhoneNumber, thresholdOne,thresholdTwo);
+        return temp;
     }
 
 
