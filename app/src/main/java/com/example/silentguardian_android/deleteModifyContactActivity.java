@@ -70,7 +70,9 @@ public class deleteModifyContactActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = nameEditText.getText().toString();
                 String number = numberEditText.getText().toString();
-                Person tempPerson = new Person(selectedPerson.getID(),name, number, selectedPerson.getThreshold());
+
+                Person tempPerson = new Person(selectedPerson.getID(),name, number, selectedPerson.getThresholdOne(), selectedPerson.getThresholdTwo());
+
 
                 if (!(name.equals(""))) {
                     DatabaseHelper dbhelper = new DatabaseHelper(deleteModifyContactActivity.this);

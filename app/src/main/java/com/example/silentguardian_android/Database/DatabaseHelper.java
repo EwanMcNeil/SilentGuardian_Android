@@ -41,7 +41,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String CREATE_TABLE_COURSE = "CREATE TABLE " + Config.COURSE_TABLE_NAME + " (" + Config.COLUMN_PERSON_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + Config.COLUMN_PERSON_NAME + " TEXT NOT NULL, "
                 + Config.COLUMN_PERSON_NUMBER + " TEXT NOT NULL, "
-                + Config.COLUMN_PERSON_THESHOLD + " TEXT NOT NULL)";
+                + Config.COLUMN_PERSON_THESHOLD_ONE + " TEXT NOT NULL, "
+                 + Config.COLUMN_PERSON_THESHOLD_TWO + " TEXT NOT NULL)";
 
         Log.d(TAG, CREATE_TABLE_COURSE);
 
@@ -69,7 +70,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         contentValues.put(Config.COLUMN_PERSON_NAME, person.getName());
         contentValues.put(Config.COLUMN_PERSON_NUMBER, person.getPhoneNumber());
-        contentValues.put(Config.COLUMN_PERSON_THESHOLD, person.getThreshold());
+        contentValues.put(Config.COLUMN_PERSON_THESHOLD_ONE, person.getThresholdOne());
+        contentValues.put(Config.COLUMN_PERSON_THESHOLD_TWO, person.getThresholdTwo());
         ///threshold value is intalized to zero
 
         try{
@@ -106,17 +108,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             {
                 if(cursor.moveToFirst())
                 {
-                    List<Person> courses = new ArrayList<>();
+                    List<Person> people = new ArrayList<>();
 
                     do{
                         int id = cursor.getInt(cursor.getColumnIndex(Config.COLUMN_PERSON_ID));
                         String name = cursor.getString(cursor.getColumnIndex(Config.COLUMN_PERSON_NAME));
                         String phone = cursor.getString(cursor.getColumnIndex((Config.COLUMN_PERSON_NUMBER)));
-                        int threshold = cursor.getInt(cursor.getColumnIndex((Config.COLUMN_PERSON_THESHOLD)));
-                        courses.add(new Person(id,name,phone,threshold)); //makes a new course and add its to the list
+                        int thresholdOne = cursor.getInt(cursor.getColumnIndex((Config.COLUMN_PERSON_THESHOLD_ONE)));
+                        int thresholdTwo = cursor.getInt(cursor.getColumnIndex((Config.COLUMN_PERSON_THESHOLD_TWO)));
+                        people.add(new Person(id,name,phone,thresholdOne,thresholdTwo)); //makes a new course and add its to the list
                     }while(cursor.moveToNext());
 
-                    return courses;
+                    return people;
                 }
             }
         }
@@ -150,7 +153,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         contentValues.put(Config.COLUMN_PERSON_NAME, person.getName());
         contentValues.put(Config.COLUMN_PERSON_NUMBER, person.getPhoneNumber());
-        contentValues.put(Config.COLUMN_PERSON_THESHOLD, person.getThreshold());
+
+        contentValues.put(Config.COLUMN_PERSON_THESHOLD_ONE, person.getThresholdOne());
+        contentValues.put(Config.COLUMN_PERSON_THESHOLD_TWO, person.getThresholdTwo());
+
 
         db.update(Config.COURSE_TABLE_NAME, contentValues,Config.COLUMN_PERSON_ID + " = ?", new String[] { String.valueOf(person.getID())});
     }
