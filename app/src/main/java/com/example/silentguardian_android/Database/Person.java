@@ -6,6 +6,7 @@ public class Person {
     private int ID;
     private String Name;
     private String PhoneNumber;
+
     private int thresholdOne;
     private int thresholdTwo;
     private String password;
@@ -23,11 +24,13 @@ public class Person {
         PhoneNumber = phoneNumber;
         thresholdOne = thresholdOne1;
         thresholdTwo = thresholdTwo1;
+
     }
     public Person(String name, String phoneNumber) {
         Name = name;
         PhoneNumber = phoneNumber;
     }
+
 
 
     public int getThresholdOne() {
@@ -71,6 +74,7 @@ public class Person {
     public void setPhoneNumber(String phoneNumber) {
         PhoneNumber = phoneNumber;
     }
+
 
     public Person getPerson(){
         Person temp = new Person(ID, Name, PhoneNumber, thresholdOne,thresholdTwo);

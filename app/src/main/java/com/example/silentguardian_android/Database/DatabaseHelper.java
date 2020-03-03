@@ -153,8 +153,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         contentValues.put(Config.COLUMN_PERSON_NAME, person.getName());
         contentValues.put(Config.COLUMN_PERSON_NUMBER, person.getPhoneNumber());
+
         contentValues.put(Config.COLUMN_PERSON_THESHOLD_ONE, person.getThresholdOne());
         contentValues.put(Config.COLUMN_PERSON_THESHOLD_TWO, person.getThresholdTwo());
+
 
         db.update(Config.COURSE_TABLE_NAME, contentValues,Config.COLUMN_PERSON_ID + " = ?", new String[] { String.valueOf(person.getID())});
     }

@@ -34,12 +34,15 @@ public class AddContactToThreshload extends AppCompatActivity {
 
         nameTextView = findViewById(R.id.addNameThresholdTV);
         numberTextView = findViewById(R.id.phoneNumberThresholdEditText);
+
+
+        
+
         addToThresholdButton = findViewById(R.id.addContactToThresholdButton);
         cancelButton = findViewById(R.id.cancelThresholdButton);
-
-
         selectedContactID = getIntent().getIntExtra("contactSelected",0);
         thresholdVal = getIntent().getIntExtra("ThresholdNumber", 0);
+
 
 
         DatabaseHelper dbhelper = new DatabaseHelper(this);
@@ -67,6 +70,7 @@ public class AddContactToThreshload extends AppCompatActivity {
                 String name = selectedPerson.getName();
                 String number = selectedPerson.getPhoneNumber();
 
+
                 Person tempPerson = new Person(null, null);
                 //its making me intialize like this may cause issues
                 if(thresholdVal == 1) {
@@ -74,6 +78,7 @@ public class AddContactToThreshload extends AppCompatActivity {
                 } else if (thresholdVal == 2){
                     tempPerson = new Person(selectedPerson.getID(), name, number, selectedPerson.getThresholdOne(), 1);
                 }
+
                 DatabaseHelper dbhelper = new DatabaseHelper(AddContactToThreshload.this);
                 dbhelper.updatePerson(tempPerson);
 

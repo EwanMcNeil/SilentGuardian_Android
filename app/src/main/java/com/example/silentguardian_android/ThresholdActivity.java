@@ -1,13 +1,19 @@
 package com.example.silentguardian_android;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class ThresholdActivity extends AppCompatActivity {
+public class ThresholdActivity extends AppCompatActivity{
 
     protected Button oneButton;
     protected Button twoButton;
@@ -15,6 +21,8 @@ public class ThresholdActivity extends AppCompatActivity {
 
 
 
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +53,7 @@ public class ThresholdActivity extends AppCompatActivity {
                 nextActivity(3);
             }
         });
-
     }
-
     private void nextActivity(int i){
         Intent intent = new Intent(ThresholdActivity.this, ThresholdSettingActivity.class);
         intent.putExtra("THRESHOLDVAL", i);

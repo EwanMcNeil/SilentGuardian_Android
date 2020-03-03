@@ -40,6 +40,7 @@ public class SharePreferenceHelper extends AppCompatActivity {
 
     }
 
+
     //function to save the first threshold message
     public void saveThresholdOneMessage( String message)
     {
@@ -118,6 +119,7 @@ public class SharePreferenceHelper extends AppCompatActivity {
 
         return ThresholdMessage;
     }
+
 
 
 }

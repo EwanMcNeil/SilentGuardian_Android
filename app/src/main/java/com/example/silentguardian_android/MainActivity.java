@@ -3,8 +3,10 @@ package com.example.silentguardian_android;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+
 import android.Manifest;
 import android.app.Activity;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,17 +18,23 @@ import android.widget.Toast;
 
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
 
+import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     protected Button profileButton;
     protected Button thresholdButton;
     protected Button bubbleButton;
+
+    protected Button mBluetoothButton;
+
     protected SharePreferenceHelper sharePreferenceHelper;
 
     protected Button sendMessageButton;
 
     protected TextView longitudeTextView;
     protected TextView latitudeTextView;
+
 
 
 
@@ -38,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
         profileButton = findViewById(R.id.profileButton);
         thresholdButton = findViewById(R.id.thresholdButton);
         bubbleButton = findViewById(R.id.bubbleButton);
+        mBluetoothButton = findViewById(R.id.BLEbutton);
+        mBluetoothButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, BluetoothMainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         sharePreferenceHelper = new SharePreferenceHelper(this);
         sendMessageButton = findViewById(R.id.sendMessageButton);
