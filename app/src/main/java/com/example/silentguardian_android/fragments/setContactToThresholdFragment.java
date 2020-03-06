@@ -1,51 +1,50 @@
-package com.example.silentguardian_android;
+package com.example.silentguardian_android.fragments;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.R;
+import com.example.silentguardian_android.ThresholdSettingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddContactToThreshload extends AppCompatActivity {
+public class setContactToThresholdFragment extends DialogFragment {
 
-    TextView nameTextView;
-    TextView numberTextView;
+    protected TextView nameFragmentTV;
+    protected  TextView phoneFragmentTV;
     protected Button addToThresholdButton;
-    protected Button cancelButton;
+    protected  Button cancelButton;
     int selectedContactID = 0;
     int thresholdVal = 0;
 
     ArrayList<Person> contactArrayList = new ArrayList<>();
     Person selectedPerson = new Person("Dummy", "5145555555");
-
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_contact_to_threshload);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_add_contact_to_treshold, container, false);
 
-        nameTextView = findViewById(R.id.addNameThresholdTV);
-        numberTextView = findViewById(R.id.phoneNumberThresholdEditText);
+        nameFragmentTV = view.findViewById(R.id.nameAddThresholdFragmentTV);
+        phoneFragmentTV = view.findViewById(R.id.phoneAddThresholdFragmentTV);
+        addToThresholdButton = view.findViewById(R.id.addToThresholdFragmentButton);
+        cancelButton = view.findViewById(R.id.cancelAddThresholdFragmentButton);
 
+        Bundle bundle = this.getArguments();
+        thresholdVal = bundle.getInt("ThresholdNumber");
+        selectedContactID = bundle.getInt("contactSelected");
 
-        
-
-        addToThresholdButton = findViewById(R.id.addContactToThresholdButton);
-        cancelButton = findViewById(R.id.cancelThresholdButton);
-        selectedContactID = getIntent().getIntExtra("contactSelected",0);
-        thresholdVal = getIntent().getIntExtra("ThresholdNumber", 0);
-
-
-
-        DatabaseHelper dbhelper = new DatabaseHelper(this);
+        DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
         List<Person> people = dbhelper.getAllPeople();
 
 
@@ -59,17 +58,14 @@ public class AddContactToThreshload extends AppCompatActivity {
                 selectedPerson = contactArrayList.get(j);
         }
 
-        nameTextView.setText("Name: " +selectedPerson.getName());
-        numberTextView.setText("Phone Number: " +selectedPerson.getPhoneNumber() + "\n ThresholD Value:" + String.valueOf(thresholdVal));
-
-
+        nameFragmentTV.setText("Name: " +selectedPerson.getName());
+        phoneFragmentTV.setText("Phone Number: " +selectedPerson.getPhoneNumber() + "\n ThresholD Value:" + String.valueOf(thresholdVal));
 
         addToThresholdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = selectedPerson.getName();
                 String number = selectedPerson.getPhoneNumber();
-
 
                 Person tempPerson = new Person(null, null);
                 //its making me intialize like this may cause issues
@@ -79,11 +75,11 @@ public class AddContactToThreshload extends AppCompatActivity {
                     tempPerson = new Person(selectedPerson.getID(), name, number, selectedPerson.getThresholdOne(), 1);
                 }
 
-                DatabaseHelper dbhelper = new DatabaseHelper(AddContactToThreshload.this);
+                DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
                 dbhelper.updatePerson(tempPerson);
+                ((ThresholdSettingActivity)getActivity()).loadThresholdContactListView();
+                getDialog().dismiss();
 
-                Intent intentAddContactThreshold = new Intent(AddContactToThreshload.this, ThresholdSettingActivity.class);
-                startActivity(intentAddContactThreshold);
             }
         });
 
@@ -92,16 +88,11 @@ public class AddContactToThreshload extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intentCancelAddContactThreshold = new Intent(AddContactToThreshload.this, ThresholdSettingActivity.class);
-                intentCancelAddContactThreshold.putExtra("THRESHOLDVAL", thresholdVal);
-                startActivity(intentCancelAddContactThreshold);
+                getDialog().dismiss();
 
             }
         });
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+        return view;
     }
 }

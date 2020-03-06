@@ -12,11 +12,12 @@ import android.widget.ListView;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.fragments.insertContactDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BubbleActivity extends AppCompatActivity {
+public class contactActivity extends AppCompatActivity {
 
     protected Button addContactButton;
     protected Button delContactButton;
@@ -51,7 +52,7 @@ public class BubbleActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int idToDelete = people.get(position).getID();
-                Intent intentDeleteContact = new Intent(BubbleActivity.this, deleteModifyContactActivity.class);
+                Intent intentDeleteContact = new Intent(contactActivity.this, modifyContactActivity.class);
                 intentDeleteContact.putExtra("IdContactToDelete", idToDelete);
                 startActivity(intentDeleteContact);
 
@@ -63,7 +64,7 @@ public class BubbleActivity extends AppCompatActivity {
 
 
 
-    protected void loadContactsListView(){
+    public void loadContactsListView(){
 
         DatabaseHelper dbhelper = new DatabaseHelper(this);
         people = dbhelper.getAllPeople();

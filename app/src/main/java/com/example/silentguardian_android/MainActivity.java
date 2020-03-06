@@ -8,17 +8,15 @@ import android.Manifest;
 import android.app.Activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
 
 import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
+import com.example.silentguardian_android.fragments.InsertPasswordCheckFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -97,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
        bubbleButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Intent intent = new Intent(MainActivity.this , BubbleActivity.class);
+               Intent intent = new Intent(MainActivity.this , contactActivity.class);
                startActivity(intent);
            }
        });

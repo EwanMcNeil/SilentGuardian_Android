@@ -1,4 +1,4 @@
-package com.example.silentguardian_android;
+package com.example.silentguardian_android.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
+import com.example.silentguardian_android.R;
+import com.example.silentguardian_android.ThresholdSettingActivity;
 
 public class InsertPasswordCheckFragment extends DialogFragment {
 
