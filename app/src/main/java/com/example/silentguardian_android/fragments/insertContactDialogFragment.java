@@ -1,4 +1,4 @@
-package com.example.silentguardian_android;
+package com.example.silentguardian_android.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.silentguardian_android.contactActivity;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,7 +42,7 @@ public class insertContactDialogFragment extends DialogFragment {
                 if (!(name.equals(""))) {
                     DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
                     dbhelper.insertPerson(new Person(name, number, 0, 0));
-                    ((BubbleActivity)getActivity()).loadContactsListView();
+                    ((contactActivity)getActivity()).loadContactsListView();
                     getDialog().dismiss();
 
                 }

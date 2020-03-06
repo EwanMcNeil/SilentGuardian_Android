@@ -1,4 +1,4 @@
-package com.example.silentguardian_android;
+package com.example.silentguardian_android.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,12 +13,13 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.R;
+import com.example.silentguardian_android.ThresholdSettingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class setContactToThresholdFragment extends DialogFragment {
-
+public class deleteContactFromThresholdFragment extends DialogFragment {
     protected TextView nameFragmentTV;
     protected  TextView phoneFragmentTV;
     protected Button addToThresholdButton;
@@ -31,12 +32,12 @@ public class setContactToThresholdFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_contact_to_treshold, container, false);
+        View view = inflater.inflate(R.layout.fragment_delete_contact_from_threshold, container, false);
 
-        nameFragmentTV = view.findViewById(R.id.nameAddThresholdFragmentTV);
-        phoneFragmentTV = view.findViewById(R.id.phoneAddThresholdFragmentTV);
-        addToThresholdButton = view.findViewById(R.id.addToThresholdFragmentButton);
-        cancelButton = view.findViewById(R.id.cancelAddThresholdFragmentButton);
+        nameFragmentTV = view.findViewById(R.id.nameDeleteThresholdFragmentTV);
+        phoneFragmentTV = view.findViewById(R.id.phoneDeleteThresholdFragmentTV);
+        addToThresholdButton = view.findViewById(R.id.deleteToThresholdFragmentButton);
+        cancelButton = view.findViewById(R.id.cancelDeleteThresholdFragmentButton);
 
         Bundle bundle = this.getArguments();
         thresholdVal = bundle.getInt("ThresholdNumber");
@@ -68,9 +69,9 @@ public class setContactToThresholdFragment extends DialogFragment {
                 Person tempPerson = new Person(null, null);
                 //its making me intialize like this may cause issues
                 if(thresholdVal == 1) {
-                    tempPerson = new Person(selectedPerson.getID(), name, number, 1, selectedPerson.getThresholdTwo());
+                    tempPerson = new Person(selectedPerson.getID(), name, number, 0, selectedPerson.getThresholdTwo());
                 } else if (thresholdVal == 2){
-                    tempPerson = new Person(selectedPerson.getID(), name, number, selectedPerson.getThresholdOne(), 1);
+                    tempPerson = new Person(selectedPerson.getID(), name, number, selectedPerson.getThresholdOne(), 0);
                 }
 
                 DatabaseHelper dbhelper = new DatabaseHelper(getActivity());

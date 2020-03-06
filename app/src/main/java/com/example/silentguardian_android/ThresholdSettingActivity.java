@@ -8,17 +8,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
-
-import org.w3c.dom.Text;
+import com.example.silentguardian_android.fragments.InsertThresholdMessageDialogFragment;
+import com.example.silentguardian_android.fragments.deleteContactFromThresholdFragment;
+import com.example.silentguardian_android.fragments.setContactToThresholdFragment;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ThresholdSettingActivity extends AppCompatActivity {
@@ -178,7 +177,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         wholeContactsListView.setAdapter(arrayAdapter);
 
     }
-    protected void loadThresholdContactListView(){
+    public void loadThresholdContactListView(){
         DatabaseHelper dbhelper = new DatabaseHelper(this);
         List<Person> people = dbhelper.getAllPeople();
         mainList = people;

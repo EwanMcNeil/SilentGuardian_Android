@@ -30,8 +30,7 @@
         <activity android:name=".Bluetooth.DeviceControlActivity"
             android:theme="@android:style/Theme.Holo.Light"
             ></activity>
-        <activity android:name=".AddContactToThreshload"></activity>
-        <activity android:name=".deleteModifyContactActivity"></activity>
+        <activity android:name=".modifyContactActivity"></activity>
 
         <activity android:name=".Bluetooth.BluetoothMainActivity"
             android:theme="@android:style/Theme.Holo.Light"
@@ -48,11 +47,7 @@
             android:parentActivityName=".MainActivity" />
 
         <activity
-            android:name=".ThresholdActivity"
-            android:label="ThresholdActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".BubbleActivity"
+            android:name=".contactActivity"
             android:label="BubbleActivity"
             android:parentActivityName=".MainActivity" />
         <activity

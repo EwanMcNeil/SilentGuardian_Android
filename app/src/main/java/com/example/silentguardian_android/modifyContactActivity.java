@@ -14,7 +14,7 @@ import com.example.silentguardian_android.Database.Person;
 import java.util.ArrayList;
 import java.util.List;
 
-public class deleteModifyContactActivity extends AppCompatActivity {
+public class modifyContactActivity extends AppCompatActivity {
     protected EditText nameEditText;
     protected EditText numberEditText;
     protected Button deleteButton;
@@ -58,9 +58,9 @@ public class deleteModifyContactActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseHelper dbhelper = new DatabaseHelper(deleteModifyContactActivity.this);
+                DatabaseHelper dbhelper = new DatabaseHelper(modifyContactActivity.this);
                 dbhelper.deletePerson(selectedPerson.getID());
-                Intent intentDeletedContactToBubble = new Intent(deleteModifyContactActivity.this, BubbleActivity.class);
+                Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, contactActivity.class);
                 startActivity(intentDeletedContactToBubble);
             }
         });
@@ -75,10 +75,10 @@ public class deleteModifyContactActivity extends AppCompatActivity {
 
 
                 if (!(name.equals(""))) {
-                    DatabaseHelper dbhelper = new DatabaseHelper(deleteModifyContactActivity.this);
+                    DatabaseHelper dbhelper = new DatabaseHelper(modifyContactActivity.this);
                     dbhelper.updatePerson(tempPerson);
                 }
-                Intent intentDeletedContactToBubble = new Intent(deleteModifyContactActivity.this, BubbleActivity.class);
+                Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, contactActivity.class);
                 startActivity(intentDeletedContactToBubble);
             }
         });
@@ -86,7 +86,7 @@ public class deleteModifyContactActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentDeletedContactToBubble = new Intent(deleteModifyContactActivity.this, BubbleActivity.class);
+                Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, contactActivity.class);
                 startActivity(intentDeletedContactToBubble);
 
             }
