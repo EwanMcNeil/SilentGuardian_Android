@@ -11,13 +11,16 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.R;
 
 import java.util.ArrayList;
@@ -27,12 +30,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
 
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
+import com.example.silentguardian_android.messageGPSHelper;
+import com.example.silentguardian_android.Database.DatabaseHelper;
+
 import androidx.annotation.RequiresApi;
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class DeviceControlActivity extends Activity {
 
     private final static String TAG = DeviceControlActivity.class.getSimpleName();
-    private final static int THREAD_DELAY = 10;
+    private final static int THREAD_DELAY = 1000;
     private static final int  THREAD_PERIOD = 10;
 
     public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
@@ -49,6 +56,8 @@ public class DeviceControlActivity extends Activity {
     private boolean mConnected = false;
     private BluetoothGattCharacteristic characteristicTX;
     private BluetoothGattCharacteristic characteristicRX;
+    private String[] thresholdOneNumbers;
+    //private String[] thresholdTwoNumbers;
 
 
     private Timer timer = null;
@@ -58,6 +67,9 @@ public class DeviceControlActivity extends Activity {
 
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
+
+    private boolean sendOne = false;
+
 
     // Code to manage Service lifecycle.
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -142,6 +154,19 @@ public class DeviceControlActivity extends Activity {
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
 
 
+        //This pulls in all the numbers for the people in the database
+        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+
+        List<Person> thresholdOnePeople;
+        thresholdOnePeople = dbHelper.getThresholdOne();
+        thresholdOneNumbers = new String[thresholdOnePeople.size()];
+        int i = 0;
+        while(i < thresholdOnePeople.size()){
+            thresholdOneNumbers[i] = thresholdOnePeople.get(i).getPhoneNumber();
+            i++;
+        }
+
+
 
         runOnUiThread(new Runnable() {
             public void run() {
@@ -150,8 +175,10 @@ public class DeviceControlActivity extends Activity {
                 {
                     public void run()
                     {
+                        int previousVal;
                         if(mConnected && characteristicTX != null)
                             makeChange();
+
                     }
                 }, THREAD_DELAY, THREAD_PERIOD);
             }
@@ -288,17 +315,45 @@ public class DeviceControlActivity extends Activity {
         });
     }
     // on change of bars write char
+    //this respsonds to changes
     private void makeChange() {
         String str = RGBFrame[0] + "," + RGBFrame[1] + "," + RGBFrame[2] + "\n";
         Log.d(TAG, "Sending result=" + str);
         final byte[] tx = str.getBytes();
+
         if (mConnected) {
             mBluetoothLeService.readCharacteristic(characteristicTX);
             byte[] values = characteristicTX.getValue();
             if (values != null) {
                 final int value = characteristicTX.getValue()[0];
+
                 Log.d(TAG, "Value: " + Integer.toString(value));
 
+
+
+                //code for sending one text message
+                if(value == 1 && sendOne == false){
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if(sendOne == false) {
+                                messageGPSHelper textHelper = new messageGPSHelper(getApplicationContext());
+                                int size = 0;
+                                textHelper.sendMessage(thresholdOneNumbers[0], "test");
+                                sendOne = true;
+                            }
+
+
+                        }
+
+                    });
+                }
+
+                sendOne = false;
+                //SharePreferenceHelper spHelper = new SharePreferenceHelper(getApplicationContext());
+                // String oneMessage = spHelper.ThresholdOneMessageReturn();
+                // String twoMessage = spHelper.ThresholdTwoMessageReturn();
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -306,12 +361,15 @@ public class DeviceControlActivity extends Activity {
                         Log.d("ma","charAt(0): " +  Character.getNumericValue(mDataField.getText().charAt(0)));
                         if (value != Character.getNumericValue(mDataField.getText().charAt(0)) )
                             mDataField.setText(Integer.toString(value));
+
                     }
                 });
+                //characteristicTX.setValue(tx);
+                //mBluetoothLeService.writeCharacteristic(characteristicTX);
+                //mBluetoothLeService.setCharacteristicNotification(characteristicRX,true);
             }
-            //characteristicTX.setValue(tx);
-            //mBluetoothLeService.writeCharacteristic(characteristicTX);
-            //mBluetoothLeService.setCharacteristicNotification(characteristicRX,true);
         }
+
     }
+
 }
