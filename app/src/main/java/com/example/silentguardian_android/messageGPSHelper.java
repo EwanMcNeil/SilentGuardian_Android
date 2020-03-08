@@ -81,7 +81,7 @@ public class messageGPSHelper {
     }
 
 
-        // methods getlat() and getLong() call this function in order to find the previous location
+    // methods getlat() and getLong() call this function in order to find the previous location
     private Location getLastKnownLocation() {
         LocationManager mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         List<String> providers = mLocationManager.getProviders(true);
@@ -109,11 +109,12 @@ public class messageGPSHelper {
 
     //takes in a phone number and a string to send a message
     //possibly within here call the local methods getlat and getlong
-    protected void sendMessage(String number, String message){
+    public void sendMessage(String number, String message){
         try{
 
+            String messageOut = message + "My location is: " + messageLocationLink();
             SmsManager smgr = SmsManager.getDefault();
-            smgr.sendTextMessage(number,null,message,null,null);
+            smgr.sendTextMessage(number,null,messageOut, null,null);
             Toast.makeText(mContext, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
         }
         catch (Exception e){
@@ -124,8 +125,10 @@ public class messageGPSHelper {
 
 
     //local location link to create the link for google maps
-    protected String messageLocationLink(double latitude, double longitude){
+    protected String messageLocationLink(){
 
+        double  latitude =  getLat();
+        double longitude = getLong();
         String output = "https://www.google.com/maps/search/?api=1&query=" +latitude + "," +longitude;
 
         return output;

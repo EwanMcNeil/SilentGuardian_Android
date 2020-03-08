@@ -42,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + Config.COLUMN_PERSON_NAME + " TEXT NOT NULL, "
                 + Config.COLUMN_PERSON_NUMBER + " TEXT NOT NULL, "
                 + Config.COLUMN_PERSON_THESHOLD_ONE + " TEXT NOT NULL, "
-                 + Config.COLUMN_PERSON_THESHOLD_TWO + " TEXT NOT NULL)";
+                + Config.COLUMN_PERSON_THESHOLD_TWO + " TEXT NOT NULL)";
 
         Log.d(TAG, CREATE_TABLE_COURSE);
 
@@ -137,6 +137,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return Collections.emptyList();
     }
+
+    ///getting people within the certian threshold
+    public List<Person> getThresholdOne()
+    {
+        SQLiteDatabase db = this.getReadableDatabase(); //open database in readmode
+        Cursor cursor = null;
+
+        try {
+            cursor = db.query(Config.COURSE_TABLE_NAME, null, null, null, null, null, null);
+
+            if(cursor != null)
+            {
+                if(cursor.moveToFirst())
+                {
+                    List<Person> people = new ArrayList<>();
+
+                    do{
+                        int id = cursor.getInt(cursor.getColumnIndex(Config.COLUMN_PERSON_ID));
+                        String name = cursor.getString(cursor.getColumnIndex(Config.COLUMN_PERSON_NAME));
+                        String phone = cursor.getString(cursor.getColumnIndex((Config.COLUMN_PERSON_NUMBER)));
+                        int thresholdOne = cursor.getInt(cursor.getColumnIndex((Config.COLUMN_PERSON_THESHOLD_ONE)));
+                        int thresholdTwo = cursor.getInt(cursor.getColumnIndex((Config.COLUMN_PERSON_THESHOLD_TWO)));
+
+                        if(thresholdOne == 1) {
+                            people.add(new Person(id, name, phone, thresholdOne, thresholdTwo)); //makes a new course and add its to the list
+                        }
+                    }while(cursor.moveToNext());
+
+                    return people;
+                }
+            }
+        }
+
+
+        catch (SQLException e){
+
+            Log.d(TAG, "EXCEPTION" + e);
+            Toast.makeText(context, "OPERATION FAILED: " + e, Toast.LENGTH_LONG).show();
+        }
+        finally {
+            if(cursor != null){
+                cursor.close();
+            }
+            db.close();
+        }
+
+        return Collections.emptyList();
+    }
+
+
 
     //deletes a course from the database tables
     public void deletePerson(long id){

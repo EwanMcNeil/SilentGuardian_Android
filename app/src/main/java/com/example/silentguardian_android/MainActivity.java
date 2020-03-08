@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions((Activity)v.getContext(), new String[]{Manifest.permission.SEND_SMS}, 3);
 
                 //really dumb way to write to this function neeed to refactor
-                gpsHelper.sendMessage("7786898291", gpsHelper.messageLocationLink(gpsHelper.getLat(), gpsHelper.getLong()));
+                gpsHelper.sendMessage("7786898291","Test" );
             }
         });
 
