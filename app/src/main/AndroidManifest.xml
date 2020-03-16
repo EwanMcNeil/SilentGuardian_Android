@@ -4,9 +4,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
@@ -24,28 +23,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-
-        <activity android:name=".Bluetooth.DeviceControlActivity"
-            android:theme="@android:style/Theme.Holo.Light"
-            ></activity>
-        <activity android:name=".modifyContactActivity"></activity>
-
-        <activity android:name=".Bluetooth.BluetoothMainActivity"
-            android:theme="@android:style/Theme.Holo.Light"
+        <activity
+            android:name=".allClearActivity"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".Bluetooth.DeviceControlActivity"
+            android:theme="@android:style/Theme.Holo.Light" />
+        <activity android:name=".modifyContactActivity" />
+        <activity
+            android:name=".Bluetooth.BluetoothMainActivity"
             android:parentActivityName=".MainActivity"
-            >
+            android:theme="@android:style/Theme.Holo.Light"></activity>
 
-        </activity>
+        <service
+            android:name=".Bluetooth.BluetoothLeService"
+            android:enabled="true" />
 
-        <service android:name=".Bluetooth.BluetoothLeService" android:enabled="true"/>
-
-       
         <activity
             android:name=".ThresholdSettingActivity"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".contactActivity"
             android:label="BubbleActivity"
@@ -66,7 +62,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

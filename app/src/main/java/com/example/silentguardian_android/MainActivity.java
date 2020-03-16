@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected Button bubbleButton;
 
     protected Button mBluetoothButton;
+    protected Button allclearButton;
 
     protected SharePreferenceHelper sharePreferenceHelper;
 
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         profileButton = findViewById(R.id.profileButton);
         thresholdButton = findViewById(R.id.thresholdButton);
         bubbleButton = findViewById(R.id.bubbleButton);
+        allclearButton = findViewById(R.id.allClearButton);
+
         mBluetoothButton = findViewById(R.id.BLEbutton);
         mBluetoothButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -108,11 +111,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
+
+        allclearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, allClearActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
 
 
         // Upon resuming the mainActivity, if the user has a name saved into sharedpreferences, then replace the text on the profile button to their name.
@@ -135,9 +154,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+
+
+
+    protected void securityCheckPoint()
+    {
+
+        InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
+
+        dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
+
+        Intent intent = new Intent(this, MainActivity.class);
+
+        startActivity(intent);
+
     }
 
 
 
        
     }
+
+
+
+
+
