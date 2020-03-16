@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".allClearActivity">
@@ -10,19 +11,25 @@
         android:id="@+id/thresholdTwoAllClearButton"
         android:layout_width="401dp"
         android:layout_height="162dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="115dp"
         android:layout_marginBottom="171dp"
-        android:text="I am Safe: Threshold Two"
-        android:textSize="24sp" />
+        android:text="I am Safe: Level Two"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AllClearButtonOne" />
 
     <Button
         android:id="@+id/AllClearButtonOne"
         android:layout_width="401dp"
         android:layout_height="153dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="130dp"
-        android:text="I am Safe: Threshold One"
-        android:textSize="24sp" />
-</RelativeLayout>
+        android:layout_marginBottom="115dp"
+        android:text="I am Safe: Level One"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/thresholdTwoAllClearButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,11 +25,13 @@ public class allClearActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_all_clear);
+
         thresholdOneallClearButton = findViewById(R.id.AllClearButtonOne);
         thresholdTwoallClearButton = findViewById(R.id.thresholdTwoAllClearButton);
 
 
-/*
+
         thresholdOneallClearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +85,7 @@ public class allClearActivity extends AppCompatActivity {
             }
         });
 
- */
+
 
     }
 }
