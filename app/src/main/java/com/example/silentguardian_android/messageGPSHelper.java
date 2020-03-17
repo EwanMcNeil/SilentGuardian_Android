@@ -26,7 +26,8 @@ import java.util.List;
 public class messageGPSHelper {
     private static double TODO = 1;
 
-    Context mContext;
+    //changed this to static because was having error with non-static associatied with "all clear function"
+    static Context mContext;
     public String bestProvider;
     public Criteria criteria;
 
@@ -122,6 +123,24 @@ public class messageGPSHelper {
         }
 
     }
+
+    //creating function to call to send the all clear message (Hard coded message for now)
+    //changed this to static because of non-static error due to "all clear" function
+    public static void sendAllClearMessage(String number, String message){
+        try{
+
+            String messageOut = message;
+            SmsManager smgr = SmsManager.getDefault();
+            smgr.sendTextMessage(number,null,messageOut, null,null);
+            Toast.makeText(mContext, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e){
+            Toast.makeText(mContext, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
 
 
     //local location link to create the link for google maps

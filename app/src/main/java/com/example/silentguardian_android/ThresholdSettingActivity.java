@@ -1,9 +1,14 @@
 package com.example.silentguardian_android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +27,8 @@ import java.util.List;
 
 public class ThresholdSettingActivity extends AppCompatActivity {
 
+    private static final String TAG = "AllClearCheck";
+
     protected TextView thresholdEditText;
 
     //thresholdVal is either One or Two depending on the droplink
@@ -31,11 +38,13 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected ListView wholeContactsListView;
     protected ListView threshHoldContactsListView;
     protected List<Person> mainList = null;
-
-
+    protected Button allClearButton;
+    protected Button thresholdTwoAllClearButton;
     protected ArrayList<Person> thresholdList = new ArrayList<>();
 
     protected Button defineMessageButton;
+
+
 
 
 
@@ -50,6 +59,9 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         wholeContactsListView = findViewById(R.id.wholecontactsListView);
         threshHoldContactsListView = findViewById(R.id.thresholdContactsListView);
+
+        //defining all clear button functionality
+        allClearButton = findViewById(R.id.AllClearButton);
 
 
         defineMessageButton = findViewById(R.id.defineMessageButton);
@@ -72,9 +84,17 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
 
         changeThresholdButton = findViewById(R.id.changeThresholdButton);
+        thresholdTwoAllClearButton = findViewById(R.id.thresholdTwoAllClearButton);
 
         loadContactsListView();
         loadThresholdContactListView();
+
+
+
+
+
+
+
 
     }
 
@@ -142,8 +162,66 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
             }
         });
-    }
 
+
+        //defining all clear button functionality
+
+
+        allClearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               //creating db object to use the functions
+                DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
+                List<Person> people = dbhelper.getThresholdOne();
+
+
+                ////create loop that will message the "I am Safe" message to all guardians who are in threshold one
+                for(int i = 0;i < people.size(); i++ ){
+
+                    String temp = " ";
+
+                    temp = people.get(i).getPhoneNumber();
+
+                    String message ="I am safe, all clear ";
+
+                    messageGPSHelper.sendAllClearMessage(temp,message);
+
+                    Log.d(TAG, "All Clear Message " + i + " has been sent. ");
+                }
+            }
+        });
+
+
+
+        thresholdTwoAllClearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //creating db object to use the functions
+                DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
+                List<Person> people = dbhelper.getThresholdTwo();
+
+
+                ////create loop that will message the "I am Safe" message to all guardians who are in threshold two
+                for(int i = 0;i < people.size(); i++ ){
+
+                    String temp = " ";
+
+                    temp = people.get(i).getPhoneNumber();
+
+                    String message ="I am safe, all clear ";
+
+                    messageGPSHelper.sendAllClearMessage(temp,message);
+
+                    Log.d(TAG, "All Clear Message " + i + " has been sent. ");
+                }
+            }
+        });
+
+
+
+    }
 
 
 

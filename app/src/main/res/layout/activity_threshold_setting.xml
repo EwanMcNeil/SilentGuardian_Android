@@ -51,6 +51,7 @@
         android:text="Define message"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/thresholdEditText"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wholecontactsListView" />
 
@@ -89,5 +90,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/AllClearButton"
+        android:layout_width="187dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginBottom="4dp"
+        android:text="I am Safe: T1"
+        app:layout_constraintBottom_toTopOf="@+id/thresholdTwoAllClearButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/defineMessageButton"
+        app:layout_constraintTop_toBottomOf="@+id/thresholdContactsListView" />
+
+    <Button
+        android:id="@+id/thresholdTwoAllClearButton"
+        android:layout_width="181dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="13dp"
+        android:text="I am Safe: T2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/defineMessageButton"
+        app:layout_constraintTop_toBottomOf="@+id/AllClearButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

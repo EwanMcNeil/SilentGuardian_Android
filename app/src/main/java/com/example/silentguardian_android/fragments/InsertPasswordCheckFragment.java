@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
+import com.example.silentguardian_android.MainActivity;
 import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.ThresholdSettingActivity;
 
@@ -56,10 +57,14 @@ public class InsertPasswordCheckFragment extends DialogFragment {
                 Log.d(TAG, "password = " + sharePreferenceHelper.passwordReturn());
 
 
+
                 //authentication statement, upon success will allow access to the threshold activity
                 if(tempPasswordCheck.equals(sharePreferenceHelper.passwordReturn())){
                     Log.d(TAG, "entered if statement");
 
+
+                    //for the purpose of simplicity, i am going to make a password check whenever someone enters the app. only once.
+                    //going to change the second parameter of the intent from "thresholdActivity", to "MainActivity"
                     Intent intent = new Intent(getActivity(), ThresholdSettingActivity.class);
                     intent.putExtra("THRESHOLDVAL", 1);
 
@@ -67,10 +72,10 @@ public class InsertPasswordCheckFragment extends DialogFragment {
                     Log.d(TAG, "compared temp password to stored password");
                 }
 
-                //if authentication fails, escorts user back to the MainActivity...
+                //if authentication fails, keeps them stuck until correct password is entered...
                 else {
-                    Toast.makeText(getContext()," Authentication Failed: Incorrect Password ", Toast.LENGTH_LONG).show();
-                    getDialog().dismiss();
+                    Toast.makeText(getContext()," Authentication Failed: Incorrect Password, Try Again ", Toast.LENGTH_LONG).show();
+                    //getDialog().dismiss();
                 }
 
 
