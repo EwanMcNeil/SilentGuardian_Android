@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.fragments.Insert911GuardiansInfoFragment;
 import com.example.silentguardian_android.fragments.InsertThresholdMessageDialogFragment;
 import com.example.silentguardian_android.fragments.deleteContactFromThresholdFragment;
 import com.example.silentguardian_android.fragments.setContactToThresholdFragment;
@@ -38,8 +39,11 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected ListView wholeContactsListView;
     protected ListView threshHoldContactsListView;
     protected List<Person> mainList = null;
-    protected Button allClearButton;
-    protected Button thresholdTwoAllClearButton;
+    protected Button add911GuardianButton;
+
+    //commenting out for now: MOVED TO MAIN ACTIVITY
+    //protected Button allClearButton;
+    //protected Button thresholdTwoAllClearButton;
     protected ArrayList<Person> thresholdList = new ArrayList<>();
 
     protected Button defineMessageButton;
@@ -60,8 +64,10 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         wholeContactsListView = findViewById(R.id.wholecontactsListView);
         threshHoldContactsListView = findViewById(R.id.thresholdContactsListView);
 
-        //defining all clear button functionality
-        allClearButton = findViewById(R.id.AllClearButton);
+        add911GuardianButton = findViewById(R.id.add911Button);
+
+        //commenting out for now: MOVED TO MAIN ACTIVITY
+        //allClearButton = findViewById(R.id.AllClearButton);
 
 
         defineMessageButton = findViewById(R.id.defineMessageButton);
@@ -83,13 +89,26 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         });
 
 
+
         changeThresholdButton = findViewById(R.id.changeThresholdButton);
-        thresholdTwoAllClearButton = findViewById(R.id.thresholdTwoAllClearButton);
+        //commenting out for now: MOVED TO MAIN ACTIVITY
+        //thresholdTwoAllClearButton = findViewById(R.id.thresholdTwoAllClearButton);
 
         loadContactsListView();
         loadThresholdContactListView();
 
 
+/*
+        add911GuardianButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Insert911GuardiansInfoFragment dialog = new Insert911GuardiansInfoFragment();
+
+                dialog.show(getSupportFragmentManager(), "Insert911GuardiansInfoFragment");
+            }
+        });
+
+ */
 
 
 
@@ -106,15 +125,15 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         loadContactsListView();
         loadThresholdContactListView();
 
-        changeThresholdButton.setText("Current Threshold is: " + thresholdVal + '\n' +"Click to Change threshold");
+        changeThresholdButton.setText("Current Threshold is: " + thresholdVal + '\n' + "Click to Change threshold");
 
         changeThresholdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(thresholdVal == 1){
-                    thresholdVal =2;
-                }else{
-                    thresholdVal =1;
+                if (thresholdVal == 1) {
+                    thresholdVal = 2;
+                } else {
+                    thresholdVal = 1;
                 }
 
                 finish();
@@ -127,7 +146,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 changeThresholdButton.setText("Current Threshold is: " + thresholdVal + " Click to Change threshold");
 
             }
-          
+
         });
 
         thresholdEditText.setText("Contacts in Threshold:" + thresholdVal);
@@ -166,7 +185,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         //defining all clear button functionality
 
-
+/*
+        //for now will comment this out, but leave it for reference: HAS BEEN MOVED TO MAIN ACTIVITY
         allClearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,6 +214,9 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
 
 
+
+
+        //for now will comment this out, but leave it for reference: HAS BEEN MOVED TO MAIN ACTIVITY
         thresholdTwoAllClearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,10 +242,34 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             }
         });
 
+ */
+
+        add911GuardianButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Insert911GuardiansInfoFragment dialog = new Insert911GuardiansInfoFragment();
+
+                dialog.show(getSupportFragmentManager(), "Insert911GuardiansInfoFragment");
+
+                //not actually putting 911 in the number for obvious reasons: can mention this to prof
+                //for demo, put one of the teams numbers to show it will work
+                DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
+                dbhelper.insertPerson(new Person("Police", "123", 0, 1));
+                Log.d(TAG, "police contact has been placed ");
+            }
+        });
+
+
+
+
+
+
+
+
+
 
 
     }
-
 
 
     protected void loadContactsListView(){

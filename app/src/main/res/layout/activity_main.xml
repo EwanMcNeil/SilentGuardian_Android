@@ -42,7 +42,7 @@
         android:layout_height="99dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="12dp"
-        android:text="Saftey Level Settings"
+        android:text="Threat Level Settings"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/bubbleButton"
         app:layout_constraintEnd_toEndOf="parent"
