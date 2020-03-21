@@ -19,14 +19,14 @@ public class allClearActivity extends AppCompatActivity {
 
     protected Button thresholdOneallClearButton;
     protected Button thresholdTwoallClearButton;
-
+    protected messageGPSHelper SMSHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_clear);
 
-
+        SMSHelper = new messageGPSHelper(this);
         thresholdOneallClearButton = findViewById(R.id.AllClearButtonOne);
         thresholdTwoallClearButton = findViewById(R.id.thresholdTwoAllClearButton);
 
@@ -50,7 +50,7 @@ public class allClearActivity extends AppCompatActivity {
 
                     String message ="I am safe, all clear ";
 
-                    messageGPSHelper.sendAllClearMessage(temp,message);
+                    SMSHelper.sendAllClearMessage(temp,message);
 
                     Log.d(TAG, "All Clear Message " + i + " has been sent. ");
                 }
@@ -77,7 +77,7 @@ public class allClearActivity extends AppCompatActivity {
 
                     String message ="I am safe, all clear ";
 
-                    messageGPSHelper.sendAllClearMessage(temp,message);
+                    SMSHelper.sendAllClearMessage(temp,message);
 
                     Log.d(TAG, "All Clear Message " + i + " has been sent. ");
                 }
