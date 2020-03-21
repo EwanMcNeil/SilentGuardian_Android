@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/androidNameTV"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="196dp"
+        android:layout_marginBottom="55dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/androidPhoneNumberTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/androidPhoneNumberTV"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="63dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/addAndroidContactButton"
+        app:layout_constraintStart_toStartOf="@+id/androidNameTV"
+        app:layout_constraintTop_toBottomOf="@+id/androidNameTV" />
+
+    <Button
+        android:id="@+id/addAndroidContactButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="Import contact"
+        app:layout_constraintBottom_toTopOf="@+id/cancelAndroidButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/androidPhoneNumberTV" />
+
+    <Button
+        android:id="@+id/cancelAndroidButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="181dp"
+        android:text="@android:string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addAndroidContactButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
