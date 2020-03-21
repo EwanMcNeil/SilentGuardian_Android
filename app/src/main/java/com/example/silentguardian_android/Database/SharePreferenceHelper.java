@@ -17,7 +17,7 @@ public class SharePreferenceHelper extends AppCompatActivity {
 
     public SharePreferenceHelper(Context context) {
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        sharedPreferences = context.getSharedPreferences("silent_guardian_myProfile",Context.MODE_PRIVATE);
 
     }
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/policeGuardianTextView"
+        android:layout_width="match_parent"
+        android:layout_height="181dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:text='In order to use the "text 911" service, please follow the link provided below to activate and register your phone:'
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/linkTextView"
+        android:layout_width="match_parent"
+        android:layout_height="109dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="209dp"
+        android:text="https://www.textwith911.ca/en/how-to-make-a-t9-1-1-call/"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/thresholdNoteTextView"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="334dp"
+        android:text="**911 will be automatically added to the maximun threat level, ie. only contacted for emergencies **"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/closeButton"
+        android:layout_width="230dp"
+        android:layout_height="83dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="67dp"
+        android:text="Close" />
+</RelativeLayout>

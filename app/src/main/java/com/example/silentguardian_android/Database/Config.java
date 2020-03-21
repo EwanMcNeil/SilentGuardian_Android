@@ -2,7 +2,7 @@ package com.example.silentguardian_android.Database;
 
 public class Config {
 
-    public static final String DATABASE_NAME = "courses-db";
+    public static final String DATABASE_NAME = "Contact-db";
     public static final int DATABASE_VERSION = 4;
 
     public static final String COURSE_TABLE_NAME = "person";

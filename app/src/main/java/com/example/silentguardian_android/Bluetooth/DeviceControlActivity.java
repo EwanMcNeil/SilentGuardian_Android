@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -140,13 +142,8 @@ public class DeviceControlActivity extends Activity {
         isSerial = (TextView) findViewById(R.id.isSerial);
 
         mDataField = (TextView) findViewById(R.id.data_value);
-        mRed = (SeekBar) findViewById(R.id.seekRed);
-        mGreen = (SeekBar) findViewById(R.id.seekGreen);
-        mBlue = (SeekBar) findViewById(R.id.seekBlue);
 
-        readSeek(mRed,0);
-        readSeek(mGreen,1);
-        readSeek(mBlue,2);
+
 
         getActionBar().setTitle(mDeviceName);
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -333,6 +330,16 @@ public class DeviceControlActivity extends Activity {
 
                 //code for sending one text message
                 if(value == 1 && sendOne == false){
+
+                    Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    // Vibrate for 500 milliseconds
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                    } else {
+                        //deprecated in API 26
+                        v.vibrate(500);
+                    }
+
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {

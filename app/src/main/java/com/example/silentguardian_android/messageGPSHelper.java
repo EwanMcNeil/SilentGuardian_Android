@@ -135,7 +135,7 @@ public class messageGPSHelper {
             Toast.makeText(mContext, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
         }
         catch (Exception e){
-            Toast.makeText(mContext, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+         Toast.makeText(mContext, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
         }
 
     }

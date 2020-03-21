@@ -75,43 +75,4 @@
         android:text="@string/is_serial"
          android:textSize="18sp"/>
 
-    <TextView
-        android:id="@+id/textView1"
-        android:text="@string/red_slide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <SeekBar
-        android:id="@+id/seekRed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:max="255"
-        />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:text="@string/green_slide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-	 <SeekBar
-        android:id="@+id/seekGreen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:max="255" />
-
-	 <TextView
-	     android:id="@+id/textView3"
-	     android:text="@string/blue_slide"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:textAppearance="?android:attr/textAppearanceSmall" />
-
-	<SeekBar
-	    android:id="@+id/seekBlue"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:max="255" />
 </LinearLayout>

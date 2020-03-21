@@ -26,7 +26,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
     protected EditText tempPassword;
     protected Button saveTempPasswordButton;
-    protected Button cancelButton;
+
     protected SharePreferenceHelper sharePreferenceHelper;
 
 
@@ -40,7 +40,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
         tempPassword = view.findViewById(R.id.editPasswordCheck);
         saveTempPasswordButton = view.findViewById(R.id.enterPasswordButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+
 
         sharePreferenceHelper = new SharePreferenceHelper(getContext());
 
@@ -65,10 +65,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
                     //for the purpose of simplicity, i am going to make a password check whenever someone enters the app. only once.
                     //going to change the second parameter of the intent from "thresholdActivity", to "MainActivity"
-                    Intent intent = new Intent(getActivity(), ThresholdSettingActivity.class);
-                    intent.putExtra("THRESHOLDVAL", 1);
-
-                    getActivity().startActivity(intent);
+                    getDialog().dismiss();
                     Log.d(TAG, "compared temp password to stored password");
                 }
 
@@ -83,14 +80,6 @@ public class InsertPasswordCheckFragment extends DialogFragment {
             }
         });
 
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-             getDialog().dismiss();
-            }
-        });
 
 
 

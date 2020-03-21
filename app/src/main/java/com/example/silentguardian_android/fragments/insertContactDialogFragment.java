@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.silentguardian_android.contactActivity;
+import com.example.silentguardian_android.ThresholdSettingActivity;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.R;
@@ -42,7 +42,7 @@ public class insertContactDialogFragment extends DialogFragment {
                 if (!(name.equals(""))) {
                     DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
                     dbhelper.insertPerson(new Person(name, number, 0, 0));
-                    ((contactActivity)getActivity()).loadContactsListView();
+                    ((ThresholdSettingActivity)getActivity()).loadContactsListView();
                     getDialog().dismiss();
 
                 }
