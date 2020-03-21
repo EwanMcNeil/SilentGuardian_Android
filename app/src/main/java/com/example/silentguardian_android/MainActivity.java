@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }else{
             InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
+            dialog.setCancelable(false);
             dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
         }
 
