@@ -43,10 +43,6 @@
             android:name=".ThresholdSettingActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".contactActivity"
-            android:label="BubbleActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".profileActivity"
             android:label="@string/title_activity_profile"
             android:parentActivityName=".MainActivity"
