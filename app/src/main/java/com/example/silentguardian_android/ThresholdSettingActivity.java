@@ -1,11 +1,7 @@
 package com.example.silentguardian_android;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,8 +14,10 @@ import android.widget.TextView;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.fragments.Insert911GuardiansInfoFragment;
 import com.example.silentguardian_android.fragments.InsertThresholdMessageDialogFragment;
 import com.example.silentguardian_android.fragments.deleteContactFromThresholdFragment;
+import com.example.silentguardian_android.fragments.insertContactDialogFragment;
 import com.example.silentguardian_android.fragments.setContactToThresholdFragment;
 
 import java.util.ArrayList;
@@ -38,15 +36,19 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected ListView wholeContactsListView;
     protected ListView threshHoldContactsListView;
     protected List<Person> mainList = null;
-    protected Button allClearButton;
-    protected Button thresholdTwoAllClearButton;
+    protected Button add911GuardianButton;
+
+    //commenting out for now: MOVED TO MAIN ACTIVITY
+    //protected Button allClearButton;
+    //protected Button thresholdTwoAllClearButton;
     protected ArrayList<Person> thresholdList = new ArrayList<>();
 
     protected Button defineMessageButton;
 
 
-
-
+    //from contact activity
+    protected Button addContactButton;
+    protected Button importContactsButton;
 
 
     @Override
@@ -54,6 +56,22 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_threshold_setting);
+
+
+        //from contact Actvitity
+        addContactButton = findViewById(R.id.freshAddContactButton);
+        importContactsButton = findViewById(R.id.importContactButton);
+
+
+        addContactButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                insertContactDialogFragment dialog = new insertContactDialogFragment();
+                dialog.show(getSupportFragmentManager(), "insertContactFragment");
+            }
+        });
+
+
         thresholdEditText = findViewById(R.id.thresholdEditText);
         thresholdVal = getIntent().getIntExtra("THRESHOLDVAL", 0);
 
@@ -61,7 +79,12 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         threshHoldContactsListView = findViewById(R.id.thresholdContactsListView);
 
         //defining all clear button functionality
-        allClearButton = findViewById(R.id.AllClearButton);
+
+
+        add911GuardianButton = findViewById(R.id.add911Button);
+
+        //commenting out for now: MOVED TO MAIN ACTIVITY
+        //allClearButton = findViewById(R.id.AllClearButton);
 
 
         defineMessageButton = findViewById(R.id.defineMessageButton);
@@ -74,26 +97,21 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 InsertThresholdMessageDialogFragment dialog = new InsertThresholdMessageDialogFragment();
 
                 Bundle bundle = new Bundle();
-                bundle.putInt("threshold number", thresholdVal );
+                bundle.putInt("threshold number", thresholdVal);
 
                 dialog.setArguments(bundle);
 
-                dialog.show(getSupportFragmentManager(),"InsertThresholdMessageFragment");
+                dialog.show(getSupportFragmentManager(), "InsertThresholdMessageFragment");
             }
         });
 
 
         changeThresholdButton = findViewById(R.id.changeThresholdButton);
-        thresholdTwoAllClearButton = findViewById(R.id.thresholdTwoAllClearButton);
+        //commenting out for now: MOVED TO MAIN ACTIVITY
+        //thresholdTwoAllClearButton = findViewById(R.id.thresholdTwoAllClearButton);
 
-        loadContactsListView();
+        //loadContactsListView();
         loadThresholdContactListView();
-
-
-
-
-
-
 
 
     }
@@ -106,15 +124,15 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         loadContactsListView();
         loadThresholdContactListView();
 
-        changeThresholdButton.setText("Current Threshold is: " + thresholdVal + '\n' +"Click to Change threshold");
+        changeThresholdButton.setText("Current Threshold is: " + thresholdVal + '\n' + "Click to Change threshold");
 
         changeThresholdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(thresholdVal == 1){
-                    thresholdVal =2;
-                }else{
-                    thresholdVal =1;
+                if (thresholdVal == 1) {
+                    thresholdVal = 2;
+                } else {
+                    thresholdVal = 1;
                 }
 
                 finish();
@@ -127,7 +145,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 changeThresholdButton.setText("Current Threshold is: " + thresholdVal + " Click to Change threshold");
 
             }
-          
+
         });
 
         thresholdEditText.setText("Contacts in Threshold:" + thresholdVal);
@@ -167,126 +185,87 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         //defining all clear button functionality
 
 
-        allClearButton.setOnClickListener(new View.OnClickListener() {
+        add911GuardianButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Insert911GuardiansInfoFragment dialog = new Insert911GuardiansInfoFragment();
 
-               //creating db object to use the functions
+                dialog.show(getSupportFragmentManager(), "Insert911GuardiansInfoFragment");
+
+                //not actually putting 911 in the number for obvious reasons: can mention this to prof
+                //for demo, put one of the teams numbers to show it will work
                 DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
-                List<Person> people = dbhelper.getThresholdOne();
-
-
-                ////create loop that will message the "I am Safe" message to all guardians who are in threshold one
-                for(int i = 0;i < people.size(); i++ ){
-
-                    String temp = " ";
-
-                    temp = people.get(i).getPhoneNumber();
-
-                    String message ="I am safe, all clear ";
-
-                    messageGPSHelper.sendAllClearMessage(temp,message);
-
-                    Log.d(TAG, "All Clear Message " + i + " has been sent. ");
-                }
+                dbhelper.insertPerson(new Person("Police", "123", 0, 1));
+                Log.d(TAG, "police contact has been placed ");
             }
         });
 
-
-
-        thresholdTwoAllClearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //creating db object to use the functions
-                DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
-                List<Person> people = dbhelper.getThresholdTwo();
-
-
-                ////create loop that will message the "I am Safe" message to all guardians who are in threshold two
-                for(int i = 0;i < people.size(); i++ ){
-
-                    String temp = " ";
-
-                    temp = people.get(i).getPhoneNumber();
-
-                    String message ="I am safe, all clear ";
-
-                    messageGPSHelper.sendAllClearMessage(temp,message);
-
-                    Log.d(TAG, "All Clear Message " + i + " has been sent. ");
-                }
-            }
-        });
-
-
-
     }
+        public void loadContactsListView() {
+
+            DatabaseHelper dbhelper = new DatabaseHelper(this);
+            List<Person> people = dbhelper.getAllPeople();
+
+            ArrayList<String> contactListText = new ArrayList<>();
+
+            for (int i = 0; i < people.size(); i++) {
+                String temp = "";
+                temp += people.get(i).getName() + '\n';
+                temp += people.get(i).getPhoneNumber() + '\n';
 
 
+                //dont think we need to display the threshold values
+                //or maybe we do
+                //temp += "Threshold: " + people.get(i).getThreshold();
 
-    protected void loadContactsListView(){
-
-        DatabaseHelper dbhelper = new DatabaseHelper(this);
-        List<Person> people = dbhelper.getAllPeople();
-
-        ArrayList<String> contactListText = new ArrayList<>();
-
-        for(int i = 0;i < people.size(); i++ ){
-            String temp = "";
-            temp += people.get(i).getName() + '\n';
-            temp += people.get(i).getPhoneNumber() + '\n';
+                //we don't need it, I had issues when I was implementing the listviews and going through activities so I wanted to make
+                //sure I had the right threshold in each activity
 
 
-            //dont think we need to display the threshold values
-            //or maybe we do
-            //temp += "Threshold: " + people.get(i).getThreshold();
-
-            //we don't need it, I had issues when I was implementing the listviews and going through activities so I wanted to make
-            //sure I had the right threshold in each activity
-
-
-            contactListText.add(temp);
-        }
-
-        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, contactListText);
-
-        wholeContactsListView.setAdapter(arrayAdapter);
-
-    }
-    public void loadThresholdContactListView(){
-        DatabaseHelper dbhelper = new DatabaseHelper(this);
-        List<Person> people = dbhelper.getAllPeople();
-        mainList = people;
-
-        ArrayList<String> contactListText = new ArrayList<>();
-
-        //ArrayList<Person> tempContactLost = new ArrayList<>();
-
-        for(int i = 0;i < people.size(); i++ ){
-            String temp = "";
-            Person tempPerson = new Person(people.get(i).getID(),people.get(i).getName(),people.get(i).getPhoneNumber(),people.get(i).getThresholdOne(),people.get(i).getThresholdTwo());
-            temp += people.get(i).getName() + '\n';
-            temp += people.get(i).getPhoneNumber() + '\n';
-
-            if(thresholdVal == 1){
-                if(people.get(i).getThresholdOne()== 1) //because threshold One is set to One if they are added to list(boolean but int)
-                {
-                    contactListText.add(temp);
-                    thresholdList.add(tempPerson);
-                }
-            }else if (thresholdVal == 2) {
-                if (people.get(i).getThresholdTwo() == 1)
-                {
-                    contactListText.add(temp);
-                    thresholdList.add(tempPerson);
-                }
+                contactListText.add(temp);
             }
+
+            ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, contactListText);
+
+            wholeContactsListView.setAdapter(arrayAdapter);
 
         }
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, contactListText);
-        threshHoldContactsListView.setAdapter(arrayAdapter);
+
+        public void loadThresholdContactListView () {
+            DatabaseHelper dbhelper = new DatabaseHelper(this);
+            List<Person> people = dbhelper.getAllPeople();
+            mainList = people;
+
+            ArrayList<String> contactListText = new ArrayList<>();
+
+            //ArrayList<Person> tempContactLost = new ArrayList<>();
+
+            for (int i = 0; i < people.size(); i++) {
+                String temp = "";
+                Person tempPerson = new Person(people.get(i).getID(), people.get(i).getName(), people.get(i).getPhoneNumber(), people.get(i).getThresholdOne(), people.get(i).getThresholdTwo());
+                temp += people.get(i).getName() + '\n';
+                temp += people.get(i).getPhoneNumber() + '\n';
+
+                if (thresholdVal == 1) {
+                    if (people.get(i).getThresholdOne() == 1) //because threshold One is set to One if they are added to list(boolean but int)
+                    {
+                        contactListText.add(temp);
+                        thresholdList.add(tempPerson);
+                    }
+                } else if (thresholdVal == 2) {
+                    if (people.get(i).getThresholdTwo() == 1) {
+                        contactListText.add(temp);
+                        thresholdList.add(tempPerson);
+                    }
+                }
+
+            }
+
+            ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, contactListText);
+            threshHoldContactsListView.setAdapter(arrayAdapter);
+        }
+
+
     }
-}
