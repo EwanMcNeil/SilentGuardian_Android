@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
     protected TextView latitudeTextView;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         allclearButton = findViewById(R.id.allClearButton);
 
         mBluetoothButton = findViewById(R.id.BLEbutton);
-        mBluetoothButton.setOnClickListener(new View.OnClickListener(){
+        mBluetoothButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, BluetoothMainActivity.class);
@@ -66,45 +64,55 @@ public class MainActivity extends AppCompatActivity {
         latitudeTextView = findViewById(R.id.latTextView);
 
 
-
-
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this , profileActivity.class);
+                Intent intent = new Intent(MainActivity.this, profileActivity.class);
                 startActivity(intent);
             }
         });
 
 
-       thresholdButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
+        thresholdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-               //checking if password matches from user to sharedpreferences
+                //checking if password matches from user to sharedpreferences
 
-               Intent intent = new Intent(MainActivity.this, ThresholdSettingActivity.class);
-               intent.putExtra("THRESHOLDVAL", 1);
+                Intent intent = new Intent(MainActivity.this, ThresholdSettingActivity.class);
+                intent.putExtra("THRESHOLDVAL", 1);
 
                 startActivity(intent);
 
 
+            }
+        });
 
-           }
-       });
+        //permission check
+        int PERMISSION_ALL = 1;
+        String[] PERMISSIONS = {
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.SEND_SMS,
+                android.Manifest.permission.BLUETOOTH,
+                android.Manifest.permission.BLUETOOTH_ADMIN
+        };
+        ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
 
 
-       //if the user doesn't have an account existing, this if statement takes them to profile activity to create first profile
-        if(sharePreferenceHelper.userNameReturn() == null){
-            Intent intent = new Intent(MainActivity.this , profileActivity.class);
+
+        //if the user doesn't have an account existing, this if statement takes them to profile activity to create first profile
+        if (sharePreferenceHelper.userNameReturn() == null) {
+
+            Intent intent = new Intent(MainActivity.this, profileActivity.class);
             startActivity(intent);
-        }else{
+        } else {
             InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
             dialog.setCancelable(false);
             dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
+
+
         }
-
-
 
 
         allclearButton.setOnClickListener(new View.OnClickListener() {
@@ -118,8 +126,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     @Override
@@ -127,50 +133,32 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
 
-
         // Upon resuming the mainActivity, if the user has a name saved into sharedpreferences, then replace the text on the profile button to their name.
-        if(sharePreferenceHelper.userNameReturn()!= null) {
+        if (sharePreferenceHelper.userNameReturn() != null) {
             profileButton.setText(sharePreferenceHelper.userNameReturn() + "'s Profile Page ");
         }
 
         final messageGPSHelper gpsHelper;
         gpsHelper = new messageGPSHelper(this);
         longitudeTextView.setText("Longitude: " + gpsHelper.getLong());
-        latitudeTextView.setText("Latitude: " +gpsHelper.getLat());
+        latitudeTextView.setText("Latitude: " + gpsHelper.getLat());
 
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityCompat.requestPermissions((Activity)v.getContext(), new String[]{Manifest.permission.SEND_SMS}, 3);
+                ActivityCompat.requestPermissions((Activity) v.getContext(), new String[]{Manifest.permission.SEND_SMS}, 3);
 
                 //really dumb way to write to this function neeed to refactor
-                gpsHelper.sendMessage("7786898291","Test" );
+                gpsHelper.sendMessage("7786898291", "Test");
             }
         });
 
 
     }
+}
 
 
 
-
-    protected void securityCheckPoint()
-    {
-
-        InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
-
-        dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
-
-        Intent intent = new Intent(this, MainActivity.class);
-
-        startActivity(intent);
-
-    }
-
-
-
-       
-    }
 
 
 
