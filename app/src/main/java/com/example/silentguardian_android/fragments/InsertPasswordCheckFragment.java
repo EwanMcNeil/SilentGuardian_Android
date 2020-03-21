@@ -65,10 +65,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
                     //for the purpose of simplicity, i am going to make a password check whenever someone enters the app. only once.
                     //going to change the second parameter of the intent from "thresholdActivity", to "MainActivity"
-                    Intent intent = new Intent(getActivity(), ThresholdSettingActivity.class);
-                    intent.putExtra("THRESHOLDVAL", 1);
-
-                    getActivity().startActivity(intent);
+                    getDialog().dismiss();
                     Log.d(TAG, "compared temp password to stored password");
                 }
 

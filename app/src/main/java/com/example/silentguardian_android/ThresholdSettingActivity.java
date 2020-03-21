@@ -1,11 +1,7 @@
 package com.example.silentguardian_android;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +17,7 @@ import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.fragments.Insert911GuardiansInfoFragment;
 import com.example.silentguardian_android.fragments.InsertThresholdMessageDialogFragment;
 import com.example.silentguardian_android.fragments.deleteContactFromThresholdFragment;
+import com.example.silentguardian_android.fragments.insertContactDialogFragment;
 import com.example.silentguardian_android.fragments.setContactToThresholdFragment;
 
 import java.util.ArrayList;
@@ -49,6 +46,9 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected Button defineMessageButton;
 
 
+    //from contact activity
+    protected Button addContactButton;
+    protected Button importContactsButton;
 
 
 
@@ -58,16 +58,40 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_threshold_setting);
+
+
+        //from contact Actvitity
+        addContactButton = findViewById(R.id.freshAddContactButton);
+        importContactsButton = findViewById(R.id.importContactButton);
+
+
+
+
+
+
+        addContactButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                insertContactDialogFragment dialog = new insertContactDialogFragment();
+                dialog.show(getSupportFragmentManager(), "insertContactFragment");
+            }
+        });
+
+
         thresholdEditText = findViewById(R.id.thresholdEditText);
         thresholdVal = getIntent().getIntExtra("THRESHOLDVAL", 0);
 
         wholeContactsListView = findViewById(R.id.wholecontactsListView);
         threshHoldContactsListView = findViewById(R.id.thresholdContactsListView);
 
+        //defining all clear button functionality
+
+
         add911GuardianButton = findViewById(R.id.add911Button);
 
         //commenting out for now: MOVED TO MAIN ACTIVITY
         //allClearButton = findViewById(R.id.AllClearButton);
+
 
 
         defineMessageButton = findViewById(R.id.defineMessageButton);
@@ -94,25 +118,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         //commenting out for now: MOVED TO MAIN ACTIVITY
         //thresholdTwoAllClearButton = findViewById(R.id.thresholdTwoAllClearButton);
 
-        loadContactsListView();
+        //loadContactsListView();
         loadThresholdContactListView();
-
-
-/*
-        add911GuardianButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Insert911GuardiansInfoFragment dialog = new Insert911GuardiansInfoFragment();
-
-                dialog.show(getSupportFragmentManager(), "Insert911GuardiansInfoFragment");
-            }
-        });
-
- */
-
-
-
-
 
 
     }
@@ -185,64 +192,12 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         //defining all clear button functionality
 
-/*
-        //for now will comment this out, but leave it for reference: HAS BEEN MOVED TO MAIN ACTIVITY
-        allClearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-               //creating db object to use the functions
-                DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
-                List<Person> people = dbhelper.getThresholdOne();
-
-
-                ////create loop that will message the "I am Safe" message to all guardians who are in threshold one
-                for(int i = 0;i < people.size(); i++ ){
-
-                    String temp = " ";
-
-                    temp = people.get(i).getPhoneNumber();
-
-                    String message ="I am safe, all clear ";
-
-                    messageGPSHelper.sendAllClearMessage(temp,message);
-
-                    Log.d(TAG, "All Clear Message " + i + " has been sent. ");
-                }
-            }
-        });
 
 
 
 
 
-        //for now will comment this out, but leave it for reference: HAS BEEN MOVED TO MAIN ACTIVITY
-        thresholdTwoAllClearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                //creating db object to use the functions
-                DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
-                List<Person> people = dbhelper.getThresholdTwo();
-
-
-                ////create loop that will message the "I am Safe" message to all guardians who are in threshold two
-                for(int i = 0;i < people.size(); i++ ){
-
-                    String temp = " ";
-
-                    temp = people.get(i).getPhoneNumber();
-
-                    String message ="I am safe, all clear ";
-
-                    messageGPSHelper.sendAllClearMessage(temp,message);
-
-                    Log.d(TAG, "All Clear Message " + i + " has been sent. ");
-                }
-            }
-        });
-
- */
 
         add911GuardianButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,12 +219,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-    }
 
 
     protected void loadContactsListView(){

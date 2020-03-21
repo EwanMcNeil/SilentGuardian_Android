@@ -7,11 +7,25 @@
     tools:context=".ThresholdSettingActivity">
 
 
+    <Button
+        android:id="@+id/freshAddContactButton"
+        android:layout_width="181dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="8dp"
+        android:text="Add Contact"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/defineMessageButton"
+        app:layout_constraintTop_toBottomOf="@+id/thresholdContactsListView"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:id="@+id/bubbleTextView"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:textAlignment="center"
         android:layout_marginStart="21dp"
         android:layout_marginLeft="21dp"
         android:layout_marginTop="96dp"
@@ -19,6 +33,7 @@
         android:layout_marginRight="59dp"
         android:layout_marginBottom="19dp"
         android:text="Bubble:"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/wholecontactsListView"
         app:layout_constraintEnd_toStartOf="@+id/thresholdEditText"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +103,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+  
+  
+  
+  <Button
+            android:id="@+id/importContactButton"
+        android:layout_width="181dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="52dp"
+        android:text="Import Contacts"
+           app:layout_constraintTop_toTopOf="@+id/freshAddContactButton"
+        app:layout_constraintVertical_bias="0.0" />
+  
+  <Button
+   app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/defineMessageButton"
+          />
+  
     <Button
         android:id="@+id/add911Button"
         android:layout_width="206dp"
@@ -100,9 +133,11 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="6dp"
         android:text="Click Here to add 911 as a guardian!"
+
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/defineMessageButton"
+
         app:layout_constraintTop_toBottomOf="@+id/wholecontactsListView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

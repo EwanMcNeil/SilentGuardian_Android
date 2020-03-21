@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected Button profileButton;
     protected Button thresholdButton;
-    protected Button bubbleButton;
+
 
     protected Button mBluetoothButton;
     protected Button allclearButton;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         profileButton = findViewById(R.id.profileButton);
         thresholdButton = findViewById(R.id.thresholdButton);
-        bubbleButton = findViewById(R.id.bubbleButton);
+
         allclearButton = findViewById(R.id.allClearButton);
 
         mBluetoothButton = findViewById(R.id.BLEbutton);
@@ -83,23 +83,13 @@ public class MainActivity extends AppCompatActivity {
 
                //checking if password matches from user to sharedpreferences
 
-               InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
+               Intent intent = new Intent(MainActivity.this, ThresholdSettingActivity.class);
+               intent.putExtra("THRESHOLDVAL", 1);
 
-               dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
+                startActivity(intent);
 
 
-               // if (InsertPasswordCheckFragment.)
 
-              // Intent intent = new Intent(MainActivity.this , ThresholdActivity.class);
-               //startActivity(intent);
-           }
-       });
-
-       bubbleButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               Intent intent = new Intent(MainActivity.this , contactActivity.class);
-               startActivity(intent);
            }
        });
 
@@ -108,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
         if(sharePreferenceHelper.userNameReturn() == null){
             Intent intent = new Intent(MainActivity.this , profileActivity.class);
             startActivity(intent);
+        }else{
+            InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
+            dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
         }
 
 
