@@ -25,9 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
     protected Button profileButton;
     protected Button thresholdButton;
-
-
-
     protected Button allclearButton;
 
     protected SharePreferenceHelper sharePreferenceHelper;
@@ -45,15 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         thresholdButton = findViewById(R.id.thresholdButton);
-
         allclearButton = findViewById(R.id.allClearButton);
-
-
-
         sharePreferenceHelper = new SharePreferenceHelper(this);
         sendMessageButton = findViewById(R.id.sendMessageButton);
-
-
         longitudeTextView = findViewById(R.id.longtextView);
         latitudeTextView = findViewById(R.id.latTextView);
 
@@ -61,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         thresholdButton.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
 
@@ -91,15 +84,12 @@ public class MainActivity extends AppCompatActivity {
 
         //if the user doesn't have an account existing, this if statement takes them to profile activity to create first profile
         if (sharePreferenceHelper.userNameReturn() == null) {
-
             Intent intent = new Intent(MainActivity.this, profileActivity.class);
             startActivity(intent);
         } else {
             InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
             dialog.setCancelable(false);
             dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
-
-
         }
 
 
