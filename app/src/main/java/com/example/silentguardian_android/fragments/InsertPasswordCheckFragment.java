@@ -26,7 +26,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
     protected EditText tempPassword;
     protected Button saveTempPasswordButton;
-    protected Button cancelButton;
+
     protected SharePreferenceHelper sharePreferenceHelper;
 
 
@@ -40,7 +40,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
         tempPassword = view.findViewById(R.id.editPasswordCheck);
         saveTempPasswordButton = view.findViewById(R.id.enterPasswordButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+
 
         sharePreferenceHelper = new SharePreferenceHelper(getContext());
 
@@ -80,14 +80,6 @@ public class InsertPasswordCheckFragment extends DialogFragment {
             }
         });
 
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-             getDialog().dismiss();
-            }
-        });
 
 
 
