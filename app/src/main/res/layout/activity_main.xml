@@ -24,6 +24,7 @@
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/allClearButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,49 +33,13 @@
         android:layout_width="248dp"
         android:layout_height="0dp"
 
-        android:layout_marginBottom="71dp"
-
+        android:layout_marginTop="116dp"
         android:text="Threat Level Settings"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/longtextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/allClearButton" />
-
-    <TextView
-        android:id="@+id/longtextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="39dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/sendMessageButton"
-        app:layout_constraintEnd_toEndOf="@+id/sendMessageButton"
-        app:layout_constraintTop_toBottomOf="@+id/thresholdButton" />
-
-    <TextView
-        android:id="@+id/latTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/longtextView" />
-
-    <Button
-        android:id="@+id/sendMessageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="78dp"
-        android:layout_marginRight="78dp"
-        android:layout_marginBottom="155dp"
-        android:text="SENDMESSAGE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/longtextView" />
 
     <Button
         android:id="@+id/allClearButton"
@@ -85,6 +50,7 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/thresholdButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 

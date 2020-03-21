@@ -6,6 +6,8 @@
                     android:title="Connect your device" />
                 <item android:id="@+id/profileSettingdropdown"
                     android:title="Edit your profile" />
+                 <item android:id="@+id/sendTestMessageDropDown"
+                       android:title="Send Test Message" />
 
 
 </menu>

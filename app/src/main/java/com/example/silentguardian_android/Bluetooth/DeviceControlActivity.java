@@ -143,7 +143,7 @@ public class DeviceControlActivity extends Activity {
 
         mDataField = (TextView) findViewById(R.id.data_value);
 
-  
+
 
         getActionBar().setTitle(mDeviceName);
         getActionBar().setDisplayHomeAsUpEnabled(true);

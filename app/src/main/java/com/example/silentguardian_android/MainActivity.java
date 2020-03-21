@@ -23,16 +23,14 @@ import com.example.silentguardian_android.fragments.InsertPasswordCheckFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    protected Button profileButton;
+
     protected Button thresholdButton;
     protected Button allclearButton;
 
     protected SharePreferenceHelper sharePreferenceHelper;
 
-    protected Button sendMessageButton;
 
-    protected TextView longitudeTextView;
-    protected TextView latitudeTextView;
+
 
 
     @Override
@@ -40,19 +38,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         thresholdButton = findViewById(R.id.thresholdButton);
         allclearButton = findViewById(R.id.allClearButton);
         sharePreferenceHelper = new SharePreferenceHelper(this);
-        sendMessageButton = findViewById(R.id.sendMessageButton);
-        longitudeTextView = findViewById(R.id.longtextView);
-        latitudeTextView = findViewById(R.id.latTextView);
-
-
 
 
         thresholdButton.setOnClickListener(new View.OnClickListener() {
-
 
             @Override
             public void onClick(View view) {
@@ -64,9 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
                 startActivity(intent);
 
-
             }
         });
+
+
 
         //permission check
         int PERMISSION_ALL = 1;
@@ -82,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
         //if the user doesn't have an account existing, this if statement takes them to profile activity to create first profile
         if (sharePreferenceHelper.userNameReturn() == null) {
             Intent intent = new Intent(MainActivity.this, profileActivity.class);
@@ -91,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
             dialog.setCancelable(false);
             dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
         }
+
+
 
 
         allclearButton.setOnClickListener(new View.OnClickListener() {
@@ -110,34 +106,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
-        final messageGPSHelper gpsHelper;
-        gpsHelper = new messageGPSHelper(this);
-        longitudeTextView.setText("Longitude: " + gpsHelper.getLong());
-        latitudeTextView.setText("Latitude: " + gpsHelper.getLat());
-
-        sendMessageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityCompat.requestPermissions((Activity) v.getContext(), new String[]{Manifest.permission.SEND_SMS}, 3);
-
-                //really dumb way to write to this function neeed to refactor
-                gpsHelper.sendMessage("7786898291", "Test");
-            }
-        });
-
-
     }
 
 
+    ///code for the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.settingsmenu, menu);
         return true;
-
-
     }
 
     @Override
@@ -153,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(MainActivity.this, profileActivity.class);
                 startActivity(intent1);
                 return true;
+            case R.id.sendTestMessageDropDown:
+                final messageGPSHelper gpsHelper;
+                gpsHelper = new messageGPSHelper(this);
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 3);
+                        gpsHelper.sendMessage("7786898291", "Test");
             default:
                 return super.onOptionsItemSelected(item);
         }
