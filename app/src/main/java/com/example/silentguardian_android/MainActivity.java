@@ -57,9 +57,7 @@ public class MainActivity extends AppCompatActivity {
         sharePreferenceHelper = new SharePreferenceHelper(this);
         sendMessageButton = findViewById(R.id.sendMessageButton);
 
-
-        ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
+        
         longitudeTextView = findViewById(R.id.longtextView);
         latitudeTextView = findViewById(R.id.latTextView);
 
