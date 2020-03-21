@@ -1,8 +1,12 @@
 package com.example.silentguardian_android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +22,7 @@ import com.example.silentguardian_android.fragments.Insert911GuardiansInfoFragme
 import com.example.silentguardian_android.fragments.InsertThresholdMessageDialogFragment;
 import com.example.silentguardian_android.fragments.deleteContactFromThresholdFragment;
 import com.example.silentguardian_android.fragments.insertContactDialogFragment;
+import com.example.silentguardian_android.fragments.loadCellPhoneContact_fragment;
 import com.example.silentguardian_android.fragments.setContactToThresholdFragment;
 
 import java.util.ArrayList;
@@ -68,6 +73,21 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 insertContactDialogFragment dialog = new insertContactDialogFragment();
                 dialog.show(getSupportFragmentManager(), "insertContactFragment");
+            }
+        });
+
+        importContactsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (ContextCompat.checkSelfPermission(ThresholdSettingActivity.this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+                    //Toast.makeText(contactActivity.this, "You have already granted this permission!", Toast.LENGTH_SHORT).show();
+                    loadCellPhoneContact_fragment dialog = new loadCellPhoneContact_fragment();
+                    dialog.show(getSupportFragmentManager(), "importAndroidContactFragment");
+                } else {
+                    ActivityCompat.requestPermissions(ThresholdSettingActivity.this, new String[] {Manifest.permission.READ_CONTACTS}, 3);
+                }
+
             }
         });
 
@@ -142,7 +162,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 startActivity(intent);
                 overridePendingTransition(0, 0);
 
-                changeThresholdButton.setText("Current Threshold is: " + thresholdVal + " Click to Change threshold");
+                changeThresholdButton.setText("Current Threshold is: " + thresholdVal + '\n' +"Click to Change threshold");
 
             }
 
@@ -152,13 +172,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         wholeContactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                //Intent selectedContactIntent = new Intent(ThresholdSettingActivity.this, AddContactToThreshload.class);
-                //selectedContactIntent.putExtra("contactSelected", mainList.get(position).getID());
-                //selectedContactIntent.putExtra("ThresholdNumber", thresholdVal); //sends either a one or a two to the next activity
-                //startActivity(selectedContactIntent);
-
-
                 Bundle bundle = new Bundle();
                 bundle.putInt("contactSelected", mainList.get(position).getID());
                 bundle.putInt("ThresholdNumber", thresholdVal);
