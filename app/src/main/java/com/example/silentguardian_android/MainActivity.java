@@ -9,6 +9,9 @@ import android.app.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected Button thresholdButton;
 
 
-    protected Button mBluetoothButton;
+
     protected Button allclearButton;
 
     protected SharePreferenceHelper sharePreferenceHelper;
@@ -40,19 +43,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        profileButton = findViewById(R.id.profileButton);
+
         thresholdButton = findViewById(R.id.thresholdButton);
 
         allclearButton = findViewById(R.id.allClearButton);
 
-        mBluetoothButton = findViewById(R.id.BLEbutton);
-        mBluetoothButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, BluetoothMainActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
         sharePreferenceHelper = new SharePreferenceHelper(this);
         sendMessageButton = findViewById(R.id.sendMessageButton);
@@ -62,13 +58,6 @@ public class MainActivity extends AppCompatActivity {
         latitudeTextView = findViewById(R.id.latTextView);
 
 
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, profileActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
         thresholdButton.setOnClickListener(new View.OnClickListener() {
@@ -132,11 +121,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
 
-        // Upon resuming the mainActivity, if the user has a name saved into sharedpreferences, then replace the text on the profile button to their name.
-        if (sharePreferenceHelper.userNameReturn() != null) {
-            profileButton.setText(sharePreferenceHelper.userNameReturn() + "'s Profile Page ");
-        }
-
         final messageGPSHelper gpsHelper;
         gpsHelper = new messageGPSHelper(this);
         longitudeTextView.setText("Longitude: " + gpsHelper.getLong());
@@ -153,6 +137,35 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settingsmenu, menu);
+        return true;
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+
+        switch (item.getItemId()) {
+            case R.id.bluetoothSettingsdropdown:
+                 Intent intent = new Intent(MainActivity.this, BluetoothMainActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.profileSettingdropdown:
+                Intent intent1 = new Intent(MainActivity.this, profileActivity.class);
+                startActivity(intent1);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
 
