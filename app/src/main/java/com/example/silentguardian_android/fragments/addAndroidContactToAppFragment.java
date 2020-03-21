@@ -15,10 +15,8 @@ import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.ThresholdSettingActivity;
-import com.example.silentguardian_android.contactActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class addAndroidContactToAppFragment extends DialogFragment {
     protected TextView nameFragmentTV;
@@ -53,7 +51,7 @@ public class addAndroidContactToAppFragment extends DialogFragment {
             public void onClick(View view) {
                 DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
                 dbhelper.insertPerson(selectedPerson);
-                ((contactActivity)getActivity()).loadContactsListView();
+                ((ThresholdSettingActivity)getActivity()).loadContactsListView();
                 getDialog().dismiss();
 
             }

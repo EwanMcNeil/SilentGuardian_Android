@@ -1,5 +1,6 @@
 package com.example.silentguardian_android.fragments;
 
+
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
