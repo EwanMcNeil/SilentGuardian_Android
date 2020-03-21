@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         sharePreferenceHelper = new SharePreferenceHelper(this);
         sendMessageButton = findViewById(R.id.sendMessageButton);
 
-        
+
         longitudeTextView = findViewById(R.id.longtextView);
         latitudeTextView = findViewById(R.id.latTextView);
 
@@ -93,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
                 android.Manifest.permission.SEND_SMS,
                 android.Manifest.permission.BLUETOOTH,
-                android.Manifest.permission.BLUETOOTH_ADMIN
+                android.Manifest.permission.BLUETOOTH_ADMIN,
+                android.Manifest.permission.VIBRATE
         };
         ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
 
