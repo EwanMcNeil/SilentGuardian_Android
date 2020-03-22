@@ -10,6 +10,9 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 
@@ -112,7 +115,7 @@ public class messageGPSHelper {
     //possibly within here call the local methods getlat and getlong
     public void sendMessage(String number, String message){
         try{
-
+            vibrate();
             String messageOut = message + "My location is: " + messageLocationLink();
             SmsManager smgr = SmsManager.getDefault();
             smgr.sendTextMessage(number,null,messageOut, null,null);
@@ -126,9 +129,9 @@ public class messageGPSHelper {
 
     //creating function to call to send the all clear message (Hard coded message for now)
     //changed this to static because of non-static error due to "all clear" function
-    public static void sendAllClearMessage(String number, String message){
+    public void sendAllClearMessage(String number, String message){
         try{
-
+            vibrate();
             String messageOut = message;
             SmsManager smgr = SmsManager.getDefault();
             smgr.sendTextMessage(number,null,messageOut, null,null);
@@ -151,6 +154,20 @@ public class messageGPSHelper {
         String output = "https://www.google.com/maps/search/?api=1&query=" +latitude + "," +longitude;
 
         return output;
+    }
+
+
+    protected void vibrate(){
+
+        Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            //deprecated in API 26
+            v.vibrate(500);
+        }
+
     }
 
 
