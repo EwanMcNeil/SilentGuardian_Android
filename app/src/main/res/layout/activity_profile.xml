@@ -23,7 +23,8 @@
         android:layout_marginTop="193dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="User Name" />
+        android:text=""
+        android:hint="Enter your name"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -62,7 +63,9 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Password" />
+        android:inputType="textPassword"
+        android:text=""
+        android:hint="Enter your password"
+        />
 
 </RelativeLayout>

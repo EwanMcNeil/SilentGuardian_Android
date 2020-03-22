@@ -10,13 +10,14 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginLeft="55dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="48dp"
-        android:layout_marginEnd="55dp"
-        android:layout_marginRight="55dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="36dp"
+        android:gravity="center"
         android:text="Silent Guardians"
         android:textColor="#EF000A"
         android:textColorHint="#F5000C"
@@ -43,6 +44,7 @@
 
     <Button
         android:id="@+id/allClearButton"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="246dp"
         android:layout_height="0dp"
         android:layout_marginBottom="33dp"
