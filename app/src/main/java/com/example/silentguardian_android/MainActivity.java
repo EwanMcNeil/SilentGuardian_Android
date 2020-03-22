@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
@@ -24,9 +25,11 @@ import com.example.silentguardian_android.fragments.InsertPasswordCheckFragment;
 public class MainActivity extends AppCompatActivity {
 
 
-    protected Button thresholdButton;
-    protected Button allclearButton;
 
+
+
+    protected ImageButton thresholdimageButton;
+    protected ImageButton allclearImageButton;
     protected SharePreferenceHelper sharePreferenceHelper;
 
 
@@ -38,12 +41,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        thresholdButton = findViewById(R.id.thresholdButton);
-        allclearButton = findViewById(R.id.allClearButton);
+
+
+        thresholdimageButton = findViewById(R.id.thresholdimageButton);
+        allclearImageButton = findViewById(R.id.safeimageButton);
+
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
 
-        thresholdButton.setOnClickListener(new View.OnClickListener() {
+        thresholdimageButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -89,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        allclearButton.setOnClickListener(new View.OnClickListener() {
+        allclearImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

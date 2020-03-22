@@ -16,45 +16,38 @@
         android:layout_marginTop="48dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="36dp"
         android:gravity="center"
         android:text="Silent Guardians"
         android:textColor="#EF000A"
         android:textColorHint="#F5000C"
         android:textColorLink="#00F00707"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/allClearButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/thresholdButton"
-        android:layout_width="248dp"
-        android:layout_height="0dp"
-
-        android:layout_marginTop="116dp"
-        android:text="Threat Level Settings"
-        android:textSize="24sp"
+    <ImageButton
+        android:id="@+id/safeimageButton"
+        android:layout_width="121dp"
+        android:layout_height="107dp"
+        android:layout_marginTop="136dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allClearButton" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:srcCompat="@drawable/ic_thumb_up_black_24dp"
+        android:contentDescription="TODO" />
 
-    <Button
-        android:id="@+id/allClearButton"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="246dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="33dp"
-        android:text="I am Safe"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/thresholdButton"
+    <ImageButton
+        android:id="@+id/thresholdimageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/safeimageButton"
+        app:srcCompat="@drawable/ic_group_add_black_24dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
