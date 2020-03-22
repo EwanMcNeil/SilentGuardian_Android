@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +19,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.fragments.Insert911GuardiansInfoFragment;
@@ -24,6 +28,7 @@ import com.example.silentguardian_android.fragments.deleteContactFromThresholdFr
 import com.example.silentguardian_android.fragments.insertContactDialogFragment;
 import com.example.silentguardian_android.fragments.loadCellPhoneContact_fragment;
 import com.example.silentguardian_android.fragments.setContactToThresholdFragment;
+import com.google.firebase.database.snapshot.BooleanNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +42,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     //thresholdVal is either One or Two depending on the droplink
 
     protected int thresholdVal;
-    protected Button changeThresholdButton;
     protected ListView wholeContactsListView;
     protected ListView threshHoldContactsListView;
     protected List<Person> mainList = null;
@@ -55,12 +59,15 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected Button addContactButton;
     protected Button importContactsButton;
 
+    protected Boolean contactMode;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_threshold_setting);
+
 
 
         //from contact Actvitity
@@ -93,7 +100,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
 
         thresholdEditText = findViewById(R.id.thresholdEditText);
-        thresholdVal = getIntent().getIntExtra("THRESHOLDVAL", 0);
+        thresholdVal = 1;
 
         wholeContactsListView = findViewById(R.id.wholecontactsListView);
         threshHoldContactsListView = findViewById(R.id.thresholdContactsListView);
@@ -103,8 +110,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         add911GuardianButton = findViewById(R.id.add911Button);
 
-        //commenting out for now: MOVED TO MAIN ACTIVITY
-        //allClearButton = findViewById(R.id.AllClearButton);
 
 
         defineMessageButton = findViewById(R.id.defineMessageButton);
@@ -126,13 +131,16 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         });
 
 
-        changeThresholdButton = findViewById(R.id.changeThresholdButton);
-        //commenting out for now: MOVED TO MAIN ACTIVITY
-        //thresholdTwoAllClearButton = findViewById(R.id.thresholdTwoAllClearButton);
 
-        //loadContactsListView();
+
         loadThresholdContactListView();
 
+
+        defineMessageButton.setVisibility(View.GONE);
+        add911GuardianButton.setVisibility(View.GONE);
+        thresholdEditText.setVisibility(View.GONE);
+        threshHoldContactsListView.setVisibility(View.GONE);
+        contactMode = true;
 
     }
 
@@ -140,44 +148,33 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        //on start these buttons should be gone
+
+
+
         //thresholdVal = 1;  //threshold value is defaulted to One
         loadContactsListView();
         loadThresholdContactListView();
 
-        changeThresholdButton.setText("Current Threshold is: " + thresholdVal + '\n' + "Click to Change threshold");
-
-        changeThresholdButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (thresholdVal == 1) {
-                    thresholdVal = 2;
-                } else {
-                    thresholdVal = 1;
-                }
-
-                finish();
-                overridePendingTransition(0, 0);
-                Intent intent = new Intent(ThresholdSettingActivity.this, ThresholdSettingActivity.class);
-                intent.putExtra("THRESHOLDVAL", thresholdVal);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-
-                changeThresholdButton.setText("Current Threshold is: " + thresholdVal + '\n' +"Click to Change threshold");
-
-            }
-
-        });
 
         thresholdEditText.setText("Contacts in Threshold:" + thresholdVal);
         wholeContactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("contactSelected", mainList.get(position).getID());
-                bundle.putInt("ThresholdNumber", thresholdVal);
-                setContactToThresholdFragment dialog = new setContactToThresholdFragment();
-                dialog.setArguments(bundle);
-                dialog.show(getSupportFragmentManager(), "insertContactFragment");
+
+                if(contactMode == false) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("contactSelected", mainList.get(position).getID());
+                    bundle.putInt("ThresholdNumber", thresholdVal);
+                    setContactToThresholdFragment dialog = new setContactToThresholdFragment();
+                    dialog.setArguments(bundle);
+                    dialog.show(getSupportFragmentManager(), "insertContactFragment");
+                }
+                else{
+                    Intent intent = new Intent(ThresholdSettingActivity.this, modifyContactActivity.class);
+                    intent.putExtra("IdContactToDelete",mainList.get(position).getID());
+                    startActivity(intent);
+                }
             }
         });
 
@@ -218,7 +215,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
             DatabaseHelper dbhelper = new DatabaseHelper(this);
             List<Person> people = dbhelper.getAllPeople();
-
+            mainList = people;
             ArrayList<String> contactListText = new ArrayList<>();
 
             for (int i = 0; i < people.size(); i++) {
@@ -249,7 +246,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         public void loadThresholdContactListView () {
             DatabaseHelper dbhelper = new DatabaseHelper(this);
             List<Person> people = dbhelper.getAllPeople();
-            mainList = people;
+          //  mainList = people;
 
             ArrayList<String> contactListText = new ArrayList<>();
 
@@ -279,6 +276,63 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, contactListText);
             threshHoldContactsListView.setAdapter(arrayAdapter);
         }
+
+
+    ///code for the menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.thresholdmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+
+        switch (item.getItemId()) {
+            case R.id.editmodedropdown:
+                if(contactMode == true){
+
+                    loadContactsListView();
+                    thresholdVal = 1;
+                    defineMessageButton.setVisibility(View.VISIBLE);
+                    add911GuardianButton.setVisibility(View.VISIBLE);
+                    thresholdEditText.setVisibility(View.VISIBLE);
+                    threshHoldContactsListView.setVisibility(View.VISIBLE);
+                    contactMode =false;
+                    addContactButton.setVisibility(View.GONE);
+                   importContactsButton.setVisibility(View.GONE);
+
+
+                }
+                else{
+                    defineMessageButton.setVisibility(View.GONE);
+                    add911GuardianButton.setVisibility(View.GONE);
+                    thresholdEditText.setVisibility(View.GONE);
+                    threshHoldContactsListView.setVisibility(View.GONE);
+                    contactMode = true;
+                    addContactButton.setVisibility(View.VISIBLE);
+                    importContactsButton.setVisibility(View.VISIBLE);
+
+
+                }
+                return true;
+            case R.id.changeThresholddropdown:
+                if (thresholdVal == 1) {
+                    thresholdVal = 2;
+                } else {
+                    thresholdVal = 1;
+                }
+
+                thresholdEditText.setText("Current Threshold is: " + thresholdVal + '\n');
+                loadThresholdContactListView();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
     }
