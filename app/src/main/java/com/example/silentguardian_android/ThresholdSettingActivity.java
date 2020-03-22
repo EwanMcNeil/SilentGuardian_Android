@@ -138,6 +138,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         defineMessageButton.setVisibility(View.GONE);
         add911GuardianButton.setVisibility(View.GONE);
+        thresholdEditText.setVisibility(View.GONE);
+        threshHoldContactsListView.setVisibility(View.GONE);
         contactMode = true;
 
     }
@@ -291,20 +293,29 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.editmodedropdown:
                 if(contactMode == true){
+
                     loadContactsListView();
                     thresholdVal = 1;
                     defineMessageButton.setVisibility(View.VISIBLE);
                     add911GuardianButton.setVisibility(View.VISIBLE);
+                    thresholdEditText.setVisibility(View.VISIBLE);
+                    threshHoldContactsListView.setVisibility(View.VISIBLE);
                     contactMode =false;
                     addContactButton.setVisibility(View.GONE);
                    importContactsButton.setVisibility(View.GONE);
+
+
                 }
                 else{
                     defineMessageButton.setVisibility(View.GONE);
                     add911GuardianButton.setVisibility(View.GONE);
+                    thresholdEditText.setVisibility(View.GONE);
+                    threshHoldContactsListView.setVisibility(View.GONE);
                     contactMode = true;
                     addContactButton.setVisibility(View.VISIBLE);
                     importContactsButton.setVisibility(View.VISIBLE);
+
+
                 }
                 return true;
             case R.id.changeThresholddropdown:
