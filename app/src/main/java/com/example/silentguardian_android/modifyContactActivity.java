@@ -78,16 +78,16 @@ public class modifyContactActivity extends AppCompatActivity {
                     DatabaseHelper dbhelper = new DatabaseHelper(modifyContactActivity.this);
                     dbhelper.updatePerson(tempPerson);
                 }
-            //    Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, contactActivity.class);
-             //   startActivity(intentDeletedContactToBubble);
+               Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, ThresholdSettingActivity.class);
+              startActivity(intentDeletedContactToBubble);
             }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             //   Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, contactActivity.class);
-              //  startActivity(intentDeletedContactToBubble);
+               Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, ThresholdSettingActivity.class);
+               startActivity(intentDeletedContactToBubble);
 
             }
         });
