@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     protected ImageButton thresholdimageButton;
     protected ImageButton allclearImageButton;
     protected SharePreferenceHelper sharePreferenceHelper;
-
+    protected TextView iAmSafeText;
+    protected TextView setUpText;
 
 
 
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         thresholdimageButton = findViewById(R.id.thresholdimageButton);
         allclearImageButton = findViewById(R.id.safeimageButton);
+        iAmSafeText = findViewById(R.id.iAmSafeTextView);
+        setUpText = findViewById(R.id.setUpTextView);
 
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
@@ -87,9 +90,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, profileActivity.class);
             startActivity(intent);
         } else {
-            InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
-            dialog.setCancelable(false);
-            dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
+
+                InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
+                dialog.setCancelable(false);
+                dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
+
         }
 
 
@@ -108,9 +113,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
+
 
     }
 
@@ -145,6 +165,8 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 }
 
 
