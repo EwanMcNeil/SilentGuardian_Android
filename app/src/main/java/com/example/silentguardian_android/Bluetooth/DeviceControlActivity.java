@@ -347,7 +347,6 @@ public class DeviceControlActivity extends Activity {
 
                     });
                 }
-
                 sendOne = false;
                 //SharePreferenceHelper spHelper = new SharePreferenceHelper(getApplicationContext());
                 // String oneMessage = spHelper.ThresholdOneMessageReturn();

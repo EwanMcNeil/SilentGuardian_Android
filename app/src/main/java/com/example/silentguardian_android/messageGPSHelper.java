@@ -115,7 +115,7 @@ public class messageGPSHelper {
     //possibly within here call the local methods getlat and getlong
     public void sendMessage(String number, String message){
         try{
-          //  vibrate();
+            vibrate();
             String messageOut = message + "My location is: " + messageLocationLink();
             SmsManager smgr = SmsManager.getDefault();
             smgr.sendTextMessage(number,null,messageOut, null,null);
@@ -131,7 +131,7 @@ public class messageGPSHelper {
     //changed this to static because of non-static error due to "all clear" function
     public void sendAllClearMessage(String number, String message){
         try{
-           // vibrate();
+            vibrate();
             String messageOut = message;
             SmsManager smgr = SmsManager.getDefault();
             smgr.sendTextMessage(number,null,messageOut, null,null);
