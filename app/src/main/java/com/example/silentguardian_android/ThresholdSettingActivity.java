@@ -101,7 +101,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
 
         thresholdEditText = findViewById(R.id.thresholdEditText);
-        thresholdVal = getIntent().getIntExtra("THRESHOLDVAL", 0);
+        thresholdVal = 1;
 
         wholeContactsListView = findViewById(R.id.wholecontactsListView);
         threshHoldContactsListView = findViewById(R.id.thresholdContactsListView);
@@ -188,7 +188,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
                 if(contactMode == false) {
                     Bundle bundle = new Bundle();
-
                     bundle.putInt("contactSelected", mainList.get(position).getID());
                     bundle.putInt("ThresholdNumber", thresholdVal);
                     setContactToThresholdFragment dialog = new setContactToThresholdFragment();
@@ -240,7 +239,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
             DatabaseHelper dbhelper = new DatabaseHelper(this);
             List<Person> people = dbhelper.getAllPeople();
-
+            mainList = people;
             ArrayList<String> contactListText = new ArrayList<>();
 
             for (int i = 0; i < people.size(); i++) {
@@ -271,7 +270,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         public void loadThresholdContactListView () {
             DatabaseHelper dbhelper = new DatabaseHelper(this);
             List<Person> people = dbhelper.getAllPeople();
-            mainList = people;
+          //  mainList = people;
 
             ArrayList<String> contactListText = new ArrayList<>();
 
@@ -318,6 +317,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.editmodedropdown:
                 if(contactMode == true){
+                    loadContactsListView();
+                    thresholdVal = 1;
                     changeThresholdButton.setVisibility(View.VISIBLE);
                     defineMessageButton.setVisibility(View.VISIBLE);
                     add911GuardianButton.setVisibility(View.VISIBLE);
@@ -333,7 +334,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                     addContactButton.setVisibility(View.VISIBLE);
                     importContactsButton.setVisibility(View.VISIBLE);
                 }
-
                 return true;
             case R.id.changeThresholdButton:
 
