@@ -3,12 +3,12 @@ package com.example.silentguardian_android.Tutorial;
 public class MyImage {
 
     private String title, description;
-    private int id;
+    private int myPicture;
 
-    public MyImage(String title, String description, int id) {
+    public MyImage(String title, String description, int myPicture) {
         this.title = title;
         this.description = description;
-        this.id = id;
+        this.myPicture = myPicture;
     }
 
     public String getTitle() {
@@ -19,7 +19,7 @@ public class MyImage {
         return description;
     }
 
-    public int getId() {
-        return id;
+    public int getMyPicture() {
+        return myPicture;
     }
 }

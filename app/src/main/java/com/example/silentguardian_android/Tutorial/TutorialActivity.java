@@ -37,11 +37,11 @@ public class TutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //check if its openened before or not
-        if (new SharePreferenceHelper(this).getTutorialSeen()) {
-            Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class );
-            startActivity(mainActivity);
-            finish();
-        }
+//        if (new SharePreferenceHelper(this).getTutorialSeen()) {
+//            Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class );
+//            startActivity(mainActivity);
+//            finish();
+//        }
 
         // make the activity on full screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -67,10 +67,25 @@ public class TutorialActivity extends AppCompatActivity {
     //add images to view, set adapter
     private void LoadViews(){
 
+
+        //Silent guardians description
         mList.add(new MyImage("Silent Guardians",
-                "The fastest way to let your loved ones know.",R.drawable.soothing_circle2));
-        mList.add(new MyImage("Faster access","2ctlit",R.drawable.img2));//will have the screenshots of the app
-        mList.add(new MyImage("Easy Payment","Lor ct",R.drawable.img3));
+                "The fastest way to let your loved ones know you need them.",R.mipmap.bubble_from_outside));
+
+
+        //describe benefit
+        mList.add(new MyImage("Quick access",
+                "Don't waste time reaching out for your phone! "
+                        + "\nUse the Silent Guardian companion device to send out your location.",R.mipmap.hand_holding_device2));
+
+        //describe activation
+        mList.add(new MyImage("Let your guardians know where you are, when you need it.",
+                "Press and hold the button on the device so that the yellow LED turns on and blinks.",R.mipmap.hand_pressing_device_pressure_1));
+
+        //show view from guardian perspective
+        mList.add(new MyImage("Your location is shared with your Guardians.",
+                "After activating your device, a text will be sent out to all your Guardians containing:\n\t\t-Location at the time of activation\n\t\t-Custom message you define.",
+                R.mipmap.hand_friend_receive_text));
 
         // setup viewpager
         mScreenPager =findViewById(R.id.screen_viewpager);

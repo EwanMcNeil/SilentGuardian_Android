@@ -1,11 +1,9 @@
 package com.example.silentguardian_android.Tutorial;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,9 +38,15 @@ public class TutorialViewpagerAdapter extends PagerAdapter {
         TextView description = layoutScreen.findViewById(R.id.intro_description);
 
         //filling the view
+        switch(position){
+            case 0:{
+                title.setTextSize(40f);
+                break;
+            }
+        }
         title.setText(mListScreen.get(position).getTitle());
         description.setText(mListScreen.get(position).getDescription());
-        imgSlide.setImageResource(mListScreen.get(position).getId());
+        imgSlide.setImageResource(mListScreen.get(position).getMyPicture());
 
         container.addView(layoutScreen);
         return layoutScreen;
