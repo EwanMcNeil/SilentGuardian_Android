@@ -119,7 +119,14 @@ public class SharePreferenceHelper extends AppCompatActivity {
 
         return ThresholdMessage;
     }
-
+    public boolean setTutorialSeen(boolean flag){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("wasTutorialSeen",flag);
+        return editor.commit();
+    }
+    public boolean getTutorialSeen(){
+        return sharedPreferences.getBoolean("wasTutorialSeen",false);
+    }
 
 
 }
