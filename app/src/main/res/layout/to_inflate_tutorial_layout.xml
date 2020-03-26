@@ -36,7 +36,7 @@
         android:layout_marginTop="24dp"
         android:lineSpacingExtra="4sp"
         android:text="TextView"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="@+id/intro_title"
         app:layout_constraintStart_toStartOf="@+id/intro_title"
@@ -52,5 +52,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="SilentGuardians logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

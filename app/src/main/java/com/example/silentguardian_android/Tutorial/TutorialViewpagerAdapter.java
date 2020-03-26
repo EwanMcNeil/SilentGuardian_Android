@@ -7,6 +7,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,16 +35,26 @@ public class TutorialViewpagerAdapter extends PagerAdapter {
         View layoutScreen = inflater.inflate(R.layout.to_inflate_tutorial_layout,null);
 
         ImageView imgSlide = layoutScreen.findViewById(R.id.intro_img);
-//        imgSlide.getLayoutParams().width = 50000;
-//
-//        imgSlide.setLayoutParams(imgSlide.getLayoutParams());
+
+        Animation imageAnim = AnimationUtils.loadAnimation(mContext,R.anim.image_animation_landing);
+        Animation titleAnim= AnimationUtils.loadAnimation(mContext,R.anim.title_animation_landing);
+
+        //Dont know what im doing here
+//        AnimationSet animSet = new AnimationSet(true);
+//        TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, -.75f, 0);
+//        translateAnimation.setDuration(300);
+//        animSet.addAnimation(translateAnimation);
+
+
         TextView title = layoutScreen.findViewById(R.id.intro_title);
         TextView description = layoutScreen.findViewById(R.id.intro_description);
 
         //filling the view
         switch(position){
             case 0:{
-                title.setTextSize(40f);
+               // title.setTextSize(40f);
+                imgSlide.setAnimation(imageAnim);
+                title.setAnimation(titleAnim);
                 break;
             }
         }

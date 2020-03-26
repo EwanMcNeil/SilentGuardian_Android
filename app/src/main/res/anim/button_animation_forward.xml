@@ -11,6 +11,4 @@
                 android:toYDelta="0%"
                 android:duration="700" />
 
-
-
 </set>
