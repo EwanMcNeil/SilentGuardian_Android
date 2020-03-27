@@ -43,11 +43,11 @@ public class TutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //check if its openened before or not
-//        if (new SharePreferenceHelper(this).getTutorialSeen()) {
-//            Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class );
-//            startActivity(mainActivity);
-//            finish();
-//        }
+        if (new SharePreferenceHelper(this).getTutorialSeen()) {
+            Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class );
+            startActivity(mainActivity);
+            finish();
+        }
 
         // make the activity on full screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -61,7 +61,15 @@ public class SharePreferenceHelper extends AppCompatActivity {
 
         editor.commit();
     }
+    public void logIn(/*boolean success*/){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("loggedIn",true);
+    }
 
+    public void logOut(/*boolean success*/){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("loggedIn",false);
+    }
 
 
     //at somepoint use this function
@@ -126,6 +134,10 @@ public class SharePreferenceHelper extends AppCompatActivity {
     }
     public boolean getTutorialSeen(){
         return sharedPreferences.getBoolean("wasTutorialSeen",false);
+    }
+    public boolean hasLoggedIn(){
+
+        return sharedPreferences.getBoolean("loggedIn",false);
     }
 
 

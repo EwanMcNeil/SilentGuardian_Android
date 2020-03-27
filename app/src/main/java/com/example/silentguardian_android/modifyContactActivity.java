@@ -2,6 +2,7 @@ package com.example.silentguardian_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -62,6 +63,7 @@ public class modifyContactActivity extends AppCompatActivity {
                 dbhelper.deletePerson(selectedPerson.getID());
               //  Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, contactActivity.class);
                // startActivity(intentDeletedContactToBubble);
+                modifyContactActivity.this.finish();
             }
         });
 

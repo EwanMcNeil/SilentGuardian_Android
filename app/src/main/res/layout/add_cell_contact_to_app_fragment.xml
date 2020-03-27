@@ -33,6 +33,7 @@
     <Button
         android:id="@+id/addAndroidContactButton"
         android:layout_width="wrap_content"
+        android:background="@drawable/btn_gradient_style"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:text="Import contact"
@@ -45,6 +46,7 @@
         android:id="@+id/cancelAndroidButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/btn_gradient_style"
         android:layout_marginBottom="181dp"
         android:text="@android:string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"

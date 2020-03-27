@@ -89,7 +89,8 @@ public class MainActivity extends AppCompatActivity {
         if (sharePreferenceHelper.userNameReturn() == null) {
             Intent intent = new Intent(MainActivity.this, profileActivity.class);
             startActivity(intent);
-        } else {
+        }
+        else if(!sharePreferenceHelper.hasLoggedIn()){
 
                 InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
                 dialog.setCancelable(false);
@@ -117,14 +118,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
 
     @Override
     protected void onRestart() {
         super.onRestart();
-
     }
 
     @Override
@@ -134,6 +133,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sharePreferenceHelper.logOut();
+    }
 
     ///code for the menu
     @Override
