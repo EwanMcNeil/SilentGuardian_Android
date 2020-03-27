@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sharePreferenceHelper.logOut();
+        sharePreferenceHelper.logOut();//trying to find a way to reset the log in this way
     }
 
     ///code for the menu
