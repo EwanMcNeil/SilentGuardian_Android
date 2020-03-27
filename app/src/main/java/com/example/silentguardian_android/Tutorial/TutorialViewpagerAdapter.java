@@ -2,6 +2,7 @@ package com.example.silentguardian_android.Tutorial;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -61,7 +62,6 @@ public class TutorialViewpagerAdapter extends PagerAdapter {
         title.setText(mListScreen.get(position).getTitle());
         description.setText(mListScreen.get(position).getDescription());
         imgSlide.setImageResource(mListScreen.get(position).getMyPicture());
-
         container.addView(layoutScreen);
         return layoutScreen;
     }
@@ -81,4 +81,6 @@ public class TutorialViewpagerAdapter extends PagerAdapter {
         //super.destroyItem(container, position, object);
         container.removeView((View)object);
     }
+
+
 }
