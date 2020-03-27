@@ -15,12 +15,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
 
 import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
 import com.example.silentguardian_android.fragments.InsertPasswordCheckFragment;
+import com.example.silentguardian_android.fragments.sendMessageFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharePreferenceHelper = new SharePreferenceHelper(this);
+        //initialzing the sentmessage
+        if(sharePreferenceHelper.getMessageSent() == 2){
+            sharePreferenceHelper.setMessageSent(0);
+        }
 
 
 
@@ -103,10 +111,14 @@ public class MainActivity extends AppCompatActivity {
         allclearImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(MainActivity.this, allClearActivity.class);
-                startActivity(intent);
-
+               int recent = sharePreferenceHelper.getMessageSent();
+                if(recent == 1) {
+                    Intent intent = new Intent(MainActivity.this, allClearActivity.class);
+                    startActivity(intent);
+                }else{
+                    sendMessageFragment dialog = new sendMessageFragment();
+                    dialog.show(getSupportFragmentManager(), "sendmessage_fragment");
+                }
             }
         });
 
@@ -130,7 +142,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+     updateAllClearButton();
 
+    }
+
+    public void updateAllClearButton(){
+        int output = sharePreferenceHelper.getMessageSent();
+        setUpText.setText(Integer.toString(output));
+
+        if(output == 0){
+            iAmSafeText.setText("I am in danger");
+            allclearImageButton.setBackgroundResource(R.drawable.indanger);
+
+            //needs to be changed to somthing else
+        }
+        else{
+            iAmSafeText.setText("I am safe");
+            allclearImageButton.setBackgroundResource(R.drawable.i_am_safe_image);
+        }
 
     }
 

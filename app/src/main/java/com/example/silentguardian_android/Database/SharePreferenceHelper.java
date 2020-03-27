@@ -121,5 +121,24 @@ public class SharePreferenceHelper extends AppCompatActivity {
     }
 
 
+    //1 corresponds to a message send
+    //0 corresonds to send the "im safe message"
+    public void setMessageSent(int input){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putInt("messageSent", input);
+
+        editor.commit();
+
+    }
+
+    //if theres nothing 2 will be returned
+    public int getMessageSent(){
+        int output = sharedPreferences.getInt("messageSent",2 );
+
+        return output;
+    }
+
+
 
 }
