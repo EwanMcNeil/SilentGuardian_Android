@@ -31,7 +31,7 @@ public class TutorialActivity extends AppCompatActivity {
     protected ViewPager mScreenPager;
     protected TutorialViewpagerAdapter mTutorialViewpagerAdapter;
     protected TabLayout mTabIndicator;
-    protected Button mButtonNext;
+
     protected int mPosition = 0 ;
     protected Button mButtonGetStarted;
     protected Animation mButtonAnim;
@@ -58,14 +58,10 @@ public class TutorialActivity extends AppCompatActivity {
 
         // hide the action bar
         getSupportActionBar().hide();
-
-        mButtonNext = findViewById(R.id.btn_next);
         mButtonGetStarted = findViewById(R.id.btn_get_started);
         mTabIndicator = findViewById(R.id.tab_indicator);
-
         mButtonAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.button_animation_forward);
         mSkip = findViewById(R.id.tv_skip);
-
 
         LoadViews();
         OnClickListeners();
@@ -114,7 +110,6 @@ public class TutorialActivity extends AppCompatActivity {
         mScreenPager =findViewById(R.id.screen_viewpager);
         mTutorialViewpagerAdapter = new TutorialViewpagerAdapter(this,mList);
         mScreenPager.setAdapter(mTutorialViewpagerAdapter);
-        mScreenPager.setPageTransformer(true, new ZoomOutPageTransformer());
         // setup tablayout with viewpager
         mTabIndicator.setupWithViewPager(mScreenPager);
 
@@ -122,20 +117,6 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     private void OnClickListeners(){
-        mButtonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPosition = mScreenPager.getCurrentItem();
-                if (mPosition < mList.size()) {
-                    mPosition++;
-                    mScreenPager.setCurrentItem(mPosition);
-
-                }
-                if (mPosition == mList.size()-1) { // when we rech to the last screen
-                    loadLastScreen();
-                }
-            }
-        });
         // tablayout add change listener
         mTabIndicator.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
@@ -177,7 +158,7 @@ public class TutorialActivity extends AppCompatActivity {
     }
     private void loadLastScreen() {
 
-        mButtonNext.setVisibility(View.INVISIBLE);
+
         mButtonGetStarted.setVisibility(View.VISIBLE);
         mSkip.setVisibility(View.INVISIBLE);
         mTabIndicator.setVisibility(View.INVISIBLE);
@@ -190,45 +171,6 @@ public class TutorialActivity extends AppCompatActivity {
 
 
 
-    //.setPageTransformer(true, new ZoomOutPageTransformer());
-    public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
-        private static final float MIN_SCALE = 0.85f;
-        private static final float MIN_ALPHA = 0.5f;
-
-        public void transformPage(View view, float position) {
-            int pageWidth = view.getWidth();
-            int pageHeight = view.getHeight();
-
-            if (position < -1) { // [-Infinity,-1)
-                // This page is way off-screen to the left.
-                view.setAlpha(0f);
-
-            } else if (position <= 1) { // [-1,1]
-                // Modify the default slide transition to shrink the page as well
-                float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
-                float vertMargin = pageHeight * (1 - scaleFactor) / 2;
-                float horzMargin = pageWidth * (1 - scaleFactor) / 2;
-                if (position < 0) {
-                    view.setTranslationX(horzMargin - vertMargin / 2);
-                } else {
-                    view.setTranslationX(-horzMargin + vertMargin / 2);
-                }
-
-                // Scale the page down (between MIN_SCALE and 1)
-                view.setScaleX(scaleFactor);
-                view.setScaleY(scaleFactor);
-
-                // Fade the page relative to its size.
-                view.setAlpha(MIN_ALPHA +
-                        (scaleFactor - MIN_SCALE) /
-                                (1 - MIN_SCALE) * (1 - MIN_ALPHA));
-
-            } else { // (1,+Infinity]
-                // This page is way off-screen to the right.
-                view.setAlpha(0f);
-            }
-        }
-    }
 
 
     //////// END
