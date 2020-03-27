@@ -7,21 +7,31 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 import static android.app.Notification.*;
+import static android.content.Intent.getIntent;
+import static java.util.ResourceBundle.getBundle;
 
 public class CheckinService extends Service {
 
+    private static final String TAG = "CheckIn";
+
     private static final String CHANNEL_ID = "NotificationChannelID";
-    public static final int VISIBILITY_PUBLIC = 1;
+    //public static final int VISIBILITY_PUBLIC = 1;
+
+    protected SharePreferenceHelper sharePreferenceHelper;
 
     @Nullable
     @Override
@@ -31,12 +41,45 @@ public class CheckinService extends Service {
 
 
     @Override
-    public int onStartCommand(final Intent intent, int flags, int startId) {
+    public int onStartCommand(Intent intent, int flags, int startId) {
 
-        final Integer[] timeRemaining = {intent.getIntExtra("TimeValue", 0)};
+        sharePreferenceHelper = new SharePreferenceHelper(this);
 
-        final Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        //this is for when there was only seconds, trying to replace this to recieve all three in a bundle
+        //final Integer[] secondTimeRemaining = {intent.getIntExtra("secondTimeValue", 0)};
+
+        Bundle bundle = intent.getExtras();
+
+
+
+        //trying something out
+        //had success in sending the dta through the method with just one value (seconds time)
+        //will try to send the others now
+        final Integer[] secondTimeRemaining = {bundle.getInt("secondTimeValue")};
+
+
+        Log.d(TAG, "Checking total seconds = " +bundle.getInt("secondTimeValue"));
+        //final Integer[] minuteTimeRemaining = {bundle.getInt("minuteTimeValue")};
+        //final Integer[] hourTimeRemaining = {bundle.getInt("hourTimeValue")};
+
+        //trying to recieve the three values in the sent bundle from check in class
+        /*
+        final Integer[] secondTimeRemaining = {intent.getIntExtra("secondTimeValue", 0)};
+        final Integer[] minuteTimeRemaining = {intent.getIntExtra("minuteTimeValue", 0)};
+        final Integer[] hourTimeRemaining = {intent.getIntExtra("hourTimeValue", 0)};
+
+         */
+        Integer Hours = bundle.getInt("secondTimeValue") / 3600;
+        Integer Minutes = ((bundle.getInt("secondTimeValue")) - (Hours*3600)) / 60;
+        Integer Seconds = ((bundle.getInt("secondTimeValue")) - (Hours*3600)) - (Minutes*60);
+        Log.d(TAG, "Checking Hours = " +Hours + " checking minutes = " +Minutes + " checking Seconds = " +Seconds);
+
+
+
+
+        //this is the Seconds Timer
+        final Timer secondstimer = new Timer();
+        secondstimer.scheduleAtFixedRate(new TimerTask() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void run() {
@@ -44,27 +87,26 @@ public class CheckinService extends Service {
                 Intent localintent = new Intent();
                 localintent.setAction("Counter");
 
-                timeRemaining[0]--;
+                secondTimeRemaining[0]--;
 
-                NotificationUpdate(timeRemaining[0]);
+                NotificationUpdate(secondTimeRemaining[0]);
 
-                if(timeRemaining[0] <=0)
+                if(secondTimeRemaining[0] <=0)
                 {
-
-                    timer.cancel();
-
-                    fullScreenNotification();
+                    secondstimer.cancel();
 
                     //this is where you will start another clock ex. 5-10 mins, and if that timer hits 0...
                     //then thats when the app will send the address they saved (within the checkin activity)
                     // to their guardians
                 }
-                localintent.putExtra("TimeRemaining", timeRemaining[0]);
+                localintent.putExtra("TimeRemaining", secondTimeRemaining[0]);
+                //localintent.putExtra("minutesTimeRemaining", minuteTimeRemaining[0]);
+                //localintent.putExtra("hoursTimeRemaining", hourTimeRemaining[0]);
                 sendBroadcast(localintent);
-
             }
-            // dont want any delay, the period is 1000, means 1 second
+            // dont want any delay, the period is 1000ms, means 1 second
         }, 0, 1000);
+
 
 
         return super.onStartCommand(intent, flags, startId);
@@ -111,6 +153,7 @@ public class CheckinService extends Service {
 
     }
 
+    /*
     public void fullScreenNotification()
     {
         Intent fullScreenIntent = new Intent(this, checkInActivity.class);
@@ -127,6 +170,8 @@ public class CheckinService extends Service {
 
 
     }
+
+     */
 
 
 
