@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
 import com.example.silentguardian_android.MainActivity;
 import com.example.silentguardian_android.R;
+import com.example.silentguardian_android.profileActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -43,11 +44,11 @@ public class TutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //check if its openened before or not
-//        if (new SharePreferenceHelper(this).getTutorialSeen()) {
-//            Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class );
-//            startActivity(mainActivity);
-//            finish();
-//        }
+        if (new SharePreferenceHelper(this).getTutorialSeen()) {
+            Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class );
+            startActivity(mainActivity);
+            finish();
+        }
 
         // make the activity on full screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -157,10 +158,10 @@ public class TutorialActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //open main activity
-                Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(mainActivity);
-                SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
-                helper.setTutorialSeen(true);
+                Intent intent = new Intent(getApplicationContext(), profileActivity.class);
+                startActivity(intent);
+                //SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
+              //  helper.setTutorialSeen(true);
                 finish();
 
             }

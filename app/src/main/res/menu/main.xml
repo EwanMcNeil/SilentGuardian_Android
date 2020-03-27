@@ -28,4 +28,9 @@
           android:title="@string/menu_stop"
           android:orderInCategory="101"
         app:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/menu_gotoMain"
+        android:checkable="false"
+        android:orderInCategory="1"
+        android:title="Don't have Device"
+        app:showAsAction="ifRoom" />
 </menu>

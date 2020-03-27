@@ -79,6 +79,7 @@ public class DeviceControlActivity extends Activity {
 
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder service) {
+
             mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
             if (!mBluetoothLeService.initialize()) {
                 Log.e(TAG, "Unable to initialize Bluetooth");
