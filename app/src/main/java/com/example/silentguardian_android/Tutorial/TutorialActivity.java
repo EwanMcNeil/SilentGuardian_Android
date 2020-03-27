@@ -32,7 +32,7 @@ public class TutorialActivity extends AppCompatActivity {
     protected ViewPager mScreenPager;
     protected TutorialViewpagerAdapter mTutorialViewpagerAdapter;
     protected TabLayout mTabIndicator;
-    protected Button mButtonNext;
+
     protected int mPosition = 0 ;
     protected Button mButtonGetStarted;
     protected Animation mButtonAnim;
@@ -59,14 +59,10 @@ public class TutorialActivity extends AppCompatActivity {
 
         // hide the action bar
         getSupportActionBar().hide();
-
-        mButtonNext = findViewById(R.id.btn_next);
         mButtonGetStarted = findViewById(R.id.btn_get_started);
         mTabIndicator = findViewById(R.id.tab_indicator);
-
         mButtonAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.button_animation_forward);
         mSkip = findViewById(R.id.tv_skip);
-
 
         LoadViews();
         OnClickListeners();
@@ -115,7 +111,7 @@ public class TutorialActivity extends AppCompatActivity {
         mScreenPager =findViewById(R.id.screen_viewpager);
         mTutorialViewpagerAdapter = new TutorialViewpagerAdapter(this,mList);
         mScreenPager.setAdapter(mTutorialViewpagerAdapter);
-        mScreenPager.setPageTransformer(true, new ZoomOutPageTransformer());
+        mScreenPager.setPageTransformer(true,new ZoomOutPageTransformer());
         // setup tablayout with viewpager
         mTabIndicator.setupWithViewPager(mScreenPager);
 
@@ -123,20 +119,6 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     private void OnClickListeners(){
-        mButtonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPosition = mScreenPager.getCurrentItem();
-                if (mPosition < mList.size()) {
-                    mPosition++;
-                    mScreenPager.setCurrentItem(mPosition);
-
-                }
-                if (mPosition == mList.size()-1) { // when we rech to the last screen
-                    loadLastScreen();
-                }
-            }
-        });
         // tablayout add change listener
         mTabIndicator.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
@@ -178,7 +160,7 @@ public class TutorialActivity extends AppCompatActivity {
     }
     private void loadLastScreen() {
 
-        mButtonNext.setVisibility(View.INVISIBLE);
+
         mButtonGetStarted.setVisibility(View.VISIBLE);
         mSkip.setVisibility(View.INVISIBLE);
         mTabIndicator.setVisibility(View.INVISIBLE);
@@ -188,10 +170,6 @@ public class TutorialActivity extends AppCompatActivity {
 
     }
 
-
-
-
-    //.setPageTransformer(true, new ZoomOutPageTransformer());
     public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
         private static final float MIN_SCALE = 0.85f;
         private static final float MIN_ALPHA = 0.5f;
@@ -230,6 +208,9 @@ public class TutorialActivity extends AppCompatActivity {
             }
         }
     }
+
+
+
 
 
     //////// END
