@@ -51,11 +51,11 @@
 
     <TextView
         android:id="@+id/iAmSafeTextView"
-        android:layout_width="102dp"
+        android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="10dp"
-        android:text="I AM SAFE"
+        android:text="@string/iAmSafe"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/safeimageButton"
         app:layout_constraintEnd_toEndOf="parent"

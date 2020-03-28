@@ -62,6 +62,25 @@ public class SharePreferenceHelper extends AppCompatActivity {
         editor.commit();
     }
 
+    //function to save language
+    public void saveLanguage( String lang)
+    {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("Language", lang);
+
+        editor.commit();
+    }
+
+    //language getter
+    public String languageReturn(){
+
+        String lang = sharedPreferences.getString("Language", null);
+        if(lang==null)
+            return "en";
+        return lang;
+    }
+
 
 
     //at somepoint use this function
@@ -119,6 +138,7 @@ public class SharePreferenceHelper extends AppCompatActivity {
 
         return ThresholdMessage;
     }
+
 
 
 
