@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -22,6 +23,7 @@ import java.util.TimerTask;
 
 import static android.app.Notification.*;
 import static android.content.Intent.getIntent;
+import static android.content.Intent.makeMainActivity;
 import static java.util.ResourceBundle.getBundle;
 
 public class CheckinService extends Service {
@@ -55,7 +57,23 @@ public class CheckinService extends Service {
         //trying something out
         //had success in sending the dta through the method with just one value (seconds time)
         //will try to send the others now
+
+
+
         final Integer[] secondTimeRemaining = {bundle.getInt("secondTimeValue")};
+        Log.d(TAG, "Checking if i get here = ");
+
+/*
+        if (bundle.getInt("secondTimeValue") ==0)
+        {
+
+            Log.d(TAG, "Checking if i get here = ");
+            Intent newintent = new Intent(CheckinService.this, MainActivity.class);
+            startActivity(newintent);
+        }
+
+ */
+
 
 
         Log.d(TAG, "Checking total seconds = " +bundle.getInt("secondTimeValue"));

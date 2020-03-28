@@ -160,5 +160,25 @@ public class SharePreferenceHelper extends AppCompatActivity {
 
 
 
+    public void saveCheckInAddress(String address)
+    {
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("CheckInAddress", address);
+
+        editor.commit();
+
+    }
+
+
+    public String returnCheckInAddress()
+    {
+
+        String tempCheckinAddress = sharedPreferences.getString("CheckInAddress", null);
+
+        return tempCheckinAddress;
+    }
+
 
 }
