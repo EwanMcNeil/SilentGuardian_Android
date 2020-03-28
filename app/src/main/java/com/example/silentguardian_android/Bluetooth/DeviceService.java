@@ -28,6 +28,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
 import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.messageGPSHelper;
 
@@ -61,7 +62,7 @@ public class DeviceService extends Service {
     private BluetoothGattCharacteristic characteristicTX;
     private BluetoothGattCharacteristic characteristicRX;
     private String[] thresholdOneNumbers;
-    //private String[] thresholdTwoNumbers;
+    private String[] thresholdTwoNumbers;
 
 
     private Timer timerNew = null;
@@ -169,11 +170,18 @@ public class DeviceService extends Service {
         List<Person> thresholdOnePeople;
         thresholdOnePeople = dbHelper.getThresholdOne();
         thresholdOneNumbers = new String[thresholdOnePeople.size()];
-        int i = 0;
-        while(i < thresholdOnePeople.size()){
+
+        for(int i = 0; i < thresholdOnePeople.size(); i++){
             thresholdOneNumbers[i] = thresholdOnePeople.get(i).getPhoneNumber();
-            i++;
         }
+
+        List<Person> thresholdTwoPeople;
+        thresholdTwoPeople = dbHelper.getThresholdOne();
+        thresholdTwoNumbers = new String[thresholdOnePeople.size()];
+        for(int i = 0; i < thresholdTwoPeople.size(); i++){
+            thresholdTwoNumbers[i] = thresholdTwoPeople.get(i).getPhoneNumber();
+        }
+
         super.onCreate();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O)
             startMyOwnForeground();
@@ -295,19 +303,30 @@ public class DeviceService extends Service {
 
 
                 //code for sending one text message
-                if(value == 1 && sendOne == false){
+                if((value == 1 || value == 2) && sendOne == false){
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
 
                             if(sendOne == false) {
                                 messageGPSHelper textHelper = new messageGPSHelper(getApplicationContext());
-                                int size = 0;
-                                textHelper.sendMessage(thresholdOneNumbers[0], "test");
-                                sendOne = true;
+                                SharePreferenceHelper spHelper = new SharePreferenceHelper(getApplicationContext());
+                                if(value==1) {
 
-                           Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                           v.vibrate(100);
+                                    for(int i = 0; i < thresholdOneNumbers.length; i++) {
+                                        textHelper.sendMessage(thresholdOneNumbers[i],spHelper.ThresholdOneMessageReturn());
+                                    }
+                                    sendOne = true;
+                                }
+                                if(value==2) {
+
+                                    for(int i = 0; i < thresholdTwoNumbers.length; i++) {
+                                        textHelper.sendMessage(thresholdTwoNumbers[i],spHelper.ThresholdTwoMessageReturn());
+                                    }
+                                    sendOne = true;
+                                }
+
+
                            Log.i("Count", "=========  "+ (counter++));
                             }
 
@@ -318,19 +337,6 @@ public class DeviceService extends Service {
                 }
 
                 sendOne = false;
-                //SharePreferenceHelper spHelper = new SharePreferenceHelper(getApplicationContext());
-                // String oneMessage = spHelper.ThresholdOneMessageReturn();
-                // String twoMessage = spHelper.ThresholdTwoMessageReturn();
-
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Log.d("ma","charAt(0): " +  Character.getNumericValue(mDataField.getText().charAt(0)));
-//                        if (value != Character.getNumericValue(mDataField.getText().charAt(0)) )
-//                            mDataField.setText(Integer.toString(value));
-//
-//                    }
-//                });
 
             }
         }
