@@ -158,7 +158,7 @@ public class checkInActivity extends AppCompatActivity {
                     intent.putExtras(extras);
 
                     startService(lastcallintent);
-                    
+
  */
 
 
