@@ -132,10 +132,9 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         loadThresholdContactListView();
 
-
+        thresholdTextview.setText("Click the three dots!");
         defineMessageButton.setVisibility(View.GONE);
         add911GuardianButton.setVisibility(View.GONE);
-        thresholdTextview.setVisibility(View.GONE);
         threshHoldContactsListView.setVisibility(View.GONE);
         contactMode = true;
 
@@ -152,10 +151,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         //thresholdVal = 1;  //threshold value is defaulted to One
         loadContactsListView();
         loadThresholdContactListView();
-
-
-        String currentThres = "Guardians in Threshold " + thresholdVal;
-        thresholdTextview.setText(currentThres);
         wholeContactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -328,13 +323,16 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.editmodedropdown:
-                if(contactMode == true){
+                if(contactMode){
 
                     loadContactsListView();
                     thresholdVal = 1;
                     defineMessageButton.setVisibility(View.VISIBLE);
                     add911GuardianButton.setVisibility(View.VISIBLE);
                     thresholdTextview.setVisibility(View.VISIBLE);
+                    String currentThres = "Guardians Level " + thresholdVal;
+                    thresholdTextview.setText(currentThres);
+                    thresholdTextview.setBackground(null);
                     threshHoldContactsListView.setVisibility(View.VISIBLE);
                     contactMode =false;
                     addContactButton.setVisibility(View.GONE);
@@ -345,7 +343,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 else{
                     defineMessageButton.setVisibility(View.GONE);
                     add911GuardianButton.setVisibility(View.GONE);
-                    thresholdTextview.setVisibility(View.GONE);
+                    //thresholdTextview.setVisibility(View.GONE);
                     threshHoldContactsListView.setVisibility(View.GONE);
                     contactMode = true;
                     addContactButton.setVisibility(View.VISIBLE);
