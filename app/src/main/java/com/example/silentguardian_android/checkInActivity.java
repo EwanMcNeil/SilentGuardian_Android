@@ -77,9 +77,6 @@ public class checkInActivity extends AppCompatActivity {
         minuteEditText = findViewById(R.id.minutesEditText);
         hourEditText = findViewById(R.id.hourEditText);
 
-        secondTextView = findViewById(R.id.secondsTextView);
-        minuteTextView = findViewById(R.id.minuteTextView);
-        hourTextView = findViewById(R.id.hourTextView);
 
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
@@ -131,6 +128,9 @@ public class checkInActivity extends AppCompatActivity {
                             SMSHelper.sendMessage(temp,message);
 
                             Log.d(TAG, "Missed Check-in messages " + i + " has been sent. ");
+                            hourEditText.setText("");//TODO used to crash because there was no reset of the editTExt
+                            minuteEditText.setText("");
+                            secondEditText.setText("");
                         }
                     }
 
@@ -142,7 +142,7 @@ public class checkInActivity extends AppCompatActivity {
                 //this is where i will set a function to check if the user timer has gone off
                 //if it has, i still start a new timer that will be 5-10 mins, if they fail to hit the i am safe within this clock, the message will
                 //send out.
-                if( Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==false)
+                if( Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==false)//hum
                 {
                     //remember to make in onDestroy to clear this
                     userTimerDone = true;
@@ -182,102 +182,95 @@ public class checkInActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-               // Hours = hourEditText.getText().toString();
-               // Minutes = minuteEditText.getText().toString();
-               // Seconds = secondEditText.getText().toString();
+                // Hours = hourEditText.getText().toString();
+                // Minutes = minuteEditText.getText().toString();
+                // Seconds = secondEditText.getText().toString();
 
-               // sharePreferenceHelper.saveTime(Hours ,Minutes,Seconds);
+                // sharePreferenceHelper.saveTime(Hours ,Minutes,Seconds);
                 //TimerStartClicked = 1;
 
                 //working on clicking on clock instead of inputing time manually
                 //DialogFragment timePicker = new TimePickerFragment();
-               //timePicker.show(getSupportFragmentManager(),"Time Picker");
+                //timePicker.show(getSupportFragmentManager(),"Time Picker");
 
 
                 // this is where i need to add the other numbers as well, commenting this for now
-               // Intent intent = new Intent(checkInActivity.this, CheckinService.class);
-
-                Hours = Integer.parseInt(hourEditText.getText().toString());
-                Minutes = Integer.parseInt(minuteEditText.getText().toString());
-                Seconds = Integer.parseInt(secondEditText.getText().toString());
-
-                 Integer secondIntegerTimeSet = null;
-
-                Log.d(TAG, "Checking units, hours = " + Hours + ", Minutes = " + Minutes + ", Seconds = " + Seconds);
+                // Intent intent = new Intent(checkInActivity.this, CheckinService.class);
 
 
-                miliHours = Hours * 3600;
-                miliMinutes = Minutes * 60;
-                Log.d(TAG, "Checking units, milihours = " + miliHours + ", miliMinutes = " + miliMinutes );
+                if (!hourEditText.getText().toString().matches("")//at least one must be good
+                    || !minuteEditText.getText().toString().matches("")
+                    || !secondEditText.getText().toString().matches(""))
+                {//dont really need the main check, it s just send a toast user presses start timer without indicating a time
+
+                    //set to zero when nothing was written
+                    Hours = hourEditText.getText().toString().matches("") ? 0 : Integer.parseInt(hourEditText.getText().toString());
+                    Minutes = minuteEditText.getText().toString().matches("") ? 0 : Integer.parseInt(minuteEditText.getText().toString());
+                    Seconds = secondEditText.getText().toString().matches("") ? 0 : Integer.parseInt(secondEditText.getText().toString());
+
+                    Integer secondIntegerTimeSet = 0;
+
+                    Log.d(TAG, "Checking units, hours = " + Hours + ", Minutes = " + Minutes + ", Seconds = " + Seconds);
+
+
+                    miliHours = Hours * 3600;
+                    miliMinutes = Minutes * 60;
+                    Log.d(TAG, "Checking units, milihours = " + miliHours + ", miliMinutes = " + miliMinutes);
 
                     //need if statements to check is amy textviews are null, as of now the app crashes
-
-                if( miliHours!=0 & miliMinutes!=0 & Seconds!=0)
-                {
-                     secondIntegerTimeSet = Seconds + miliMinutes + miliHours;
-                }
-                else if (miliHours==0)
-                {
-                     secondIntegerTimeSet = Seconds + miliMinutes;
-                }
-                else if (miliMinutes==0)
-                {
-                    secondIntegerTimeSet = Seconds + miliHours;
-                }
-                else if (Seconds==0)
-                {
-                     secondIntegerTimeSet = miliHours + miliMinutes;
-                }
-                else if (miliHours==0 & miliMinutes==0)
-                {
-                    secondIntegerTimeSet = Seconds;
-                }
-                else if (miliHours==0 & Seconds==0)
-                {
-                     secondIntegerTimeSet = miliMinutes;
-                }
-                else if (miliMinutes==0 & Seconds==0)
-                {
-                    secondIntegerTimeSet = miliHours;
-                }
-                else if (miliHours==0 & miliMinutes==0 & Seconds==0)
-                {
-                    secondIntegerTimeSet = 0;
-                    Log.d(TAG, "Total seconds  = " + secondIntegerTimeSet );
-                }
+                    secondIntegerTimeSet = Seconds + miliMinutes + miliHours;
+//                    if (miliHours != 0 & miliMinutes != 0 & Seconds != 0) {
+//                        secondIntegerTimeSet = Seconds + miliMinutes + miliHours;
+//                    } else if (miliHours == 0) {//
+//                        secondIntegerTimeSet = Seconds + miliMinutes;
+//                    } else if (miliMinutes == 0) {
+//                        secondIntegerTimeSet = Seconds + miliHours;
+//                    } else if (Seconds == 0) {
+//                        secondIntegerTimeSet = miliHours + miliMinutes;
+//                    } else if (miliHours == 0 & miliMinutes == 0) {
+//                        secondIntegerTimeSet = Seconds;
+//                    } else if (miliHours == 0 & Seconds == 0) {
+//                        secondIntegerTimeSet = miliMinutes;
+//                    } else if (miliMinutes == 0 & Seconds == 0) {
+//                        secondIntegerTimeSet = miliHours;
+//                    } else if (miliHours == 0 & miliMinutes == 0 & Seconds == 0) {
+//                        secondIntegerTimeSet = 0;
+                        Log.d(TAG, "Total seconds  = " + secondIntegerTimeSet);
+//                    }
 
 
-
-                //Integer secondIntegerTimeSet = Seconds + miliMinutes + miliHours;
-                Log.d(TAG, "Total seconds  = " + secondIntegerTimeSet );
-                //Integer secondIntegerTimeSet = Seconds;
-
-
-///////////////////////// this line needs to be uncommented in order to send the seconds
-              //Integer secondIntegerTimeSet = Integer.parseInt(secondEditText.getText().toString());
-
-                //Integer minuteIntegerTimeSet = Integer.parseInt(minuteEditText.getText().toString());
-               // Integer hourIntegerTimeSet = Integer.parseInt(hourEditText.getText().toString());
+                    //Integer secondIntegerTimeSet = Seconds + miliMinutes + miliHours;
+                    Log.d(TAG, "Total seconds  = " + secondIntegerTimeSet);
+                    //Integer secondIntegerTimeSet = Seconds;
 
 
-                //intent.putExtra("secondTimeValue", secondIntegerTimeSet );
-                //intent.putExtra("minuteTimeValue", minuteIntegerTimeSet );
-                //intent.putExtra("hourTimeValue", hourIntegerTimeSet );
+    ///////////////////////// this line needs to be uncommented in order to send the seconds
+                    //Integer secondIntegerTimeSet = Integer.parseInt(secondEditText.getText().toString());
+
+                    //Integer minuteIntegerTimeSet = Integer.parseInt(minuteEditText.getText().toString());
+                    // Integer hourIntegerTimeSet = Integer.parseInt(hourEditText.getText().toString());
 
 
-                Intent intent = new Intent(checkInActivity.this, CheckinService.class);
-                Bundle extras = new Bundle();
-
-                //extras.putInt("TimerStartClicked",TimerStartClicked);
-
-                extras.putInt("secondTimeValue",secondIntegerTimeSet);
-                //extras.putInt("minuteTimeValue",minuteIntegerTimeSet);
-                //extras.putInt("hourTimeValue",hourIntegerTimeSet);
-                intent.putExtras(extras);
+                    //intent.putExtra("secondTimeValue", secondIntegerTimeSet );
+                    //intent.putExtra("minuteTimeValue", minuteIntegerTimeSet );
+                    //intent.putExtra("hourTimeValue", hourIntegerTimeSet );
 
 
-                startService(intent);
-                //startActivity(intent);
+                    Intent intent = new Intent(checkInActivity.this, CheckinService.class);
+                    Bundle extras = new Bundle();
+
+                    //extras.putInt("TimerStartClicked",TimerStartClicked);
+
+                    extras.putInt("secondTimeValue", secondIntegerTimeSet);
+                    //extras.putInt("minuteTimeValue",minuteIntegerTimeSet);
+                    //extras.putInt("hourTimeValue",hourIntegerTimeSet);
+                    intent.putExtras(extras);
+
+
+                    startService(intent);
+                    //startActivity(intent);
+                }else Toast.makeText(getApplicationContext(), "No time indicated!", Toast.LENGTH_SHORT).show();
+
             }
         });
 
