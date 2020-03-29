@@ -10,8 +10,14 @@
 
     <Button
         android:id="@+id/freshAddContactButton"
-        android:layout_width="170dp"
-        android:layout_height="35dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
+        android:layout_weight="1"
         android:background="@drawable/btn_gradient_style"
         android:text="Add Contact"
         app:layout_constraintBottom_toTopOf="@+id/guideline21"
@@ -21,8 +27,9 @@
 
     <TextView
         android:id="@+id/bubbleTextView"
-        android:layout_width="139dp"
-        android:layout_height="59dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:text="All Contacts:"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/guideline18"
@@ -32,19 +39,27 @@
 
     <TextView
         android:id="@+id/thresholdEditText"
-        android:layout_width="119dp"
-        android:layout_height="63dp"
-        android:text="people in threhold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Your Guardians"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/guideline18"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline19"
         app:layout_constraintTop_toTopOf="@+id/guideline17" />
 
     <Button
         android:id="@+id/defineMessageButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
+        android:layout_weight="1"
         android:background="@drawable/btn_gradient_style"
         android:text="Define message"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,8 +70,9 @@
 
     <ListView
         android:id="@+id/wholecontactsListView"
-        android:layout_width="184dp"
-        android:layout_height="381dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/guideline20"
         app:layout_constraintEnd_toStartOf="@+id/guideline19"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,8 +80,9 @@
 
     <ListView
         android:id="@+id/thresholdContactsListView"
-        android:layout_width="184dp"
-        android:layout_height="383dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/guideline20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline19"
@@ -73,8 +90,14 @@
 
     <Button
         android:id="@+id/importContactButton"
-        android:layout_width="186dp"
-        android:layout_height="43dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
+        android:layout_weight="1"
         android:background="@drawable/btn_gradient_style"
         android:text="Import Contacts"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -84,10 +107,18 @@
 
     <Button
         android:id="@+id/add911Button"
-        android:layout_width="194dp"
-        android:layout_height="74dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
+        android:layout_weight="1"
         android:background="@drawable/btn_gradient_style"
-        android:text="Click Here to add 911 as a guardian!"
+        android:text="Add 911 as a guardian!"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline21"
         app:layout_constraintEnd_toStartOf="@+id/guideline19"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline20" />
@@ -118,7 +149,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.78659374" />
+        app:layout_constraintGuide_percent="0.7" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline21"
