@@ -132,7 +132,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         loadThresholdContactListView();
 
-        thresholdTextview.setText("Click the three dots!");
+
         defineMessageButton.setVisibility(View.GONE);
         add911GuardianButton.setVisibility(View.GONE);
         threshHoldContactsListView.setVisibility(View.GONE);
@@ -143,7 +143,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        thresholdTextview.setText("Click the three dots!");//reseting textview
         //on start these buttons should be gone
 
 
@@ -221,9 +221,15 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 Log.d(TAG, "police contact has been placed ");
             }
         });
-
     }
-        public void loadContactsListView() {
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        thresholdTextview.setText("Click the three dots!");//reseting textview
+    }
+
+    public void loadContactsListView() {
 
             DatabaseHelper dbhelper = new DatabaseHelper(this);
             List<Person> people = dbhelper.getAllPeople();
@@ -343,7 +349,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 else{
                     defineMessageButton.setVisibility(View.GONE);
                     add911GuardianButton.setVisibility(View.GONE);
-                    //thresholdTextview.setVisibility(View.GONE);
+                    thresholdTextview.setText("Click the three dots!");//reseting textview
                     threshHoldContactsListView.setVisibility(View.GONE);
                     contactMode = true;
                     addContactButton.setVisibility(View.VISIBLE);
