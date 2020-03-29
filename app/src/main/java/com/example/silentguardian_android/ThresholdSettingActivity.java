@@ -164,9 +164,28 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putInt("contactSelected", mainList.get(position).getID());
                     bundle.putInt("ThresholdNumber", thresholdVal);
-                    setContactToThresholdFragment dialog = new setContactToThresholdFragment();
-                    dialog.setArguments(bundle);
-                    dialog.show(getSupportFragmentManager(), "insertContactFragment");
+                    //TODO DELETE setContactToThresholdFragment
+                    /*setContactToThresholdFragment dialog = new setContactToThresholdFragment();
+                   dialog.setArguments(bundle);
+                   dialog.show(getSupportFragmentManager(), "insertContactFragment");*/
+
+                    //directly add to guardians, it s more intuitive,
+                    Person selectedPerson = mainList.get(position);
+                    String name = selectedPerson.getName();
+                    String number = selectedPerson.getPhoneNumber();
+
+                    Person tempPerson = new Person(null, null);
+                    //its making me intialize like this may cause issues
+                    if(thresholdVal == 1) {
+                        tempPerson = new Person(selectedPerson.getID(), name, number, 1, selectedPerson.getThresholdTwo());
+                    } else if (thresholdVal == 2){
+                        tempPerson = new Person(selectedPerson.getID(), name, number, selectedPerson.getThresholdOne(), 1);
+                    }
+
+                    DatabaseHelper dbhelper = new DatabaseHelper(getApplicationContext());
+                    dbhelper.updatePerson(tempPerson);
+                    loadThresholdContactListView();
+
                 }
                 else{
                     Intent intent = new Intent(ThresholdSettingActivity.this, modifyContactActivity.class);

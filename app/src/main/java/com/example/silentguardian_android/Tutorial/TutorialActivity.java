@@ -95,7 +95,7 @@ public class TutorialActivity extends AppCompatActivity {
 
         //introduce guardians/bubble concept
         mList.add(new MyImage("Designate your Guardians",
-                "Create up to two separate groups of contacts, your Guardians, to reach in case of emergencies.",R.mipmap.group1_2_tutorial));
+                "Create up to two separate groups of contacts, i.e. your Guardians in two distinct Guardian Levels, to reach in case of emergencies.",R.mipmap.group1_2_tutorial));
 
         //describe activation
         mList.add(new MyImage("Let your guardians know where you are, when you need it.",
