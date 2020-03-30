@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
-import com.example.silentguardian_android.Database.SharePreferenceHelper;
 import com.example.silentguardian_android.fragments.Insert911GuardiansInfoFragment;
 import com.example.silentguardian_android.fragments.InsertThresholdMessageDialogFragment;
 import com.example.silentguardian_android.fragments.deleteContactFromThresholdFragment;
@@ -56,9 +55,9 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     //from contact activity
     protected Button addContactButton;
     protected Button importContactsButton;
-    protected Button doneButton;
+
     protected Boolean contactMode;
-    protected Boolean firstTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,41 +65,12 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_threshold_setting);
 
-        firstTime = false;
-        doneButton = findViewById(R.id.doneContactButton);
+
+
         //from contact Actvitity
         addContactButton = findViewById(R.id.freshAddContactButton);
         importContactsButton = findViewById(R.id.importContactButton);
 
-//        if(!(new SharePreferenceHelper(getApplicationContext()).getTutorialSeen())) {
-//            Intent intent = new Intent(getApplicationContext(),ThresholdSettingActivity.class );
-//            startActivity(intent);
-//            finish();
-//        }
-
-        doneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(contactMode == true && !(new SharePreferenceHelper(getApplicationContext()).getTutorialSeen()) ){
-
-                    loadContactsListView();
-                    thresholdVal = 1;
-                    defineMessageButton.setVisibility(View.VISIBLE);
-                    add911GuardianButton.setVisibility(View.VISIBLE);
-                    thresholdEditText.setVisibility(View.VISIBLE);
-                    threshHoldContactsListView.setVisibility(View.VISIBLE);
-                    contactMode =false;
-                    addContactButton.setVisibility(View.GONE);
-                    importContactsButton.setVisibility(View.GONE);
-
-                }
-                if(contactMode == false && !(new SharePreferenceHelper(getApplicationContext()).getTutorialSeen())){
-                    Intent intent = new Intent(getApplicationContext(),BluetoothMainActivity.class );
-                    startActivity(intent);
-
-                }
-            }
-        });
 
         addContactButton.setOnClickListener(new View.OnClickListener() {
             @Override
