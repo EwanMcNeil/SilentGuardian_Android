@@ -67,12 +67,12 @@ public class deleteContactFromThresholdFragment extends DialogFragment {
                 String name = selectedPerson.getName();
                 String number = selectedPerson.getPhoneNumber();
 
-                Person tempPerson = new Person(null, null);
+                Person tempPerson;
                 //its making me intialize like this may cause issues
                 if(thresholdVal == 1) {
-                    tempPerson = new Person(selectedPerson.getID(), name, number, 0, selectedPerson.getThresholdTwo());
-                } else if (thresholdVal == 2){
-                    tempPerson = new Person(selectedPerson.getID(), name, number, selectedPerson.getThresholdOne(), 0);
+                    tempPerson = new Person(selectedPerson.getID(), name, number, 1,0);
+                } else{
+                    tempPerson = new Person(selectedPerson.getID(), name, number, 0, 1);
                 }
 
                 DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
