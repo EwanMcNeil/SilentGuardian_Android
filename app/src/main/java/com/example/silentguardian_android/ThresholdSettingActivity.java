@@ -359,15 +359,19 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 }
                 return true;
             case R.id.changeThresholddropdown:
+                //update textview
+
                 if (thresholdVal == 1) {
                     thresholdVal = 2;
-                } else {
+                    item.setTitle("Edit Level 1");
+                } else if (thresholdVal == 2){
                     thresholdVal = 1;
+                    item.setTitle("Edit Level 2");
                 }
 
-                //update textview
                 String currentThres = "Guardians Level " + thresholdVal;
                 thresholdTextview.setText(currentThres);
+
 
                 loadThresholdContactListView();
 
