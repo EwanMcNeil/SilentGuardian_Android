@@ -68,8 +68,7 @@ public class deleteContactFromThresholdFragment extends DialogFragment {
         DeleteFromThresholdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //trying to reload but if i have already clicked...
-                ((ThresholdSettingActivity)getActivity()).loadThresholdContactListView();
+
 
                 String name = selectedPerson.getName();
                 String number = selectedPerson.getPhoneNumber();

@@ -289,13 +289,13 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                     if (people.get(i).getThresholdOne() == 1) //because threshold One is set to One if they are added to list(boolean but int)
                     {
                         contactListText.add(temp);
-                        if(!thresholdList.contains(tempPerson))
+                        //if(!thresholdList.contains(tempPerson))
                             thresholdList.add(tempPerson);
                     }
                 } if (thresholdVal == 2) {
                     if (people.get(i).getThresholdTwo() == 1) {
                         contactListText.add(temp);
-                        //thresholdList.add(tempPerson);
+                        thresholdList.add(tempPerson);
                     }
                 }
 
