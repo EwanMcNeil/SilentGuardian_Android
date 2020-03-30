@@ -33,6 +33,7 @@ import com.example.silentguardian_android.fragments.InsertThresholdMessageDialog
 import com.example.silentguardian_android.fragments.deleteContactFromThresholdFragment;
 import com.example.silentguardian_android.fragments.insertContactDialogFragment;
 import com.example.silentguardian_android.fragments.loadCellPhoneContact_fragment;
+import com.example.silentguardian_android.fragments.setContactToThresholdFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -164,16 +165,19 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
 
                 if(!contactMode) {//if you are adding contact to guardians level (threshold)
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("contactSelected", mainList.get(position).getID());
-                    Log.d("__ThresACt","contact added id: " +mainList.get(position).getID() );
-                    bundle.putInt("ThresholdNumber", thresholdVal);
-                    //TODO DELETE setContactToThresholdFragment
-                    /*setContactToThresholdFragment dialog = new setContactToThresholdFragment();
-                   dialog.setArguments(bundle);
-                   dialog.show(getSupportFragmentManager(), "insertContactFragment");*/
 
-                    //directly add to guardians list, it s more intuitive,
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt("contactSelected", mainList.get(position).getID());
+//                    Log.d("__ThresACt","contact added id: " +mainList.get(position).getID() );
+//                    bundle.putInt("ThresholdNumber", thresholdVal);
+//                    //TODO DELETE setContactToThresholdFragment
+//                    setContactToThresholdFragment dialog = new setContactToThresholdFragment();
+//                   dialog.setArguments(bundle);
+//                   dialog.show(getSupportFragmentManager(), "insertContactFragment");
+
+
+                    //TODO directly add to guardians list, it s more intuitive,
+                    loadContactsListView();//To reload mainlist from database
                     Person selectedPerson = mainList.get(position);
                     String name = selectedPerson.getName();
                     String number = selectedPerson.getPhoneNumber();
@@ -182,7 +186,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                     //its making me intialize like this may cause issues
                     if(thresholdVal == 1) {
                         tempPerson = new Person(selectedPerson.getID(), name, number, 1, selectedPerson.getThresholdTwo());
-                    } else if (thresholdVal == 2){
+                    } if (thresholdVal == 2){
                         tempPerson = new Person(selectedPerson.getID(), name, number, selectedPerson.getThresholdOne(), 1);
                     }
 
@@ -209,7 +213,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 deleteContactFromThresholdFragment dialog = new deleteContactFromThresholdFragment();
                 dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "insertContactFragment");
-                loadThresholdContactListView();
+                //loadThresholdContactListView();
 
             }
         });
@@ -240,7 +244,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadThresholdContactListView();
+        //loadThresholdContactListView();
 
     }
 
@@ -291,13 +295,13 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 Person tempPerson = new Person(people.get(i).getID(), people.get(i).getName(), people.get(i).getPhoneNumber(), people.get(i).getThresholdOne(), people.get(i).getThresholdTwo());
                 temp += people.get(i).getName() + '\n';
                 temp += people.get(i).getPhoneNumber() + '\n';
-                Log.d("__DbHelper",temp);
+                Log.d("__threshAc",temp+"\nT1: "+tempPerson.getThresholdOne()
+                        +"\nT2: "+tempPerson.getThresholdTwo());
                 if (thresholdVal == 1) {
                     if (people.get(i).getThresholdOne() == 1) //because threshold One is set to One if they are added to list(boolean but int)
                     {
                         contactListText.add(temp);
-                        //if(!thresholdList.contains(tempPerson))
-                            thresholdList.add(tempPerson);
+                        thresholdList.add(tempPerson);
                     }
                 } if (thresholdVal == 2) {
                     if (people.get(i).getThresholdTwo() == 1) {
@@ -388,6 +392,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
 
                 }
+                loadThresholdContactListView();
                 return true;
             case R.id.changeThresholddropdown:
                 //update textview
@@ -402,8 +407,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
                 String currentThres = "Guardians Level " + thresholdVal;
                 thresholdTextview.setText(currentThres);
-
-
                 loadThresholdContactListView();
 
                 return true;
