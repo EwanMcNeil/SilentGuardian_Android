@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected ImageButton thresholdimageButton;
     protected ImageButton allclearImageButton;
+    protected Button CheckInButton;
     protected SharePreferenceHelper sharePreferenceHelper;
     protected TextView iAmSafeText;
     protected TextView setUpText;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         thresholdimageButton = findViewById(R.id.thresholdimageButton);
         allclearImageButton = findViewById(R.id.safeimageButton);
+        CheckInButton = findViewById(R.id.checkInButton);
         iAmSafeText = findViewById(R.id.iAmSafeTextView);
         setUpText = findViewById(R.id.setUpTextView);
 
@@ -110,6 +112,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+       CheckInButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+               Intent intent = new Intent(MainActivity.this, checkInActivity.class);
+               startActivity(intent);
+           }
+       });
 
 
     }

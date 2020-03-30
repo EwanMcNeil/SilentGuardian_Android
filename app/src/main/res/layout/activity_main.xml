@@ -78,5 +78,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/safeimageButton" />
 
+    <Button
+        android:id="@+id/checkInButton"
+        android:layout_width="112dp"
+        android:layout_height="58dp"
+        android:text="Check- in"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="625dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

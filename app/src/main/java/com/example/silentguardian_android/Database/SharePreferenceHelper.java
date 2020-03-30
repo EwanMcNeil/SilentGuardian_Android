@@ -140,5 +140,64 @@ public class SharePreferenceHelper extends AppCompatActivity {
         return sharedPreferences.getBoolean("loggedIn",false);
     }
 
+    //in order to pass several time values, because bundles is not working
+    public void saveTime(String hours, String minutes, String seconds)
+    {
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("Hours", hours);
+        editor.putString("Minutes",minutes);
+        editor.putString("Seconds",seconds);
+
+        editor.commit();
+
+    }
+
+    public Integer ReturnHoursSet()
+    {
+       Integer Hours = Integer.parseInt(sharedPreferences.getString("Hours", null));
+
+        return Hours;
+    }
+
+    public Integer ReturnMinutesSet()
+    {
+        Integer Minutes = Integer.parseInt(sharedPreferences.getString("Minutes", null));
+
+        return Minutes;
+
+    }
+
+    public Integer ReturnSecondsSet()
+    {
+        Integer Seconds = Integer.parseInt(sharedPreferences.getString("Seconds", null));
+
+        return Seconds;
+
+    }
+
+
+
+    public void saveCheckInAddress(String address)
+    {
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("CheckInAddress", address);
+
+        editor.commit();
+
+    }
+
+
+    public String returnCheckInAddress()
+    {
+
+        String tempCheckinAddress = sharedPreferences.getString("CheckInAddress", null);
+
+        return tempCheckinAddress;
+    }
+
 
 }
