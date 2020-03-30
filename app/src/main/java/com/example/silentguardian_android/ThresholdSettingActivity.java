@@ -129,7 +129,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
 
 
-
+        loadContactsListView();
         loadThresholdContactListView();
 
 
@@ -155,16 +155,18 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if(contactMode == false) {
+
+                if(!contactMode) {//if you are adding contact to guardians level (threshold)
                     Bundle bundle = new Bundle();
                     bundle.putInt("contactSelected", mainList.get(position).getID());
+                    Log.d("__ThresACt","contact added id: " +mainList.get(position).getID() );
                     bundle.putInt("ThresholdNumber", thresholdVal);
                     //TODO DELETE setContactToThresholdFragment
                     /*setContactToThresholdFragment dialog = new setContactToThresholdFragment();
                    dialog.setArguments(bundle);
                    dialog.show(getSupportFragmentManager(), "insertContactFragment");*/
 
-                    //directly add to guardians, it s more intuitive,
+                    //directly add to guardians list, it s more intuitive,
                     Person selectedPerson = mainList.get(position);
                     String name = selectedPerson.getName();
                     String number = selectedPerson.getPhoneNumber();
@@ -193,12 +195,14 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         threshHoldContactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Bundle bundle = new Bundle();
                 bundle.putInt("contactSelected", thresholdList.get(position).getID());
                 bundle.putInt("ThresholdNumber", thresholdVal);
                 deleteContactFromThresholdFragment dialog = new deleteContactFromThresholdFragment();
                 dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "insertContactFragment");
+                loadThresholdContactListView();
 
             }
         });
@@ -210,6 +214,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         add911GuardianButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Insert911GuardiansInfoFragment dialog = new Insert911GuardiansInfoFragment();
 
                 dialog.show(getSupportFragmentManager(), "Insert911GuardiansInfoFragment");
@@ -219,6 +225,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
                 dbhelper.insertPerson(new Person("Police", "123", 0, 1));
                 Log.d(TAG, "police contact has been placed ");
+
             }
         });
     }
@@ -226,8 +233,10 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        thresholdTextview.setText("Click the three dots!");//reseting textview
+        loadThresholdContactListView();
+
     }
+
 
     public void loadContactsListView() {
 
@@ -264,30 +273,32 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         public void loadThresholdContactListView () {
             DatabaseHelper dbhelper = new DatabaseHelper(this);
             List<Person> people = dbhelper.getAllPeople();
-          //  mainList = people;
-
+            //clearing the list
+            while(!thresholdList.isEmpty())
+                thresholdList.remove(0);
             ArrayList<String> contactListText = new ArrayList<>();
 
-            //ArrayList<Person> tempContactLost = new ArrayList<>();
-
+            Log.d("__DbHelper","ThresholdListView");
             for (int i = 0; i < people.size(); i++) {
                 String temp = "";
                 Person tempPerson = new Person(people.get(i).getID(), people.get(i).getName(), people.get(i).getPhoneNumber(), people.get(i).getThresholdOne(), people.get(i).getThresholdTwo());
                 temp += people.get(i).getName() + '\n';
                 temp += people.get(i).getPhoneNumber() + '\n';
-
+                Log.d("__DbHelper",temp);
                 if (thresholdVal == 1) {
                     if (people.get(i).getThresholdOne() == 1) //because threshold One is set to One if they are added to list(boolean but int)
                     {
                         contactListText.add(temp);
-                        thresholdList.add(tempPerson);
+                        if(!thresholdList.contains(tempPerson))
+                            thresholdList.add(tempPerson);
                     }
-                } else if (thresholdVal == 2) {
+                } if (thresholdVal == 2) {
                     if (people.get(i).getThresholdTwo() == 1) {
                         contactListText.add(temp);
-                        thresholdList.add(tempPerson);
+                        //thresholdList.add(tempPerson);
                     }
                 }
+
 
             }
 

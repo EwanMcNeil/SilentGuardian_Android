@@ -168,10 +168,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     return people;
                 }
             }
-        }
-
-
-        catch (SQLException e){
+        }catch (SQLException e){
 
             Log.d(TAG, "EXCEPTION" + e);
             Toast.makeText(context, "OPERATION FAILED: " + e, Toast.LENGTH_LONG).show();
@@ -240,8 +237,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //deletes a course from the database tables
     public void deletePerson(long id){
         SQLiteDatabase db = this.getReadableDatabase();
+        Log.d("__dbHelper","Db delete: "+
         db.delete(Config.COURSE_TABLE_NAME,Config.COLUMN_PERSON_ID+ " = ?",
-                new String[] { String.valueOf(id)});
+                new String[] { String.valueOf(id)}));
 
     }
 
@@ -249,10 +247,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-
+        contentValues.put(Config.COLUMN_PERSON_ID, person.getID());
         contentValues.put(Config.COLUMN_PERSON_NAME, person.getName());
         contentValues.put(Config.COLUMN_PERSON_NUMBER, person.getPhoneNumber());
-
         contentValues.put(Config.COLUMN_PERSON_THESHOLD_ONE, person.getThresholdOne());
         contentValues.put(Config.COLUMN_PERSON_THESHOLD_TWO, person.getThresholdTwo());
 
