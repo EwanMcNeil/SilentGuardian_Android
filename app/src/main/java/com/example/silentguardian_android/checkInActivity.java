@@ -51,9 +51,10 @@ public class checkInActivity extends AppCompatActivity {
 
     protected Integer miliHours;
     protected Integer miliMinutes;
-    protected Boolean TimerRunning;
+    protected Boolean TimerRunning = false;
     protected Boolean userTimerDone=false;
     protected Boolean iAmSafe=false;
+    protected Boolean resetValue = false;
 
     protected messageGPSHelper SMSHelper;
 
@@ -95,6 +96,18 @@ public class checkInActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
 
+
+
+                if(resetValue ==true)
+                {
+                    hourEditText.setText(null);
+                    minuteEditText.setText(null);
+                    secondEditText.setText(null);
+                    context.stopService(intent);
+                }
+
+
+
                 Integer Hours = (intent.getIntExtra("TimeRemaining", 0)) / 3600;
                 hourEditText.setText(Hours.toString() + "   :");
                 Log.d(TAG, "Checking  final Hours = " + Hours);
@@ -109,13 +122,20 @@ public class checkInActivity extends AppCompatActivity {
 
                 if(Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==true)
                 {
-                    if(iAmSafe = false)
+                    Log.d(TAG, "Entered the last loop ");
+
+                    if(iAmSafe == false)
                     {
                         //creating db object to use the functions
                         DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
                         List<Person> people = dbhelper.getThresholdOne();
 
+                       // if (!sharePreferenceHelper.returnCheckInAddress().toString().matches(""))
+                        //{
 
+
+                        Log.d(TAG, "texting address loop ");
+                        //}
                         ////create loop that will message the "I am Safe" message to all guardians who are in threshold one
                         for(int i = 0;i < people.size(); i++ ){
 
@@ -125,12 +145,15 @@ public class checkInActivity extends AppCompatActivity {
 
                             String message ="Please call or text me, I have missed my Check-in with Silent Guardians, I was heading to this location: " + sharePreferenceHelper.returnCheckInAddress() +".";
 
+                            //change this back to sendMessage after testing
                             SMSHelper.sendMessage(temp,message);
 
                             Log.d(TAG, "Missed Check-in messages " + i + " has been sent. ");
                             hourEditText.setText("");//TODO used to crash because there was no reset of the editTExt
                             minuteEditText.setText("");
                             secondEditText.setText("");
+
+
                         }
                     }
 
@@ -149,20 +172,7 @@ public class checkInActivity extends AppCompatActivity {
 
                     Log.d(TAG, "User has 5 mins to hit i am safe button " );
 
-/*
-                    int secondIntegerTimeSet = 60;
-                    Intent lastcallintent = new Intent(checkInActivity.this, CheckinService.class);
-                    Bundle extras = new Bundle();
-
-                    extras.putInt("secondTimeValue",secondIntegerTimeSet);
-                    intent.putExtras(extras);
-
-                    startService(lastcallintent);
-
- */
-
-
-
+                    finalTimer();
 
                 }
 
@@ -181,17 +191,16 @@ public class checkInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //at some point add a boolean to see if timer is runnning, if it is, change the text on the button to "reset" or something
+                TimerRunning = true;
+                restartButton.setVisibility(View.VISIBLE);
+
+
 
                 // Hours = hourEditText.getText().toString();
                 // Minutes = minuteEditText.getText().toString();
                 // Seconds = secondEditText.getText().toString();
 
-                // sharePreferenceHelper.saveTime(Hours ,Minutes,Seconds);
-                //TimerStartClicked = 1;
-
-                //working on clicking on clock instead of inputing time manually
-                //DialogFragment timePicker = new TimePickerFragment();
-                //timePicker.show(getSupportFragmentManager(),"Time Picker");
 
 
                 // this is where i need to add the other numbers as well, commenting this for now
@@ -218,7 +227,10 @@ public class checkInActivity extends AppCompatActivity {
                     Log.d(TAG, "Checking units, milihours = " + miliHours + ", miliMinutes = " + miliMinutes);
 
                     //need if statements to check is amy textviews are null, as of now the app crashes
+
                     secondIntegerTimeSet = Seconds + miliMinutes + miliHours;
+
+
 //                    if (miliHours != 0 & miliMinutes != 0 & Seconds != 0) {
 //                        secondIntegerTimeSet = Seconds + miliMinutes + miliHours;
 //                    } else if (miliHours == 0) {//
@@ -254,6 +266,9 @@ public class checkInActivity extends AppCompatActivity {
                     //intent.putExtra("secondTimeValue", secondIntegerTimeSet );
                     //intent.putExtra("minuteTimeValue", minuteIntegerTimeSet );
                     //intent.putExtra("hourTimeValue", hourIntegerTimeSet );
+
+
+
 
 
                     Intent intent = new Intent(checkInActivity.this, CheckinService.class);
@@ -300,7 +315,25 @@ public class checkInActivity extends AppCompatActivity {
             }
         });
 
+        restartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                if(TimerRunning = true)
+                {
+                    resetValue = true;
+                    hourEditText.setText(null);
+                    minuteEditText.setText(null);
+                    secondEditText.setText(null);
+
+                    Intent intent = new Intent(checkInActivity.this, checkInActivity.class);
+                    startActivity(intent);
+                }
+                else Toast.makeText(getApplicationContext(), "No time indicated!", Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
 
     }
 
@@ -311,6 +344,20 @@ public class checkInActivity extends AppCompatActivity {
     }
 
  */
+
+public void finalTimer()
+{
+    int secondIntegerTimeSet = 10;
+    Intent newintent = new Intent(checkInActivity.this, CheckinService.class);
+    Bundle extras = new Bundle();
+
+    extras.putInt("secondTimeValue",secondIntegerTimeSet);
+    newintent.putExtras(extras);
+
+    startService(newintent);
+}
+
+
 
 
 }

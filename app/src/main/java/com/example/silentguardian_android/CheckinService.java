@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.ViewDebug;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -135,6 +136,18 @@ public class CheckinService extends Service {
     public void NotificationUpdate(Integer timeLeft)
     {
 
+        Integer Hours = ((timeLeft)/3600);
+        Integer Minutes = (timeLeft - (Hours*3600))/60;
+        Integer Seconds = (timeLeft - (Hours*3600))- (Minutes *60);
+
+        String notificationHours = Integer.toString(Hours);
+        String notificationMinutes = Integer.toString(Minutes);
+        String notificationSeconds = Integer.toString(Seconds);
+
+
+
+
+
         try
         {
             Intent notificationIntent = new Intent(this , checkInActivity.class);
@@ -142,7 +155,7 @@ public class CheckinService extends Service {
 
             final Notification[] notification = {new NotificationCompat.Builder(this , CHANNEL_ID)
                     .setContentTitle("My Check-in Timer")
-                    .setContentText("Time Remaining : " + timeLeft.toString())
+                    .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                     .setContentIntent(pendingIntent)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
