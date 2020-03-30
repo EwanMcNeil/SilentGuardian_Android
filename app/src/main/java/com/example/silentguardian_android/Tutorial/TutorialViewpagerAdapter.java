@@ -36,17 +36,8 @@ public class TutorialViewpagerAdapter extends PagerAdapter {
         View layoutScreen = inflater.inflate(R.layout.to_inflate_tutorial_layout,null);//idddk why it does this
 
         ImageView imgSlide = layoutScreen.findViewById(R.id.intro_img);
-
         Animation imageAnim = AnimationUtils.loadAnimation(mContext,R.anim.image_animation_landing);
         Animation titleAnim= AnimationUtils.loadAnimation(mContext,R.anim.title_animation_landing);
-
-        //Dont know what im doing here
-//        AnimationSet animSet = new AnimationSet(true);
-//        TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, -.75f, 0);
-//        translateAnimation.setDuration(300);
-//        animSet.addAnimation(translateAnimation);
-
-
         TextView title = layoutScreen.findViewById(R.id.intro_title);
         TextView description = layoutScreen.findViewById(R.id.intro_description);
 

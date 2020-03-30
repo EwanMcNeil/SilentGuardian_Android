@@ -1,6 +1,9 @@
 package com.example.silentguardian_android;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -9,15 +12,19 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
@@ -26,7 +33,6 @@ import com.example.silentguardian_android.fragments.InsertThresholdMessageDialog
 import com.example.silentguardian_android.fragments.deleteContactFromThresholdFragment;
 import com.example.silentguardian_android.fragments.insertContactDialogFragment;
 import com.example.silentguardian_android.fragments.loadCellPhoneContact_fragment;
-import com.example.silentguardian_android.fragments.setContactToThresholdFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +50,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected ListView threshHoldContactsListView;
     protected List<Person> mainList = null;
     protected Button add911GuardianButton;
+    protected ImageButton mImageButtonTutorial;//used for tutorial
 
     //commenting out for now: MOVED TO MAIN ACTIVITY
     //protected Button allClearButton;
@@ -51,7 +58,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected ArrayList<Person> thresholdList = new ArrayList<>();
 
     protected Button defineMessageButton;
-
+    //to allow to move the tutorial button
+    protected ConstraintLayout activityLayout;
     //from contact activity
     protected Button addContactButton;
     protected Button importContactsButton;
@@ -62,15 +70,14 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_threshold_setting);
-
-
 
         //from contact Actvitity
         addContactButton = findViewById(R.id.freshAddContactButton);
         importContactsButton = findViewById(R.id.importContactButton);
-
+        mImageButtonTutorial = findViewById(R.id.imageButtonTutorial);
 
         addContactButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -355,7 +362,13 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                     addContactButton.setVisibility(View.GONE);
                    importContactsButton.setVisibility(View.GONE);
 
-
+                   //move tutorial button
+                    activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
+                    ConstraintSet constrainSet = new ConstraintSet();
+                    constrainSet.clone(activityLayout);
+                    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutRight,ConstraintSet.START,0);
+                    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutRight,ConstraintSet.START,0);
+                    constrainSet.applyTo(activityLayout);
                 }
                 else{
                     defineMessageButton.setVisibility(View.GONE);
@@ -365,6 +378,13 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                     contactMode = true;
                     addContactButton.setVisibility(View.VISIBLE);
                     importContactsButton.setVisibility(View.VISIBLE);
+
+                    activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
+                    ConstraintSet constrainSet = new ConstraintSet();
+                    constrainSet.clone(activityLayout);
+                    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutLeft,ConstraintSet.START,0);
+                    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutLeft,ConstraintSet.START,0);
+                    constrainSet.applyTo(activityLayout);
 
 
                 }
