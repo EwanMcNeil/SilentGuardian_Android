@@ -21,6 +21,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.31" />
 
+    <!--        android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"-->
+
     <TextView
         android:id="@+id/androidPhoneNumberTV"
         android:layout_width="match_parent"
