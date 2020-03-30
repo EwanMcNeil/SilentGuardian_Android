@@ -5,32 +5,60 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:textAlignment="viewEnd"
     tools:context=".allClearActivity">
 
     <Button
         android:id="@+id/thresholdTwoAllClearButton"
-        android:layout_width="401dp"
-        android:layout_height="162dp"
-        android:layout_marginTop="115dp"
-        android:layout_marginBottom="171dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_gradient_style"
+        android:padding="20dp"
         android:text="I am Safe: Level Two"
+        android:textIsSelectable="false"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="@+id/AllClearButtonOne"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AllClearButtonOne"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="@+id/AllClearButtonOne"
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <Button
         android:id="@+id/AllClearButtonOne"
-        android:layout_width="401dp"
-        android:layout_height="153dp"
-        android:layout_marginTop="130dp"
-        android:layout_marginBottom="115dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_gradient_style"
+        android:padding="20dp"
         android:text="I am Safe: Level One"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/thresholdTwoAllClearButton"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="Let your Guardians know that you are safe."
+        app:layout_constraintBottom_toTopOf="@+id/thresholdTwoAllClearButton"
+        app:layout_constraintEnd_toEndOf="@+id/AllClearButtonOne"
+        app:layout_constraintStart_toStartOf="@+id/AllClearButtonOne"
+        app:layout_constraintTop_toBottomOf="@+id/AllClearButtonOne" />
 </androidx.constraintlayout.widget.ConstraintLayout>

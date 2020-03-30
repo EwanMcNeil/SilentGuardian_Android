@@ -33,7 +33,7 @@ public class TutorialViewpagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layoutScreen = inflater.inflate(R.layout.to_inflate_tutorial_layout,null);
+        View layoutScreen = inflater.inflate(R.layout.to_inflate_tutorial_layout,null);//idddk why it does this
 
         ImageView imgSlide = layoutScreen.findViewById(R.id.intro_img);
 

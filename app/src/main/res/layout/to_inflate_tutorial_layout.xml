@@ -54,4 +54,5 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars"
         android:contentDescription="SilentGuardians logo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

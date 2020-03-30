@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
@@ -29,7 +28,6 @@ import com.example.silentguardian_android.fragments.deleteContactFromThresholdFr
 import com.example.silentguardian_android.fragments.insertContactDialogFragment;
 import com.example.silentguardian_android.fragments.loadCellPhoneContact_fragment;
 import com.example.silentguardian_android.fragments.setContactToThresholdFragment;
-import com.google.firebase.database.snapshot.BooleanNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +36,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
     private static final String TAG = "AllClearCheck";
 
-    protected TextView thresholdEditText;
+    protected TextView thresholdTextview;
 
     //thresholdVal is either One or Two depending on the droplink
 
@@ -54,7 +52,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected ArrayList<Person> thresholdList = new ArrayList<>();
 
     protected Button defineMessageButton;
-
 
     //from contact activity
     protected Button addContactButton;
@@ -129,7 +126,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         });
 
 
-        thresholdEditText = findViewById(R.id.thresholdEditText);
+        thresholdTextview = findViewById(R.id.thresholdTextview);
         thresholdVal = 1;
 
         wholeContactsListView = findViewById(R.id.wholecontactsListView);
@@ -168,7 +165,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         defineMessageButton.setVisibility(View.GONE);
         add911GuardianButton.setVisibility(View.GONE);
-        thresholdEditText.setVisibility(View.GONE);
         threshHoldContactsListView.setVisibility(View.GONE);
         contactMode = true;
 
@@ -177,7 +173,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        thresholdTextview.setText("Click the three dots!");//reseting textview
         //on start these buttons should be gone
 
 
@@ -185,9 +181,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         //thresholdVal = 1;  //threshold value is defaulted to One
         loadContactsListView();
         loadThresholdContactListView();
-
-
-        thresholdEditText.setText("Contacts in Threshold:" + thresholdVal);
         wholeContactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -196,9 +189,28 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putInt("contactSelected", mainList.get(position).getID());
                     bundle.putInt("ThresholdNumber", thresholdVal);
-                    setContactToThresholdFragment dialog = new setContactToThresholdFragment();
-                    dialog.setArguments(bundle);
-                    dialog.show(getSupportFragmentManager(), "insertContactFragment");
+                    //TODO DELETE setContactToThresholdFragment
+                    /*setContactToThresholdFragment dialog = new setContactToThresholdFragment();
+                   dialog.setArguments(bundle);
+                   dialog.show(getSupportFragmentManager(), "insertContactFragment");*/
+
+                    //directly add to guardians, it s more intuitive,
+                    Person selectedPerson = mainList.get(position);
+                    String name = selectedPerson.getName();
+                    String number = selectedPerson.getPhoneNumber();
+
+                    Person tempPerson = new Person(null, null);
+                    //its making me intialize like this may cause issues
+                    if(thresholdVal == 1) {
+                        tempPerson = new Person(selectedPerson.getID(), name, number, 1, selectedPerson.getThresholdTwo());
+                    } else if (thresholdVal == 2){
+                        tempPerson = new Person(selectedPerson.getID(), name, number, selectedPerson.getThresholdOne(), 1);
+                    }
+
+                    DatabaseHelper dbhelper = new DatabaseHelper(getApplicationContext());
+                    dbhelper.updatePerson(tempPerson);
+                    loadThresholdContactListView();
+
                 }
                 else{
                     Intent intent = new Intent(ThresholdSettingActivity.this, modifyContactActivity.class);
@@ -239,9 +251,15 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 Log.d(TAG, "police contact has been placed ");
             }
         });
-
     }
-        public void loadContactsListView() {
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        thresholdTextview.setText("Click the three dots!");//reseting textview
+    }
+
+    public void loadContactsListView() {
 
             DatabaseHelper dbhelper = new DatabaseHelper(this);
             List<Person> people = dbhelper.getAllPeople();
@@ -317,18 +335,40 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        MenuItem changeView = menu.findItem(R.id.editmodedropdown);
+        MenuItem changeThres = menu.findItem(R.id.changeThresholddropdown);
+        if(contactMode){
+            changeView.setTitle("Edit your Guardians");
+            changeThres.setVisible(false);
+            if(thresholdVal ==1)
+                changeThres.setTitle("Edit Level 2");
+            else changeThres.setTitle("Edit Level 1");
+        }
+        else {
+            changeView.setTitle("Add Contacts");
+            changeThres.setVisible(true);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
 
         switch (item.getItemId()) {
             case R.id.editmodedropdown:
-                if(contactMode == true){
+                if(contactMode){
 
                     loadContactsListView();
                     thresholdVal = 1;
                     defineMessageButton.setVisibility(View.VISIBLE);
                     add911GuardianButton.setVisibility(View.VISIBLE);
-                    thresholdEditText.setVisibility(View.VISIBLE);
+                    thresholdTextview.setVisibility(View.VISIBLE);
+                    String currentThres = "Guardians Level " + thresholdVal;
+                    thresholdTextview.setText(currentThres);
+                    thresholdTextview.setBackground(null);
                     threshHoldContactsListView.setVisibility(View.VISIBLE);
                     contactMode =false;
                     addContactButton.setVisibility(View.GONE);
@@ -339,7 +379,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 else{
                     defineMessageButton.setVisibility(View.GONE);
                     add911GuardianButton.setVisibility(View.GONE);
-                    thresholdEditText.setVisibility(View.GONE);
+                    thresholdTextview.setText("Click the three dots!");//reseting textview
                     threshHoldContactsListView.setVisibility(View.GONE);
                     contactMode = true;
                     addContactButton.setVisibility(View.VISIBLE);
@@ -349,13 +389,20 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 }
                 return true;
             case R.id.changeThresholddropdown:
+                //update textview
+
                 if (thresholdVal == 1) {
                     thresholdVal = 2;
-                } else {
+                    item.setTitle("Edit Level 1");
+                } else if (thresholdVal == 2){
                     thresholdVal = 1;
+                    item.setTitle("Edit Level 2");
                 }
 
-                thresholdEditText.setText("Current Threshold is: " + thresholdVal + '\n');
+                String currentThres = "Guardians Level " + thresholdVal;
+                thresholdTextview.setText(currentThres);
+
+
                 loadThresholdContactListView();
 
                 return true;

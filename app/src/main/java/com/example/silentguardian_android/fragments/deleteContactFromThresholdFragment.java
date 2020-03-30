@@ -20,9 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class deleteContactFromThresholdFragment extends DialogFragment {
+    public static final String TAG = "__deleteContact";
     protected TextView nameFragmentTV;
     protected  TextView phoneFragmentTV;
-    protected Button addToThresholdButton;
+    protected Button DeleteFromThresholdButton;
     protected  Button cancelButton;
     int selectedContactID = 0;
     int thresholdVal = 0;
@@ -36,7 +37,7 @@ public class deleteContactFromThresholdFragment extends DialogFragment {
 
         nameFragmentTV = view.findViewById(R.id.nameDeleteThresholdFragmentTV);
         phoneFragmentTV = view.findViewById(R.id.phoneDeleteThresholdFragmentTV);
-        addToThresholdButton = view.findViewById(R.id.deleteToThresholdFragmentButton);
+        DeleteFromThresholdButton = view.findViewById(R.id.deleteToThresholdFragmentButton);
         cancelButton = view.findViewById(R.id.cancelDeleteThresholdFragmentButton);
 
         Bundle bundle = this.getArguments();
@@ -60,7 +61,7 @@ public class deleteContactFromThresholdFragment extends DialogFragment {
         nameFragmentTV.setText("Name: " +selectedPerson.getName());
         phoneFragmentTV.setText("Phone Number: " +selectedPerson.getPhoneNumber() + "\n ThresholD Value:" + String.valueOf(thresholdVal));
 
-        addToThresholdButton.setOnClickListener(new View.OnClickListener() {
+        DeleteFromThresholdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = selectedPerson.getName();
