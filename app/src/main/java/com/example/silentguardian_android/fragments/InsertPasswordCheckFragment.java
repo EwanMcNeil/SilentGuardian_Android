@@ -40,7 +40,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
         View view = inflater.inflate(R.layout.fragment_check_login_credentials, container,false);
 
-        inputIntent = getArguments().getString("intent");
+                  inputIntent = getArguments().getString("intent");
         tempPassword = view.findViewById(R.id.editPasswordCheck);
         saveTempPasswordButton = view.findViewById(R.id.enterPasswordButton);
 
