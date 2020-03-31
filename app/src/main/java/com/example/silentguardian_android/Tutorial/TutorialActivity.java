@@ -143,7 +143,7 @@ public class TutorialActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), profileActivity.class);
                 startActivity(intent);
                 SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
-                helper.setTutorialSeen(true);
+               // helper.setTutorialSeen(true);
                 finish();
 
             }
