@@ -10,6 +10,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+
+
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
@@ -27,11 +31,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".Tutorial.TutorialActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service android:name=".CheckinService"/>
+        <activity android:name=".checkInActivity"></activity>
+
         <receiver android:name=".Bluetooth.Restarter" android:exported="true" android:enabled="true">
             <intent-filter>
                 <action android:name="restartservice"/>
             </intent-filter>
         </receiver>
+
         <activity
             android:name=".allClearActivity"
             android:parentActivityName=".MainActivity" />
@@ -52,7 +67,10 @@
 
         <activity
             android:name=".ThresholdSettingActivity"
-            android:parentActivityName=".MainActivity" />
+            android:label="My Guardians"
+            android:parentActivityName=".MainActivity"
+
+            />
         <activity
             android:name=".profileActivity"
             android:label="@string/title_activity_profile"
@@ -63,11 +81,7 @@
                 android:value="com.example.silentguardian_android.MainActivity" />
         </activity>
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

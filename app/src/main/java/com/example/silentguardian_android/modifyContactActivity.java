@@ -2,11 +2,13 @@ package com.example.silentguardian_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
@@ -62,6 +64,7 @@ public class modifyContactActivity extends AppCompatActivity {
                 dbhelper.deletePerson(selectedPerson.getID());
               //  Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, contactActivity.class);
                // startActivity(intentDeletedContactToBubble);
+                modifyContactActivity.this.finish();
             }
         });
 
@@ -77,6 +80,9 @@ public class modifyContactActivity extends AppCompatActivity {
                 if (!(name.equals(""))) {
                     DatabaseHelper dbhelper = new DatabaseHelper(modifyContactActivity.this);
                     dbhelper.updatePerson(tempPerson);
+                }
+                else{
+                    Toast.makeText(modifyContactActivity.this,"Database not updated!",Toast.LENGTH_SHORT).show();
                 }
                Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, ThresholdSettingActivity.class);
               startActivity(intentDeletedContactToBubble);

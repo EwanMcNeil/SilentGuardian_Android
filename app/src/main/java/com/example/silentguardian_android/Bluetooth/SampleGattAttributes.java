@@ -25,7 +25,9 @@ public class SampleGattAttributes {
     private static HashMap<String, String> attributes = new HashMap();
     public static String CLIENT_CHARACTERISTIC_CONFIG = "00002902-0000-1000-8000-00805f9b34fb";
     public static String HM_10_CONF = "0000ffe0-0000-1000-8000-00805f9b34fb";
+
     public static String HM_RX_TX = "19b10012-e8f2-537e-4f6c-d104768a1214";
+
     public static String SEND_MESSAGE_CHAR = "19b10012-e8f2-537e-4f6c-d104768a1214";
     public static String SEND_MESSAGE_SERVICE = "19b10010-e8f2-537e-4f6c-d104768a1214";
     static {

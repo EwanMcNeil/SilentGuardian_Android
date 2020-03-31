@@ -76,6 +76,7 @@ public class DeviceControlActivity extends Activity {
 
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder service) {
+
             mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
             if (!mBluetoothLeService.initialize()) {
                 Log.e(TAG, "Unable to initialize Bluetooth");
@@ -275,6 +276,7 @@ public class DeviceControlActivity extends Activity {
 
             // get characteristic when UUID matches RX/TX UUID
             characteristicTX = gattService.getCharacteristic(BluetoothLeService.UUID_HM_RX_TX);
+
             characteristicRX = gattService.getCharacteristic(BluetoothLeService.UUID_HM_RX_TX);
         }
 
@@ -293,10 +295,6 @@ public class DeviceControlActivity extends Activity {
     // on change of bars write char
     //this respsonds to changes
     private void makeChange() {
-        String str = RGBFrame[0] + "," + RGBFrame[1] + "," + RGBFrame[2] + "\n";
-        Log.d(TAG, "Sending result=" + str);
-        final byte[] tx = str.getBytes();
-
         if (mConnected) {
             mBluetoothLeService.readCharacteristic(characteristicTX);
             byte[] values = characteristicTX.getValue();
@@ -304,8 +302,6 @@ public class DeviceControlActivity extends Activity {
                 final int value = characteristicTX.getValue()[0];
 
                 Log.d(TAG, "Value: " + Integer.toString(value));
-
-
 
                 //code for sending one text message
                 if(value == 1 && sendOne == false){

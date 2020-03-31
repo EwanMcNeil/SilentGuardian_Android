@@ -24,6 +24,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
+import com.example.silentguardian_android.MainActivity;
 import com.example.silentguardian_android.R;
 
 import java.util.ArrayList;
@@ -51,9 +53,14 @@ public class BluetoothMainActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
+        helper.setTutorialSeen(true);
+
+
         //code for the device service
         mYourService = new DeviceService();
         mServiceIntent = new Intent(this, mYourService.getClass());
+
 
         ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
@@ -112,6 +119,9 @@ public class BluetoothMainActivity extends ListActivity {
             case android.R.id.home:
                     onBackPressed();
                     break;
+            case R.id.menu_gotoMain:
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class );
+                startActivity(intent);
         }
         return true;
     }

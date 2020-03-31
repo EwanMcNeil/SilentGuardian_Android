@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     protected ImageButton allclearImageButton;
+    protected Button CheckInButton;
     protected SharePreferenceHelper sharePreferenceHelper;
     protected TextView iAmSafeText;
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         allclearImageButton = findViewById(R.id.safeimageButton);
+        CheckInButton = findViewById(R.id.checkInButton);
         iAmSafeText = findViewById(R.id.iAmSafeTextView);
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
@@ -77,6 +79,15 @@ public class MainActivity extends AppCompatActivity {
         if (sharePreferenceHelper.userNameReturn() == null) {
             Intent intent = new Intent(MainActivity.this, profileActivity.class);
             startActivity(intent);
+
+        }
+        else if(!sharePreferenceHelper.hasLoggedIn()){
+
+                InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
+                dialog.setCancelable(false);
+                dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
+
+
         }
 
 
@@ -97,20 +108,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+       CheckInButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+               Intent intent = new Intent(MainActivity.this, checkInActivity.class);
+               startActivity(intent);
+           }
+       });
+
+
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
 
     @Override
     protected void onRestart() {
         super.onRestart();
-
     }
 
     @Override
@@ -137,6 +156,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sharePreferenceHelper.logOut();//trying to find a way to reset the log in this way
+    }
 
     ///code for the menu
     @Override
