@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.fragments.Insert911GuardiansInfoFragment;
@@ -67,6 +68,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
     protected Boolean contactMode;
 
+    protected Button doneActivity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_threshold_setting);
 
         //from contact Actvitity
+        doneActivity = findViewById(R.id.doneActButton);
         addContactButton = findViewById(R.id.freshAddContactButton);
         importContactsButton = findViewById(R.id.importContactButton);
         mImageButtonTutorial = findViewById(R.id.imageButtonTutorial);
@@ -103,6 +107,14 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             }
         });
 
+
+        doneActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ThresholdSettingActivity.this, BluetoothMainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         thresholdTextview = findViewById(R.id.thresholdTextview);
         thresholdVal = 1;
@@ -154,7 +166,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         thresholdTextview.setText("Click the three dots!");//reseting textview
         //on start these buttons should be gone
 
-
+        doneActivity.setVisibility(View.GONE);
 
         //thresholdVal = 1;  //threshold value is defaulted to One
         loadContactsListView();
@@ -181,6 +193,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                     Person selectedPerson = mainList.get(position);
                     String name = selectedPerson.getName();
                     String number = selectedPerson.getPhoneNumber();
+                    doneActivity.setVisibility(View.VISIBLE);
+
 
                     Person tempPerson = new Person(null, null);
                     //its making me intialize like this may cause issues
