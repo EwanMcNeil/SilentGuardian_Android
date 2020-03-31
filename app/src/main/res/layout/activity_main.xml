@@ -20,26 +20,10 @@
         android:background="@drawable/i_am_safe_image"
         app:layout_constraintBottom_toTopOf="@+id/checkInButton"
         app:layout_constraintEnd_toStartOf="@+id/guideline45"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline45"
         app:layout_constraintTop_toBottomOf="@+id/iAmSafeTextView"
         app:layout_constraintVertical_bias="0.0" />
-
-    <ImageButton
-        android:id="@+id/thresholdimageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/btn_gradient_style"
-        app:layout_constraintBottom_toTopOf="@+id/guideline43"
-        app:layout_constraintEnd_toStartOf="@+id/guideline46"
-        app:layout_constraintStart_toStartOf="@+id/guideline46"
-        app:layout_constraintTop_toBottomOf="@+id/setUpTextView"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_group_add_black_24dp" />
-
 
     <TextView
         android:id="@+id/iAmSafeTextView"
@@ -56,21 +40,6 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline42"
         app:layout_constraintEnd_toStartOf="@+id/guideline45"
         app:layout_constraintStart_toStartOf="@+id/guideline45"
-        app:layout_constraintTop_toTopOf="@+id/guideline42" />
-
-    <TextView
-        android:id="@+id/setUpTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="My Guardians"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline42"
-        app:layout_constraintEnd_toStartOf="@+id/guideline46"
-        app:layout_constraintStart_toStartOf="@+id/guideline46"
         app:layout_constraintTop_toTopOf="@+id/guideline42" />
 
     <Button
