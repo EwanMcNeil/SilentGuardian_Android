@@ -2,8 +2,11 @@ package com.example.silentguardian_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.IntentCompat;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -104,6 +107,12 @@ public class checkInActivity extends AppCompatActivity {
                     minuteEditText.setText(null);
                     secondEditText.setText(null);
                     context.stopService(intent);
+
+                    TimerRunning = false;
+                    userTimerDone=false;
+                    iAmSafe=false;
+                    resetValue = false;
+
                 }
 
 
@@ -165,7 +174,7 @@ public class checkInActivity extends AppCompatActivity {
                 //this is where i will set a function to check if the user timer has gone off
                 //if it has, i still start a new timer that will be 5-10 mins, if they fail to hit the i am safe within this clock, the message will
                 //send out.
-                if( Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==false)//hum
+                if( Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==false)
                 {
                     //remember to make in onDestroy to clear this
                     userTimerDone = true;
@@ -326,8 +335,11 @@ public class checkInActivity extends AppCompatActivity {
                     minuteEditText.setText(null);
                     secondEditText.setText(null);
 
-                    Intent intent = new Intent(checkInActivity.this, checkInActivity.class);
-                    startActivity(intent);
+                    //recreate();
+                    //Intent intent = new Intent(checkInActivity.this, checkInActivity.class);
+                    //startActivity(intent);
+
+
                 }
                 else Toast.makeText(getApplicationContext(), "No time indicated!", Toast.LENGTH_SHORT).show();
 
