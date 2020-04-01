@@ -55,8 +55,16 @@ public class profileActivity extends AppCompatActivity {
                     sharePreferenceHelper.saveProfile(temp_name, temp_password);
 
                     // after entering information, go back into the main activity
-                    Intent intent = new Intent(profileActivity.this, MainActivity.class);
-                    startActivity(intent);
+
+                    if(!(new SharePreferenceHelper(getApplicationContext()).getTutorialSeen())) {
+                        Intent intent = new Intent(getApplicationContext(),ThresholdSettingActivity.class );
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        Intent intent = new Intent(profileActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 else Toast.makeText(getApplicationContext(), "Invalid Input !", Toast.LENGTH_SHORT).show();
             }

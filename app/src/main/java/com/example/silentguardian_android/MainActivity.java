@@ -17,12 +17,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
 
 import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
 import com.example.silentguardian_android.fragments.InsertPasswordCheckFragment;
+import com.example.silentguardian_android.fragments.sendMessageFragment;
 
 import java.util.Locale;
 
@@ -32,11 +34,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    protected ImageButton thresholdimageButton;
+
     protected ImageButton allclearImageButton;
+    protected Button CheckInButton;
     protected SharePreferenceHelper sharePreferenceHelper;
     protected TextView iAmSafeText;
-    protected TextView setUpText;
+
 
 
 
@@ -46,31 +49,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-        thresholdimageButton = findViewById(R.id.thresholdimageButton);
-        allclearImageButton = findViewById(R.id.safeimageButton);
-        iAmSafeText = findViewById(R.id.iAmSafeTextView);
-        setUpText = findViewById(R.id.setUpTextView);
-
         sharePreferenceHelper = new SharePreferenceHelper(this);
+        //initialzing the sentmessage
+        if(sharePreferenceHelper.getMessageSent() == 2){
+            sharePreferenceHelper.setMessageSent(0);
+        }
 
 
-        thresholdimageButton.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-
-                //checking if password matches from user to sharedpreferences
-
-                Intent intent = new Intent(MainActivity.this, ThresholdSettingActivity.class);
-                intent.putExtra("THRESHOLDVAL", 1);
-
-                startActivity(intent);
-
-            }
-        });
-
+        allclearImageButton = findViewById(R.id.safeimageButton);
+        CheckInButton = findViewById(R.id.checkInButton);
+        iAmSafeText = findViewById(R.id.iAmSafeTextView);
+        sharePreferenceHelper = new SharePreferenceHelper(this);
 
 
         //permission check
@@ -81,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 android.Manifest.permission.SEND_SMS,
                 android.Manifest.permission.BLUETOOTH,
                 android.Manifest.permission.BLUETOOTH_ADMIN,
-                android.Manifest.permission.VIBRATE
+                android.Manifest.permission.VIBRATE,
+                Manifest.permission.FOREGROUND_SERVICE
         };
         ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
 
@@ -93,13 +84,9 @@ public class MainActivity extends AppCompatActivity {
         if (sharePreferenceHelper.userNameReturn() == null) {
             Intent intent = new Intent(MainActivity.this, profileActivity.class);
             startActivity(intent);
-        } else {
-
-                InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
-                dialog.setCancelable(false);
-                dialog.show(getSupportFragmentManager(), "InsertPasswordCheck");
 
         }
+
 
 
 
@@ -107,12 +94,26 @@ public class MainActivity extends AppCompatActivity {
         allclearImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(MainActivity.this, allClearActivity.class);
-                startActivity(intent);
-
+               int recent = sharePreferenceHelper.getMessageSent();
+                if(recent == 1) {
+                    Intent intent = new Intent(MainActivity.this, allClearActivity.class);
+                    startActivity(intent);
+                }else{
+                    sendMessageFragment dialog = new sendMessageFragment();
+                    dialog.show(getSupportFragmentManager(), "sendmessage_fragment");
+                }
             }
         });
+
+
+       CheckInButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+               Intent intent = new Intent(MainActivity.this, checkInActivity.class);
+               startActivity(intent);
+           }
+       });
 
 
     }
@@ -121,23 +122,43 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
 
     @Override
     protected void onRestart() {
         super.onRestart();
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
+     updateAllClearButton();
 
     }
 
+    public void updateAllClearButton(){
+        int output = sharePreferenceHelper.getMessageSent();
+
+
+        if(output == 0){
+            iAmSafeText.setText("I am in danger");
+            allclearImageButton.setBackgroundResource(R.drawable.indanger);
+
+            //needs to be changed to somthing else
+        }
+        else{
+            iAmSafeText.setText("I am safe");
+            allclearImageButton.setBackgroundResource(R.drawable.i_am_safe_image);
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sharePreferenceHelper.logOut();//trying to find a way to reset the log in this way
+    }
 
     ///code for the menu
     @Override
@@ -147,19 +168,35 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+        InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
+        Bundle args = new Bundle();
 
         switch (item.getItemId()) {
             case R.id.bluetoothSettingsdropdown:
-                 Intent intent = new Intent(MainActivity.this, BluetoothMainActivity.class);
-                startActivity(intent);
+                args.putString("intent","bluetooth");
+                dialog.setArguments(args);
+                dialog.show(getSupportFragmentManager(), "password");
                 return true;
             case R.id.profileSettingdropdown:
-                Intent intent1 = new Intent(MainActivity.this, profileActivity.class);
-                startActivity(intent1);
+                args.putString("intent","profile");
+                dialog.setArguments(args);
+                dialog.show(getSupportFragmentManager(), "password");
                 return true;
+
             case R.id.sendTestMessageDropDown:
                 final messageGPSHelper gpsHelper;
                 gpsHelper = new messageGPSHelper(this);
@@ -167,6 +204,13 @@ public class MainActivity extends AppCompatActivity {
                         gpsHelper.sendMessage("7786898291", "Test");
             case R.id.switchLanguage:
                 switchLanguage();
+
+            case R.id.thresholdsettingdropdown:
+                //checking if password matches from user to sharedpreferences
+                args.putString("intent","threshold");
+                dialog.setArguments(args);
+                dialog.show(getSupportFragmentManager(), "password");
+
             default:
                 return super.onOptionsItemSelected(item);
         }

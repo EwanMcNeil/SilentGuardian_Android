@@ -1,11 +1,13 @@
 package com.example.silentguardian_android.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +19,7 @@ import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.ThresholdSettingActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class addAndroidContactToAppFragment extends DialogFragment {
     protected TextView nameFragmentTV;
@@ -50,7 +53,16 @@ public class addAndroidContactToAppFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
+                List<Person> currentContacts = dbhelper.getAllPeople();
+                for(Person n : currentContacts) {
+                    Log.d("__insertFrag",n.getName());
+                    if (n.equals(selectedPerson)) {
+                        Toast.makeText(getContext(), "Contact Already exists", Toast.LENGTH_LONG).show();
+                        return;//do not insert
+                    }
+                }
                 dbhelper.insertPerson(selectedPerson);
+                Toast.makeText(getContext(), "Contact Added successfully!", Toast.LENGTH_LONG).show();
                 ((ThresholdSettingActivity)getActivity()).loadContactsListView();
                 getDialog().dismiss();
 

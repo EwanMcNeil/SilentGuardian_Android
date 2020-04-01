@@ -6,12 +6,13 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
 
-    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
@@ -21,6 +22,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:allowBackup="true"
@@ -29,9 +31,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".Tutorial.TutorialActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service android:name=".CheckinService"/>
+        <activity android:name=".checkInActivity"></activity>
+
+        <receiver android:name=".Bluetooth.Restarter" android:exported="true" android:enabled="true">
+            <intent-filter>
+                <action android:name="restartservice"/>
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".allClearActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Bluetooth.DeviceControlActivity"
             android:theme="@android:style/Theme.Holo.Light" />
@@ -39,7 +57,9 @@
         <activity
             android:name=".Bluetooth.BluetoothMainActivity"
             android:parentActivityName=".MainActivity"
+
             android:theme="@android:style/Theme.Holo.Light"></activity>
+        <service android:name=".Bluetooth.DeviceService" android:enabled="true"> </service>
 
         <service
             android:name=".Bluetooth.BluetoothLeService"
@@ -47,7 +67,10 @@
 
         <activity
             android:name=".ThresholdSettingActivity"
-            android:parentActivityName=".MainActivity" />
+            android:label="My Guardians"
+            android:parentActivityName=".MainActivity"
+
+            />
         <activity
             android:name=".profileActivity"
             android:label="@string/title_activity_profile"
@@ -58,11 +81,7 @@
                 android:value="com.example.silentguardian_android.MainActivity" />
         </activity>
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

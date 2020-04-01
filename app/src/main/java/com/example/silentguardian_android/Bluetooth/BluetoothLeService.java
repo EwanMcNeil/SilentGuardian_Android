@@ -43,7 +43,7 @@ import androidx.annotation.RequiresApi;
  * given Bluetooth LE device.
  */ @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class BluetoothLeService extends Service {
-    private final static String TAG = BluetoothLeService.class.getSimpleName();
+    private final static String TAG = "LeService";
 
     private BluetoothManager mBluetoothManager;
     private BluetoothAdapter mBluetoothAdapter;
@@ -81,6 +81,14 @@ public class BluetoothLeService extends Service {
                 broadcastUpdate(intentAction);
                 Log.i(TAG, "Connected to GATT server.");
                 // Attempts to discover services after successful connection.
+                try {
+                    //set time in mili
+                    Thread.sleep(1000);
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 Log.i(TAG, "Attempting to start service discovery:" +
                         mBluetoothGatt.discoverServices());
 

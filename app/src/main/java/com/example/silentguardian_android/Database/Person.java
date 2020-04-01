@@ -1,5 +1,7 @@
 package com.example.silentguardian_android.Database;
 
+import androidx.annotation.Nullable;
+
 public class Person {
 
 
@@ -7,7 +9,7 @@ public class Person {
     private String Name;
     private String PhoneNumber;
 
-    private int thresholdOne;
+    private int thresholdOne;//who did this loooooool
     private int thresholdTwo;
     private String password;
 
@@ -81,5 +83,18 @@ public class Person {
         return temp;
     }
 
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (this == obj)
+            return true;
+        if(this == null)
+            return false;
+        if(obj == null || (obj.getClass()!= this.getClass()))
+            return false;
 
+        Person temp = (Person) obj;
+        return
+                 Name.equals(temp.Name)
+                & PhoneNumber.equals(temp.PhoneNumber);
+    }
 }

@@ -14,7 +14,9 @@
      limitations under the License.
 -->
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
     <item android:id="@+id/menu_refresh"
           android:checkable="false"
           android:orderInCategory="1"
@@ -28,4 +30,9 @@
           android:title="@string/menu_stop"
           android:orderInCategory="101"
         app:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/menu_gotoMain"
+        android:checkable="false"
+        android:orderInCategory="1"
+        android:title="Don't have Device"
+        app:showAsAction="ifRoom" />
 </menu>

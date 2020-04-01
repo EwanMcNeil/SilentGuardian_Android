@@ -17,7 +17,7 @@ public class SharePreferenceHelper extends AppCompatActivity {
 
     public SharePreferenceHelper(Context context) {
 
-        sharedPreferences = context.getSharedPreferences("silent_guardian_myProfile",Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("silent_guardian_MyProfile",Context.MODE_PRIVATE);
 
     }
 
@@ -61,6 +61,10 @@ public class SharePreferenceHelper extends AppCompatActivity {
 
         editor.commit();
     }
+    public void logIn(/*boolean success*/){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("loggedIn",true);
+    }
 
     //function to save language
     public void saveLanguage( String lang)
@@ -79,6 +83,12 @@ public class SharePreferenceHelper extends AppCompatActivity {
         if(lang==null)
             return "en";
         return lang;
+    }
+
+
+    public void logOut(/*boolean success*/){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("loggedIn",false);
     }
 
 
@@ -137,6 +147,95 @@ public class SharePreferenceHelper extends AppCompatActivity {
         String ThresholdMessage = sharedPreferences.getString("Threshold Two Message", null);
 
         return ThresholdMessage;
+    }
+    public boolean setTutorialSeen(boolean flag){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("wasTutorialSeen",flag);
+        return editor.commit();
+    }
+    public boolean getTutorialSeen(){
+        return sharedPreferences.getBoolean("wasTutorialSeen",false);
+    }
+    public boolean hasLoggedIn(){
+
+        return sharedPreferences.getBoolean("loggedIn",false);
+    }
+
+    //in order to pass several time values, because bundles is not working
+    public void saveTime(String hours, String minutes, String seconds)
+    {
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("Hours", hours);
+        editor.putString("Minutes",minutes);
+        editor.putString("Seconds",seconds);
+
+        editor.commit();
+
+    }
+
+    public Integer ReturnHoursSet()
+    {
+       Integer Hours = Integer.parseInt(sharedPreferences.getString("Hours", null));
+
+        return Hours;
+    }
+
+    public Integer ReturnMinutesSet()
+    {
+        Integer Minutes = Integer.parseInt(sharedPreferences.getString("Minutes", null));
+
+        return Minutes;
+
+    }
+
+    public Integer ReturnSecondsSet()
+    {
+        Integer Seconds = Integer.parseInt(sharedPreferences.getString("Seconds", null));
+
+        return Seconds;
+
+    }
+
+
+
+    public void saveCheckInAddress(String address)
+    {
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("CheckInAddress", address);
+
+        editor.commit();
+
+    }
+
+
+    public String returnCheckInAddress()
+    {
+
+        String tempCheckinAddress = sharedPreferences.getString("CheckInAddress", null);
+
+        return tempCheckinAddress;
+    }
+
+    //1 corresponds to a message send
+    //0 corresonds to send the "im safe message"
+    public void setMessageSent(int input){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putInt("messageSent", input);
+
+        editor.commit();
+
+    }
+
+    //if theres nothing 2 will be returned
+    public int getMessageSent(){
+        int output = sharedPreferences.getInt("messageSent",2 );
+
+        return output;
     }
 
 

@@ -14,8 +14,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,7 +48,6 @@ public class DeviceControlActivity extends Activity {
     private TextView isSerial;
     private TextView mConnectionState;
     private TextView mDataField;
-    private SeekBar mRed,mGreen,mBlue;
     private String mDeviceName;
     private String mDeviceAddress;
     //  private ExpandableListView mGattServicesList;
@@ -79,6 +76,7 @@ public class DeviceControlActivity extends Activity {
 
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder service) {
+
             mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
             if (!mBluetoothLeService.initialize()) {
                 Log.e(TAG, "Unable to initialize Bluetooth");
@@ -145,6 +143,7 @@ public class DeviceControlActivity extends Activity {
 
 
 
+
         getActionBar().setTitle(mDeviceName);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
@@ -164,7 +163,7 @@ public class DeviceControlActivity extends Activity {
         }
 
 
-
+        ///this thread calls the makeChange()function
         runOnUiThread(new Runnable() {
             public void run() {
                 timer = new Timer();
@@ -277,6 +276,7 @@ public class DeviceControlActivity extends Activity {
 
             // get characteristic when UUID matches RX/TX UUID
             characteristicTX = gattService.getCharacteristic(BluetoothLeService.UUID_HM_RX_TX);
+
             characteristicRX = gattService.getCharacteristic(BluetoothLeService.UUID_HM_RX_TX);
         }
 
@@ -291,33 +291,10 @@ public class DeviceControlActivity extends Activity {
         return intentFilter;
     }
 
-    private void readSeek(SeekBar seekBar,final int pos) {
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress,
-                                          boolean fromUser) {
-                RGBFrame[pos]=progress;
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-                makeChange();
-            }
-        });
-    }
     // on change of bars write char
     //this respsonds to changes
     private void makeChange() {
-        String str = RGBFrame[0] + "," + RGBFrame[1] + "," + RGBFrame[2] + "\n";
-        Log.d(TAG, "Sending result=" + str);
-        final byte[] tx = str.getBytes();
-
         if (mConnected) {
             mBluetoothLeService.readCharacteristic(characteristicTX);
             byte[] values = characteristicTX.getValue();
@@ -326,11 +303,8 @@ public class DeviceControlActivity extends Activity {
 
                 Log.d(TAG, "Value: " + Integer.toString(value));
 
-
-
                 //code for sending one text message
                 if(value == 1 && sendOne == false){
-
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
@@ -347,6 +321,7 @@ public class DeviceControlActivity extends Activity {
 
                     });
                 }
+
                 sendOne = false;
                 //SharePreferenceHelper spHelper = new SharePreferenceHelper(getApplicationContext());
                 // String oneMessage = spHelper.ThresholdOneMessageReturn();

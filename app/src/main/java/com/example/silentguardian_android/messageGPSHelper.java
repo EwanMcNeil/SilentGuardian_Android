@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
+
 import java.util.List;
 
 
@@ -33,9 +35,11 @@ public class messageGPSHelper {
     static Context mContext;
     public String bestProvider;
     public Criteria criteria;
+    protected SharePreferenceHelper sharePreferenceHelper;
 
     public messageGPSHelper(Context in_context) {
         this.mContext = in_context;
+        sharePreferenceHelper = new SharePreferenceHelper(in_context);
     }
 
 
@@ -114,6 +118,7 @@ public class messageGPSHelper {
     //takes in a phone number and a string to send a message
     //possibly within here call the local methods getlat and getlong
     public void sendMessage(String number, String message){
+        sharePreferenceHelper.setMessageSent(1);
         try{
             vibrate();
             String messageOut = message + "My location is: " + messageLocationLink();
@@ -130,6 +135,7 @@ public class messageGPSHelper {
     //creating function to call to send the all clear message (Hard coded message for now)
     //changed this to static because of non-static error due to "all clear" function
     public void sendAllClearMessage(String number, String message){
+        sharePreferenceHelper.setMessageSent(0);
         try{
             vibrate();
             String messageOut = message;

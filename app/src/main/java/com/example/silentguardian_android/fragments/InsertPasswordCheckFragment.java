@@ -15,10 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
 import com.example.silentguardian_android.MainActivity;
 import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.ThresholdSettingActivity;
+import com.example.silentguardian_android.profileActivity;
 
 public class InsertPasswordCheckFragment extends DialogFragment {
 
@@ -29,7 +31,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
     protected SharePreferenceHelper sharePreferenceHelper;
 
-
+    protected String inputIntent;
 
     @Nullable
     @Override
@@ -38,6 +40,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
         View view = inflater.inflate(R.layout.fragment_check_login_credentials, container,false);
 
+                  inputIntent = getArguments().getString("intent");
         tempPassword = view.findViewById(R.id.editPasswordCheck);
         saveTempPasswordButton = view.findViewById(R.id.enterPasswordButton);
 
@@ -45,6 +48,8 @@ public class InsertPasswordCheckFragment extends DialogFragment {
         sharePreferenceHelper = new SharePreferenceHelper(getContext());
 
 
+
+        Toast.makeText(getContext(),inputIntent, Toast.LENGTH_LONG).show();
 
 
         saveTempPasswordButton.setOnClickListener(new View.OnClickListener() {
@@ -62,10 +67,25 @@ public class InsertPasswordCheckFragment extends DialogFragment {
                 if(tempPasswordCheck.equals(sharePreferenceHelper.passwordReturn())){
                     Log.d(TAG, "entered if statement");
 
+                    Intent intent;
+                    switch (inputIntent){
+                        case "bluetooth":
+                            intent = new Intent(getActivity(), BluetoothMainActivity.class);
+                            Log.d(TAG, "blue");
+                            startActivity(intent);
+                            return;
+                        case "profile":
+                            intent = new Intent(getActivity(), profileActivity.class);
+                            startActivity(intent);
+                            return;
+                        case "threshold":
+                            intent = new Intent(getActivity(), ThresholdSettingActivity.class);
+                            startActivity(intent);
+                            return;
+                        default:
+                            dismiss();
 
-                    //for the purpose of simplicity, i am going to make a password check whenever someone enters the app. only once.
-                    //going to change the second parameter of the intent from "thresholdActivity", to "MainActivity"
-                    getDialog().dismiss();
+                    }
                     Log.d(TAG, "compared temp password to stored password");
                 }
 
@@ -79,13 +99,6 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
             }
         });
-
-
-
-
-
-
-
 
         return view;
     }
