@@ -35,7 +35,7 @@ import com.example.silentguardian_android.fragments.deleteContactFromThresholdFr
 import com.example.silentguardian_android.fragments.insertContactDialogFragment;
 import com.example.silentguardian_android.fragments.loadCellPhoneContact_fragment;
 import com.example.silentguardian_android.fragments.setContactToThresholdFragment;
-
+import com.example.silentguardian_android.MainActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,7 +111,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         doneActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ThresholdSettingActivity.this, BluetoothMainActivity.class);
+                Intent intent = new Intent(ThresholdSettingActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
