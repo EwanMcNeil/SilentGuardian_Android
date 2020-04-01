@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SilentGuardian_Android</string>
     <string name="title_activity_profile">profileActivity</string>
@@ -6,8 +7,8 @@
 
 
     <!-- TextViews -->
-    <string name="iAmSafe">I am safe</string>
-    <string name="allContacts">All contacts</string>
+    <string name="iAmSafe">Je suis en sécurité</string>
+    <string name="allContacts">Tous les contacts</string>
     <!-- TextViews -->
 
     <!-- Bluetooth -->
@@ -40,5 +41,4 @@
     <string name="red_slide">Red</string>
     <string name="blue_slide">Blue</string>
     <string name="green_slide">Green</string>
-
 </resources>

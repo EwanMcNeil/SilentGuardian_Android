@@ -41,10 +41,10 @@
 
     <TextView
         android:id="@+id/bubbleTextView"
+        android:text="@string/allContacts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="All Contacts:"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/guideline18"
         app:layout_constraintEnd_toStartOf="@+id/guideline19"
