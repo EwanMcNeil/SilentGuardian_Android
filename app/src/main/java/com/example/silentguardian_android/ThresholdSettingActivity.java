@@ -29,6 +29,7 @@ import android.widget.Toolbar;
 import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
 import com.example.silentguardian_android.fragments.Insert911GuardiansInfoFragment;
 import com.example.silentguardian_android.fragments.InsertThresholdMessageDialogFragment;
 import com.example.silentguardian_android.fragments.deleteContactFromThresholdFragment;
@@ -77,6 +78,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_threshold_setting);
+        SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
+        helper.setTutorialSeen(true);
 
         //from contact Actvitity
         doneActivity = findViewById(R.id.doneActButton);
