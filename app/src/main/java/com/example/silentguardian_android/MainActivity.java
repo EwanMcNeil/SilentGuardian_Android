@@ -8,6 +8,8 @@ import android.Manifest;
 import android.app.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +25,8 @@ import com.example.silentguardian_android.Database.SharePreferenceHelper;
 import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
 import com.example.silentguardian_android.fragments.InsertPasswordCheckFragment;
 import com.example.silentguardian_android.fragments.sendMessageFragment;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -181,8 +185,10 @@ public class MainActivity extends AppCompatActivity {
         InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
         Bundle args = new Bundle();
 
+
         switch (item.getItemId()) {
             case R.id.bluetoothSettingsdropdown:
+
                 args.putString("intent","bluetooth");
                 dialog.setArguments(args);
                 dialog.show(getSupportFragmentManager(), "password");
@@ -192,15 +198,49 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setArguments(args);
                 dialog.show(getSupportFragmentManager(), "password");
                 return true;
+
+            case R.id.sendTestMessageDropDown:
+                final messageGPSHelper gpsHelper;
+                gpsHelper = new messageGPSHelper(this);
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 3);
+                        gpsHelper.sendMessage("7786898291", "Test");
+                return true;
+            case R.id.switchLanguage:
+                switchLanguage();
+                return true;
             case R.id.thresholdsettingdropdown:
                 //checking if password matches from user to sharedpreferences
                 args.putString("intent","threshold");
                 dialog.setArguments(args);
                 dialog.show(getSupportFragmentManager(), "password");
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    private void switchLanguage(){
+        String current = Locale.getDefault().getLanguage();
+        if(current == "fr"){
+            Locale locale = new Locale("en");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+            sharePreferenceHelper.saveLanguage("en");
+            recreate();
+        }
+        else if(current == "en"){
+            Locale locale = new Locale("fr");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+            sharePreferenceHelper.saveLanguage("fr");
+            recreate();
+        }
+    }
+
 
 
 }

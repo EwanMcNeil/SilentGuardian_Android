@@ -29,13 +29,14 @@ import android.widget.Toolbar;
 import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
 import com.example.silentguardian_android.fragments.Insert911GuardiansInfoFragment;
 import com.example.silentguardian_android.fragments.InsertThresholdMessageDialogFragment;
 import com.example.silentguardian_android.fragments.deleteContactFromThresholdFragment;
 import com.example.silentguardian_android.fragments.insertContactDialogFragment;
 import com.example.silentguardian_android.fragments.loadCellPhoneContact_fragment;
 import com.example.silentguardian_android.fragments.setContactToThresholdFragment;
-
+import com.example.silentguardian_android.MainActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +78,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_threshold_setting);
-
+        SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
+        helper.setTutorialSeen(true);
         //from contact Actvitity
         doneActivity = findViewById(R.id.doneActButton);
         addContactButton = findViewById(R.id.freshAddContactButton);
@@ -111,7 +113,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         doneActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ThresholdSettingActivity.this, BluetoothMainActivity.class);
+                Intent intent = new Intent(ThresholdSettingActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

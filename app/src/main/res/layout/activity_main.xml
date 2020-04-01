@@ -26,11 +26,15 @@
     <TextView
         android:id="@+id/iAmSafeTextView"
         android:layout_width="wrap_content"
+
+        android:text="@string/iAmSafe"
+
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="I AM SAFE"
+     
         android:textAlignment="center"
+
         android:textSize="18sp"
 
         app:layout_constraintBottom_toTopOf="@+id/guideline42"
