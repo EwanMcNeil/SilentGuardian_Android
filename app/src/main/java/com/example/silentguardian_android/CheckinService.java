@@ -171,6 +171,20 @@ public class CheckinService extends Service {
 
                 startForeground(1, notification[0]);
 
+                NotificationChannel notificationChannel = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_LOW);
+                    notificationChannel.setSound(null, null);
+                    notificationChannel.enableVibration(false);
+                }
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    notificationManager.createNotificationChannel(notificationChannel);
+                }
+
+
+
+
             }
 
             //This is the last notification: tells the users the messages have been sent
@@ -184,6 +198,21 @@ public class CheckinService extends Service {
                         .build()};
 
                 startForeground(1, notification[0]);
+
+                NotificationChannel notificationChannel = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);
+
+
+                }
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    notificationManager.createNotificationChannel(notificationChannel);
+                }
+
+
+
+
 
             }
 
@@ -204,8 +233,25 @@ public class CheckinService extends Service {
 
                         startForeground(1,notification[0]);
 
+                NotificationChannel notificationChannel = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);
+
+
+                }
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    notificationManager.createNotificationChannel(notificationChannel);
+                }
+
+
+
+
+
             }
 
+
+            //this is when the notification just shows the regular countdown
              if((Hours>0 || Minutes>0 || Seconds>0) & !firstTimerDone){
 
                 //regular notification to show the user how much time is left on the timer
@@ -221,18 +267,39 @@ public class CheckinService extends Service {
                 //the following if statements make sure the proper android phones are up to date or will crash
                 // Create the NotificationChannel, but only on API 26+ because
                 // the NotificationChannel class is new and not in the support library
-            }
+
+
+                 NotificationChannel notificationChannel = null;
+                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                     notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_LOW);
+                     notificationChannel.setSound(null, null);
+                     notificationChannel.enableVibration(false);
+                 }
+                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                     notificationManager.createNotificationChannel(notificationChannel);
+                 }
+
+
+             }
 
 
 
+
+
+             /*
                 NotificationChannel notificationChannel = null;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);
+
+
                 }
                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     notificationManager.createNotificationChannel(notificationChannel);
                 }
+
+              */
 
 
 
