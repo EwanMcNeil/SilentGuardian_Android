@@ -29,6 +29,11 @@ import static java.util.ResourceBundle.getBundle;
 
 public class CheckinService extends Service {
 
+    //Integer Hours;
+   // Integer Minutes;
+    //Integer Seconds;
+    Boolean firstTimerDone= false;
+
     private static final String TAG = "CheckIn";
 
     private static final String CHANNEL_ID = "NotificationChannelID";
@@ -153,28 +158,85 @@ public class CheckinService extends Service {
             Intent notificationIntent = new Intent(this , checkInActivity.class);
             final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
-            final Notification[] notification = {new NotificationCompat.Builder(this , CHANNEL_ID)
-                    .setContentTitle("My Check-in Timer")
-                    .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
-                    .setContentIntent(pendingIntent)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .build()};
 
+            //this notifcation is showing during the time between first timer going off and before last timer goes off
+            if (firstTimerDone) {
+                final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
+                        .setContentTitle("Please Check-in with Silent Guardians")
+                        .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentIntent(pendingIntent)
+                        .setPriority(NotificationCompat.PRIORITY_MAX)
+                        .build()};
 
-            startForeground(1,notification[0]);
-            //the following if statements make sure the proper android phones are up to date or will crash
-            // Create the NotificationChannel, but only on API 26+ because
-            // the NotificationChannel class is new and not in the support library
+                startForeground(1, notification[0]);
 
-            NotificationChannel notificationChannel = null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);
             }
-            NotificationManager notificationManager = getSystemService (NotificationManager.class);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                notificationManager.createNotificationChannel (notificationChannel);
+
+            //This is the last notification: tells the users the messages have been sent
+            if (Hours ==0 & Minutes ==0 & Seconds ==0 & firstTimerDone) {
+                final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
+                        .setContentTitle("Missed Check missed: Messages sent to Guardians")
+                        .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentIntent(pendingIntent)
+                        .setPriority(NotificationCompat.PRIORITY_MAX)
+                        .build()};
+
+                startForeground(1, notification[0]);
+
             }
+
+
+
+            //this notification tells the user to check in because their first timer has gone off
+            if (Hours ==0 & Minutes ==0 & Seconds ==0 & !firstTimerDone)
+            {
+                firstTimerDone = true;
+
+                final Notification[] notification = {new NotificationCompat.Builder(this , CHANNEL_ID)
+                        .setContentTitle("Please Check-in with Silent Guardians")
+                        .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentIntent(pendingIntent)
+                        .setPriority(NotificationCompat.PRIORITY_MAX)
+                        .build()};
+
+                        startForeground(1,notification[0]);
+
+            }
+
+             if((Hours>0 || Minutes>0 || Seconds>0) & !firstTimerDone){
+
+                //regular notification to show the user how much time is left on the timer
+                final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
+                        .setContentTitle("My Check-in Timer")
+                        .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentIntent(pendingIntent)
+                        .setPriority(NotificationCompat.PRIORITY_MIN)
+                        .build()};
+
+                startForeground(1, notification[0]);
+                //the following if statements make sure the proper android phones are up to date or will crash
+                // Create the NotificationChannel, but only on API 26+ because
+                // the NotificationChannel class is new and not in the support library
+            }
+
+
+
+                NotificationChannel notificationChannel = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);
+                }
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    notificationManager.createNotificationChannel(notificationChannel);
+                }
+
+
+
+
         }
 
         catch (Exception e){
@@ -185,24 +247,22 @@ public class CheckinService extends Service {
     }
 
     /*
-    public void fullScreenNotification()
+ if( Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==false)
     {
-        Intent fullScreenIntent = new Intent(this, checkInActivity.class);
-        PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(this, 0,
-                fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //remember to make in onDestroy to clear this
+        userTimerDone = true;
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("My notification")
-                .setContentText("Hello World!")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setFullScreenIntent(fullScreenPendingIntent, true);
+        Log.d(TAG, "User has 5 mins to hit i am safe button " );
 
-
+        finalTimer();
 
     }
 
      */
+
+
+
+
 
 
 
