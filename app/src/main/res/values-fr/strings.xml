@@ -41,4 +41,10 @@
     <string name="red_slide">Red</string>
     <string name="blue_slide">Blue</string>
     <string name="green_slide">Green</string>
+    <!-- Menu items -->
+
+    <!-- Tutorials items -->
+    <string name="guardian_activity_tutorial_title">Press the top-right icon to assign your contacts to your Guardian Levels !</string>
+    <string name="end_tutorial_button_text">Got it!</string>
+    <!-- Tutorials items -->
 </resources>

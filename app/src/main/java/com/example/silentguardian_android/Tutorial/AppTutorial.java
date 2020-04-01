@@ -27,7 +27,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TutorialActivity extends AppCompatActivity {
+public class AppTutorial extends AppCompatActivity {
 
     protected ViewPager mScreenPager;
     protected TutorialViewpagerAdapter mTutorialViewpagerAdapter;

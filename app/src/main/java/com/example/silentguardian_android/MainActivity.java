@@ -167,18 +167,6 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.settingsmenu, menu);
         return true;
     }
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection

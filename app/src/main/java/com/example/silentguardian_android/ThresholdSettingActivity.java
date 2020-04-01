@@ -6,37 +6,45 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
-import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
+import com.example.silentguardian_android.Tutorial.AppTutorial;
+import com.example.silentguardian_android.Tutorial.MyImage;
+import com.example.silentguardian_android.Tutorial.TutorialViewpagerAdapter;
 import com.example.silentguardian_android.fragments.Insert911GuardiansInfoFragment;
 import com.example.silentguardian_android.fragments.InsertThresholdMessageDialogFragment;
 import com.example.silentguardian_android.fragments.deleteContactFromThresholdFragment;
 import com.example.silentguardian_android.fragments.insertContactDialogFragment;
 import com.example.silentguardian_android.fragments.loadCellPhoneContact_fragment;
-import com.example.silentguardian_android.fragments.setContactToThresholdFragment;
-import com.example.silentguardian_android.MainActivity;
+import com.google.android.material.tabs.TabLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,14 +67,12 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     //protected Button allClearButton;
     //protected Button thresholdTwoAllClearButton;
     protected ArrayList<Person> thresholdList = new ArrayList<>();
-
     protected Button defineMessageButton;
     //to allow to move the tutorial button
     protected ConstraintLayout activityLayout;
     //from contact activity
     protected Button addContactButton;
     protected Button importContactsButton;
-
     protected Boolean contactMode;
 
     protected Button doneActivity;
@@ -78,6 +84,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_threshold_setting);
+
+        final Dialog mInfoDialog = new Dialog(ThresholdSettingActivity.this, R.style.Theme_AppCompat);
         SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
         helper.setTutorialSeen(true);
         //from contact Actvitity
@@ -85,6 +93,10 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         addContactButton = findViewById(R.id.freshAddContactButton);
         importContactsButton = findViewById(R.id.importContactButton);
         mImageButtonTutorial = findViewById(R.id.imageButtonTutorial);
+
+        //Setup tutorial
+        loadActivityTutorial(mInfoDialog);
+        ////
 
         addContactButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,7 +177,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        thresholdTextview.setText("Click the three dots!");//reseting textview
+        thresholdTextview.setText(null);//reseting textview
         //on start these buttons should be gone
 
         doneActivity.setVisibility(View.GONE);
@@ -431,5 +443,77 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         }
     }
 
+    //helper function for that, could figure out a better way to structure this
+    //for now id rather have it working
+    private void loadActivityTutorial( final Dialog mInfoDialog){
+
+        final List<MyImage> mList = new ArrayList<>();
+        mList.add(new MyImage("Add Contacts to the SilentGuardians App",
+                "Either manually add contacts by pressing the Add Contact button or import existing phone contacts by pressing Import Contacts."
+                ,R.drawable.guardians_act_info1));
+
+        mList.add(new MyImage("Assign Contacts as Guardians",
+                "After adding contacts, press the Setting icon to edit your Guardians. "
+                ,R.drawable.guardians_act_info));
+
+        mList.add(new MyImage("Assign Contacts as Guardians",
+                "After adding contacts, you assign Guardians by clicking on the contact name. "
+                ,R.drawable.guardians_act_info));
+
+
+        mImageButtonTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mInfoDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                mInfoDialog.setContentView(R.layout.activity_tutorial);
+
+                //UI elements
+                ViewPager mScreenPager = mInfoDialog.findViewById(R.id.screen_viewpager);
+                TabLayout mTabIndicator  = mInfoDialog.findViewById(R.id.tab_indicator);
+                TextView  mSkip = mInfoDialog.findViewById(R.id.tv_skip);
+                final Button mDialogButton = mInfoDialog.findViewById(R.id.btn_get_started);
+
+                mSkip.setVisibility(View.INVISIBLE);
+
+
+                //decodeSampledBitmapFromResource(getResources(),R.drawable.guardians_act_info, 220, 220);
+                TutorialViewpagerAdapter mTutorialViewpagerAdapter = new TutorialViewpagerAdapter(getApplicationContext(),mList,false);
+                mScreenPager.setAdapter(mTutorialViewpagerAdapter);
+
+                // setup tablayout with viewpager
+                mTabIndicator.setupWithViewPager(mScreenPager);
+
+
+                mDialogButton.setText(R.string.end_tutorial_button_text);
+                // if button is clicked, close the custom dialog
+                mTabIndicator.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        if (tab.getPosition() == mList.size()-1) {
+                            mDialogButton.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+                    @Override//must have these two here
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                    }
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                    }
+                });
+                mDialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mInfoDialog.dismiss();
+                    }
+                });
+
+                mInfoDialog.show();
+            }
+        });
 
     }
+}
+

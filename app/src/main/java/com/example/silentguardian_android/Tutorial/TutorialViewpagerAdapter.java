@@ -21,12 +21,20 @@ import java.util.List;
 
 public class TutorialViewpagerAdapter extends PagerAdapter {
 
-    protected Context mContext ;
-    protected List<MyImage> mListScreen;
+    private Context mContext ;
+    private List<MyImage> mListScreen;
+    private boolean enableAnimation;
 
+
+    public TutorialViewpagerAdapter(Context mContext, List<MyImage> mListScreen,boolean enableAnimations) {
+        this.mContext = mContext;
+        this.mListScreen = mListScreen;
+        this.enableAnimation = enableAnimations;
+    }
     public TutorialViewpagerAdapter(Context mContext, List<MyImage> mListScreen) {
         this.mContext = mContext;
         this.mListScreen = mListScreen;
+        this.enableAnimation = true;
     }
 
     @NonNull
@@ -36,17 +44,23 @@ public class TutorialViewpagerAdapter extends PagerAdapter {
         View layoutScreen = inflater.inflate(R.layout.to_inflate_tutorial_layout,null);//idddk why it does this
 
         ImageView imgSlide = layoutScreen.findViewById(R.id.intro_img);
-        Animation imageAnim = AnimationUtils.loadAnimation(mContext,R.anim.image_animation_landing);
-        Animation titleAnim= AnimationUtils.loadAnimation(mContext,R.anim.title_animation_landing);
+        Animation imageAnim = null,titleAnim = null;
         TextView title = layoutScreen.findViewById(R.id.intro_title);
         TextView description = layoutScreen.findViewById(R.id.intro_description);
+
+        if(enableAnimation){
+            imageAnim = AnimationUtils.loadAnimation(mContext,R.anim.image_animation_landing);
+            titleAnim= AnimationUtils.loadAnimation(mContext,R.anim.title_animation_landing);
+        }
 
         //filling the view
         switch(position){
             case 0:{
                // title.setTextSize(40f);
-                imgSlide.setAnimation(imageAnim);
-                title.setAnimation(titleAnim);
+                if(imageAnim != null && titleAnim!= null){
+                    imgSlide.setAnimation(imageAnim);
+                    title.setAnimation(titleAnim);
+                }
                 break;
             }
         }

@@ -73,14 +73,17 @@ public class InsertPasswordCheckFragment extends DialogFragment {
                             intent = new Intent(getActivity(), BluetoothMainActivity.class);
                             Log.d(TAG, "blue");
                             startActivity(intent);
+                            dismiss();
                             return;
                         case "profile":
                             intent = new Intent(getActivity(), profileActivity.class);
                             startActivity(intent);
+                            dismiss();
                             return;
                         case "threshold":
                             intent = new Intent(getActivity(), ThresholdSettingActivity.class);
                             startActivity(intent);
+                            dismiss();
                             return;
                         default:
                             dismiss();
