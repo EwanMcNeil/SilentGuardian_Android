@@ -210,7 +210,7 @@ public class CheckinService extends Service {
                     notificationManager.createNotificationChannel(notificationChannel);
                 }
 
-
+                //firstTimerDone= false;
 
 
 
@@ -222,6 +222,8 @@ public class CheckinService extends Service {
             if (Hours ==0 & Minutes ==0 & Seconds ==0 & !firstTimerDone)
             {
                 firstTimerDone = true;
+
+                messageGPSHelper.vibrate();
 
                 final Notification[] notification = {new NotificationCompat.Builder(this , CHANNEL_ID)
                         .setContentTitle("Please Check-in with Silent Guardians")

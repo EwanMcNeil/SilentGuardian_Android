@@ -162,8 +162,8 @@ public class messageGPSHelper {
         return output;
     }
 
-
-    protected void vibrate(){
+    /// was not static before, made it static to use in the check in service
+    static protected void vibrate(){
 
         Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
