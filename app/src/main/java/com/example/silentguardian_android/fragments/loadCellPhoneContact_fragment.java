@@ -1,6 +1,7 @@
 package com.example.silentguardian_android.fragments;
 
 
+
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -85,7 +85,6 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
         });
         return view;
     }
-
     public void loadAndroidContactListView(){
 
         ArrayList<String> contactListText = new ArrayList<>();
