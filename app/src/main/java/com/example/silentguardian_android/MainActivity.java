@@ -185,8 +185,10 @@ public class MainActivity extends AppCompatActivity {
         InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
         Bundle args = new Bundle();
 
+
         switch (item.getItemId()) {
             case R.id.bluetoothSettingsdropdown:
+
                 args.putString("intent","bluetooth");
                 dialog.setArguments(args);
                 dialog.show(getSupportFragmentManager(), "password");
@@ -202,9 +204,10 @@ public class MainActivity extends AppCompatActivity {
                 gpsHelper = new messageGPSHelper(this);
                         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 3);
                         gpsHelper.sendMessage("7786898291", "Test");
+                return true;
             case R.id.switchLanguage:
                 switchLanguage();
-
+                return true;
             case R.id.thresholdsettingdropdown:
                 //checking if password matches from user to sharedpreferences
                 args.putString("intent","threshold");

@@ -80,7 +80,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_threshold_setting);
         SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
         helper.setTutorialSeen(true);
-
         //from contact Actvitity
         doneActivity = findViewById(R.id.doneActButton);
         addContactButton = findViewById(R.id.freshAddContactButton);
