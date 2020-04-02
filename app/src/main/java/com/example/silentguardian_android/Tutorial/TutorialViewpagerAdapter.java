@@ -5,6 +5,8 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,15 +21,21 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 //import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.silentguardian_android.R;
 
 import java.util.List;
+
+import javax.sql.DataSource;
 
 public class TutorialViewpagerAdapter extends PagerAdapter {
 
     private Context mContext ;
     private List<MyImage> mListScreen;
     private boolean enableAnimation;
+    private GifDrawable gifDrawable;
 
 
 
@@ -65,28 +73,25 @@ public class TutorialViewpagerAdapter extends PagerAdapter {
                 title.setAnimation(titleAnim);
             }
         }
-        if(mListScreen.get(position).isGif()){
-//            GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imgSlide);
-//            Glide
-//                    .with(mContext)
-//                    .load(mListScreen.get(position)
-//                            .getMyPicture())
-//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                    .crossFade()
-//                    .into(imageViewTarget);
-
-           Glide
-                   .with(mContext)
+        if(mListScreen.get(position).isGif()){//wont work
+           Glide.with(mContext)
                    .load(mListScreen.get(position).getMyPicture())
-                   //.asGif()
-                   //.crossFade()
                    .into(imgSlide);
+            if (gifDrawable != null) {
+                if (gifDrawable.isRunning()) {
+                    gifDrawable.stop();
+                } else {
+                    gifDrawable.start();
+                }
+            }
         }else{
             imgSlide.setImageResource(mListScreen.get(position).getMyPicture());
         }
 
+
         title.setText(mListScreen.get(position).getTitle());
         description.setText(mListScreen.get(position).getDescription());
+
         container.addView(layoutScreen);
         return layoutScreen;
     }

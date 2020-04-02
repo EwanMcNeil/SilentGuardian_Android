@@ -91,7 +91,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         final Dialog mInfoDialog = new Dialog(ThresholdSettingActivity.this, R.style.Theme_AppCompat);
         SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
-        //helper.setTutorialSeen(true);
+
         //from contact Actvitity
         doneActivity = findViewById(R.id.doneActButton);
         addContactButton = findViewById(R.id.freshAddContactButton);
@@ -105,6 +105,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         if(!helper.getTutorialSeen() ){
             Log.d("__Guardians","Gooing to perform click on tutorial button");
             mImageButtonTutorial.performClick();
+            helper.setTutorialSeen(true);
         }
         else {
             Log.d("__Guardians","tutorial was seen!!!");
