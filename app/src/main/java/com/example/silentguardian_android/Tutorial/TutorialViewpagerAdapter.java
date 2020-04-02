@@ -15,6 +15,10 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+//import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.silentguardian_android.R;
 
 import java.util.List;
@@ -24,6 +28,7 @@ public class TutorialViewpagerAdapter extends PagerAdapter {
     private Context mContext ;
     private List<MyImage> mListScreen;
     private boolean enableAnimation;
+
 
 
     public TutorialViewpagerAdapter(Context mContext, List<MyImage> mListScreen,boolean enableAnimations) {
@@ -54,19 +59,34 @@ public class TutorialViewpagerAdapter extends PagerAdapter {
         }
 
         //filling the view
-        switch(position){
-            case 0:{
-               // title.setTextSize(40f);
-                if(imageAnim != null && titleAnim!= null){
-                    imgSlide.setAnimation(imageAnim);
-                    title.setAnimation(titleAnim);
-                }
-                break;
+        if (position == 0) {// title.setTextSize(40f);
+            if (imageAnim != null && titleAnim != null && !mListScreen.get(position).isGif()) {
+                imgSlide.setAnimation(imageAnim);
+                title.setAnimation(titleAnim);
             }
         }
+        if(mListScreen.get(position).isGif()){
+//            GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imgSlide);
+//            Glide
+//                    .with(mContext)
+//                    .load(mListScreen.get(position)
+//                            .getMyPicture())
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .crossFade()
+//                    .into(imageViewTarget);
+
+           Glide
+                   .with(mContext)
+                   .load(mListScreen.get(position).getMyPicture())
+                   //.asGif()
+                   //.crossFade()
+                   .into(imgSlide);
+        }else{
+            imgSlide.setImageResource(mListScreen.get(position).getMyPicture());
+        }
+
         title.setText(mListScreen.get(position).getTitle());
         description.setText(mListScreen.get(position).getDescription());
-        imgSlide.setImageResource(mListScreen.get(position).getMyPicture());
         container.addView(layoutScreen);
         return layoutScreen;
     }

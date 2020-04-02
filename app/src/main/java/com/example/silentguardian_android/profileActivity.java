@@ -1,7 +1,6 @@
 package com.example.silentguardian_android;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,12 +37,18 @@ public class profileActivity extends AppCompatActivity {
         userEditText = findViewById(R.id.editUserName);
         userEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
         passwordEditText = findViewById(R.id.editPassword);
-        saveButton = findViewById(R.id.saveButton);
-        cancelButton = findViewById(R.id.cancelButton);
+        saveButton = findViewById(R.id.profile_saveButton);
+        cancelButton = findViewById(R.id.profile_cancelButton);
 
         //instantiating the sharepreferences helper
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
+        if(!(new SharePreferenceHelper(getApplicationContext()).getTutorialSeen())) {
+            Button buttoncontinue = findViewById(R.id.profile_saveButton);
+            Button buttonCancel = findViewById(R.id.profile_cancelButton);
+            buttonCancel.setVisibility(View.GONE);
+            buttoncontinue.setText("Continue");//bilingual
+        }
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

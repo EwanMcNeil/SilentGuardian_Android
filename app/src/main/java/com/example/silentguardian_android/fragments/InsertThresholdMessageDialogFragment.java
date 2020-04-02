@@ -1,6 +1,5 @@
 package com.example.silentguardian_android.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +37,7 @@ public class InsertThresholdMessageDialogFragment extends DialogFragment {
 
         userDefinedThresholdMessage = view.findViewById(R.id.editUserDefinedMessageText);
         saveMessage = view.findViewById(R.id.saveMessageButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        cancelButton = view.findViewById(R.id.profile_cancelButton);
 
         sharePreferenceHelper = new SharePreferenceHelper(getContext());
 

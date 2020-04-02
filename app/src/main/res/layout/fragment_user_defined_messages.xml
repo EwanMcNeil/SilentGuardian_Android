@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline34" />
 
     <Button
-        android:id="@+id/cancelButton"
+        android:id="@+id/profile_cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"

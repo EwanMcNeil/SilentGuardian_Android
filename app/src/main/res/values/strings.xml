@@ -19,6 +19,8 @@
     <string name="connected">Connected</string>
     <string name="disconnected">Disconnected</string>
     <string name="title_devices">BLE Device Scan</string>
+    <string name="bluetooth_notif_title">Silent Guardians connected.</string>
+    <string name="bluetooth_notif_text">Your device is ready to be used.</string>
     <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
 
     <string name="unknown_device">Unknown device</string>
@@ -42,5 +44,7 @@
     <string name="green_slide">Green</string>
     <string name="guardian_activity_tutorial_title">Press the top-right icon to assign your contacts to your Guardian Levels !</string>
     <string name="end_tutorial_button_text">Got it!</string>
+    <string name="tutorial_create_profile">Create my profile</string>
+    <string name="skip">Skip</string>
 
 </resources>

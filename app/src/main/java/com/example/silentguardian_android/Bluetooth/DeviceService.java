@@ -194,8 +194,8 @@ public class DeviceService extends Service {
             final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
             final Notification[] notification = {new NotificationCompat.Builder(this, "CHANNEL_ID_BLUETOOTH")
-                    .setContentTitle("Silent Guardians connected.")
-                    .setContentText("Your device is ready to be used.")
+                    .setContentTitle(getResources().getString(R.string.bluetooth_notif_title))
+                    .setContentText(getResources().getString(R.string.bluetooth_notif_text))
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                     .setContentIntent(pendingIntent)
                     .setPriority(NotificationCompat.PRIORITY_MAX)

@@ -81,13 +81,17 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_threshold_setting);
 
         final Dialog mInfoDialog = new Dialog(ThresholdSettingActivity.this, R.style.Theme_AppCompat);
         SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
-        helper.setTutorialSeen(true);
+        //helper.setTutorialSeen(true);
         //from contact Actvitity
         doneActivity = findViewById(R.id.doneActButton);
         addContactButton = findViewById(R.id.freshAddContactButton);
@@ -97,6 +101,14 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         //Setup tutorial
         loadActivityTutorial(mInfoDialog);
         ////
+
+        if(!helper.getTutorialSeen() ){
+            Log.d("__Guardians","Gooing to perform click on tutorial button");
+            mImageButtonTutorial.performClick();
+        }
+        else {
+            Log.d("__Guardians","tutorial was seen!!!");
+        }
 
         addContactButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -456,9 +468,9 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 "After adding contacts, press the Setting icon to edit your Guardians. "
                 ,R.drawable.guardians_act_info));
 
-        mList.add(new MyImage("Assign Contacts as Guardians",
-                "After adding contacts, you assign Guardians by clicking on the contact name. "
-                ,R.drawable.guardians_act_info));
+        mList.add(new MyImage("Click on a contact to add them as a Guardian",
+                "Press the setting menu again to either to Add more contacts or Assign your Level 2 Guardians."
+                ,R.drawable.guardian_activity_little_anim,true));
 
 
         mImageButtonTutorial.setOnClickListener(new View.OnClickListener() {
@@ -515,5 +527,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         });
 
     }
+
 }
 

@@ -83,7 +83,7 @@ public class BluetoothLeService extends Service {
                 // Attempts to discover services after successful connection.
                 try {
                     //set time in mili
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
 
                 }catch (Exception e){
                     e.printStackTrace();

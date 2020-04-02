@@ -1,5 +1,85 @@
 package com.example.silentguardian_android.Tutorial;
+/*
+*
+ To create a new tutorial in any activity, you ll need to create:
 
+    //an image button wherever you want in your activity layout.
+
+    protected ImageButton mImageButtonTutorial;//used for a png of what you re describing
+    final Dialog mInfoDialog = new Dialog(ThresholdSettingActivity.this, R.style.Theme_AppCompat);
+    //Setup tutorial
+    loadActivityTutorial(mInfoDialog);
+    ////then something like this
+    if(!helper.getTutorialSeen() ){
+        Log.d("__Guardians","Gooing to perform click on tutorial button");
+        mImageButtonTutorial.performClick();
+    }
+
+       //helper function , could figure out a better way to structure this
+    //for now id rather have it working
+//////////////////////////////////////////////////
+    private void loadActivityTutorial( final Dialog mInfoDialog){//this is here you add your content
+
+        final List<MyImage> mList = new ArrayList<>();
+        mList.add(new MyImage("Add Contacts to the SilentGuardians App",
+                "Either manually add contacts by pressing the Add Contact button or import existing phone contacts by pressing Import Contacts."
+                ,R.drawable.guardians_act_info1));
+
+        mList.add(new MyImage("Assign Contacts as Guardians",
+                "After adding contacts, press the Setting icon to edit your Guardians. "
+                ,R.drawable.guardians_act_info));
+
+        mList.add(new MyImage("Assign Contacts as Guardians",
+                "After adding contacts, you assign Guardians by clicking on the contact name. "
+                ,R.drawable.guardians_act_info));
+
+        mImageButtonTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mInfoDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                mInfoDialog.setContentView(R.layout.activity_tutorial);
+                //UI elements
+                ViewPager mScreenPager = mInfoDialog.findViewById(R.id.screen_viewpager);
+                TabLayout mTabIndicator  = mInfoDialog.findViewById(R.id.tab_indicator);
+                TextView  mSkip = mInfoDialog.findViewById(R.id.tv_skip);
+                final Button mDialogButton = mInfoDialog.findViewById(R.id.btn_get_started)
+                mSkip.setVisibility(View.INVISIBLE);
+                //decodeSampledBitmapFromResource(getResources(),R.drawable.guardians_act_info, 220, 220);
+                TutorialViewpagerAdapter mTutorialViewpagerAdapter = new TutorialViewpagerAdapter(getApplicationContext(),mList,false);
+                mScreenPager.setAdapter(mTutorialViewpagerAdapter);
+                // setup tablayout with viewpager
+                mTabIndicator.setupWithViewPager(mScreenPager);
+                mDialogButton.setText(R.string.end_tutorial_button_text);
+                // if button is clicked, close the custom dialog
+                mTabIndicator.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        if (tab.getPosition() == mList.size()-1) {
+                            mDialogButton.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    @Override//must have these two here
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                    }
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                    }
+                });
+                mDialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mInfoDialog.dismiss();
+                    }
+                });
+                mInfoDialog.show();
+            }
+        });
+    }
+//////////////
+*
+*
+* */
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
