@@ -4,6 +4,7 @@ package com.example.silentguardian_android.Bluetooth;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
@@ -29,7 +30,9 @@ import androidx.core.app.NotificationCompat;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
+import com.example.silentguardian_android.MainActivity;
 import com.example.silentguardian_android.R;
+import com.example.silentguardian_android.checkInActivity;
 import com.example.silentguardian_android.messageGPSHelper;
 
 import java.util.ArrayList;
@@ -185,8 +188,21 @@ public class DeviceService extends Service {
         super.onCreate();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O)
             startMyOwnForeground();
-        else
-            startForeground(1, new Notification());
+        else{
+           // startForeground(1, new Notification());
+            Intent notificationIntent = new Intent(this , MainActivity.class);
+            final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+            final Notification[] notification = {new NotificationCompat.Builder(this, "CHANNEL_ID_BLUETOOTH")
+                    .setContentTitle("Silent Guardians connected.")
+                    .setContentText("Your device is ready to be used.")
+                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setContentIntent(pendingIntent)
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
+                    .build()};
+
+            startForeground(1, notification[0]);
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
