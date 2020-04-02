@@ -34,6 +34,8 @@ public class CheckinService extends Service {
     //Integer Seconds;
     Boolean firstTimerDone= false;
 
+
+
     private static final String TAG = "CheckIn";
 
     private static final String CHANNEL_ID = "NotificationChannelID";
@@ -47,11 +49,20 @@ public class CheckinService extends Service {
         return null;
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        sharePreferenceHelper = new SharePreferenceHelper(this);
+
+        sharePreferenceHelper.firstTimerDoneService(false);
+
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         sharePreferenceHelper = new SharePreferenceHelper(this);
+
 
         //this is for when there was only seconds, trying to replace this to recieve all three in a bundle
         //final Integer[] secondTimeRemaining = {intent.getIntExtra("secondTimeValue", 0)};
@@ -174,7 +185,7 @@ public class CheckinService extends Service {
 
 
             //this notifcation is showing during the time between first timer going off and before last timer goes off
-            if (firstTimerDone) {
+            if (sharePreferenceHelper.getfirstTimerDoneService()) {
                 final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setContentTitle("Please Check-in with Silent Guardians")
                         .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
@@ -202,7 +213,7 @@ public class CheckinService extends Service {
             }
 
             //This is the last notification: tells the users the messages have been sent
-            if (Hours ==0 & Minutes ==0 & Seconds ==0 & firstTimerDone) {
+            if (Hours ==0 & Minutes ==0 & Seconds ==0 & sharePreferenceHelper.getfirstTimerDoneService()) {
                 final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setContentTitle("Missed Check missed: Messages sent to Guardians")
                         .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
@@ -224,6 +235,7 @@ public class CheckinService extends Service {
                     notificationManager.createNotificationChannel(notificationChannel);
                 }
 
+                //resetting boolean so it can show correct notification if running again
                 //firstTimerDone= false;
 
 
@@ -233,9 +245,10 @@ public class CheckinService extends Service {
 
 
             //this notification tells the user to check in because their first timer has gone off
-            if (Hours ==0 & Minutes ==0 & Seconds ==0 & !firstTimerDone)
+            if (Hours ==0 & Minutes ==0 & Seconds ==0 & !sharePreferenceHelper.getfirstTimerDoneService())
             {
-                firstTimerDone = true;
+                sharePreferenceHelper.firstTimerDoneService(true);
+                //firstTimerDone = true;
 
                 messageGPSHelper.vibrate();
 
@@ -268,7 +281,7 @@ public class CheckinService extends Service {
 
 
             //this is when the notification just shows the regular countdown
-             if((Hours>0 || Minutes>0 || Seconds>0) & !firstTimerDone){
+             if((Hours>0 || Minutes>0 || Seconds>0) & !sharePreferenceHelper.getfirstTimerDoneService()){
 
                 //regular notification to show the user how much time is left on the timer
                 final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
