@@ -238,6 +238,25 @@ public class SharePreferenceHelper extends AppCompatActivity {
         return output;
     }
 
+    public void resetTimerValue( Boolean value)
+    {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putBoolean("Reset Timer Value", value);
+
+        editor.commit();
+
+    }
+
+    public Boolean getresetTimerValue()
+    {
+        boolean value = sharedPreferences.getBoolean("Reset Timer Value", false);
+
+        return value;
+
+    }
+
+
 
 
 

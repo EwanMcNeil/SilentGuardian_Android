@@ -98,38 +98,52 @@ public class CheckinService extends Service {
         Integer Seconds = ((bundle.getInt("secondTimeValue")) - (Hours*3600)) - (Minutes*60);
         Log.d(TAG, "Checking Hours = " +Hours + " checking minutes = " +Minutes + " checking Seconds = " +Seconds);
 
+//trying to use shared preferences to stop timer ONCE AND FOR ALL
 
 
+            //this is the Seconds Timer
+            final Timer secondstimer = new Timer();
+            secondstimer.scheduleAtFixedRate(new TimerTask() {
+                @RequiresApi(api = Build.VERSION_CODES.M)
+                @Override
+                public void run() {
 
-        //this is the Seconds Timer
-        final Timer secondstimer = new Timer();
-        secondstimer.scheduleAtFixedRate(new TimerTask() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void run() {
+                    Intent localintent = new Intent();
+                    localintent.setAction("Counter");
 
-                Intent localintent = new Intent();
-                localintent.setAction("Counter");
+                    //trying to use shared preferences to stop timer ONCE AND FOR ALL
+                    if(sharePreferenceHelper.getresetTimerValue()==false)
+                    {
+                        secondTimeRemaining[0]--;
+                    }
+                    else if (sharePreferenceHelper.getresetTimerValue()==true)
+                    {
+                        Log.d(TAG, "Checking to see if i entered the reset timer loop in the service class ");
+                        secondstimer.cancel();
+                        secondTimeRemaining[0]=0;
+                        localintent.putExtra("TimeRemaining", secondTimeRemaining[0]);
+                        sendBroadcast(localintent);
+                    }
 
-                secondTimeRemaining[0]--;
+                    NotificationUpdate(secondTimeRemaining[0]);
 
-                NotificationUpdate(secondTimeRemaining[0]);
+                    if (secondTimeRemaining[0] <= 0) {
+                        secondstimer.cancel();
 
-                if(secondTimeRemaining[0] <=0)
-                {
-                    secondstimer.cancel();
-
-                    //this is where you will start another clock ex. 5-10 mins, and if that timer hits 0...
-                    //then thats when the app will send the address they saved (within the checkin activity)
-                    // to their guardians
+                        //this is where you will start another clock ex. 5-10 mins, and if that timer hits 0...
+                        //then thats when the app will send the address they saved (within the checkin activity)
+                        // to their guardians
+                    }
+                    localintent.putExtra("TimeRemaining", secondTimeRemaining[0]);
+                    //localintent.putExtra("minutesTimeRemaining", minuteTimeRemaining[0]);
+                    //localintent.putExtra("hoursTimeRemaining", hourTimeRemaining[0]);
+                    sendBroadcast(localintent);
                 }
-                localintent.putExtra("TimeRemaining", secondTimeRemaining[0]);
-                //localintent.putExtra("minutesTimeRemaining", minuteTimeRemaining[0]);
-                //localintent.putExtra("hoursTimeRemaining", hourTimeRemaining[0]);
-                sendBroadcast(localintent);
-            }
-            // dont want any delay, the period is 1000ms, means 1 second
-        }, 0, 1000);
+                // dont want any delay, the period is 1000ms, means 1 second
+            }, 0, 1000);
+
+
+
 
 
 

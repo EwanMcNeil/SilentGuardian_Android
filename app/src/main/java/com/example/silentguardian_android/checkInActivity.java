@@ -86,7 +86,7 @@ public class checkInActivity extends AppCompatActivity {
 
         SMSHelper = new messageGPSHelper(this);
 
-
+        sharePreferenceHelper.resetTimerValue(false);
 
 
 
@@ -100,13 +100,15 @@ public class checkInActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
 
 
-
+                /*
                 if(resetValue ==true)
                 {
+                    Log.d(TAG, "Reached the final reset loop");
                     hourEditText.setText(null);
                     minuteEditText.setText(null);
                     secondEditText.setText(null);
                     context.stopService(intent);
+                    recreate();
 
                     TimerRunning = false;
                     userTimerDone=false;
@@ -114,6 +116,8 @@ public class checkInActivity extends AppCompatActivity {
                     resetValue = false;
 
                 }
+
+                 */
 
 
 
@@ -129,7 +133,9 @@ public class checkInActivity extends AppCompatActivity {
                 secondEditText.setText(Seconds.toString());
                 Log.d(TAG, "Checking  final Seconds = " + Seconds);
 
-                if(Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==true)
+
+
+                if(Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==true & sharePreferenceHelper.getresetTimerValue()==false)
                 {
                     Log.d(TAG, "Entered the last loop ");
 
@@ -162,6 +168,7 @@ public class checkInActivity extends AppCompatActivity {
                             minuteEditText.setText("");
                             secondEditText.setText("");
 
+                            recreate();
 
                         }
                     }
@@ -174,7 +181,7 @@ public class checkInActivity extends AppCompatActivity {
                 //this is where i will set a function to check if the user timer has gone off
                 //if it has, i still start a new timer that will be 5-10 mins, if they fail to hit the i am safe within this clock, the message will
                 //send out.
-                if( Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==false)
+                if( Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==false & sharePreferenceHelper.getresetTimerValue()==false)
                 {
                     //remember to make in onDestroy to clear this
                     userTimerDone = true;
@@ -184,6 +191,19 @@ public class checkInActivity extends AppCompatActivity {
                     finalTimer();
 
                 }
+
+
+                //where to put last reset if statement
+                if(Hours==0 & Minutes==0 & Seconds==0 & sharePreferenceHelper.getresetTimerValue()==true)
+                {
+                    hourEditText.setText("");//TODO used to crash because there was no reset of the editTExt
+                    minuteEditText.setText("");
+                    secondEditText.setText("");
+
+                    recreate();
+                }
+
+
 
 
             }
@@ -330,11 +350,17 @@ public class checkInActivity extends AppCompatActivity {
 
                 if(TimerRunning = true)
                 {
-                    resetValue = true;
+                    //resetValue = true;
                     hourEditText.setText(null);
                     minuteEditText.setText(null);
                     secondEditText.setText(null);
 
+                    sharePreferenceHelper.resetTimerValue(true);
+
+
+                    //Intent newintent = new Intent(checkInActivity.this, CheckinService.class);
+                    //getBaseContext().stopService(newintent);
+                    Log.d(TAG, "Reached the first reset loop");
                     //recreate();
                     //Intent intent = new Intent(checkInActivity.this, checkInActivity.class);
                     //startActivity(intent);
