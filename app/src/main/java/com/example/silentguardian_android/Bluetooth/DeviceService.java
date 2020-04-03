@@ -28,6 +28,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import com.example.silentguardian_android.AudioRecordTest;
+import com.example.silentguardian_android.Database.AudioDatabase;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
@@ -339,6 +341,7 @@ public class DeviceService extends Service {
 
                                     for(int i = 0; i < thresholdTwoNumbers.length; i++) {
                                         textHelper.sendMessage(thresholdTwoNumbers[i],spHelper.ThresholdTwoMessageReturn());
+                                        startRecording();
                                     }
                                     sendOne = true;
                                 }
