@@ -83,9 +83,11 @@ public class BluetoothMainActivity extends ListActivity {
         mBluetoothAdapter = bluetoothManager.getAdapter();
 
         // Checks if Bluetooth is supported on the device.
+        //emulators should go to main now
         if (mBluetoothAdapter == null) {
             Toast.makeText(this, R.string.error_bluetooth_not_supported, Toast.LENGTH_SHORT).show();
-            finish();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class );
+            startActivity(intent);
             return;
         }
     }
@@ -142,6 +144,9 @@ public class BluetoothMainActivity extends ListActivity {
         // Initializes list view adapter.
         mLeDeviceListAdapter = new LeDeviceListAdapter();
         setListAdapter(mLeDeviceListAdapter);
+        if(mLeDeviceListAdapter.isEmpty()){
+            Toast.makeText(getApplicationContext(), "no compatible devices seem to be found, please rescan", Toast.LENGTH_LONG).show();
+        }
         scanLeDevice(true);
     }
 
