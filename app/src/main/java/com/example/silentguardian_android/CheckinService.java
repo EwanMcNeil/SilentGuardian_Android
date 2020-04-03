@@ -125,9 +125,10 @@ public class CheckinService extends Service {
                     //trying to use shared preferences to stop timer ONCE AND FOR ALL
                     if(sharePreferenceHelper.getresetTimerValue()==false)
                     {
-                        secondTimeRemaining[0]--;
+                            secondTimeRemaining[0]--;
                     }
-                    else if (sharePreferenceHelper.getresetTimerValue()==true)
+
+                    if (sharePreferenceHelper.getresetTimerValue()==true)
                     {
                         Log.d(TAG, "Checking to see if i entered the reset timer loop in the service class ");
                         secondstimer.cancel();

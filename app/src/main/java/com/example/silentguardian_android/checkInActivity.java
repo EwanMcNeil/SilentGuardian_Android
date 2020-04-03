@@ -387,7 +387,7 @@ public class checkInActivity extends AppCompatActivity {
 
                     //Intent newintent = new Intent(checkInActivity.this, CheckinService.class);
                     //getBaseContext().stopService(newintent);
-                    Log.d(TAG, "Reached the first reset loop");
+                    Log.d(TAG, "User has hit the Restart Timer Button");
                     //recreate();
                     //Intent intent = new Intent(checkInActivity.this, checkInActivity.class);
                     //startActivity(intent);
