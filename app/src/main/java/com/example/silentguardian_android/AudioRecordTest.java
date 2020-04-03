@@ -29,10 +29,10 @@ public class AudioRecordTest extends AppCompatActivity {
 
     private Button   playButton = null;
     private MediaPlayer   player = null;
-    boolean mStartPlaying = false;
+    boolean mStartPlaying = true;
     // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted = false;
-    boolean mStartRecording = false;
+    boolean mStartRecording = true;
 
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
 
