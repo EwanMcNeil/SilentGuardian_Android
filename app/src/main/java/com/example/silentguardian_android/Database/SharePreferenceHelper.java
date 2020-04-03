@@ -238,6 +238,61 @@ public class SharePreferenceHelper extends AppCompatActivity {
         return output;
     }
 
+    //functions used for the Check in activity
+    public void resetTimerValue( Boolean value)
+    {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putBoolean("Reset Timer Value", value);
+
+        editor.commit();
+
+    }
+
+    public Boolean getresetTimerValue()
+    {
+        boolean value = sharedPreferences.getBoolean("Reset Timer Value", false);
+
+        return value;
+
+    }
+
+    public void firstTimerDoneService( Boolean value)
+    {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putBoolean("First Timer Done", value);
+
+        editor.commit();
+
+    }
+
+    public Boolean getfirstTimerDoneService()
+    {
+        boolean value = sharedPreferences.getBoolean("First Timer Done", false);
+
+        return value;
+
+    }
+
+    public void iAmSafe( Boolean value)
+    {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putBoolean("I Am Safe", value);
+
+        editor.commit();
+
+    }
+
+    public Boolean getiAmSafe()
+    {
+        boolean value = sharedPreferences.getBoolean("I Am Safe", false);
+
+        return value;
+
+    }
+
 
 
 

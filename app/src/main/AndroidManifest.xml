@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+
 
 
     <uses-feature
@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <service android:name=".CheckinService"/>
-        <activity android:name=".checkInActivity"></activity>
+        <activity android:name=".checkInActivity" />
 
         <receiver android:name=".Bluetooth.Restarter" android:exported="true" android:enabled="true">
             <intent-filter>

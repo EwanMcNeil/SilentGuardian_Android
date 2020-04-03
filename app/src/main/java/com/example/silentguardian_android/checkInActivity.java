@@ -86,8 +86,8 @@ public class checkInActivity extends AppCompatActivity {
 
         SMSHelper = new messageGPSHelper(this);
 
-
-
+        sharePreferenceHelper.resetTimerValue(false);
+        sharePreferenceHelper.iAmSafe(false);
 
 
 
@@ -100,13 +100,15 @@ public class checkInActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
 
 
-
+                /*
                 if(resetValue ==true)
                 {
+                    Log.d(TAG, "Reached the final reset loop");
                     hourEditText.setText(null);
                     minuteEditText.setText(null);
                     secondEditText.setText(null);
                     context.stopService(intent);
+                    recreate();
 
                     TimerRunning = false;
                     userTimerDone=false;
@@ -114,6 +116,8 @@ public class checkInActivity extends AppCompatActivity {
                     resetValue = false;
 
                 }
+
+                 */
 
 
 
@@ -129,11 +133,13 @@ public class checkInActivity extends AppCompatActivity {
                 secondEditText.setText(Seconds.toString());
                 Log.d(TAG, "Checking  final Seconds = " + Seconds);
 
-                if(Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==true)
+
+
+                if(Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==true & sharePreferenceHelper.getresetTimerValue()==false)
                 {
                     Log.d(TAG, "Entered the last loop ");
 
-                    if(iAmSafe == false)
+                    if(!sharePreferenceHelper.getiAmSafe())
                     {
                         //creating db object to use the functions
                         DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
@@ -162,11 +168,29 @@ public class checkInActivity extends AppCompatActivity {
                             minuteEditText.setText("");
                             secondEditText.setText("");
 
+                            //need to reset these in order to start timer again correctly after messages has been sent
+                            //TimerRunning = false;
+                            //userTimerDone=false;
+                            //iAmSafe=false;
+                            //resetValue = false;
+
+                            //recreate();
+                            //this works better for when the message is sent, can use the check in again afterwards.
+                            finish();
 
                         }
                     }
+                    else if(sharePreferenceHelper.getiAmSafe())
+                    {
+                        Log.d(TAG, "testing to see if i enter the i am safe test ");
+                        finish();
+                        Intent newintent = new Intent(checkInActivity.this, MainActivity.class);
+                        startActivity(newintent);
+
+                    }
 
                     //not sure if i need an else here;
+
 
                 }
 
@@ -174,7 +198,7 @@ public class checkInActivity extends AppCompatActivity {
                 //this is where i will set a function to check if the user timer has gone off
                 //if it has, i still start a new timer that will be 5-10 mins, if they fail to hit the i am safe within this clock, the message will
                 //send out.
-                if( Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==false)
+                if( Hours==0 & Minutes==0 & Seconds==0 & userTimerDone==false & sharePreferenceHelper.getresetTimerValue()==false & !sharePreferenceHelper.getiAmSafe())
                 {
                     //remember to make in onDestroy to clear this
                     userTimerDone = true;
@@ -184,6 +208,27 @@ public class checkInActivity extends AppCompatActivity {
                     finalTimer();
 
                 }
+
+
+                //where to put last reset if statement
+                if(Hours==0 & Minutes==0 & Seconds==0 & sharePreferenceHelper.getresetTimerValue())
+                {
+                    hourEditText.setText("");
+                    minuteEditText.setText("");
+                    secondEditText.setText("");
+
+                     TimerRunning = false;
+                     userTimerDone=false;
+                     //iAmSafe=false;
+                     //resetValue = false;
+
+                     //sharePreferenceHelper.resetTimerValue(false);
+
+                    //this is used to reset all of the booleans and ensures the activity can function after the reset timer has been pressed.
+                    recreate();
+                }
+
+
 
 
             }
@@ -310,6 +355,7 @@ public class checkInActivity extends AppCompatActivity {
                 if(temp_address.length() > 0)
                 {
                     sharePreferenceHelper.saveCheckInAddress(temp_address);
+                    Toast.makeText(getApplicationContext(), "Address has been saved!", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -319,8 +365,9 @@ public class checkInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                iAmSafe = true;
+                sharePreferenceHelper.iAmSafe(true);
                 Log.d(TAG, "User has hit the check in button" );
+                Toast.makeText(getApplicationContext(), "Check-in has been registered!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -330,11 +377,17 @@ public class checkInActivity extends AppCompatActivity {
 
                 if(TimerRunning = true)
                 {
-                    resetValue = true;
+                    //resetValue = true;
                     hourEditText.setText(null);
                     minuteEditText.setText(null);
                     secondEditText.setText(null);
 
+                    sharePreferenceHelper.resetTimerValue(true);
+
+
+                    //Intent newintent = new Intent(checkInActivity.this, CheckinService.class);
+                    //getBaseContext().stopService(newintent);
+                    Log.d(TAG, "User has hit the Restart Timer Button");
                     //recreate();
                     //Intent intent = new Intent(checkInActivity.this, checkInActivity.class);
                     //startActivity(intent);
@@ -359,6 +412,7 @@ public class checkInActivity extends AppCompatActivity {
 
 public void finalTimer()
 {
+
     int secondIntegerTimeSet = 10;
     Intent newintent = new Intent(checkInActivity.this, CheckinService.class);
     Bundle extras = new Bundle();
@@ -367,6 +421,8 @@ public void finalTimer()
     newintent.putExtras(extras);
 
     startService(newintent);
+
+
 }
 
 
