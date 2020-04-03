@@ -32,7 +32,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Tutorial.AppTutorial">
+        <activity android:name=".Tutorial.AppTutorial"
+            android:screenOrientation = "portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -49,15 +50,18 @@
 
         <activity
             android:name=".allClearActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation = "portrait"/>
         <activity
             android:name=".Bluetooth.DeviceControlActivity"
-            android:theme="@android:style/Theme.Holo.Light" />
-        <activity android:name=".modifyContactActivity" />
+            android:theme="@android:style/Theme.Holo.Light"
+            android:screenOrientation = "portrait"/>
+        <activity android:name=".modifyContactActivity"
+            android:screenOrientation = "portrait"/>
         <activity
             android:name=".Bluetooth.BluetoothMainActivity"
             android:parentActivityName=".MainActivity"
-
+            android:screenOrientation = "portrait"
             android:theme="@android:style/Theme.Holo.Light"></activity>
         <service android:name=".Bluetooth.DeviceService" android:enabled="true"> </service>
 
@@ -69,18 +73,19 @@
             android:name=".ThresholdSettingActivity"
             android:label="My Guardians"
             android:parentActivityName=".MainActivity"
-
+            android:screenOrientation = "portrait"
             />
         <activity
             android:name=".profileActivity"
             android:label="@string/title_activity_profile"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation = "portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.silentguardian_android.MainActivity" />
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation = "portrait">
 
         </activity>
     </application>
