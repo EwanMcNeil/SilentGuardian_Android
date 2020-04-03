@@ -44,7 +44,7 @@ public class BluetoothMainActivity extends ListActivity {
     // Stops scanning after 10 seconds.
     private static final long SCAN_PERIOD = 10000;
 
-
+    private int deviceCount;
     //varibles for the service
     Intent mServiceIntent;
     private DeviceService mYourService;
@@ -52,7 +52,7 @@ public class BluetoothMainActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        deviceCount = 0;
         SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
         helper.setTutorialSeen(true);
 
@@ -73,7 +73,9 @@ public class BluetoothMainActivity extends ListActivity {
         // selectively disable BLE-related features.
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
-            finish();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class );
+            startActivity(intent);
+            return;
         }
 
         // Initializes a Bluetooth adapter.  For API level 18 and above, get a reference to
@@ -83,9 +85,11 @@ public class BluetoothMainActivity extends ListActivity {
         mBluetoothAdapter = bluetoothManager.getAdapter();
 
         // Checks if Bluetooth is supported on the device.
+        //emulators should go to main now
         if (mBluetoothAdapter == null) {
             Toast.makeText(this, R.string.error_bluetooth_not_supported, Toast.LENGTH_SHORT).show();
-            finish();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class );
+            startActivity(intent);
             return;
         }
     }
@@ -143,6 +147,9 @@ public class BluetoothMainActivity extends ListActivity {
         mLeDeviceListAdapter = new LeDeviceListAdapter();
         setListAdapter(mLeDeviceListAdapter);
         scanLeDevice(true);
+
+
+
     }
 
     @Override
@@ -160,6 +167,7 @@ public class BluetoothMainActivity extends ListActivity {
         super.onPause();
         scanLeDevice(false);
         mLeDeviceListAdapter.clear();
+
     }
 
     @Override
@@ -167,6 +175,16 @@ public class BluetoothMainActivity extends ListActivity {
         Log.i ("Service status", "beforeNull");
         final BluetoothDevice device = mLeDeviceListAdapter.getDevice(position);
         if (device == null) return;
+
+        if(isMyServiceRunning(DeviceService.class)){
+            Toast.makeText(getApplicationContext(), "Error the device: " + device.getName() + " is already connected", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(!device.getName().equals("Silent_Guardians")){
+            Toast.makeText(getApplicationContext(), device.getName()+ " is not a compatible Device", Toast.LENGTH_LONG).show();
+            return;
+        }
         Log.i ("Service status", "passedNull");
 
         mServiceIntent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_NAME, device.getName());
@@ -176,15 +194,14 @@ public class BluetoothMainActivity extends ListActivity {
             Log.i ("Service status", "passedIf");
         }
 
-        ///this is where the service needs to be called
-//        final Intent intent = new Intent(this, DeviceControlActivity.class);
-//        intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_NAME, device.getName());
-//        intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_ADDRESS, device.getAddress());
-//        if (mScanning) {
-//            mBluetoothAdapter.stopLeScan(mLeScanCallback);
-//            mScanning = false;
-//        }
-//        startActivity(intent);
+
+
+
+        Toast.makeText(getApplicationContext(), device.getName()+ " Your device has been sucessfully connected", Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, MainActivity.class );
+        startActivity(intent);
+
     }
 
     private void scanLeDevice(final boolean enable) {
@@ -213,6 +230,7 @@ public class BluetoothMainActivity extends ListActivity {
         private ArrayList<BluetoothDevice> mLeDevices;
         private LayoutInflater mInflator;
 
+
         public LeDeviceListAdapter() {
             super();
             mLeDevices = new ArrayList<BluetoothDevice>();
@@ -220,8 +238,11 @@ public class BluetoothMainActivity extends ListActivity {
         }
 
         public void addDevice(BluetoothDevice device) {
-            if(!mLeDevices.contains(device)) {
-                mLeDevices.add(device);
+            if(device.getName() != null) {
+                if (!mLeDevices.contains(device)) {
+                    deviceCount++;
+                    mLeDevices.add(device);
+                }
             }
         }
 
