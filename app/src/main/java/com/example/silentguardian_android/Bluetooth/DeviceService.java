@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.Color;
+import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -33,12 +34,16 @@ import com.example.silentguardian_android.Database.AudioDatabase;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
+import com.example.silentguardian_android.Database.audioFile;
 import com.example.silentguardian_android.MainActivity;
 import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.checkInActivity;
 import com.example.silentguardian_android.messageGPSHelper;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
@@ -84,7 +89,11 @@ public class DeviceService extends Service {
     //end objects from deviceControlActivity
 
     public int counter=0;
+    private AudioDatabase adb;
+    private static String fileName = null;
+    private MediaRecorder recorder = null;
 
+    private boolean isrecording = false;
 
     // Code to manage Service lifecycle.(NEW)
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -168,8 +177,9 @@ public class DeviceService extends Service {
         Log.e(TAG, "onCreate");
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
-
-
+        //for audio
+        adb = new AudioDatabase(this);
+        fileName = getExternalCacheDir().getAbsolutePath();
         //This pulls in all the numbers for the people in the database
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
 
@@ -336,6 +346,12 @@ public class DeviceService extends Service {
                                         textHelper.sendMessage(thresholdOneNumbers[i],spHelper.ThresholdOneMessageReturn());
                                     }
                                     sendOne = true;
+
+                                    if(isrecording == false){
+                                        isrecording = true;
+                                        startRecording();
+                                    }
+
                                 }
                                 if(value==2) {
 
@@ -345,6 +361,7 @@ public class DeviceService extends Service {
                                         //needs to be called here
                                     }
                                     sendOne = true;
+
                                 }
 
 
@@ -373,6 +390,48 @@ public class DeviceService extends Service {
         }
         return false;
     }
+
+    private void startRecording() {
+        int num = adb.numberAudioObjects();
+        num = num +1;
+        String newfilename = fileName + "/audiorecordtest" + num + ".3gp";
+        Date currentTime = Calendar.getInstance().getTime();
+        String date = currentTime.toString();
+        audioFile file = new audioFile(date,newfilename);
+        adb.insertFile(file);
+
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setOutputFile(newfilename);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            recorder.prepare();
+        } catch (IOException e) {
+            Log.e("here", "prepare() failed");
+        }
+
+        recorder.start();
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        Log.i("tag", "This'll run 5000 milliseconds later");
+                        stopRecording();
+                    }
+                },
+                5000);
+    }
+
+    private void stopRecording() {
+        if(recorder != null) {
+            recorder.stop();
+            recorder.release();
+            isrecording = false;
+            recorder = null;
+        }
+    }
+
 
 
 
