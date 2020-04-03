@@ -36,7 +36,7 @@ public class AudioDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
 
-        String CREATE_TABLE_COURSE = "CREATE TABLE " + AudioConfig.DATABASE_NAME + " (" + AudioConfig.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+        String CREATE_TABLE_COURSE = "CREATE TABLE " + AudioConfig.TABLE_NAME + " (" + AudioConfig.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + AudioConfig.COLUMN_DATE + " TEXT NOT NULL, "
                 + AudioConfig.COLUMN_FILENAME + " TEXT NOT NULL) ";
 
@@ -58,6 +58,7 @@ public class AudioDatabase extends SQLiteOpenHelper {
 
     public long insertFile(audioFile file)
     {
+        Log.d(TAG, "insertFile");
         long id = -1;
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -70,7 +71,7 @@ public class AudioDatabase extends SQLiteOpenHelper {
 
         try{
 
-            id = db.insertOrThrow(AudioConfig.DATABASE_NAME,null, contentValues); //will create autoincremented ID and return it
+            id = db.insertOrThrow(AudioConfig.TABLE_NAME,null, contentValues); //will create autoincremented ID and return it
 
         }
         catch(SQLiteException e)
@@ -90,9 +91,10 @@ public class AudioDatabase extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getReadableDatabase(); //open database in readmode
         Cursor cursor = null;
+        Log.d(TAG, "getallfiles");
 
         try {
-            cursor = db.query(AudioConfig.DATABASE_NAME, null, null, null, null, null, null);
+            cursor = db.query(AudioConfig.TABLE_NAME, null, null, null, null, null, null);
 
             if(cursor != null)
             {
@@ -102,7 +104,7 @@ public class AudioDatabase extends SQLiteOpenHelper {
 
                     do{
                         int id = cursor.getInt(cursor.getColumnIndex(AudioConfig.COLUMN_ID));
-                        String Date = cursor.getString(cursor.getColumnIndex(AudioConfig.COLUMN_DATE);
+                        String Date = cursor.getString(cursor.getColumnIndex(AudioConfig.COLUMN_DATE));
                         String File = cursor.getString(cursor.getColumnIndex((AudioConfig.COLUMN_FILENAME)));
                         audioFiles.add(new com.example.silentguardian_android.Database.audioFile(id,Date,File)); //makes a new course and add its to the list
                     }while(cursor.moveToNext());
@@ -124,5 +126,46 @@ public class AudioDatabase extends SQLiteOpenHelper {
         }
 
         return Collections.emptyList();
+    }
+
+
+    public int numberAudioObjects(){
+        int output = 0;
+        SQLiteDatabase db = this.getReadableDatabase(); //open database in readmode
+        Cursor cursor = null;
+
+        Log.d(TAG, "getlength");
+
+        try {
+            cursor = db.query(AudioConfig.TABLE_NAME, null, null, null, null, null, null);
+
+            if(cursor != null)
+            {
+                if(cursor.moveToFirst())
+                {
+
+
+                    do{
+                       output++;
+                    }while(cursor.moveToNext());
+
+                    return output;
+                }
+            }
+        }
+        catch (SQLException e){
+
+            Log.d(TAG, "EXCEPTION" + e);
+            Toast.makeText(context, "countfailed: " + e, Toast.LENGTH_LONG).show();
+        }
+        finally {
+            if(cursor != null){
+                cursor.close();
+            }
+            db.close();
+        }
+
+        return 0;
+
     }
 }

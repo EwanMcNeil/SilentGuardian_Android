@@ -9,14 +9,29 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.silentguardian_android.Database.AudioDatabase;
+import com.example.silentguardian_android.Database.DatabaseHelper;
+import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.Database.audioFile;
+import com.example.silentguardian_android.fragments.deleteContactFromThresholdFragment;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Calendar;
+
+
 
 public class AudioRecordTest extends AppCompatActivity {
 
@@ -27,7 +42,7 @@ public class AudioRecordTest extends AppCompatActivity {
     private Button recordButton = null;
     private MediaRecorder recorder = null;
 
-    private Button   playButton = null;
+
     private MediaPlayer   player = null;
     boolean mStartPlaying = true;
     // Requesting permission to RECORD_AUDIO
@@ -35,6 +50,10 @@ public class AudioRecordTest extends AppCompatActivity {
     boolean mStartRecording = true;
 
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
+
+    private ListView files;
+    private AudioDatabase adb;
+    List<audioFile> AllaudioFiles;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -56,18 +75,12 @@ public class AudioRecordTest extends AppCompatActivity {
         }
     }
 
-    private void onPlay(boolean start) {
-        if (start) {
-            startPlaying();
-        } else {
-            stopPlaying();
-        }
-    }
 
-    private void startPlaying() {
+
+    private void startPlaying(String input) {
         player = new MediaPlayer();
         try {
-            player.setDataSource(fileName);
+            player.setDataSource(input);
             player.prepare();
             player.start();
         } catch (IOException e) {
@@ -81,80 +94,81 @@ public class AudioRecordTest extends AppCompatActivity {
     }
 
     private void startRecording() {
+        int num = adb.numberAudioObjects();
+        num = num +1;
+        String newfilename = fileName + "/audiorecordtest" + num + ".3gp";
+        Date currentTime = Calendar.getInstance().getTime();
+        String date = currentTime.toString();
+        audioFile file = new audioFile(date,newfilename);
+        adb.insertFile(file);
+
         recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        recorder.setOutputFile(fileName);
+        recorder.setOutputFile(newfilename);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
         try {
             recorder.prepare();
-            String name = fileName;
-            Log.e(LOG_TAG, "name" + name);
         } catch (IOException e) {
             Log.e(LOG_TAG, "prepare() failed");
         }
 
         recorder.start();
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        Log.i("tag", "This'll run 5000 milliseconds later");
+                        stopRecording();
+                        recordButton.setText("Start recording");
+                    }
+                },
+                5000);
     }
 
     private void stopRecording() {
         recorder.stop();
         recorder.release();
         recorder = null;
+        loadListView();
     }
 
 
-
-//    class PlayButton extends androidx.appcompat.widget.AppCompatButton {
-//        boolean mStartPlaying = true;
-//
-//        OnClickListener clicker = new OnClickListener() {
-//            public void onClick(View v) {
-//                onPlay(mStartPlaying);
-//                if (mStartPlaying) {
-//                    setText("Stop playing");
-//                } else {
-//                    setText("Start playing");
-//                }
-//                mStartPlaying = !mStartPlaying;
-//            }
-//        };
-//
-//        public PlayButton(Context ctx) {
-//            super(ctx);
-//            setText("Start playing");
-//            setOnClickListener(clicker);
-//        }
-//    }
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.audioactivity);
+        files = findViewById(R.id.audioListView);
+        adb = new AudioDatabase(this);
+
+
+
         // Record to the external cache directory for visibility
         fileName = getExternalCacheDir().getAbsolutePath();
-        fileName += "/audiorecordtest.3gp";
+
+
+        //fileName += "/audiorecordtest.3gp";
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
 
 
         recordButton = findViewById(R.id.recordbutton);
-        playButton = findViewById(R.id.Playaudiobutton);
 
 
-        playButton.setOnClickListener(new View.OnClickListener() {
+        files.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                onPlay(mStartPlaying);
-                if (mStartPlaying) {
-                    playButton.setText("Stop playing");
-                } else {
-                    playButton.setText("Start playing");
-                }
-                mStartPlaying = !mStartPlaying;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String fileLocation = AllaudioFiles.get(position).getFile();
+                startPlaying(fileLocation);
+
             }
         });
+
+
+
+
 
         recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +185,7 @@ public class AudioRecordTest extends AppCompatActivity {
         });
 
 
+        loadListView();
 
     }
 
@@ -186,5 +201,28 @@ public class AudioRecordTest extends AppCompatActivity {
             player.release();
             player = null;
         }
+    }
+
+
+    public void loadListView() {
+
+       AudioDatabase dbhelper = new AudioDatabase(this);
+        List<audioFile> audioFiles = dbhelper.getAllfiles();
+        AllaudioFiles = audioFiles;
+        ArrayList<String> fileListText = new ArrayList<>();
+
+        for (int i = 0; i < audioFiles.size(); i++) {
+            String temp = "";
+            temp += audioFiles.get(i).getDate() + '\n';
+            //temp += audioFiles.get(i).getFile() + '\n';
+
+            fileListText.add(temp);
+        }
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,  fileListText);
+
+       files.setAdapter(arrayAdapter);
+
     }
 }
