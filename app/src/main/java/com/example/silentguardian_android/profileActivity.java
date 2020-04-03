@@ -1,10 +1,12 @@
 package com.example.silentguardian_android;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 
 import android.text.InputType;
@@ -13,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.silentguardian_android.Database.DatabaseHelper;
+import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
 
 public class profileActivity extends AppCompatActivity {
@@ -22,7 +26,7 @@ public class profileActivity extends AppCompatActivity {
     protected Button saveButton;
     protected Button cancelButton;
     protected SharePreferenceHelper sharePreferenceHelper;
-
+    protected Button devButton;
 
     ///Activty to create a local profile to save a username
     ///ensuring others can't edit things
@@ -39,6 +43,34 @@ public class profileActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.editPassword);
         saveButton = findViewById(R.id.profile_saveButton);
         cancelButton = findViewById(R.id.profile_cancelButton);
+
+
+        //adding this in here
+
+        //permission check
+        int PERMISSION_ALL = 1;
+        String[] PERMISSIONS = {
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.SEND_SMS,
+                Manifest.permission.READ_CONTACTS,
+                Manifest.permission.WRITE_CONTACTS,
+                android.Manifest.permission.BLUETOOTH,
+                android.Manifest.permission.BLUETOOTH_ADMIN,
+                android.Manifest.permission.VIBRATE,
+                Manifest.permission.FOREGROUND_SERVICE
+        };
+        ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+
+        //to be taken out later
+        devButton = findViewById(R.id.DevButton);
+
+        devButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                devbypass();
+            }
+        });
 
         //instantiating the sharepreferences helper
         sharePreferenceHelper = new SharePreferenceHelper(this);
@@ -87,6 +119,24 @@ public class profileActivity extends AppCompatActivity {
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+
+    public void devbypass(){
+
+        SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
+        helper.setTutorialSeen(true);
+
+        helper.saveProfile("Developer", Integer.toString(1));
+
+        DatabaseHelper dbhelper = new DatabaseHelper(getApplicationContext());
+
+        Person bob = new Person("bob", Integer.toString(9999999), 1, 1);
+        dbhelper.insertPerson(bob);
+
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class );
+        startActivity(intent);
+
     }
 
 }
