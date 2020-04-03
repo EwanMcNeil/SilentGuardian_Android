@@ -167,6 +167,11 @@ public class BluetoothMainActivity extends ListActivity {
         Log.i ("Service status", "beforeNull");
         final BluetoothDevice device = mLeDeviceListAdapter.getDevice(position);
         if (device == null) return;
+
+        if(!device.getName().equals("Silent_Guardians")){
+            Toast.makeText(getApplicationContext(), device.getName()+ " is not a compatible Device", Toast.LENGTH_LONG).show();
+            return;
+        }
         Log.i ("Service status", "passedNull");
 
         mServiceIntent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_NAME, device.getName());
@@ -220,8 +225,10 @@ public class BluetoothMainActivity extends ListActivity {
         }
 
         public void addDevice(BluetoothDevice device) {
-            if(!mLeDevices.contains(device)) {
-                mLeDevices.add(device);
+            if(device.getName() != null) {
+                if (!mLeDevices.contains(device)) {
+                    mLeDevices.add(device);
+                }
             }
         }
 
