@@ -341,7 +341,8 @@ public class DeviceService extends Service {
 
                                     for(int i = 0; i < thresholdTwoNumbers.length; i++) {
                                         textHelper.sendMessage(thresholdTwoNumbers[i],spHelper.ThresholdTwoMessageReturn());
-                                        startRecording();
+                                        //startRecording();
+                                        //needs to be called here
                                     }
                                     sendOne = true;
                                 }
