@@ -165,6 +165,7 @@ public class BluetoothMainActivity extends ListActivity {
         super.onPause();
         scanLeDevice(false);
         mLeDeviceListAdapter.clear();
+
     }
 
     @Override
@@ -172,6 +173,11 @@ public class BluetoothMainActivity extends ListActivity {
         Log.i ("Service status", "beforeNull");
         final BluetoothDevice device = mLeDeviceListAdapter.getDevice(position);
         if (device == null) return;
+
+        if(isMyServiceRunning(DeviceService.class)){
+            Toast.makeText(getApplicationContext(), "Error the device: " + device.getName() + " is already connected", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         if(!device.getName().equals("Silent_Guardians")){
             Toast.makeText(getApplicationContext(), device.getName()+ " is not a compatible Device", Toast.LENGTH_LONG).show();
@@ -186,15 +192,14 @@ public class BluetoothMainActivity extends ListActivity {
             Log.i ("Service status", "passedIf");
         }
 
-        ///this is where the service needs to be called
-//        final Intent intent = new Intent(this, DeviceControlActivity.class);
-//        intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_NAME, device.getName());
-//        intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_ADDRESS, device.getAddress());
-//        if (mScanning) {
-//            mBluetoothAdapter.stopLeScan(mLeScanCallback);
-//            mScanning = false;
-//        }
-//        startActivity(intent);
+
+
+
+        Toast.makeText(getApplicationContext(), device.getName()+ " Your device has been sucessfully connected", Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, MainActivity.class );
+        startActivity(intent);
+
     }
 
     private void scanLeDevice(final boolean enable) {

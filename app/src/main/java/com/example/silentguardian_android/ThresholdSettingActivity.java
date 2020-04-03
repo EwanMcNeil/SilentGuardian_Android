@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
@@ -138,7 +139,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         doneActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ThresholdSettingActivity.this, MainActivity.class);
+                Intent intent = new Intent(ThresholdSettingActivity.this, BluetoothMainActivity.class);
                 startActivity(intent);
             }
         });
