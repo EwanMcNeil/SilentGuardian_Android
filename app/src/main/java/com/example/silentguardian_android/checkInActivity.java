@@ -213,7 +213,7 @@ public class checkInActivity extends AppCompatActivity {
                 //where to put last reset if statement
                 if(Hours==0 & Minutes==0 & Seconds==0 & sharePreferenceHelper.getresetTimerValue())
                 {
-                    hourEditText.setText("");//TODO used to crash because there was no reset of the editTExt
+                    hourEditText.setText("");
                     minuteEditText.setText("");
                     secondEditText.setText("");
 
