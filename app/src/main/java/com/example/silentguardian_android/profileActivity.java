@@ -53,12 +53,14 @@ public class profileActivity extends AppCompatActivity {
                 android.Manifest.permission.ACCESS_COARSE_LOCATION,
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
                 android.Manifest.permission.SEND_SMS,
-                Manifest.permission.READ_CONTACTS,
-                Manifest.permission.WRITE_CONTACTS,
+                android.Manifest.permission.READ_CONTACTS,
+                android.Manifest.permission.WRITE_CONTACTS,
                 android.Manifest.permission.BLUETOOTH,
                 android.Manifest.permission.BLUETOOTH_ADMIN,
                 android.Manifest.permission.VIBRATE,
-                Manifest.permission.FOREGROUND_SERVICE
+                android.Manifest.permission.FOREGROUND_SERVICE,
+                android.Manifest.permission.RECORD_AUDIO
+
         };
         ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
 
