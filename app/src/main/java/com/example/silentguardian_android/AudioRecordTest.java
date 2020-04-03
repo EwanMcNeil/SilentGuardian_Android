@@ -127,10 +127,12 @@ public class AudioRecordTest extends AppCompatActivity {
     }
 
     private void stopRecording() {
-        recorder.stop();
-        recorder.release();
-        recorder = null;
-        loadListView();
+        if(recorder != null) {
+            recorder.stop();
+            recorder.release();
+            recorder = null;
+            loadListView();
+        }
     }
 
 
