@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     protected ImageButton allclearImageButton;
-    protected Button CheckInButton;
     protected SharePreferenceHelper sharePreferenceHelper;
     protected TextView iAmSafeText;
 
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         allclearImageButton = findViewById(R.id.safeimageButton);
-        CheckInButton = findViewById(R.id.checkInButton);
+
         iAmSafeText = findViewById(R.id.iAmSafeTextView);
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
@@ -106,14 +105,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-       CheckInButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-
-               Intent intent = new Intent(MainActivity.this, checkInActivity.class);
-               startActivity(intent);
-           }
-       });
 
 
     }
@@ -165,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.settingsmenu, menu);
+
         return true;
     }
     @Override
@@ -201,6 +193,11 @@ public class MainActivity extends AppCompatActivity {
                 args.putString("intent","threshold");
                 dialog.setArguments(args);
                 dialog.show(getSupportFragmentManager(), "password");
+                return true;
+
+            case R.id.checkIndropdown:
+                Intent intent = new Intent(MainActivity.this, checkInActivity.class);
+                startActivity(intent);
 
             default:
                 return super.onOptionsItemSelected(item);

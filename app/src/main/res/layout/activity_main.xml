@@ -14,14 +14,11 @@
         android:layout_height="95dp"
 
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/i_am_safe_image"
-        app:layout_constraintBottom_toTopOf="@+id/checkInButton"
         app:layout_constraintEnd_toStartOf="@+id/guideline44"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline44"
-        app:layout_constraintTop_toBottomOf="@+id/iAmSafeTextView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/iAmSafeTextView" />
 
     <TextView
         android:id="@+id/iAmSafeTextView"
@@ -32,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-     
+
         android:textAlignment="center"
 
         android:textSize="18sp"
@@ -41,22 +38,6 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline44"
         app:layout_constraintStart_toStartOf="@+id/guideline44"
         app:layout_constraintTop_toTopOf="@+id/guideline42" />
-
-    <Button
-        android:id="@+id/checkInButton"
-        android:layout_width="112dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/btn_gradient_style"
-        android:text="Check- in"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline44"
-        app:layout_constraintStart_toStartOf="@+id/guideline44"
-        app:layout_constraintTop_toTopOf="@+id/guideline43"
-        app:layout_constraintVertical_bias="0.108" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline40"

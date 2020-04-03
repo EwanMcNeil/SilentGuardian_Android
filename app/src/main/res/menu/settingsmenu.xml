@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="Settings">
+
+<item android:id="@+id/bluetoothSettingsdropdown"
+    android:title="Connect your device" />
+<item android:id="@+id/profileSettingdropdown"
+    android:title="Edit your profile" />
+
+<item android:id="@+id/sendTestMessageDropDown"
+    android:title="Send Test Message" />
+<item
+    android:id="@+id/switchLanguage"
+    android:title="Switch Language" />
+
+<item
+    android:id="@+id/thresholdsettingdropdown"
+    android:title="Configure Message Settings" />
 
 
-                <item android:id="@+id/bluetoothSettingsdropdown"
-                    android:title="Connect your device" />
-                <item android:id="@+id/profileSettingdropdown"
-                    android:title="Edit your profile" />
 
-                 <item android:id="@+id/sendTestMessageDropDown"
-                       android:title="Send Test Message" />
-    <item
-        android:id="@+id/switchLanguage"
-        android:title="Switch Language" />
+    <item android:id="@+id/featuresDropdown"
+        android:title="features"
+        app:showAsAction="always">
+    <menu>
+        <item
+            android:id="@+id/checkIndropdown"
+            android:title="checkinActivity" />
 
-    <item
-        android:id="@+id/thresholdsettingdropdown"
-        android:title="Configure Message Settings" />
 
+    </menu>
+  </item>
 
 
 </menu>
+
+
