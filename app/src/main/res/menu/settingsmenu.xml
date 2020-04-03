@@ -24,9 +24,14 @@
         android:title="features"
         app:showAsAction="always">
     <menu>
-        <item
+               <item
             android:id="@+id/checkIndropdown"
             android:title="checkinActivity" />
+
+        <item
+            android:id="@+id/recordingsActivity"
+            android:title="My Recordings" />
+
 
 
     </menu>

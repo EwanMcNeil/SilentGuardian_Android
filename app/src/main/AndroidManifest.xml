@@ -11,8 +11,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-
-
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
@@ -50,6 +49,10 @@
 
         <activity
             android:name=".allClearActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation = "portrait"/>
+        <activity
+            android:name=".AudioRecordTest"
             android:parentActivityName=".MainActivity"
             android:screenOrientation = "portrait"/>
         <activity
