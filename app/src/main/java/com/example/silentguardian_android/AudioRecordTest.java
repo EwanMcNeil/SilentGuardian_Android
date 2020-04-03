@@ -89,6 +89,8 @@ public class AudioRecordTest extends AppCompatActivity {
 
         try {
             recorder.prepare();
+            String name = fileName;
+            Log.e(LOG_TAG, "name" + name);
         } catch (IOException e) {
             Log.e(LOG_TAG, "prepare() failed");
         }
