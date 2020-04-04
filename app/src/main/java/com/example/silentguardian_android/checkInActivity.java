@@ -205,7 +205,9 @@ public class checkInActivity extends AppCompatActivity {
 
                     Log.d(TAG, "User has 5 mins to hit i am safe button " );
 
-                    finalTimer();
+
+                        finalTimer();
+
 
                 }
 
@@ -337,6 +339,8 @@ public class checkInActivity extends AppCompatActivity {
 
 
                     startService(intent);
+
+                    Log.d(TAG, "checking to see if the code gets this far when timer is clicked for firstrun crash");
                     //startActivity(intent);
                 }else Toast.makeText(getApplicationContext(), "No time indicated!", Toast.LENGTH_SHORT).show();
 
@@ -413,14 +417,17 @@ public class checkInActivity extends AppCompatActivity {
 public void finalTimer()
 {
 
-    int secondIntegerTimeSet = 10;
-    Intent newintent = new Intent(checkInActivity.this, CheckinService.class);
-    Bundle extras = new Bundle();
 
-    extras.putInt("secondTimeValue",secondIntegerTimeSet);
-    newintent.putExtras(extras);
 
-    startService(newintent);
+        int secondIntegerTimeSet = 10;
+        Intent newintent = new Intent(checkInActivity.this, CheckinService.class);
+        Bundle extras = new Bundle();
+
+        extras.putInt("secondTimeValue", secondIntegerTimeSet);
+        newintent.putExtras(extras);
+
+        startService(newintent);
+
 
 
 }
