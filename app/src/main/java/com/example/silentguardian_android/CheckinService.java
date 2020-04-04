@@ -308,6 +308,8 @@ public class CheckinService extends Service {
                  NotificationChannel notificationChannel = null;
                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                      notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);
+                     notificationChannel.setSound(null, null);
+                     notificationChannel.enableVibration(false);
 
 
                  }
