@@ -37,7 +37,7 @@ public class CheckinService extends Service {
 
 
     private static final String TAG = "CheckIn";
-
+    private static final String TAG2 = "CheckIn2";
     private static final String CHANNEL_ID = "NotificationChannelID";
     //public static final int VISIBILITY_PUBLIC = 1;
 
@@ -53,7 +53,7 @@ public class CheckinService extends Service {
     public void onCreate() {
         super.onCreate();
         sharePreferenceHelper = new SharePreferenceHelper(this);
-
+        Log.d(TAG2, "create");
         sharePreferenceHelper.firstTimerDoneService(false);
 
     }
@@ -63,7 +63,7 @@ public class CheckinService extends Service {
 
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
-
+        Log.d(TAG2, "start");
         //this is for when there was only seconds, trying to replace this to recieve all three in a bundle
         //final Integer[] secondTimeRemaining = {intent.getIntExtra("secondTimeValue", 0)};
 
@@ -166,7 +166,7 @@ public class CheckinService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void NotificationUpdate(Integer timeLeft)
     {
-
+        Log.d(TAG2, "notificationupdate");
         Integer Hours = ((timeLeft)/3600);
         Integer Minutes = (timeLeft - (Hours*3600))/60;
         Integer Seconds = (timeLeft - (Hours*3600))- (Minutes *60);
@@ -187,6 +187,7 @@ public class CheckinService extends Service {
 
             //this notifcation is showing during the time between first timer going off and before last timer goes off
             if (sharePreferenceHelper.getfirstTimerDoneService()) {
+                Log.d(TAG2, "first if");
                 final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setContentTitle("Please Check-in with Silent Guardians")
                         .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
@@ -199,12 +200,14 @@ public class CheckinService extends Service {
 
                 NotificationChannel notificationChannel = null;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Log.d(TAG2, "second if");
                     notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_LOW);
                     notificationChannel.setSound(null, null);
                     notificationChannel.enableVibration(false);
                 }
                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Log.d(TAG2, "third");
                     notificationManager.createNotificationChannel(notificationChannel);
                 }
 
@@ -215,6 +218,7 @@ public class CheckinService extends Service {
 
             //This is the last notification: tells the users the messages have been sent
             if (Hours ==0 & Minutes ==0 & Seconds ==0 & sharePreferenceHelper.getfirstTimerDoneService()) {
+                Log.d(TAG2, "fourth if");
                 final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setContentTitle("Missed Check missed: Messages sent to Guardians")
                         .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
@@ -228,12 +232,13 @@ public class CheckinService extends Service {
                 NotificationChannel notificationChannel = null;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);
-
+                    Log.d(TAG2, "fifth if");
 
                 }
                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     notificationManager.createNotificationChannel(notificationChannel);
+                    Log.d(TAG2, "sixth if");
                 }
 
                 //resetting boolean so it can show correct notification if running again
@@ -248,6 +253,8 @@ public class CheckinService extends Service {
             //this notification tells the user to check in because their first timer has gone off
             if (Hours ==0 & Minutes ==0 & Seconds ==0 & !sharePreferenceHelper.getfirstTimerDoneService())
             {
+
+                Log.d(TAG2, "seventh if");
                 sharePreferenceHelper.firstTimerDoneService(true);
                 //firstTimerDone = true;
 
@@ -266,11 +273,12 @@ public class CheckinService extends Service {
                 NotificationChannel notificationChannel = null;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);
-
+                    Log.d(TAG2, "eighth if");
 
                 }
                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Log.d(TAG2, "nineth if");
                     notificationManager.createNotificationChannel(notificationChannel);
                 }
 
@@ -283,8 +291,26 @@ public class CheckinService extends Service {
 
             //this is when the notification just shows the regular countdown
              if((Hours>0 || Minutes>0 || Seconds>0) & !sharePreferenceHelper.getfirstTimerDoneService()){
+                 Log.d(TAG2, "tenth if");
 
-                //regular notification to show the user how much time is left on the timer
+
+                 NotificationChannel notificationChannel = null;
+                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                     notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_LOW);
+                     notificationChannel.setSound(null, null);
+                     notificationChannel.enableVibration(false);
+                     Log.d(TAG2, "11 if");
+                 }
+                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                     Log.d(TAG2, "12 if");
+                     notificationManager.createNotificationChannel(notificationChannel);
+                 }
+
+
+
+                 //regular notification to show the user how much time is left on the timer
                 final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setContentTitle("My Check-in Timer")
                         .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
@@ -299,16 +325,6 @@ public class CheckinService extends Service {
                 // the NotificationChannel class is new and not in the support library
 
 
-                 NotificationChannel notificationChannel = null;
-                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                     notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_LOW);
-                     notificationChannel.setSound(null, null);
-                     notificationChannel.enableVibration(false);
-                 }
-                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
-                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                     notificationManager.createNotificationChannel(notificationChannel);
-                 }
 
 
              }
