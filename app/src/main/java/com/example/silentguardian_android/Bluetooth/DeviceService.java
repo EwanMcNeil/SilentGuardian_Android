@@ -130,7 +130,8 @@ public class DeviceService extends Service {
 
             }else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
-
+                unregisterReceiver( mGattUpdateReceiver);
+                noDevice();
             }else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.e(TAG, "GATTSERVICESlaunch");
                 // Show all the supported services and characteristics on the user interface.
@@ -271,14 +272,17 @@ public class DeviceService extends Service {
     public void onDestroy() {
         super.onDestroy();
         stoptimertask();
-
-        Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction("restartservice");
-        broadcastIntent.setClass(this, Restarter.class);
-        this.sendBroadcast(broadcastIntent);
+        unbindService(mServiceConnection);
+//        Intent broadcastIntent = new Intent();
+//        broadcastIntent.setAction("restartservice");
+//        broadcastIntent.setClass(this, Restarter.class);
+//        this.sendBroadcast(broadcastIntent);
     }
 
-
+    @Override
+    public void unregisterReceiver(BroadcastReceiver receiver) {
+        super.unregisterReceiver(receiver);
+    }
 
     private Timer timer;
     private TimerTask timerTask;
@@ -433,6 +437,8 @@ public class DeviceService extends Service {
     }
 
 
-
+   private void noDevice(){
+       this.stopSelf();
+   }
 
 }
