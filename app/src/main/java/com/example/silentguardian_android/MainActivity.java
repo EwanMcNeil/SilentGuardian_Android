@@ -42,11 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         sharePreferenceHelper = new SharePreferenceHelper(this);
         //initialzing the sentmessage
@@ -164,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         // Handle item selection
         InsertPasswordCheckFragment dialog = new InsertPasswordCheckFragment();
         Bundle args = new Bundle();
-
+        Intent intent;
 
         switch (item.getItemId()) {
             case R.id.bluetoothSettingsdropdown:
@@ -196,7 +197,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.checkIndropdown:
-                Intent intent = new Intent(MainActivity.this, checkInActivity.class);
+                intent = new Intent(MainActivity.this, checkInActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.recordingsActivity:
+                intent = new Intent(MainActivity.this, AudioRecordTest.class);
                 startActivity(intent);
 
             default:

@@ -406,7 +406,12 @@ public class checkInActivity extends AppCompatActivity {
 
     }
 
-/*
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //unregisterReceiver(bro);
+    }
+    /*
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
