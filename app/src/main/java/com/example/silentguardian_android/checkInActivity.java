@@ -58,7 +58,7 @@ public class checkInActivity extends AppCompatActivity {
     protected Boolean userTimerDone=false;
     protected Boolean iAmSafe=false;
     protected Boolean resetValue = false;
-
+   protected BroadcastReceiver broadcastReceiver;
     protected messageGPSHelper SMSHelper;
 
     private static final String TAG = "CheckIn";
@@ -95,7 +95,7 @@ public class checkInActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("Counter");
 
-        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
 
@@ -431,6 +431,9 @@ public void finalTimer()
 }
 
 
-
-
+    @Override
+    protected void onStop() {
+        unregisterReceiver(broadcastReceiver);
+        super.onStop();
+    }
 }
