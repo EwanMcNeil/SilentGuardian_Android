@@ -4,7 +4,6 @@
     <string name="title_activity_threshold_setting">thresholdSettingActivity</string>
     <string name="ProfileInfo">Person</string>
 
-
     <!-- TextViews -->
     <string name="iAmSafe">I am safe</string>
     <string name="allContacts">All contacts</string>
@@ -46,5 +45,6 @@
     <string name="end_tutorial_button_text">Got it!</string>
     <string name="tutorial_create_profile">Create my profile</string>
     <string name="skip">Skip</string>
+    <string name="for_more_resources_click_on_the_following">For more resources, click on the following:</string>
 
 </resources>
