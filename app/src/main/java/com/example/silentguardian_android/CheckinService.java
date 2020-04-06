@@ -24,6 +24,7 @@ import java.util.TimerTask;
 
 import static android.app.Notification.*;
 import static android.content.Intent.getIntent;
+import static android.content.Intent.getIntentOld;
 import static android.content.Intent.makeMainActivity;
 import static java.util.ResourceBundle.getBundle;
 
@@ -52,9 +53,12 @@ public class CheckinService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
+
         sharePreferenceHelper = new SharePreferenceHelper(this);
         Log.d(TAG2, "create");
         sharePreferenceHelper.firstTimerDoneService(false);
+
 
     }
 
@@ -119,37 +123,40 @@ public class CheckinService extends Service {
                 @Override
                 public void run() {
 
+                    Log.d(TAG, "Reached inside timer function ");
+
                     Intent localintent = new Intent();
                     localintent.setAction("Counter");
 
                     //trying to use shared preferences to stop timer ONCE AND FOR ALL
                     if(sharePreferenceHelper.getresetTimerValue()==false)
                     {
-                            secondTimeRemaining[0]--;
+
+                        secondTimeRemaining[0]--;
+
+                        NotificationUpdate(secondTimeRemaining[0]);
+
+                        if (secondTimeRemaining[0] <= 0) {
+                            secondstimer.cancel();
+                        }
+                        localintent.putExtra("TimeRemaining", secondTimeRemaining[0]);
+                        sendBroadcast(localintent);
                     }
 
-                    if (sharePreferenceHelper.getresetTimerValue()==true)
+
+
+                    else if (sharePreferenceHelper.getresetTimerValue()==true)
                     {
+
                         Log.d(TAG, "Checking to see if i entered the reset timer loop in the service class ");
                         secondstimer.cancel();
                         secondTimeRemaining[0]=0;
                         localintent.putExtra("TimeRemaining", secondTimeRemaining[0]);
                         sendBroadcast(localintent);
+                        stopSelf();
                     }
 
-                    NotificationUpdate(secondTimeRemaining[0]);
 
-                    if (secondTimeRemaining[0] <= 0) {
-                        secondstimer.cancel();
-
-                        //this is where you will start another clock ex. 5-10 mins, and if that timer hits 0...
-                        //then thats when the app will send the address they saved (within the checkin activity)
-                        // to their guardians
-                    }
-                    localintent.putExtra("TimeRemaining", secondTimeRemaining[0]);
-                    //localintent.putExtra("minutesTimeRemaining", minuteTimeRemaining[0]);
-                    //localintent.putExtra("hoursTimeRemaining", hourTimeRemaining[0]);
-                    sendBroadcast(localintent);
                 }
                 // dont want any delay, the period is 1000ms, means 1 second
             }, 0, 1000);
@@ -185,6 +192,8 @@ public class CheckinService extends Service {
             final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
 
+
+
             //this notifcation is showing during the time between first timer going off and before last timer goes off
             if (sharePreferenceHelper.getfirstTimerDoneService()) {
                 Log.d(TAG2, "first if");
@@ -197,6 +206,8 @@ public class CheckinService extends Service {
                         .build()};
 
                 startForeground(1, notification[0]);
+
+                /*
 
                 NotificationChannel notificationChannel = null;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -211,6 +222,8 @@ public class CheckinService extends Service {
                     notificationManager.createNotificationChannel(notificationChannel);
                 }
 
+                 */
+
 
 
 
@@ -224,11 +237,12 @@ public class CheckinService extends Service {
                         .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
                         .setSmallIcon(R.drawable.ic_launcher_foreground)
                         .setContentIntent(pendingIntent)
-                        .setPriority(NotificationCompat.PRIORITY_MAX)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .build()};
 
                 startForeground(1, notification[0]);
 
+                /*
                 NotificationChannel notificationChannel = null;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);
@@ -240,6 +254,8 @@ public class CheckinService extends Service {
                     notificationManager.createNotificationChannel(notificationChannel);
                     Log.d(TAG2, "sixth if");
                 }
+
+                 */
 
                 //resetting boolean so it can show correct notification if running again
                 //firstTimerDone= false;
@@ -270,6 +286,7 @@ public class CheckinService extends Service {
 
                         startForeground(1,notification[0]);
 
+                        /*
                 NotificationChannel notificationChannel = null;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);
@@ -282,11 +299,15 @@ public class CheckinService extends Service {
                     notificationManager.createNotificationChannel(notificationChannel);
                 }
 
-
-
+                         */
 
 
             }
+
+
+
+
+
 
 
             //this is when the notification just shows the regular countdown
@@ -308,9 +329,28 @@ public class CheckinService extends Service {
                      notificationManager.createNotificationChannel(notificationChannel);
                  }
 
+/*
+                 NotificationChannel notificationChannel = null;
+                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                     notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);
+                     notificationChannel.setSound(null, null);
+                     notificationChannel.enableVibration(false);
 
 
-                 //regular notification to show the user how much time is left on the timer
+                 }
+                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                     notificationManager.createNotificationChannel(notificationChannel);
+                 }
+
+ */
+
+
+
+
+                 Log.d(TAG, "Reached remaining time section");
+                //regular notification to show the user how much time is left on the timer
+
                 final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setContentTitle("My Check-in Timer")
                         .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
@@ -320,11 +360,25 @@ public class CheckinService extends Service {
                         .build()};
 
                 startForeground(1, notification[0]);
+
                 //the following if statements make sure the proper android phones are up to date or will crash
                 // Create the NotificationChannel, but only on API 26+ because
                 // the NotificationChannel class is new and not in the support library
 
 
+/*
+                 NotificationChannel notificationChannel = null;
+                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                     notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_LOW);
+                     //notificationChannel.setSound(null, null);
+                     //notificationChannel.enableVibration(false);
+                 }
+                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                     assert notificationManager != null;
+                     notificationManager.createNotificationChannel(notificationChannel);
+                 }
+*/
 
 
              }
@@ -333,7 +387,10 @@ public class CheckinService extends Service {
 
 
 
-             /*
+
+                 //startForeground(1, notification[0]);
+
+            /*
                 NotificationChannel notificationChannel = null;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);
@@ -345,7 +402,9 @@ public class CheckinService extends Service {
                     notificationManager.createNotificationChannel(notificationChannel);
                 }
 
-              */
+             */
+
+
 
 
 

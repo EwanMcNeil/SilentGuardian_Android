@@ -187,6 +187,7 @@ public class checkInActivity extends AppCompatActivity {
                             //iAmSafe=false;
                             //resetValue = false;
 
+                            sharePreferenceHelper.firstTimerDoneService(false);
                             //recreate();
                             //this works better for when the message is sent, can use the check in again afterwards.
                             finish();
@@ -200,6 +201,7 @@ public class checkInActivity extends AppCompatActivity {
                         Intent newintent = new Intent(checkInActivity.this, MainActivity.class);
                         startActivity(newintent);
 
+                        sharePreferenceHelper.firstTimerDoneService(false);
                     }
 
                     //not sure if i need an else here;
@@ -218,7 +220,9 @@ public class checkInActivity extends AppCompatActivity {
 
                     Log.d(TAG, "User has 5 mins to hit i am safe button " );
 
-                    finalTimer();
+
+                        finalTimer();
+
 
                 }
 
@@ -350,6 +354,8 @@ public class checkInActivity extends AppCompatActivity {
 
 
                     startService(intent);
+
+                    Log.d(TAG, "checking to see if the code gets this far when timer is clicked for firstrun crash");
                     //startActivity(intent);
                 }else Toast.makeText(getApplicationContext(), "No time indicated!", Toast.LENGTH_SHORT).show();
 
@@ -415,12 +421,7 @@ public class checkInActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //unregisterReceiver(bro);
-    }
-    /*
+/*
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
@@ -492,14 +493,17 @@ public class checkInActivity extends AppCompatActivity {
 public void finalTimer()
 {
 
-    int secondIntegerTimeSet = 10;
-    Intent newintent = new Intent(checkInActivity.this, CheckinService.class);
-    Bundle extras = new Bundle();
+    if(sharePreferenceHelper.getresetTimerValue()==false) {
 
-    extras.putInt("secondTimeValue",secondIntegerTimeSet);
-    newintent.putExtras(extras);
+        int secondIntegerTimeSet = 10;
+        Intent newintent = new Intent(checkInActivity.this, CheckinService.class);
+        Bundle extras = new Bundle();
 
-    startService(newintent);
+        extras.putInt("secondTimeValue", secondIntegerTimeSet);
+        newintent.putExtras(extras);
+
+        startService(newintent);
+    }
 
 
 }
