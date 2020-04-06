@@ -474,7 +474,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         mList.add(new MyImage("Click on a contact to add them as a Guardian",
                 "Press the setting menu again to either to Add more contacts or Assign your Level 2 Guardians."
-                ,R.drawable.guardian_activity_little_anim,true));
+                ,R.drawable.add_to_level));
 
 
         mImageButtonTutorial.setOnClickListener(new View.OnClickListener() {

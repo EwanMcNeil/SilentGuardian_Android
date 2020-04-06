@@ -241,16 +241,20 @@ public class MainActivity extends AppCompatActivity {
         final List<MyImage> mList = new ArrayList<>();
         mList.add(new MyImage("Send an alert",
                 "Alert your Guardians, Level 1 or Level 2, by either pressing the the Silent Guardians device or the I am in danger button on the main page of the App. "
-                ,R.drawable.guardians_act_info1));
+                ,R.drawable.danger_button_tuto));
 
 
         mList.add(new MyImage("Features",
                 "Access your audio recordings and Check-In Guardian."
-                ,R.drawable.guardians_act_info));
+                ,R.drawable.click_feature));
 
-//        mList.add(new MyImage("Click on a contact to add them as a Guardian",
-//                "Press the setting menu again to either to Add more contacts or Assign your Level 2 Guardians."
-//                ,R.drawable.guardian_activity_little_anim,true));
+        mList.add(new MyImage("Settings & Miscellaneous",
+                "Press the Setting Icon to modify your profile:\n"
+                        +"add/remove contact to the App\n"
+                        +"add/remove Guardians to/from your Guardian Levels\n"
+                        +"Connect your Silent Guardian device"
+                ,R.drawable.main_menu_tut
+                ,false));
 
 
         buttonTutorial.setOnClickListener(new View.OnClickListener() {
