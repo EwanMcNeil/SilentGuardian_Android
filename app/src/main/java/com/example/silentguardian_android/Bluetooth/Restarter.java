@@ -31,21 +31,24 @@ public class Restarter extends BroadcastReceiver {
 //                .setContentIntent(pendingIntent)
 //                .setPriority(NotificationCompat.PRIORITY_MAX)
 //                .build()};
-        Context newContext = context.getApplicationContext();
+//
+//
+//
+//        // Add as notification
+//        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+//        manager.notify(0,);
 
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(newContext)
-                        .setSmallIcon(R.drawable.ic_launcher_foreground)
-                        .setContentTitle("Notifications Example")
-                        .setContentText("This is a test notification");
-
-        Intent notificationIntent = new Intent(newContext, MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(newContext, 0, notificationIntent, 0);
-        builder.setContentIntent(contentIntent);
-
-        // Add as notification
-        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.ic_launcher_foreground) // notification icon
+                .setContentTitle("Notification!") // title for notification
+                .setContentText("Hello word") // message for notification
+                .setAutoCancel(true); // clear notification after click
+        Intent intentNotify = new Intent(context, MainActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(context,0,intentNotify,0);
+        mBuilder.setContentIntent(pi);
+        NotificationManager mNotificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(0, mBuilder.build());
 
 
     }
