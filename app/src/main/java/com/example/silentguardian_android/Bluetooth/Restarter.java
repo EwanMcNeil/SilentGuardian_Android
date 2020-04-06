@@ -48,7 +48,7 @@ public class Restarter extends BroadcastReceiver {
         mBuilder.setContentIntent(pi);
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(0, mBuilder.build());
+        mNotificationManager.notify(10, mBuilder.build());
 
 
     }

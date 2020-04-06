@@ -336,59 +336,42 @@ public class DeviceService extends Service {
             byte[] values = characteristicTX.getValue();
             if (values != null) {
                 final int value = characteristicTX.getValue()[0];
-
                 Log.d(TAG, "Value: " + Integer.toString(value));
                 Log.d(TAG, "Value=" + value);
-
-
                 //code for sending one text message
-                if((value == 1 || value == 2) && sendOne == false){
+                if((value == 1 || value == 2) && !sendOne){
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
-
-                            if(sendOne == false) {
+                            if(!sendOne) {
                                 messageGPSHelper textHelper = new messageGPSHelper(getApplicationContext());
                                 SharePreferenceHelper spHelper = new SharePreferenceHelper(getApplicationContext());
                                 if(value==1) {
-
                                     for(int i = 0; i < thresholdOneNumbers.length; i++) {
                                         textHelper.sendMessage(thresholdOneNumbers[i],spHelper.ThresholdOneMessageReturn());
                                     }
                                     sendOne = true;
-
-                                    if(isrecording == false){
+                                    if(!isrecording){
                                         isrecording = true;
                                         startRecording();
                                     }
-
                                 }
                                 if(value==2) {
-
                                     for(int i = 0; i < thresholdTwoNumbers.length; i++) {
                                         textHelper.sendMessage(thresholdTwoNumbers[i],spHelper.ThresholdTwoMessageReturn());
                                         //startRecording();
                                         //needs to be called here
                                     }
                                     sendOne = true;
-
                                 }
-
-
                            Log.i("Count", "=========  "+ (counter++));
                             }
-
-
                         }
-
                     });
                 }
-
                 sendOne = false;
-
             }
         }
-
     }
 
 
