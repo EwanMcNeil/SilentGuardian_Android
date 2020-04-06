@@ -61,6 +61,7 @@ public class CheckinService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
         Log.d(TAG2, "start");
