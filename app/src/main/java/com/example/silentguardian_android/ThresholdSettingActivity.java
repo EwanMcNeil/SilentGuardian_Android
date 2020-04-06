@@ -90,6 +90,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_threshold_setting);
 
+        //the fuckk
         final Dialog mInfoDialog = new Dialog(ThresholdSettingActivity.this, R.style.Theme_AppCompat);
         SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
 
