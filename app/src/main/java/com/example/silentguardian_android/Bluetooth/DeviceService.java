@@ -275,6 +275,13 @@ public class DeviceService extends Service {
         stoptimertask();
         unbindService(mServiceConnection);
 
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("restartservice");
+        broadcastIntent.setClass(this, Restarter.class);
+        broadcastIntent.putExtra("name", mDeviceName);
+        broadcastIntent.putExtra("address",mDeviceAddress);
+        this.sendBroadcast(broadcastIntent);
+
 
     }
 
@@ -431,5 +438,7 @@ public class DeviceService extends Service {
    private void noDevice(){
        this.stopSelf();
    }
+
+
 
 }
