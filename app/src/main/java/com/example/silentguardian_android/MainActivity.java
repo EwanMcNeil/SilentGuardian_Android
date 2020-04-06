@@ -250,8 +250,8 @@ public class MainActivity extends AppCompatActivity {
 
         mList.add(new MyImage("Settings & Miscellaneous",
                 "Press the Setting Icon to modify your profile:\n"
-                        +"add/remove contact to the App\n"
-                        +"add/remove Guardians to/from your Guardian Levels\n"
+                        +"Add/remove contact to the App\n"
+                        +"Add/remove Guardians to/from your Guardian Levels\n"
                         +"Connect your Silent Guardian device"
                 ,R.drawable.main_menu_tut
                 ,false));
