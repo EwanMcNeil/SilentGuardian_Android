@@ -329,7 +329,7 @@ public class CheckinService extends Service {
                      notificationManager.createNotificationChannel(notificationChannel);
                  }
 
-
+/*
                  NotificationChannel notificationChannel = null;
                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                      notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_DEFAULT);
@@ -342,6 +342,8 @@ public class CheckinService extends Service {
                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                      notificationManager.createNotificationChannel(notificationChannel);
                  }
+
+ */
 
 
 

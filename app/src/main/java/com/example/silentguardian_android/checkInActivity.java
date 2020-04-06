@@ -174,6 +174,7 @@ public class checkInActivity extends AppCompatActivity {
                             //iAmSafe=false;
                             //resetValue = false;
 
+                            sharePreferenceHelper.firstTimerDoneService(false);
                             //recreate();
                             //this works better for when the message is sent, can use the check in again afterwards.
                             finish();
@@ -187,6 +188,7 @@ public class checkInActivity extends AppCompatActivity {
                         Intent newintent = new Intent(checkInActivity.this, MainActivity.class);
                         startActivity(newintent);
 
+                        sharePreferenceHelper.firstTimerDoneService(false);
                     }
 
                     //not sure if i need an else here;
@@ -406,12 +408,7 @@ public class checkInActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //unregisterReceiver(bro);
-    }
-    /*
+/*
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
@@ -422,7 +419,7 @@ public class checkInActivity extends AppCompatActivity {
 public void finalTimer()
 {
 
-
+    if(sharePreferenceHelper.getresetTimerValue()==false) {
 
         int secondIntegerTimeSet = 10;
         Intent newintent = new Intent(checkInActivity.this, CheckinService.class);
@@ -432,7 +429,7 @@ public void finalTimer()
         newintent.putExtras(extras);
 
         startService(newintent);
-
+    }
 
 
 }
