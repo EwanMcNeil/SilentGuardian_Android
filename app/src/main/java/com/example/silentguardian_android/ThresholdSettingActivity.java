@@ -130,6 +130,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                     dialog.show(getSupportFragmentManager(), "importAndroidContactFragment");
                 } else {
                     ActivityCompat.requestPermissions(ThresholdSettingActivity.this, new String[] {Manifest.permission.READ_CONTACTS}, 3);
+                    importContactsButton.performClick();
                 }
 
             }
