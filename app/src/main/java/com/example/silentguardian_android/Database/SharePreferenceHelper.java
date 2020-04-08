@@ -23,9 +23,6 @@ public class SharePreferenceHelper extends AppCompatActivity {
 
     public void saveProfile(String name, String password)
     {
-
-
-
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putString("name", name);

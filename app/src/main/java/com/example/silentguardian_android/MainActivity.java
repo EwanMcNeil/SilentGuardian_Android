@@ -2,13 +2,18 @@ package com.example.silentguardian_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.viewpager.widget.ViewPager;
 
 
 import android.Manifest;
 import android.app.Activity;
 
+
 import android.app.ActivityManager;
 import android.content.Context;
+
+import android.app.Dialog;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -17,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,9 +33,14 @@ import com.example.silentguardian_android.Bluetooth.DeviceService;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
 
 import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
+import com.example.silentguardian_android.Tutorial.MyImage;
+import com.example.silentguardian_android.Tutorial.TutorialViewpagerAdapter;
 import com.example.silentguardian_android.fragments.InsertPasswordCheckFragment;
 import com.example.silentguardian_android.fragments.sendMessageFragment;
+import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     protected ImageButton allclearImageButton;
     protected SharePreferenceHelper sharePreferenceHelper;
     protected TextView iAmSafeText;
+    protected ImageButton buttonTutorial;
 
 
 
@@ -62,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         allclearImageButton = findViewById(R.id.safeimageButton);
-
+        buttonTutorial = findViewById(R.id.buttonTutorialMain);
         iAmSafeText = findViewById(R.id.iAmSafeTextView);
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
@@ -79,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
                 android.Manifest.permission.FOREGROUND_SERVICE
         };
         ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
-
-
+        final Dialog mInfoDialog = new Dialog(MainActivity.this, R.style.Theme_AppCompat);
+        loadActivityTutorial(mInfoDialog);
 
 
 
@@ -90,10 +102,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
         }
-
-
-
-
 
         allclearImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,7 +257,71 @@ public class MainActivity extends AppCompatActivity {
             recreate();
         }
     }
+    private void loadActivityTutorial( final Dialog mInfoDialog){
 
+        final List<MyImage> mList = new ArrayList<>();
+        mList.add(new MyImage("Send an alert",
+                "Alert your Guardians, Level 1 or Level 2, by either pressing the the Silent Guardians device or the I am in danger button on the main page of the App. "
+                ,R.drawable.danger_button_tuto));
+
+
+        mList.add(new MyImage("Features",
+                "Access your audio recordings and Check-In Guardian."
+                ,R.drawable.click_feature));
+
+        mList.add(new MyImage("Settings & Miscellaneous",
+                "Press the Setting Icon to modify your profile:\n"
+                        +"Add/remove contact to the App\n"
+                        +"Add/remove Guardians to/from your Guardian Levels\n"
+                        +"Connect your Silent Guardian device"
+                ,R.drawable.main_menu_tut
+                ,false));
+
+
+        buttonTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mInfoDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                mInfoDialog.setContentView(R.layout.activity_tutorial);
+                //UI elements
+                ViewPager mScreenPager = mInfoDialog.findViewById(R.id.screen_viewpager);
+                TabLayout mTabIndicator  = mInfoDialog.findViewById(R.id.tab_indicator);
+                TextView  mSkip = mInfoDialog.findViewById(R.id.tv_skip);
+                final Button mDialogButton = mInfoDialog.findViewById(R.id.btn_get_started);
+                mSkip.setVisibility(View.INVISIBLE);
+                //decodeSampledBitmapFromResource(getResources(),R.drawable.guardians_act_info, 220, 220);
+                TutorialViewpagerAdapter mTutorialViewpagerAdapter = new TutorialViewpagerAdapter(getApplicationContext(),mList,false);
+                mScreenPager.setAdapter(mTutorialViewpagerAdapter);
+                // setup tablayout with viewpager
+                mTabIndicator.setupWithViewPager(mScreenPager);
+                mDialogButton.setText(R.string.end_tutorial_button_text);
+                // if button is clicked, close the custom dialog
+                mTabIndicator.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        if (tab.getPosition() == mList.size()-1) {
+                            mDialogButton.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    @Override//must have these two here
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                    }
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                    }
+                });
+                mDialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mInfoDialog.dismiss();
+                    }
+                });
+                mInfoDialog.show();
+            }
+        });
+    }
 
 
 }

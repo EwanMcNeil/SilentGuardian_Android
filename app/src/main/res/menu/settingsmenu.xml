@@ -16,7 +16,7 @@
 
 <item
     android:id="@+id/thresholdsettingdropdown"
-    android:title="Configure Message Settings" />
+    android:title="Add Guardians" />
 
 
 

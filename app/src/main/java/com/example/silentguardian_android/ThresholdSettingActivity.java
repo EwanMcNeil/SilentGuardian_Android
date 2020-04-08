@@ -90,6 +90,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_threshold_setting);
 
+        //the fuckk
         final Dialog mInfoDialog = new Dialog(ThresholdSettingActivity.this, R.style.Theme_AppCompat);
         SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
 
@@ -130,6 +131,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                     dialog.show(getSupportFragmentManager(), "importAndroidContactFragment");
                 } else {
                     ActivityCompat.requestPermissions(ThresholdSettingActivity.this, new String[] {Manifest.permission.READ_CONTACTS}, 3);
+                    importContactsButton.performClick();
                 }
 
             }
@@ -472,7 +474,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         mList.add(new MyImage("Click on a contact to add them as a Guardian",
                 "Press the setting menu again to either to Add more contacts or Assign your Level 2 Guardians."
-                ,R.drawable.guardian_activity_little_anim,true));
+                ,R.drawable.add_to_level));
 
 
         mImageButtonTutorial.setOnClickListener(new View.OnClickListener() {
