@@ -26,7 +26,7 @@
     <menu>
                <item
             android:id="@+id/checkIndropdown"
-            android:title="checkinActivity" />
+            android:title="Check In" />
 
         <item
             android:id="@+id/recordingsActivity"
