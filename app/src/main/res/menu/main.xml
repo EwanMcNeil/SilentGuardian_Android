@@ -18,10 +18,11 @@
     android:id="@+id/main_menu_id"
     >
 
-    <item android:id="@+id/menu_refresh"
+    <item android:id="@+id/tutorialButton"
           android:checkable="false"
           android:orderInCategory="1"
-        android:title="TODO"
+        android:title="How to use"
+        android:icon="@drawable/ic_info_black_24dp"
         app:showAsAction="ifRoom" />
     <item android:id="@+id/menu_scan"
           android:title="@string/menu_scan"
