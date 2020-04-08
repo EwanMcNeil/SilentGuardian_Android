@@ -8,7 +8,12 @@ import androidx.viewpager.widget.ViewPager;
 import android.Manifest;
 import android.app.Activity;
 
+
+import android.app.ActivityManager;
+import android.content.Context;
+
 import android.app.Dialog;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -22,7 +27,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.silentguardian_android.Bluetooth.DeviceService;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
 
 import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
@@ -132,6 +139,20 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
      updateAllClearButton();
 
+     if(!(isMyServiceRunning(DeviceService.class))){
+         Toast.makeText(this, "Please connect a device", Toast.LENGTH_LONG).show();
+     }
+
+    }
+
+    public boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void updateAllClearButton(){
