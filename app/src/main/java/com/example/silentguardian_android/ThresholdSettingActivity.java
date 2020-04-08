@@ -104,14 +104,14 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         loadActivityTutorial(mInfoDialog);
         ////
 
-        if(!helper.getTutorialSeen() ){
-            Log.d("__Guardians","Gooing to perform click on tutorial button");
-            mImageButtonTutorial.performClick();
-            helper.setTutorialSeen(true);
-        }
-        else {
-            Log.d("__Guardians","tutorial was seen!!!");
-        }
+//        if(!helper.getTutorialSeen() ){
+//            Log.d("__Guardians","Gooing to perform click on tutorial button");
+//            mImageButtonTutorial.performClick();
+//            helper.setTutorialSeen(true);
+//true//        }
+//        else {
+//            Log.d("__Guardians","tutorial was seen!!!");
+//        }
 
         addContactButton.setOnClickListener(new View.OnClickListener() {
             @Override
