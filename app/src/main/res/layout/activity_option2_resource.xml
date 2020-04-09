@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_option3_resource"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Option2Resource">
+
+    <TextView
+        android:id="@+id/option2TextView"
+        android:layout_width="386dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="67dp"
+        android:text="Missing Person (toll-free number)"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/item1_option2"
+        android:layout_width="377dp"
+        android:layout_height="39dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="153dp"
+        android:text="Canadian Human Trafficking Hotline"
+        android:textColor="#1aa260"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/item2_option2"
+        android:layout_width="410dp"
+        android:layout_height="56dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="327dp"
+        android:text="Murdered or missing people                                      (Association for families of murdered or missing people)"
+        android:textColor="#1aa260"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/phone1_option2"
+        android:layout_width="168dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="222dp"
+        android:text="1-833-900-1010 "
+        android:textSize = "16sp"/>
+
+    <TextView
+        android:id="@+id/phone2_option2"
+        android:layout_width="143dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="413dp"
+        android:text="1-877-484-0404 "
+        android:textSize = "16sp"/>
+
+    <TextView
+        android:id="@+id/url1_option2"
+        android:layout_width="383dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="276dp"
+        android:text="https://www.canadianhumantraffickinghotline.ca/" />
+
+    <TextView
+        android:id="@+id/url2_option2"
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="480dp"
+        android:text="http://www.afpad.ca" />
+
+</RelativeLayout>
+

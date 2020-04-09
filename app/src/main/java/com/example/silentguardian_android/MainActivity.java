@@ -47,14 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
     protected ImageButton allclearImageButton;
+    protected Button resourcesButton;
     protected SharePreferenceHelper sharePreferenceHelper;
     protected TextView iAmSafeText;
     protected ImageButton buttonTutorial;
-
 
 
 
@@ -66,18 +63,19 @@ public class MainActivity extends AppCompatActivity {
 
 
         sharePreferenceHelper = new SharePreferenceHelper(this);
-        //initialzing the sentmessage
+        //initializing the sentmessage
         if(sharePreferenceHelper.getMessageSent() == 2){
             sharePreferenceHelper.setMessageSent(0);
         }
 
 
-
         allclearImageButton = findViewById(R.id.safeimageButton);
+        resourcesButton = findViewById(R.id.resourcesButton);
+
         buttonTutorial = findViewById(R.id.buttonTutorialMain);
+
         iAmSafeText = findViewById(R.id.iAmSafeTextView);
         sharePreferenceHelper = new SharePreferenceHelper(this);
-
 
         //permission check
         int PERMISSION_ALL = 1;
@@ -103,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+
         allclearImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +117,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        resourcesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this, ResourceActivity.class);
+            startActivity(intent);
+            }
+        });
 
 
     }
