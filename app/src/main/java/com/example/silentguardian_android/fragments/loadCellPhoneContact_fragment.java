@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -21,6 +24,7 @@ import androidx.fragment.app.DialogFragment;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.R;
+import com.example.silentguardian_android.ThresholdSettingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,12 +70,28 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
         androidContactListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
-                bundle.putString("contactName", mainAndroidPersonList.get(position).getName());
-                bundle.putString("contactNumber", mainAndroidPersonList.get(position).getPhoneNumber());
-                addAndroidContactToAppFragment dialog = new addAndroidContactToAppFragment();
-                dialog.setArguments(bundle);
-                dialog.show(getActivity().getSupportFragmentManager(), "insertContactFragment");
+//                Bundle bundle = new Bundle();
+//                bundle.putString("contactName", mainAndroidPersonList.get(position).getName());
+//                bundle.putString("contactNumber", mainAndroidPersonList.get(position).getPhoneNumber());
+//                addAndroidContactToAppFragment dialog = new addAndroidContactToAppFragment();
+//                dialog.setArguments(bundle);
+//                dialog.show(getActivity().getSupportFragmentManager(), "insertContactFragment");
+
+                Person selectedPerson = new Person(mainAndroidPersonList.get(position).getName(), mainAndroidPersonList.get(position).getPhoneNumber(),0,0);
+
+                DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
+                List<Person> currentContacts = dbhelper.getAllPeople();
+                for(Person n : currentContacts) {
+                    Log.d("__insertFrag",n.getName());
+                    if (n.equals(selectedPerson)) {
+                        Toast.makeText(getContext(), "Contact Already exists", Toast.LENGTH_LONG).show();
+                        return;//do not insert
+                    }
+                }
+                dbhelper.insertPerson(selectedPerson);
+                Toast.makeText(getContext(), "Contact Added successfully!", Toast.LENGTH_LONG).show();
+                ((ThresholdSettingActivity)getActivity()).loadContactsListView();
+
             }
         });
 

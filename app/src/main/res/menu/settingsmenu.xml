@@ -16,7 +16,7 @@
 
 <item
     android:id="@+id/thresholdsettingdropdown"
-    android:title="Configure Message Settings" />
+    android:title="Add Guardians" />
 
 
 
@@ -24,9 +24,14 @@
         android:title="features"
         app:showAsAction="always">
     <menu>
-        <item
+               <item
             android:id="@+id/checkIndropdown"
-            android:title="checkinActivity" />
+            android:title="Check In" />
+
+        <item
+            android:id="@+id/recordingsActivity"
+            android:title="My Recordings" />
+
 
 
     </menu>
