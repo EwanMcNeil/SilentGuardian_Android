@@ -9,7 +9,7 @@
     android:title="Edit your profile" />
 
 <item android:id="@+id/sendTestMessageDropDown"
-    android:title="Send Test Message" />
+    android:title="Need Help?" />
 <item
     android:id="@+id/switchLanguage"
     android:title="Switch Language" />

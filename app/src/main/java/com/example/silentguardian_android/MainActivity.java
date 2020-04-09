@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     protected ImageButton allclearImageButton;
-    protected Button resourcesButton;
     protected SharePreferenceHelper sharePreferenceHelper;
     protected TextView iAmSafeText;
     protected ImageButton buttonTutorial;
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         allclearImageButton = findViewById(R.id.safeimageButton);
-        resourcesButton = findViewById(R.id.resourcesButton);
+
 
         buttonTutorial = findViewById(R.id.buttonTutorialMain);
 
@@ -117,13 +116,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        resourcesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            Intent intent = new Intent(MainActivity.this, ResourceActivity.class);
-            startActivity(intent);
-            }
-        });
 
 
     }
@@ -213,10 +205,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.sendTestMessageDropDown:
-                final messageGPSHelper gpsHelper;
-                gpsHelper = new messageGPSHelper(this);
-                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 3);
-                        gpsHelper.sendMessage("7786898291", "Test");
+                Intent intentnew = new Intent(MainActivity.this, ResourceActivity.class);
+                startActivity(intentnew);
                 return true;
             case R.id.switchLanguage:
                 switchLanguage();
