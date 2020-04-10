@@ -78,6 +78,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
     protected Button doneActivity;
 
+    protected int doneCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,14 +105,15 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         loadActivityTutorial(mInfoDialog);
         ////
 
-//        if(!helper.getTutorialSeen() ){
-//            Log.d("__Guardians","Gooing to perform click on tutorial button");
-//            mImageButtonTutorial.performClick();
-//            helper.setTutorialSeen(true);
-//true//        }
-//        else {
-//            Log.d("__Guardians","tutorial was seen!!!");
-//        }
+        if(!helper.getTutorialSeen() ){
+
+
+            loadCellPhoneContact_fragment dialog = new loadCellPhoneContact_fragment();
+            dialog.setCancelable(false);
+            dialog.show(getSupportFragmentManager(), "importAndroidContactFragment");
+        }
+
+
 
         addContactButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,8 +143,19 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         doneActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ThresholdSettingActivity.this, BluetoothMainActivity.class);
-                startActivity(intent);
+
+                if(doneCount == 0){
+                    doneCount++;
+                    thresholdVal = 2;
+                    String currentThres = "Guardians Level " + thresholdVal;
+                    thresholdTextview.setText(currentThres);
+                    loadThresholdContactListView();
+
+                }
+                else {
+                    Intent intent = new Intent(ThresholdSettingActivity.this, BluetoothMainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -367,13 +380,22 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.thresholdmenu, menu);
+
+
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
+        SharePreferenceHelper helper = new SharePreferenceHelper(this);
         MenuItem changeView = menu.findItem(R.id.editmodedropdown);
+        if(!helper.getTutorialSeen() ) {
+
+
+            changeView.setVisible(false);
+
+        }
+
         MenuItem changeThres = menu.findItem(R.id.changeThresholddropdown);
         if(contactMode){
             changeView.setTitle("Edit your Guardians");
@@ -397,43 +419,11 @@ public class ThresholdSettingActivity extends AppCompatActivity {
             case R.id.editmodedropdown:
                 if(contactMode){
 
-                    loadContactsListView();
-                    thresholdVal = 1;
-                    defineMessageButton.setVisibility(View.VISIBLE);
-                    add911GuardianButton.setVisibility(View.VISIBLE);
-                    thresholdTextview.setVisibility(View.VISIBLE);
-                    String currentThres = "Guardians Level " + thresholdVal;
-                    thresholdTextview.setText(currentThres);
-                    thresholdTextview.setBackground(null);
-                    threshHoldContactsListView.setVisibility(View.VISIBLE);
-                    contactMode =false;
-                    addContactButton.setVisibility(View.GONE);
-                   importContactsButton.setVisibility(View.GONE);
-
-                   //move tutorial button
-                    activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
-                    ConstraintSet constrainSet = new ConstraintSet();
-                    constrainSet.clone(activityLayout);
-                    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutRight,ConstraintSet.START,0);
-                    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutRight,ConstraintSet.START,0);
-                    constrainSet.applyTo(activityLayout);
+                    loadThresholdMode();
                 }
                 else{
-                    defineMessageButton.setVisibility(View.GONE);
-                    add911GuardianButton.setVisibility(View.GONE);
-                    thresholdTextview.setText("Click the three dots!");//reseting textview
-                    threshHoldContactsListView.setVisibility(View.GONE);
-                    contactMode = true;
-                    addContactButton.setVisibility(View.VISIBLE);
-                    importContactsButton.setVisibility(View.VISIBLE);
 
-                    activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
-                    ConstraintSet constrainSet = new ConstraintSet();
-                    constrainSet.clone(activityLayout);
-                    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutLeft,ConstraintSet.START,0);
-                    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutLeft,ConstraintSet.START,0);
-                    constrainSet.applyTo(activityLayout);
-
+                    loadContactMode();
 
                 }
                 loadThresholdContactListView();
@@ -443,10 +433,10 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
                 if (thresholdVal == 1) {
                     thresholdVal = 2;
-                    item.setTitle("Edit Level 1");
+                    item.setTitle("Edit Level 2");
                 } else if (thresholdVal == 2){
                     thresholdVal = 1;
-                    item.setTitle("Edit Level 2");
+                    item.setTitle("Edit Level 1");
                 }
 
                 String currentThres = "Guardians Level " + thresholdVal;
@@ -458,6 +448,46 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+public void loadThresholdMode(){
+    loadContactsListView();
+    thresholdVal = 1;
+    defineMessageButton.setVisibility(View.VISIBLE);
+    add911GuardianButton.setVisibility(View.VISIBLE);
+    thresholdTextview.setVisibility(View.VISIBLE);
+    String currentThres = "Guardians Level " + thresholdVal;
+    thresholdTextview.setText(currentThres);
+    thresholdTextview.setBackground(null);
+    threshHoldContactsListView.setVisibility(View.VISIBLE);
+    contactMode =false;
+    addContactButton.setVisibility(View.GONE);
+    importContactsButton.setVisibility(View.GONE);
+
+    //move tutorial button
+    activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
+    ConstraintSet constrainSet = new ConstraintSet();
+    constrainSet.clone(activityLayout);
+    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutRight,ConstraintSet.START,0);
+    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutRight,ConstraintSet.START,0);
+    constrainSet.applyTo(activityLayout);
+}
+
+public void loadContactMode(){
+    defineMessageButton.setVisibility(View.GONE);
+    add911GuardianButton.setVisibility(View.GONE);
+    thresholdTextview.setText("Click the three dots!");//reseting textview
+    threshHoldContactsListView.setVisibility(View.GONE);
+    contactMode = true;
+    addContactButton.setVisibility(View.VISIBLE);
+    importContactsButton.setVisibility(View.VISIBLE);
+
+    activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
+    ConstraintSet constrainSet = new ConstraintSet();
+    constrainSet.clone(activityLayout);
+    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutLeft,ConstraintSet.START,0);
+    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutLeft,ConstraintSet.START,0);
+    constrainSet.applyTo(activityLayout);
+}
 
     //helper function for that, could figure out a better way to structure this
     //for now id rather have it working

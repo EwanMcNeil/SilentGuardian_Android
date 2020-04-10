@@ -23,6 +23,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
 import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.ThresholdSettingActivity;
 
@@ -99,7 +100,14 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
+                SharePreferenceHelper helper = new SharePreferenceHelper(getContext());
+                if(!helper.getTutorialSeen() ) {
+                    ((ThresholdSettingActivity)getActivity()).loadThresholdMode();
+                }
+
                 getDialog().dismiss();
+
+
 
             }
         });
