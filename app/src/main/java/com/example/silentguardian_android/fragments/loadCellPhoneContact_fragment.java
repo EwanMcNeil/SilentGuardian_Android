@@ -36,6 +36,9 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
     protected ListView androidContactListview;
     protected Button closeButton;
     protected TextView androidContactTV;
+
+    protected Button manualAdd;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
         androidContactListview = view.findViewById(R.id.cellPhoneContactLV);
         closeButton = view.findViewById(R.id.closeButtonAndroidContact);
         androidContactTV = view.findViewById(R.id.androidListTV);
+        manualAdd =view.findViewById(R.id.manualaddcontactButton);
+
         ContentResolver resolver = getActivity().getContentResolver();
         Cursor cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
 
@@ -67,6 +72,14 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
         }
         mainAndroidPersonList = androidPersonList;
         loadAndroidContactListView();
+
+        manualAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertContactDialogFragment dialog = new insertContactDialogFragment();
+                dialog.show(getActivity().getSupportFragmentManager(), "insertContactFragment");
+            }
+        });
 
         androidContactListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
