@@ -112,14 +112,19 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
 
-                SharePreferenceHelper helper = new SharePreferenceHelper(getContext());
-                if(!helper.getTutorialSeen() ) {
-                    ((ThresholdSettingActivity)getActivity()).loadThresholdMode();
+                if(dbhelper.checkifEmpty()) {
+                    SharePreferenceHelper helper = new SharePreferenceHelper(getContext());
+                    if (!helper.getTutorialSeen()) {
+                        ((ThresholdSettingActivity) getActivity()).loadThresholdMode();
+                    }
+                                           
+                    getDialog().dismiss();
                 }
-
-                getDialog().dismiss();
-
+                else{
+                    Toast.makeText(getContext(), "Please add contacts before proceeding", Toast.LENGTH_LONG).show();
+                }
 
 
             }
