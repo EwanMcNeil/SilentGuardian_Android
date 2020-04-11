@@ -52,6 +52,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="222dp"
         android:text="1-833-900-1010 "
+        android:textStyle="bold"
         android:textSize = "16sp"/>
 
     <TextView
@@ -63,6 +64,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="413dp"
         android:text="1-877-484-0404 "
+        android:textStyle="bold"
         android:textSize = "16sp"/>
 
     <TextView
@@ -73,7 +75,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="28dp"
         android:layout_marginTop="276dp"
-        android:text="https://www.canadianhumantraffickinghotline.ca/" />
+        android:text="https://www.canadianhumantraffickinghotline.ca/"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/url2_option2"
@@ -83,7 +86,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="19dp"
         android:layout_marginTop="480dp"
-        android:text="http://www.afpad.ca" />
+        android:text="http://www.afpad.ca"
+        android:textStyle="bold" />
 
 </RelativeLayout>
 

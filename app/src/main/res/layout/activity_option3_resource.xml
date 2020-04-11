@@ -84,6 +84,7 @@
         android:layout_marginTop="166dp"
         android:ems="10"
         android:text="1-888-933-9007"
+        android:textStyle="bold"
         android:textSize="16sp" />
 
     <TextView
@@ -96,6 +97,7 @@
         android:layout_marginTop="296dp"
         android:ems="10"
         android:text="1-888-595-5580"
+        android:textStyle="bold"
         android:textSize="16sp" />
 
     <TextView
@@ -108,6 +110,7 @@
         android:layout_marginTop="110dp"
         android:ems="10"
         android:text="1-800-595-5580"
+        android:textStyle="bold"
         android:textSize="16sp" />
 
     <TextView
@@ -120,6 +123,7 @@
         android:layout_marginTop="31dp"
         android:ems="10"
         android:text="1-800-363-9010"
+        android:textStyle="bold"
         android:textSize="16sp" />
 
 </RelativeLayout>
