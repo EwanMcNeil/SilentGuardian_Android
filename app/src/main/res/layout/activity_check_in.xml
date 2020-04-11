@@ -35,6 +35,7 @@
         android:id="@+id/EditaddressText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
@@ -49,13 +50,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="26dp"
+        android:background="@drawable/btn_gradient_style"
+        android:padding="10dp"
         android:text="save"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/setTimerTextView"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.75" />
 
     <TextView
         android:id="@+id/setTimerTextView"
@@ -63,6 +67,7 @@
         android:layout_height="wrap_content"
         android:text="Please set notification timer below:"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/minutesEditText"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.442"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -89,8 +94,10 @@
     <Button
         android:id="@+id/startTimerButton"
         android:layout_width="wrap_content"
+        android:background="@drawable/btn_gradient_style"
         android:layout_height="wrap_content"
         android:text="START TIMER"
+        android:padding="10dp"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -102,8 +109,11 @@
         android:id="@+id/checkInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/btn_gradient_style"
+        android:lineSpacingExtra="18sp"
         android:text="I AM SAFE"
-        android:textSize="24sp"
+        android:padding="10dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.0"
@@ -149,6 +159,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="35dp"
         android:text="RESET TIMER"
+        android:padding="10dp"
+        android:background="@drawable/btn_gradient_style"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/checkInButton"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -197,5 +209,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.89" />
+        app:layout_constraintGuide_percent="0.85" />
+
+    <ImageButton
+        android:id="@+id/buttonTutorialCheckin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00FFFFFF"
+        android:baselineAlignBottom="true"
+        android:foregroundGravity="center_horizontal"
+        android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline51"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline51"
+        app:layout_constraintVertical_bias="0.52"
+        app:srcCompat="@drawable/ic_info_black_24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.92" />
 </androidx.constraintlayout.widget.ConstraintLayout>

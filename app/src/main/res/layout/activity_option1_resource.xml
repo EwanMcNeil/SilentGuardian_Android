@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/item4_option1"
-        android:layout_width="385dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/item3_option1"
-        android:layout_width="393dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/item2_option1"
         android:layout_alignParentStart="true"
@@ -33,7 +33,7 @@
 
     <TextView
         android:id="@+id/option1TextView"
-        android:layout_width="261dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -46,8 +46,8 @@
 
     <TextView
         android:id="@+id/item1_option1"
-        android:layout_width="377dp"
-        android:layout_height="44dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -61,7 +61,7 @@
 
     <TextView
         android:id="@+id/item2_option1"
-        android:layout_width="401dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/item1_option1"
         android:layout_alignParentStart="true"
@@ -74,7 +74,7 @@
 
     <TextView
         android:id="@+id/url1_option1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -86,7 +86,7 @@
 
     <TextView
         android:id="@+id/url2_option1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -97,7 +97,7 @@
 
     <TextView
         android:id="@+id/url3_option1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -106,9 +106,10 @@
         android:text="https://www.ivac.qc.ca"
         android:textStyle="bold"/>
 
+
     <TextView
         android:id="@+id/url4_option1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"

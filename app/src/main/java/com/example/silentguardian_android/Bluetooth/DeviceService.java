@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.Color;
+import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -28,15 +29,21 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import com.example.silentguardian_android.AudioRecordTest;
+import com.example.silentguardian_android.Database.AudioDatabase;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
+import com.example.silentguardian_android.Database.audioFile;
 import com.example.silentguardian_android.MainActivity;
 import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.checkInActivity;
 import com.example.silentguardian_android.messageGPSHelper;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
@@ -82,7 +89,11 @@ public class DeviceService extends Service {
     //end objects from deviceControlActivity
 
     public int counter=0;
+    private AudioDatabase adb;
+    private static String fileName = null;
+    private MediaRecorder recorder = null;
 
+    private boolean isrecording = false;
 
     // Code to manage Service lifecycle.(NEW)
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -119,7 +130,8 @@ public class DeviceService extends Service {
 
             }else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
-
+                unregisterReceiver( mGattUpdateReceiver);
+                noDevice();
             }else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.e(TAG, "GATTSERVICESlaunch");
                 // Show all the supported services and characteristics on the user interface.
@@ -166,8 +178,9 @@ public class DeviceService extends Service {
         Log.e(TAG, "onCreate");
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
-
-
+        //for audio
+        adb = new AudioDatabase(this);
+        fileName = getExternalCacheDir().getAbsolutePath();
         //This pulls in all the numbers for the people in the database
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
 
@@ -255,18 +268,27 @@ public class DeviceService extends Service {
         return intentFilter;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onDestroy() {
         super.onDestroy();
         stoptimertask();
+        unbindService(mServiceConnection);
 
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("restartservice");
         broadcastIntent.setClass(this, Restarter.class);
+        broadcastIntent.putExtra("name", mDeviceName);
+        broadcastIntent.putExtra("address",mDeviceAddress);
         this.sendBroadcast(broadcastIntent);
+
+
     }
 
-
+    @Override
+    public void unregisterReceiver(BroadcastReceiver receiver) {
+        super.unregisterReceiver(receiver);
+    }
 
     private Timer timer;
     private TimerTask timerTask;
@@ -314,61 +336,91 @@ public class DeviceService extends Service {
             byte[] values = characteristicTX.getValue();
             if (values != null) {
                 final int value = characteristicTX.getValue()[0];
-
                 Log.d(TAG, "Value: " + Integer.toString(value));
                 Log.d(TAG, "Value=" + value);
-
-
                 //code for sending one text message
-                if((value == 1 || value == 2) && sendOne == false){
+                if((value == 1 || value == 2) && !sendOne){
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
-
-                            if(sendOne == false) {
+                            if(!sendOne) {
                                 messageGPSHelper textHelper = new messageGPSHelper(getApplicationContext());
                                 SharePreferenceHelper spHelper = new SharePreferenceHelper(getApplicationContext());
                                 if(value==1) {
-
                                     for(int i = 0; i < thresholdOneNumbers.length; i++) {
                                         textHelper.sendMessage(thresholdOneNumbers[i],spHelper.ThresholdOneMessageReturn());
                                     }
                                     sendOne = true;
+                                    if(!isrecording){
+                                        isrecording = true;
+                                        startRecording();
+                                    }
                                 }
                                 if(value==2) {
-
                                     for(int i = 0; i < thresholdTwoNumbers.length; i++) {
                                         textHelper.sendMessage(thresholdTwoNumbers[i],spHelper.ThresholdTwoMessageReturn());
+                                        //startRecording();
+                                        //needs to be called here
                                     }
                                     sendOne = true;
                                 }
-
-
                            Log.i("Count", "=========  "+ (counter++));
                             }
-
-
                         }
-
                     });
                 }
-
                 sendOne = false;
-
             }
         }
-
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
+
+
+    private void startRecording() {
+        int num = adb.numberAudioObjects();
+        num = num +1;
+        String newfilename = fileName + "/audiorecordtest" + num + ".3gp";
+        Date currentTime = Calendar.getInstance().getTime();
+        String date = currentTime.toString();
+        audioFile file = new audioFile(date,newfilename);
+        adb.insertFile(file);
+
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setOutputFile(newfilename);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            recorder.prepare();
+        } catch (IOException e) {
+            Log.e("here", "prepare() failed");
         }
-        return false;
+
+        recorder.start();
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        Log.i("tag", "This'll run 5000 milliseconds later");
+                        stopRecording();
+                    }
+                },
+                5000);
     }
+
+    private void stopRecording() {
+        if(recorder != null) {
+            recorder.stop();
+            recorder.release();
+            isrecording = false;
+            recorder = null;
+        }
+    }
+
+
+   private void noDevice(){
+       this.stopSelf();
+   }
 
 
 
