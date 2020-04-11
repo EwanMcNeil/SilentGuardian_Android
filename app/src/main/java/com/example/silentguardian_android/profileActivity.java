@@ -78,10 +78,8 @@ public class profileActivity extends AppCompatActivity {
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
         if(!(new SharePreferenceHelper(getApplicationContext()).getTutorialSeen())) {
-            Button buttoncontinue = findViewById(R.id.profile_saveButton);
-            Button buttonCancel = findViewById(R.id.profile_cancelButton);
-            buttonCancel.setVisibility(View.GONE);
-            buttoncontinue.setText("Continue");//bilingual
+            cancelButton.setVisibility(View.GONE);
+            saveButton.setText("Continue");//bilingual
         }
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override

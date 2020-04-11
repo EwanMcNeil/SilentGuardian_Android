@@ -119,6 +119,8 @@ public class AppTutorial extends AppCompatActivity {
     protected TextView mSkip;
     protected final List<MyImage> mList = new ArrayList<>();
     protected AnimationDrawable mZoomIn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

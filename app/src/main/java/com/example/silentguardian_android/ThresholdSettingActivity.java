@@ -93,7 +93,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         //the fuckk
         final Dialog mInfoDialog = new Dialog(ThresholdSettingActivity.this, R.style.Theme_AppCompat);
-        SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
+        final SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
 
         //from contact Actvitity
         doneActivity = findViewById(R.id.doneActButton);
@@ -101,18 +101,19 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         importContactsButton = findViewById(R.id.importContactButton);
         mImageButtonTutorial = findViewById(R.id.imageButtonTutorial);
 
+        if(!helper.getTutorialSeen() ){
+        //TODO maybe do a tutorial here
+            firstTimeTutorial(mInfoDialog);
+            mImageButtonTutorial.performClick();//starting the first tutorial like this
+
+
+            //loadcellphoneContact fragment moved into mDialogButton.onClick
+
+        }
+
         //Setup tutorial
         loadActivityTutorial(mInfoDialog);
         ////
-
-        if(!helper.getTutorialSeen() ){
-
-
-            loadCellPhoneContact_fragment dialog = new loadCellPhoneContact_fragment();
-            dialog.setCancelable(false);
-            dialog.show(getSupportFragmentManager(), "importAndroidContactFragment");
-        }
-
 
 
         addContactButton.setOnClickListener(new View.OnClickListener() {
@@ -232,11 +233,15 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
 
                     //TODO directly add to guardians list, it s more intuitive,
+                    DatabaseHelper dbhelper = new DatabaseHelper(getApplicationContext());
+                    SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
                     loadContactsListView();//To reload mainlist from database
                     Person selectedPerson = mainList.get(position);
                     String name = selectedPerson.getName();
                     String number = selectedPerson.getPhoneNumber();
-                    doneActivity.setVisibility(View.VISIBLE);
+
+                    if(!helper.getTutorialSeen())
+                        doneActivity.setVisibility(View.VISIBLE);
 
 
                     Person tempPerson = new Person(null, null);
@@ -247,7 +252,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                         tempPerson = new Person(selectedPerson.getID(), name, number, selectedPerson.getThresholdOne(), 1);
                     }
 
-                    DatabaseHelper dbhelper = new DatabaseHelper(getApplicationContext());
                     dbhelper.updatePerson(tempPerson);
                     loadThresholdContactListView();
 
@@ -561,6 +565,85 @@ public void loadContactMode(){
         });
 
     }
+    private void firstTimeTutorial( final Dialog mInfoDialog){
+
+        final List<MyImage> mList = new ArrayList<>();
+        mList.add(new MyImage("Import your contacts into Silent Guardian",
+                "Press on the name of the contacts you want your alerts to be sent to.\n"
+                        + " \nWhen you're done, press Continue."
+                ,R.mipmap.first_time_contact1));
+
+        mList.add(new MyImage("Assign Contacts as Guardian Level 1",
+                "Click on the name of the contact(s) you wish to add as "+
+                        "Guardian level 1. These Guardians will be alerted when you "+
+                        "apply the \"Level 1\" pressure on your Silent Guardian companion"+
+                        " device.\n When you have added at least one contact as Level 1 Guardian, press continue."
+                ,R.mipmap.first_time_contact2));
+
+        mList.add(new MyImage("Assign Contacts as Guardian Level 2",
+                "Repeat the same process for your Guardian Level 2.\n Your Guardian Levels can share the same contacts if you choose to.\nSimply add the contacts again in Guardian Level 2."
+                ,R.mipmap.first_time_contact3));
+
+
+        mImageButtonTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mInfoDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                mInfoDialog.setContentView(R.layout.activity_tutorial);
+
+                //UI elements
+                ViewPager mScreenPager = mInfoDialog.findViewById(R.id.screen_viewpager);
+                TabLayout mTabIndicator  = mInfoDialog.findViewById(R.id.tab_indicator);
+                TextView  mSkip = mInfoDialog.findViewById(R.id.tv_skip);
+                final Button mDialogButton = mInfoDialog.findViewById(R.id.btn_get_started);
+
+                mSkip.setVisibility(View.INVISIBLE);
+
+
+                //decodeSampledBitmapFromResource(getResources(),R.drawable.guardians_act_info, 220, 220);
+                TutorialViewpagerAdapter mTutorialViewpagerAdapter = new TutorialViewpagerAdapter(getApplicationContext(),mList,false);
+                mScreenPager.setAdapter(mTutorialViewpagerAdapter);
+
+                // setup tablayout with viewpager
+                mTabIndicator.setupWithViewPager(mScreenPager);
+
+
+                mDialogButton.setText(R.string.end_tutorial_button_text);
+                // if button is clicked, close the custom dialog
+                mTabIndicator.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        if (tab.getPosition() == mList.size()-1) {
+                            mDialogButton.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+                    @Override//must have these two here
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                    }
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                    }
+                });
+                mDialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mInfoDialog.dismiss();
+                        loadCellPhoneContact_fragment dialog = new loadCellPhoneContact_fragment();
+                        dialog.setCancelable(false);
+                        dialog.show(getSupportFragmentManager(), "importAndroidContactFragment");
+
+                    }
+                });
+
+                mInfoDialog.show();
+            }
+        });
+
+    }
+
 
 }
 
