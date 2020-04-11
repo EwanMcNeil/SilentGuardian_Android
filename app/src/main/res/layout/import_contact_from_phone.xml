@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:gravity="center_vertical"
-        android:text="Cell phone contact(s):"
+        android:text="@string/cellPhoneContact"
 
         app:layout_constraintBottom_toTopOf="@+id/guideline28"
         app:layout_constraintEnd_toStartOf="@+id/guideline30"

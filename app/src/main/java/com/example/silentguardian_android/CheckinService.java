@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -19,6 +20,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
 
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -52,6 +54,16 @@ public class CheckinService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        //Next lines assure activity uses the right language, otherwise some activities or fragment aren't fully catching up
+        //Applying language start
+        sharePreferenceHelper = new SharePreferenceHelper(this);
+        String language = sharePreferenceHelper.languageReturn();
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        //Applying language end
         sharePreferenceHelper = new SharePreferenceHelper(this);
         Log.d(TAG2, "create");
         sharePreferenceHelper.firstTimerDoneService(false);

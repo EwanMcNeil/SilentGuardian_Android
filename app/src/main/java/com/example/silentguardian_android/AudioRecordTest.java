@@ -3,6 +3,7 @@ package com.example.silentguardian_android;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import com.example.silentguardian_android.Database.AudioDatabase;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
 import com.example.silentguardian_android.Database.audioFile;
 import com.example.silentguardian_android.fragments.deleteContactFromThresholdFragment;
 
@@ -30,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Calendar;
-
+import java.util.Locale;
 
 
 public class AudioRecordTest extends AppCompatActivity {
@@ -38,6 +40,7 @@ public class AudioRecordTest extends AppCompatActivity {
     private static final String LOG_TAG = "AudioRecordTest";
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static String fileName = null;
+    protected SharePreferenceHelper sharePreferenceHelper;
 
     private Button recordButton = null;
     private MediaRecorder recorder = null;
@@ -143,6 +146,16 @@ public class AudioRecordTest extends AppCompatActivity {
         setContentView(R.layout.audioactivity);
         files = findViewById(R.id.audioListView);
         adb = new AudioDatabase(this);
+        //Next lines assure activity uses the right language, otherwise some activities or fragment aren't fully catching up
+        //Applying language start
+        sharePreferenceHelper = new SharePreferenceHelper(this);
+        String language = sharePreferenceHelper.languageReturn();
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        //Applying language end
 
 
 

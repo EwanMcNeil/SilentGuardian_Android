@@ -12,6 +12,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,6 +49,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ThresholdSettingActivity extends AppCompatActivity {
 
@@ -63,6 +65,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected List<Person> mainList = null;
     protected Button add911GuardianButton;
     protected ImageButton mImageButtonTutorial;//used for tutorial
+    protected SharePreferenceHelper sharePreferenceHelper;
 
     //commenting out for now: MOVED TO MAIN ACTIVITY
     //protected Button allClearButton;
@@ -83,8 +86,16 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
+        //Next lines assure activity uses the right language, otherwise some activities or fragment aren't fully catching up
+        //Applying language start
+        sharePreferenceHelper = new SharePreferenceHelper(this);
+        String language = sharePreferenceHelper.languageReturn();
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        //Applying language end
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -401,7 +412,11 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                     add911GuardianButton.setVisibility(View.VISIBLE);
                     thresholdTextview.setVisibility(View.VISIBLE);
                     String currentThres = "Guardians Level " + thresholdVal;
-                    thresholdTextview.setText(currentThres);
+                    String currentThresFrench = "Gardiens Niveau " + thresholdVal;
+                    if(sharePreferenceHelper.languageReturn()=="en")
+                        thresholdTextview.setText(currentThres);
+                    else if(sharePreferenceHelper.languageReturn()=="fr")
+                        thresholdTextview.setText(currentThresFrench);
                     thresholdTextview.setBackground(null);
                     threshHoldContactsListView.setVisibility(View.VISIBLE);
                     contactMode =false;

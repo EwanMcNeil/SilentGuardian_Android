@@ -2,6 +2,7 @@ package com.example.silentguardian_android.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.ThresholdSettingActivity;
 import com.example.silentguardian_android.profileActivity;
 
+import java.util.Locale;
+
 public class InsertPasswordCheckFragment extends DialogFragment {
 
     private static final String TAG = "PasswordCheck";
@@ -40,7 +43,17 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
         View view = inflater.inflate(R.layout.fragment_check_login_credentials, container,false);
 
-                  inputIntent = getArguments().getString("intent");
+        //Next lines assure activity uses the right language, otherwise some activities or fragment aren't fully catching up
+        //Applying language start
+        sharePreferenceHelper = new SharePreferenceHelper(getContext());
+        String language = sharePreferenceHelper.languageReturn();
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getActivity().getBaseContext().getResources().updateConfiguration(config, getActivity().getBaseContext().getResources().getDisplayMetrics());
+        //Applying language end
+        inputIntent = getArguments().getString("intent");
         tempPassword = view.findViewById(R.id.editPasswordCheck);
         saveTempPasswordButton = view.findViewById(R.id.enterPasswordButton);
 

@@ -2,6 +2,7 @@ package com.example.silentguardian_android;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
+
+import java.util.Locale;
 
 public class profileActivity extends AppCompatActivity {
 
@@ -37,6 +40,16 @@ public class profileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //Next lines assure activity uses the right language, otherwise some activities or fragment aren't fully catching up
+        //Applying language start
+        sharePreferenceHelper = new SharePreferenceHelper(this);
+        String language = sharePreferenceHelper.languageReturn();
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        //Applying language end
 
         userEditText = findViewById(R.id.editUserName);
         userEditText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);

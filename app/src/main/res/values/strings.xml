@@ -6,8 +6,58 @@
 
 
     <!-- TextViews -->
+    <!-- General -->
+    <string name="save">save</string>
+    <string name="features">Features</string>
+    <string name="cancel">Cancel</string>
+    <string name="enterPW">Enter your password</string>
+    <string name="enter">Enter</string>
+    <string name="close">Close</string>
+    <!-- User defined message fragment -->
+    <string name="enterMessage">Enter your message</string>
+    <!-- Import contact from phone fragment -->
+    <string name="cellPhoneContact">Cell phone contact(s)</string>
+    <!-- Send alert message fragment -->
+    <string name="sendMessageOne">Alert Level One</string>
+    <string name="sendMessageTwo">Alert Level Two</string>
+    <!-- Insert contact fragment -->
+    <string name="name">Name</string>
+    <string name="phoneNumber">Phone Number</string>
+    <!-- Main activity -->
     <string name="iAmSafe">I am safe</string>
+    <string name="iAmDanger">I am in danger</string>
+    <!-- Delete contact from threshold fragment -->
+    <string name="deleteFromThreshold">Delete contact from threshold</string>
+    <!-- Add 911 to threshold fragment -->
+    <string name="add911Explanation">In order to use the "text 911" service, please follow the link provided below to activate and register your phone:</string>
+    <string name="policeWebsite">https://www.textwith911.ca/en/how-to-make-a-t9-1-1-call/</string>
+    <string name= "explanation2">**911 will be automatically added to the maximun threat level, ie. only contacted for emergencies **</string>
+    <!-- Audio activity -->
+    <string name="record">Record</string>
+    <!-- Profile activity -->
+    <string name="enterName">Enter your name</string>
+    <string name="enterNewPW">Enter your new password</string>
+    <!-- Threshold activity -->
     <string name="allContacts">All contacts</string>
+    <string name="clickDots">Click the three dots!</string>
+    <string name="add911">Add 911 as a guardian!</string>
+    <string name="defineMessage">Define message</string>
+    <string name="addContact">Add Contact</string>
+    <string name="importContact">Import Contact</string>
+    <string name="done">Done</string>
+    <!-- All clear activity -->
+    <string name="safeLvl1">I AM SAFE: LEVEL ONE</string>
+    <string name="safeLvl2">I AM SAFE: LEVEL TWO</string>
+    <string name="tellGuardianSafe">Let your Guardians know that you are safe.</string>
+    <!-- Check-in activity -->
+    <string name="checkIn">Check-in</string>
+    <string name="futureAddress">Please enter future address below:</string>
+    <string name="setNotif">Please set notification timer below:</string>
+    <string name="hours">Hours</string>
+    <string name="minutes">Minutes</string>
+    <string name="seconds">Seconds</string>
+    <string name="startTimer">Start Timer</string>
+    <string name="resetTimer">Reset Timer</string>
     <!-- TextViews -->
 
     <!-- Bluetooth -->

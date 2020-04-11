@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,9 +13,11 @@ import android.widget.Toast;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class modifyContactActivity extends AppCompatActivity {
     protected EditText nameEditText;
@@ -23,6 +26,7 @@ public class modifyContactActivity extends AppCompatActivity {
     protected Button cancelButton;
     protected Button saveChanges;
     int idContactDelete = 0;
+    protected SharePreferenceHelper sharePreferenceHelper;
 
 
     ArrayList<Person> contactArrayList = new ArrayList<>();
@@ -32,6 +36,16 @@ public class modifyContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_modify_contact);
+        //Next lines assure activity uses the right language, otherwise some activities or fragment aren't fully catching up
+        //Applying language start
+        sharePreferenceHelper = new SharePreferenceHelper(this);
+        String language = sharePreferenceHelper.languageReturn();
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        //Applying language end
 
         nameEditText = findViewById(R.id.nameDeleteEditText);
         numberEditText = findViewById(R.id.phoneNumberET);

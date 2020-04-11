@@ -3,9 +3,11 @@ package com.example.silentguardian_android.fragments;
 
 
 import android.content.ContentResolver;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +16,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
 import com.example.silentguardian_android.R;
+import com.example.silentguardian_android.ThresholdSettingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class loadCellPhoneContact_fragment extends DialogFragment {
 
@@ -31,11 +38,22 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
     protected ListView androidContactListview;
     protected Button closeButton;
     protected TextView androidContactTV;
+    protected SharePreferenceHelper sharePreferenceHelper;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.import_contact_from_phone, container, false);
         ArrayList<Person> androidPersonList = new ArrayList<>();
+        //Next lines assure activity uses the right language, otherwise some activities or fragment aren't fully catching up
+        //Applying language start
+        sharePreferenceHelper = new SharePreferenceHelper(getContext());
+        String language = sharePreferenceHelper.languageReturn();
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getActivity().getBaseContext().getResources().updateConfiguration(config, getActivity().getBaseContext().getResources().getDisplayMetrics());
+        //Applying language end
         androidContactListview = view.findViewById(R.id.cellPhoneContactLV);
         closeButton = view.findViewById(R.id.closeButtonAndroidContact);
         androidContactTV = view.findViewById(R.id.androidListTV);
@@ -66,12 +84,19 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
         androidContactListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
-                bundle.putString("contactName", mainAndroidPersonList.get(position).getName());
-                bundle.putString("contactNumber", mainAndroidPersonList.get(position).getPhoneNumber());
-                addAndroidContactToAppFragment dialog = new addAndroidContactToAppFragment();
-                dialog.setArguments(bundle);
-                dialog.show(getActivity().getSupportFragmentManager(), "insertContactFragment");
+                Person tempPerson = new Person(mainAndroidPersonList.get(position).getName(),mainAndroidPersonList.get(position).getPhoneNumber());
+                DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
+                List<Person> currentContacts = dbhelper.getAllPeople();
+                for(Person n : currentContacts) {
+                    Log.d("__insertFrag",n.getName());
+                    if (n.equals(tempPerson)) {
+                        Toast.makeText(getContext(), "Contact Already exists", Toast.LENGTH_LONG).show();
+                        return;//do not insert
+                    }
+                }
+                dbhelper.insertPerson(tempPerson);
+                Toast.makeText(getContext(), "Contact Added successfully!", Toast.LENGTH_LONG).show();
+                ((ThresholdSettingActivity)getActivity()).loadContactsListView();
             }
         });
 

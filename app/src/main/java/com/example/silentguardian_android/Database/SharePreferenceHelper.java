@@ -82,7 +82,8 @@ public class SharePreferenceHelper extends AppCompatActivity {
         String lang = sharedPreferences.getString("Language", null);
         if(lang==null)
             return "en";
-        return lang;
+        else
+            return lang;
     }
 
 

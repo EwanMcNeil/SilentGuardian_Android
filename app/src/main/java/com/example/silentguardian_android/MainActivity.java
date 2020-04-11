@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+        updateAllClearButton();
 
     }
 
@@ -134,13 +134,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(output == 0){
-            iAmSafeText.setText("I am in danger");
+            iAmSafeText.setText(R.string.iAmDanger);
             allclearImageButton.setBackgroundResource(R.drawable.indanger);
 
             //needs to be changed to somthing else
         }
         else{
-            iAmSafeText.setText("I am safe");
+            iAmSafeText.setText(R.string.iAmSafe);
             allclearImageButton.setBackgroundResource(R.drawable.i_am_safe_image);
         }
 
