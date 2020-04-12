@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
         }
 
 
@@ -140,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < Size; i++) {
             textHelper.sendMessage(thresholdOneNumbers[i], "test");
         }
+
         updateAllClearButton();
 
     }
@@ -183,14 +185,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(output == 0){
+
             iAmSafeText.setText("SOS");
             allclearImageButton.setBackgroundResource(R.drawable.redphone);
+
 
             //needs to be changed to somthing else
         }
         else{
+
             iAmSafeText.setText("I am safe");
             allclearImageButton.setBackgroundResource(R.drawable.greenphone);
+
         }
 
     }

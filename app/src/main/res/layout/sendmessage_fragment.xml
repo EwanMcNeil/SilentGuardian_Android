@@ -12,7 +12,11 @@
         android:id="@+id/alertOneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alert Threshold One"
+
+      
+        android:text="@string/sendMessageOne"
+       
+
         android:layout_margin="30dp"
         android:padding="10dp"
         android:background="@drawable/btn_gradient_style"
@@ -21,11 +25,17 @@
         app:layout_constraintStart_toStartOf="@+id/guideline58"
         app:layout_constraintTop_toTopOf="@+id/guideline55" />
 
+
     <Button
         android:id="@+id/alertTwoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alert Threshold Two"
+
+       
+        android:text="@string/sendMessageTwo"
+     
+
+     
         android:layout_margin="30dp"
         android:padding="10dp"
         android:background="@drawable/btn_gradient_style"
@@ -54,4 +64,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

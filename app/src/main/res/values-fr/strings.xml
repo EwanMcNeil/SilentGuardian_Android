@@ -7,8 +7,58 @@
 
 
     <!-- TextViews -->
+    <!-- General -->
+    <string name="save">sauvegarder</string>
+    <string name="features">Features</string>
+    <string name="cancel">Annuler</string>
+    <string name="enterPW">Entrez votre mot de passe</string>
+    <string name="enter">Entrer</string>
+    <string name="close">Fermer</string>
+    <!-- User defined message fragment -->
+    <string name="enterMessage">Entrez votre message</string>
+    <!-- Import contact from phone fragment -->
+    <string name="cellPhoneContact">Contact(s) du téléphone</string>
+    <!-- Send alert message fragment -->
+    <string name="sendMessageOne">Alerter niveau un</string>
+    <string name="sendMessageTwo">Alerter niveau deux</string>
+    <!-- Insert contact fragment -->
+    <string name="name">Nom</string>
+    <string name="phoneNumber">Numéro de téléphone</string>
+    <!-- Main activity -->
     <string name="iAmSafe">Je suis en sécurité</string>
+    <string name="iAmDanger">Je suis en danger</string>
+    <!-- Delete contact from threshold fragment -->
+    <string name="deleteFromThreshold">Supprimer le contact du niveau</string>
+    <!-- Add 911 to threshold fragment -->
+    <string name="add911Explanation">Pour utiliser le service "text 911", veuillez suivre le lien ci-dessous pour activer et enregistrer votre téléphone:</string>
+    <string name="policeWebsite">https://www.textwith911.ca/en/how-to-make-a-t9-1-1-call/</string>
+    <string name= "explanation2">**le 911 sera automatiquement ajouté au niveau de menace maximal, a contacté uniquement pour les urgences **</string>
+    <!-- Audio activity -->
+    <string name="record">Enregistrer</string>
+    <!-- Profile activity -->
+    <string name="enterName">Entrez votre nom</string>
+    <string name="enterNewPW">Entrez votre nouveau mot de passe</string>
+    <!-- Threshold activity -->
     <string name="allContacts">Tous les contacts</string>
+    <string name="clickDots">Cliquez sur les trois points!</string>
+    <string name="add911">Ajouter 911 comme gardien!</string>
+    <string name="defineMessage">Definir message</string>
+    <string name="addContact">Ajouter Contact</string>
+    <string name="importContact">Importer Contact</string>
+    <string name="done">Terminé</string>
+    <!-- All clear activity -->
+    <string name="safeLvl1">JE SUIS EN SÉCURITÉ: NIVEAU 1</string>
+    <string name="safeLvl2">JE SUIS EN SÉCURITÉ: NIVEAU 2</string>
+    <string name="tellGuardianSafe">Dites à vos gardiens que vous êtes en sécurité.</string>
+    <!-- Check-in activity -->
+    <string name="checkIn">Enregistrer</string>
+    <string name="futureAddress">Entrez votre future adresses ci-dessous:</string>
+    <string name="setNotif">Veuillez régler le chronomètre de notification:</string>
+    <string name="hours">Heures</string>
+    <string name="minutes">Minutes</string>
+    <string name="seconds">Secondes</string>
+    <string name="startTimer">Commencer Chronomètre</string>
+    <string name="resetTimer">Réinitialiser Chronomètre</string>
     <!-- TextViews -->
 
     <!-- Bluetooth -->

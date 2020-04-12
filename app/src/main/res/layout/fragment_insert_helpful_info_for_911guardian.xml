@@ -14,7 +14,7 @@
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginRight="0dp"
-        android:text='In order to use the "text 911" service, please follow the link provided below to activate and register your phone:'
+        android:text="@string/add911Explanation"
         android:textSize="24sp" />
 
     <TextView
@@ -42,7 +42,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="334dp"
-        android:text="**911 will be automatically added to the maximun threat level, ie. only contacted for emergencies **"
+        android:text="@string/explanation2"
         android:textSize="24sp" />
 
     <Button
@@ -53,5 +53,5 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="67dp"
-        android:text="Close" />
+        android:text="@string/close" />
 </RelativeLayout>

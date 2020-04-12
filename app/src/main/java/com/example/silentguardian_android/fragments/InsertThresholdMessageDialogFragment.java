@@ -1,5 +1,6 @@
 package com.example.silentguardian_android.fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
 import com.example.silentguardian_android.R;
+
+import java.util.Locale;
 
 public class InsertThresholdMessageDialogFragment extends DialogFragment {
 
@@ -35,6 +38,16 @@ public class InsertThresholdMessageDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_user_defined_messages, container, false);
 
 
+        //Next lines assure activity uses the right language, otherwise some activities or fragment aren't fully catching up
+        //Applying language start
+        sharePreferenceHelper = new SharePreferenceHelper(getContext());
+        String language = sharePreferenceHelper.languageReturn();
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getActivity().getBaseContext().getResources().updateConfiguration(config, getActivity().getBaseContext().getResources().getDisplayMetrics());
+        //Applying language end
         userDefinedThresholdMessage = view.findViewById(R.id.editUserDefinedMessageText);
         saveMessage = view.findViewById(R.id.saveMessageButton);
         cancelButton = view.findViewById(R.id.profile_cancelButton);

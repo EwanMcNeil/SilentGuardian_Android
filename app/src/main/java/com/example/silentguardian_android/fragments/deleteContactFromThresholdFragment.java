@@ -1,5 +1,6 @@
 package com.example.silentguardian_android.fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,11 +16,13 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
 import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.ThresholdSettingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class deleteContactFromThresholdFragment extends DialogFragment {
     public static final String TAG = "__deleteContact";
@@ -29,6 +32,7 @@ public class deleteContactFromThresholdFragment extends DialogFragment {
     protected  Button cancelButton;
     int selectedContactID;
     int thresholdVal = 0;
+    protected SharePreferenceHelper sharePreferenceHelper;
 
     ArrayList<Person> contactArrayList = new ArrayList<>();
 
@@ -38,6 +42,17 @@ public class deleteContactFromThresholdFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_delete_contact_from_threshold, container, false);
 
+
+        //Next lines assure activity uses the right language, otherwise some activities or fragment aren't fully catching up
+        //Applying language start
+        sharePreferenceHelper = new SharePreferenceHelper(getContext());
+        String language = sharePreferenceHelper.languageReturn();
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getActivity().getBaseContext().getResources().updateConfiguration(config, getActivity().getBaseContext().getResources().getDisplayMetrics());
+        //Applying language end
         nameFragmentTV = view.findViewById(R.id.nameDeleteThresholdFragmentTV);
         phoneFragmentTV = view.findViewById(R.id.phoneDeleteThresholdFragmentTV);
         DeleteFromThresholdButton = view.findViewById(R.id.deleteToThresholdFragmentButton);
