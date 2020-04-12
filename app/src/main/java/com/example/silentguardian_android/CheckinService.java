@@ -215,7 +215,7 @@ public class CheckinService extends Service {
                 Log.d(TAG2, "first if");
                 final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setContentTitle("Please Check-in with Silent Guardians")
-                        .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
+                        .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds + " Until Guardians are alerted.")
                         .setSmallIcon(R.drawable.ic_launcher_foreground)
                         .setContentIntent(pendingIntent)
                         .setPriority(NotificationCompat.PRIORITY_MAX)
@@ -294,7 +294,7 @@ public class CheckinService extends Service {
 
                 final Notification[] notification = {new NotificationCompat.Builder(this , CHANNEL_ID)
                         .setContentTitle("Please Check-in with Silent Guardians")
-                        .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
+                        .setContentText("Time Remaining : " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds + " Until Guardians are alerted.")
                         .setSmallIcon(R.drawable.ic_launcher_foreground)
                         .setContentIntent(pendingIntent)
                         .setPriority(NotificationCompat.PRIORITY_MAX)
