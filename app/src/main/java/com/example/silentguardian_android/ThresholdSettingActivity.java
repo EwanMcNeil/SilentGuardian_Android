@@ -105,10 +105,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         //TODO maybe do a tutorial here
             firstTimeTutorial(mInfoDialog);
             mImageButtonTutorial.performClick();//starting the first tutorial like this
-
-
             //loadcellphoneContact fragment moved into mDialogButton.onClick
-
         }
 
         //Setup tutorial
@@ -631,6 +628,7 @@ public void loadContactMode(){
                     @Override
                     public void onClick(View v) {
                         mInfoDialog.dismiss();
+
                         loadCellPhoneContact_fragment dialog = new loadCellPhoneContact_fragment();
                         dialog.setCancelable(false);
                         dialog.show(getSupportFragmentManager(), "importAndroidContactFragment");
