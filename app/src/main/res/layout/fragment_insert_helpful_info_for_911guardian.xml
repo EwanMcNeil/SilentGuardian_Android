@@ -49,6 +49,7 @@
         android:id="@+id/closeButton"
         android:layout_width="230dp"
         android:layout_height="83dp"
+        android:background="@drawable/btn_gradient_style"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="67dp"

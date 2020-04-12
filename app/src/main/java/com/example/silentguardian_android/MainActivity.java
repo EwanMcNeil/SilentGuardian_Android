@@ -30,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.silentguardian_android.Bluetooth.DeviceService;
+import com.example.silentguardian_android.Database.DatabaseHelper;
+import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
 
 import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
@@ -109,19 +111,42 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, allClearActivity.class);
                     startActivity(intent);
                 }else{
-                    sendMessageFragment dialog = new sendMessageFragment();
-                    dialog.show(getSupportFragmentManager(), "sendmessage_fragment");
+                    alertPressed();
+//                    sendMessageFragment dialog = new sendMessageFragment();
+//                    dialog.show(getSupportFragmentManager(), "sendmessage_fragment");
                 }
             }
         });
 
 
+        }
 
+
+    private void alertPressed() {
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+
+
+        List<Person> thresholdOnePeople;
+        thresholdOnePeople = dbHelper.getThresholdOne();
+        String[] thresholdOneNumbers = new String[thresholdOnePeople.size()];
+
+        for (int i = 0; i < thresholdOnePeople.size(); i++) {
+            thresholdOneNumbers[i] = thresholdOnePeople.get(i).getPhoneNumber();
+        }
+
+        int Size = thresholdOnePeople.size();
+        messageGPSHelper textHelper = new messageGPSHelper(this);
+
+        for(int i = 0; i < Size; i++) {
+            textHelper.sendMessage(thresholdOneNumbers[i], "test");
+        }
+        updateAllClearButton();
 
     }
 
 
-    @Override
+
+        @Override
     protected void onResume() {
         super.onResume();
     }
@@ -158,14 +183,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(output == 0){
-            iAmSafeText.setText("I am in danger");
-            allclearImageButton.setBackgroundResource(R.drawable.indanger);
+            iAmSafeText.setText("SOS");
+            allclearImageButton.setBackgroundResource(R.drawable.redphone);
 
             //needs to be changed to somthing else
         }
         else{
             iAmSafeText.setText("I am safe");
-            allclearImageButton.setBackgroundResource(R.drawable.i_am_safe_image);
+            allclearImageButton.setBackgroundResource(R.drawable.greenphone);
         }
 
     }

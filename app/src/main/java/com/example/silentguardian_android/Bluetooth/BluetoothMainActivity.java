@@ -67,6 +67,13 @@ public class BluetoothMainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         deviceCount = 0;
         SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
+
+        mInfoDialog = new Dialog(BluetoothMainActivity.this, R.style.Theme_AppCompat);
+        mtutorialSlides = loadTutorial();
+
+        if(!helper.getTutorialSeen()){
+            startActivityTutorial();
+        }
         helper.setTutorialSeen(true);
 
 
@@ -107,8 +114,7 @@ public class BluetoothMainActivity extends ListActivity {
         }
 
         //tutorial stuff, not elegant at all but it ll do for now
-        mInfoDialog = new Dialog(BluetoothMainActivity.this, R.style.Theme_AppCompat);
-        mtutorialSlides = loadTutorial();
+
 
     }
 
@@ -189,16 +195,16 @@ public class BluetoothMainActivity extends ListActivity {
         List<MyImage> mList = new ArrayList<>();
         mList.add(new MyImage("Turn on your Silent Guardian device",
                 "Press on the rocker button on the device to power it on."
-                ,R.drawable.blue1));
+                ,R.mipmap.blue1));
 
 
         mList.add(new MyImage("Wait for detection",
                 "Wait until the device's name shows up on the screen. If it does not, press on Scan to start scanning for the device."
-                ,R.drawable.blue2));
+                ,R.mipmap.blue2));
 
-        mList.add(new MyImage("Pair",
+        mList.add(new MyImage("Pair your device",
                 "Press on the device's name to initiate the pairing process."
-                ,R.drawable.blue3));
+                ,R.mipmap.blue3));
 
         return mList;
     }

@@ -23,6 +23,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
+import com.example.silentguardian_android.Database.SharePreferenceHelper;
 import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.ThresholdSettingActivity;
 
@@ -35,6 +36,9 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
     protected ListView androidContactListview;
     protected Button closeButton;
     protected TextView androidContactTV;
+
+    protected Button manualAdd;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,6 +47,8 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
         androidContactListview = view.findViewById(R.id.cellPhoneContactLV);
         closeButton = view.findViewById(R.id.closeButtonAndroidContact);
         androidContactTV = view.findViewById(R.id.androidListTV);
+        manualAdd =view.findViewById(R.id.manualaddcontactButton);
+
         ContentResolver resolver = getActivity().getContentResolver();
         Cursor cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
 
@@ -66,6 +72,14 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
         }
         mainAndroidPersonList = androidPersonList;
         loadAndroidContactListView();
+
+        manualAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertContactDialogFragment dialog = new insertContactDialogFragment();
+                dialog.show(getActivity().getSupportFragmentManager(), "insertContactFragment");
+            }
+        });
 
         androidContactListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -98,8 +112,20 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
 
-                getDialog().dismiss();
+                if(dbhelper.checkifEmpty()) {
+                    SharePreferenceHelper helper = new SharePreferenceHelper(getContext());
+                    if (!helper.getTutorialSeen()) {
+                        ((ThresholdSettingActivity) getActivity()).loadThresholdMode();
+                    }
+                                           
+                    getDialog().dismiss();
+                }
+                else{
+                    Toast.makeText(getContext(), "Please add contacts before proceeding", Toast.LENGTH_LONG).show();
+                }
+
 
             }
         });

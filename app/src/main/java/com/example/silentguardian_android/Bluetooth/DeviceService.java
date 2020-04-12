@@ -193,8 +193,8 @@ public class DeviceService extends Service {
         }
 
         List<Person> thresholdTwoPeople;
-        thresholdTwoPeople = dbHelper.getThresholdOne();
-        thresholdTwoNumbers = new String[thresholdOnePeople.size()];
+        thresholdTwoPeople = dbHelper.getThresholdTwo();
+        thresholdTwoNumbers = new String[thresholdTwoPeople.size()];
         for(int i = 0; i < thresholdTwoPeople.size(); i++){
             thresholdTwoNumbers[i] = thresholdTwoPeople.get(i).getPhoneNumber();
         }
@@ -358,6 +358,7 @@ public class DeviceService extends Service {
                                 }
                                 if(value==2) {
                                     for(int i = 0; i < thresholdTwoNumbers.length; i++) {
+                                        Log.d("messages",thresholdTwoNumbers[i]);
                                         textHelper.sendMessage(thresholdTwoNumbers[i],spHelper.ThresholdTwoMessageReturn());
                                         //startRecording();
                                         //needs to be called here
