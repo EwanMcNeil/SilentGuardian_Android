@@ -1,122 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_option3_resource"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Option1Resource">
+    tools:context=".Option1Resource"
+    android:layout_margin="10dp"
+    android:padding="20dp"
 
-    <TextView
-        android:id="@+id/item4_option1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="469dp"
-        android:text="Immigrants and refugees"
-        android:textColor="#1aa260"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/item3_option1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item2_option1"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="81dp"
-        android:text="IVAC (Compensation for Victims of Criminal Acts)"
-        android:textColor="#1aa260"
-        android:textSize="16sp" />
+    >
 
     <TextView
         android:id="@+id/option1TextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="41dp"
+        android:layout_margin="10dp"
+        android:padding="10dp"
         android:text="Victim of a Criminal Act"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/item1_option1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/item1_option1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="127dp"
-        android:layout_marginEnd="18dp"
+        android:layout_margin="0dp"
+        android:padding="10dp"
         android:text="CAVAC (Crime Victims Assistance Centre)"
         android:textColor="#1aa260"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/item2_option1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item1_option1"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="249dp"
-        android:text="Crisis Intervention Center"
-        android:textColor="#1aa260"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline64"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toTopOf="@+id/guideline64" />
 
     <TextView
         android:id="@+id/url1_option1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="185dp"
+
+        android:padding="10dp"
         android:text="https://cavac.qc.ca/en/"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/item2_option1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toBottomOf="@+id/item1_option1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/item2_option1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Crisis Intervention Center"
+        android:textColor="#1aa260"
+        android:textSize="16sp"
+
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline65"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintStart_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toTopOf="@+id/guideline65" />
 
     <TextView
         android:id="@+id/url2_option1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="298dp"
+
+        android:padding="10dp"
         android:text="https://www.centredecrise.ca/lescentres"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/item3_option1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintStart_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toBottomOf="@+id/item2_option1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/item3_option1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="IVAC (Compensation for Victims of Criminal Acts)"
+        android:textColor="#1aa260"
+        android:textSize="16sp"
+
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline66"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toTopOf="@+id/guideline66" />
 
     <TextView
         android:id="@+id/url3_option1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="407dp"
+
+        android:padding="10dp"
         android:text="https://www.ivac.qc.ca"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline67"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toBottomOf="@+id/item3_option1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/item4_option1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Immigrants and refugees"
+        android:textColor="#1aa260"
+        android:textSize="16sp"
+
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline67"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toTopOf="@+id/guideline67" />
 
 
     <TextView
         android:id="@+id/url4_option1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="10dp"
+        android:text="http://www.ccvt.org"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline63"
+        app:layout_constraintStart_toStartOf="@+id/guideline63"
+        app:layout_constraintTop_toBottomOf="@+id/item4_option1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline63"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="525dp"
-        android:text="http://www.ccvt.org"
-        android:textStyle="bold"/>
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</RelativeLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline64"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline65"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline66"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline67"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 

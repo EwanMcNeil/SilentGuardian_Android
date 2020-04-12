@@ -1,93 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_option3_resource"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Option2Resource">
+    tools:context=".Option2Resource"
+    android:padding="10dp"
+    >
 
     <TextView
         android:id="@+id/option2TextView"
-        android:layout_width="386dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="67dp"
         android:text="Missing Person (toll-free number)"
+        android:textAlignment="center"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline73"
+        app:layout_constraintEnd_toStartOf="@+id/guideline76"
+        app:layout_constraintStart_toStartOf="@+id/guideline76"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
 
     <TextView
         android:id="@+id/item1_option2"
-        android:layout_width="377dp"
-        android:layout_height="39dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="153dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Canadian Human Trafficking Hotline"
+        android:textAlignment="center"
         android:textColor="#1aa260"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline73"
+        app:layout_constraintEnd_toStartOf="@+id/guideline76"
+        app:layout_constraintStart_toStartOf="@+id/guideline76"
+        app:layout_constraintTop_toTopOf="@+id/guideline73" />
 
     <TextView
         android:id="@+id/item2_option2"
-        android:layout_width="410dp"
-        android:layout_height="56dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="327dp"
-        android:text="Murdered or missing people                                      (Association for families of murdered or missing people)"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Murdered or missing people\n(Association for families of murdered or missing people)"
+        android:textAlignment="center"
         android:textColor="#1aa260"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline75"
+        app:layout_constraintEnd_toStartOf="@+id/guideline76"
+        app:layout_constraintStart_toStartOf="@+id/guideline76"
+        app:layout_constraintTop_toTopOf="@+id/guideline75"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/phone1_option2"
-        android:layout_width="168dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="222dp"
         android:text="1-833-900-1010 "
+        android:textAlignment="center"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:textSize = "16sp"/>
+        app:layout_constraintBottom_toTopOf="@+id/url1_option2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline76"
+        app:layout_constraintStart_toStartOf="@+id/guideline76"
+        app:layout_constraintTop_toBottomOf="@+id/item1_option2" />
 
     <TextView
         android:id="@+id/phone2_option2"
-        android:layout_width="143dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="413dp"
         android:text="1-877-484-0404 "
+        android:textAlignment="center"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:textSize = "16sp"/>
+        app:layout_constraintBottom_toTopOf="@+id/url2_option2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline76"
+        app:layout_constraintStart_toStartOf="@+id/guideline76"
+        app:layout_constraintTop_toBottomOf="@+id/item2_option2" />
 
     <TextView
         android:id="@+id/url1_option2"
-        android:layout_width="383dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="276dp"
         android:text="https://www.canadianhumantraffickinghotline.ca/"
-        android:textStyle="bold" />
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline74"
+        app:layout_constraintEnd_toStartOf="@+id/guideline76"
+        app:layout_constraintStart_toStartOf="@+id/guideline76"
+        app:layout_constraintTop_toTopOf="@+id/guideline74" />
 
     <TextView
         android:id="@+id/url2_option2"
-        android:layout_width="375dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="480dp"
         android:text="http://www.afpad.ca"
-        android:textStyle="bold" />
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline76"
+        app:layout_constraintStart_toStartOf="@+id/guideline76"
+        app:layout_constraintTop_toBottomOf="@+id/item2_option2"
+        app:layout_constraintVertical_bias="0.25" />
 
-</RelativeLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline73"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline74"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline75"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline76"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
