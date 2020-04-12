@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.silentguardian_android">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -10,8 +11,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
@@ -21,53 +25,74 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Option3Resource"
+            android:parentActivityName=".ResourceActivity"></activity>
+        <activity android:name=".Option2Resource"
+            android:parentActivityName=".ResourceActivity"/>
+        <activity android:name=".Option1Resource"
+            android:parentActivityName=".ResourceActivity" />
+
+
+        <activity
+            android:name=".ResourceActivity"
+            android:parentActivityName=".MainActivity" />
 
         <activity android:name=".Tutorial.AppTutorial"
-            android:screenOrientation = "portrait">
+            android:screenOrientation = "portrait"
+            tools:ignore="LockedOrientationActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".CheckinService"/>
+
+        <service android:name=".CheckinService" />
+
         <activity android:name=".checkInActivity" />
 
-        <receiver android:name=".Bluetooth.Restarter" android:exported="true" android:enabled="true">
+        <receiver
+            android:name=".Bluetooth.Restarter"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
-                <action android:name="restartservice"/>
+                <action android:name="restartservice" />
             </intent-filter>
         </receiver>
 
         <activity
             android:name=".allClearActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation = "portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AudioRecordTest"
             android:parentActivityName=".MainActivity"
             android:screenOrientation = "portrait"/>
         <activity
             android:name=".Bluetooth.DeviceControlActivity"
-            android:theme="@android:style/Theme.Holo.Light"
-            android:screenOrientation = "portrait"/>
-        <activity android:name=".modifyContactActivity"
-            android:screenOrientation = "portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light" />
+        <activity
+            android:name=".modifyContactActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Bluetooth.BluetoothMainActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation = "portrait"
-            android:theme="@android:style/Theme.Holo.Light"></activity>
-        <service android:name=".Bluetooth.DeviceService" android:enabled="true"> </service>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light" />
 
+        <service
+            android:name=".Bluetooth.DeviceService"
+            android:enabled="true" />
         <service
             android:name=".Bluetooth.BluetoothLeService"
             android:enabled="true" />
@@ -76,21 +101,20 @@
             android:name=".ThresholdSettingActivity"
             android:label="My Guardians"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation = "portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".profileActivity"
             android:label="@string/title_activity_profile"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation = "portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.silentguardian_android.MainActivity" />
         </activity>
-        <activity android:name=".MainActivity" android:screenOrientation = "portrait">
-
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

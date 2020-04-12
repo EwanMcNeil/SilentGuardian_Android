@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_option3_resource"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Option1Resource">
+
+    <TextView
+        android:id="@+id/item4_option1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="469dp"
+        android:text="Immigrants and refugees"
+        android:textColor="#1aa260"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/item3_option1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item2_option1"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="81dp"
+        android:text="IVAC (Compensation for Victims of Criminal Acts)"
+        android:textColor="#1aa260"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/option1TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="41dp"
+        android:text="Victim of a Criminal Act"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/item1_option1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="127dp"
+        android:layout_marginEnd="18dp"
+        android:text="CAVAC (Crime Victims Assistance Centre)"
+        android:textColor="#1aa260"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/item2_option1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item1_option1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="249dp"
+        android:text="Crisis Intervention Center"
+        android:textColor="#1aa260"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/url1_option1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="185dp"
+        android:text="https://cavac.qc.ca/en/"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/url2_option1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="298dp"
+        android:text="https://www.centredecrise.ca/lescentres"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/url3_option1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="407dp"
+        android:text="https://www.ivac.qc.ca"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/url4_option1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="525dp"
+        android:text="http://www.ccvt.org"
+        android:textStyle="bold"/>
+
+</RelativeLayout>
+

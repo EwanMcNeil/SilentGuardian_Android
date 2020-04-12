@@ -257,4 +257,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(Config.COURSE_TABLE_NAME, contentValues,Config.COLUMN_PERSON_ID + " = ?", new String[] { String.valueOf(person.getID())});
     }
 
+    public boolean checkifEmpty(){
+
+        SQLiteDatabase db = this.getReadableDatabase(); //open database in readmode
+
+        Cursor mCursor = db.query(Config.COURSE_TABLE_NAME, null, null, null, null, null, null);
+        Boolean rowExists;
+
+        if (mCursor.moveToFirst())
+        {
+            // DO SOMETHING WITH CURSOR
+            rowExists = true;
+
+        } else
+        {
+            // I AM EMPTY
+            rowExists = false;
+        }
+
+        return rowExists;
+    }
+
 }

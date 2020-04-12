@@ -130,7 +130,8 @@ public class DeviceService extends Service {
 
             }else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
-
+                unregisterReceiver( mGattUpdateReceiver);
+                noDevice();
             }else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.e(TAG, "GATTSERVICESlaunch");
                 // Show all the supported services and characteristics on the user interface.
@@ -192,8 +193,8 @@ public class DeviceService extends Service {
         }
 
         List<Person> thresholdTwoPeople;
-        thresholdTwoPeople = dbHelper.getThresholdOne();
-        thresholdTwoNumbers = new String[thresholdOnePeople.size()];
+        thresholdTwoPeople = dbHelper.getThresholdTwo();
+        thresholdTwoNumbers = new String[thresholdTwoPeople.size()];
         for(int i = 0; i < thresholdTwoPeople.size(); i++){
             thresholdTwoNumbers[i] = thresholdTwoPeople.get(i).getPhoneNumber();
         }
@@ -267,18 +268,27 @@ public class DeviceService extends Service {
         return intentFilter;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onDestroy() {
         super.onDestroy();
         stoptimertask();
+        unbindService(mServiceConnection);
 
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("restartservice");
         broadcastIntent.setClass(this, Restarter.class);
+        broadcastIntent.putExtra("name", mDeviceName);
+        broadcastIntent.putExtra("address",mDeviceAddress);
         this.sendBroadcast(broadcastIntent);
+
+
     }
 
-
+    @Override
+    public void unregisterReceiver(BroadcastReceiver receiver) {
+        super.unregisterReceiver(receiver);
+    }
 
     private Timer timer;
     private TimerTask timerTask;
@@ -326,70 +336,46 @@ public class DeviceService extends Service {
             byte[] values = characteristicTX.getValue();
             if (values != null) {
                 final int value = characteristicTX.getValue()[0];
-
                 Log.d(TAG, "Value: " + Integer.toString(value));
                 Log.d(TAG, "Value=" + value);
-
-
                 //code for sending one text message
-                if((value == 1 || value == 2) && sendOne == false){
+                if((value == 1 || value == 2) && !sendOne){
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
-
-                            if(sendOne == false) {
+                            if(!sendOne) {
                                 messageGPSHelper textHelper = new messageGPSHelper(getApplicationContext());
                                 SharePreferenceHelper spHelper = new SharePreferenceHelper(getApplicationContext());
                                 if(value==1) {
-
                                     for(int i = 0; i < thresholdOneNumbers.length; i++) {
                                         textHelper.sendMessage(thresholdOneNumbers[i],spHelper.ThresholdOneMessageReturn());
                                     }
                                     sendOne = true;
-
-                                    if(isrecording == false){
+                                    if(!isrecording){
                                         isrecording = true;
                                         startRecording();
                                     }
-
                                 }
                                 if(value==2) {
-
                                     for(int i = 0; i < thresholdTwoNumbers.length; i++) {
+                                        Log.d("messages",thresholdTwoNumbers[i]);
                                         textHelper.sendMessage(thresholdTwoNumbers[i],spHelper.ThresholdTwoMessageReturn());
                                         //startRecording();
                                         //needs to be called here
                                     }
                                     sendOne = true;
-
                                 }
-
-
                            Log.i("Count", "=========  "+ (counter++));
                             }
-
-
                         }
-
                     });
                 }
-
                 sendOne = false;
-
             }
         }
-
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     private void startRecording() {
         int num = adb.numberAudioObjects();
@@ -432,6 +418,10 @@ public class DeviceService extends Service {
         }
     }
 
+
+   private void noDevice(){
+       this.stopSelf();
+   }
 
 
 

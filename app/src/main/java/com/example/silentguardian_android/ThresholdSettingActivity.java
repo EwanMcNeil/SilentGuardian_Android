@@ -81,6 +81,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
     protected Button doneActivity;
 
+    protected int doneCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +102,9 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_threshold_setting);
 
+        //the fuckk
         final Dialog mInfoDialog = new Dialog(ThresholdSettingActivity.this, R.style.Theme_AppCompat);
-        SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
+        final SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
 
         //from contact Actvitity
         doneActivity = findViewById(R.id.doneActButton);
@@ -110,18 +112,17 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         importContactsButton = findViewById(R.id.importContactButton);
         mImageButtonTutorial = findViewById(R.id.imageButtonTutorial);
 
+        if(!helper.getTutorialSeen() ){
+        //TODO maybe do a tutorial here
+            firstTimeTutorial(mInfoDialog);
+            mImageButtonTutorial.performClick();//starting the first tutorial like this
+            //loadcellphoneContact fragment moved into mDialogButton.onClick
+        }
+
         //Setup tutorial
         loadActivityTutorial(mInfoDialog);
         ////
 
-        if(!helper.getTutorialSeen() ){
-            Log.d("__Guardians","Gooing to perform click on tutorial button");
-            mImageButtonTutorial.performClick();
-            helper.setTutorialSeen(true);
-        }
-        else {
-            Log.d("__Guardians","tutorial was seen!!!");
-        }
 
         addContactButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +142,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                     dialog.show(getSupportFragmentManager(), "importAndroidContactFragment");
                 } else {
                     ActivityCompat.requestPermissions(ThresholdSettingActivity.this, new String[] {Manifest.permission.READ_CONTACTS}, 3);
+                    importContactsButton.performClick();
                 }
 
             }
@@ -150,8 +152,19 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         doneActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ThresholdSettingActivity.this, BluetoothMainActivity.class);
-                startActivity(intent);
+
+                if(doneCount == 0){
+                    doneCount++;
+                    thresholdVal = 2;
+                    String currentThres = "Guardians Level " + thresholdVal;
+                    thresholdTextview.setText(currentThres);
+                    loadThresholdContactListView();
+
+                }
+                else {
+                    Intent intent = new Intent(ThresholdSettingActivity.this, BluetoothMainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -228,11 +241,15 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
 
                     //TODO directly add to guardians list, it s more intuitive,
+                    DatabaseHelper dbhelper = new DatabaseHelper(getApplicationContext());
+                    SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
                     loadContactsListView();//To reload mainlist from database
                     Person selectedPerson = mainList.get(position);
                     String name = selectedPerson.getName();
                     String number = selectedPerson.getPhoneNumber();
-                    doneActivity.setVisibility(View.VISIBLE);
+
+                    if(!helper.getTutorialSeen())
+                        doneActivity.setVisibility(View.VISIBLE);
 
 
                     Person tempPerson = new Person(null, null);
@@ -243,7 +260,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                         tempPerson = new Person(selectedPerson.getID(), name, number, selectedPerson.getThresholdOne(), 1);
                     }
 
-                    DatabaseHelper dbhelper = new DatabaseHelper(getApplicationContext());
                     dbhelper.updatePerson(tempPerson);
                     loadThresholdContactListView();
 
@@ -376,13 +392,22 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.thresholdmenu, menu);
+
+
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
+        SharePreferenceHelper helper = new SharePreferenceHelper(this);
         MenuItem changeView = menu.findItem(R.id.editmodedropdown);
+        if(!helper.getTutorialSeen() ) {
+
+
+            changeView.setVisible(false);
+
+        }
+
         MenuItem changeThres = menu.findItem(R.id.changeThresholddropdown);
         if(contactMode){
             changeView.setTitle("Edit your Guardians");
@@ -405,48 +430,20 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.editmodedropdown:
                 if(contactMode){
-
-                    loadContactsListView();
-                    thresholdVal = 1;
-                    defineMessageButton.setVisibility(View.VISIBLE);
-                    add911GuardianButton.setVisibility(View.VISIBLE);
-                    thresholdTextview.setVisibility(View.VISIBLE);
+                   
                     String currentThres = "Guardians Level " + thresholdVal;
                     String currentThresFrench = "Gardiens Niveau " + thresholdVal;
                     if(sharePreferenceHelper.languageReturn()=="en")
                         thresholdTextview.setText(currentThres);
                     else if(sharePreferenceHelper.languageReturn()=="fr")
                         thresholdTextview.setText(currentThresFrench);
-                    thresholdTextview.setBackground(null);
-                    threshHoldContactsListView.setVisibility(View.VISIBLE);
-                    contactMode =false;
-                    addContactButton.setVisibility(View.GONE);
-                   importContactsButton.setVisibility(View.GONE);
+                  
+                    loadThresholdMode();
 
-                   //move tutorial button
-                    activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
-                    ConstraintSet constrainSet = new ConstraintSet();
-                    constrainSet.clone(activityLayout);
-                    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutRight,ConstraintSet.START,0);
-                    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutRight,ConstraintSet.START,0);
-                    constrainSet.applyTo(activityLayout);
                 }
                 else{
-                    defineMessageButton.setVisibility(View.GONE);
-                    add911GuardianButton.setVisibility(View.GONE);
-                    thresholdTextview.setText("Click the three dots!");//reseting textview
-                    threshHoldContactsListView.setVisibility(View.GONE);
-                    contactMode = true;
-                    addContactButton.setVisibility(View.VISIBLE);
-                    importContactsButton.setVisibility(View.VISIBLE);
 
-                    activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
-                    ConstraintSet constrainSet = new ConstraintSet();
-                    constrainSet.clone(activityLayout);
-                    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutLeft,ConstraintSet.START,0);
-                    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutLeft,ConstraintSet.START,0);
-                    constrainSet.applyTo(activityLayout);
-
+                    loadContactMode();
 
                 }
                 loadThresholdContactListView();
@@ -456,10 +453,10 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
                 if (thresholdVal == 1) {
                     thresholdVal = 2;
-                    item.setTitle("Edit Level 1");
+                    item.setTitle("Edit Level 2");
                 } else if (thresholdVal == 2){
                     thresholdVal = 1;
-                    item.setTitle("Edit Level 2");
+                    item.setTitle("Edit Level 1");
                 }
 
                 String currentThres = "Guardians Level " + thresholdVal;
@@ -471,6 +468,46 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+public void loadThresholdMode(){
+    loadContactsListView();
+    thresholdVal = 1;
+    defineMessageButton.setVisibility(View.VISIBLE);
+    add911GuardianButton.setVisibility(View.VISIBLE);
+    thresholdTextview.setVisibility(View.VISIBLE);
+    String currentThres = "Guardians Level " + thresholdVal;
+    thresholdTextview.setText(currentThres);
+    thresholdTextview.setBackground(null);
+    threshHoldContactsListView.setVisibility(View.VISIBLE);
+    contactMode =false;
+    addContactButton.setVisibility(View.GONE);
+    importContactsButton.setVisibility(View.GONE);
+
+    //move tutorial button
+    activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
+    ConstraintSet constrainSet = new ConstraintSet();
+    constrainSet.clone(activityLayout);
+    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutRight,ConstraintSet.START,0);
+    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutRight,ConstraintSet.START,0);
+    constrainSet.applyTo(activityLayout);
+}
+
+public void loadContactMode(){
+    defineMessageButton.setVisibility(View.GONE);
+    add911GuardianButton.setVisibility(View.GONE);
+    thresholdTextview.setText("Click the three dots!");//reseting textview
+    threshHoldContactsListView.setVisibility(View.GONE);
+    contactMode = true;
+    addContactButton.setVisibility(View.VISIBLE);
+    importContactsButton.setVisibility(View.VISIBLE);
+
+    activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
+    ConstraintSet constrainSet = new ConstraintSet();
+    constrainSet.clone(activityLayout);
+    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutLeft,ConstraintSet.START,0);
+    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutLeft,ConstraintSet.START,0);
+    constrainSet.applyTo(activityLayout);
+}
 
     //helper function for that, could figure out a better way to structure this
     //for now id rather have it working
@@ -487,7 +524,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
         mList.add(new MyImage("Click on a contact to add them as a Guardian",
                 "Press the setting menu again to either to Add more contacts or Assign your Level 2 Guardians."
-                ,R.drawable.guardian_activity_little_anim,true));
+                ,R.drawable.add_to_level));
 
 
         mImageButtonTutorial.setOnClickListener(new View.OnClickListener() {
@@ -544,6 +581,86 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         });
 
     }
+    private void firstTimeTutorial( final Dialog mInfoDialog){
+
+        final List<MyImage> mList = new ArrayList<>();
+        mList.add(new MyImage("Import your contacts into Silent Guardian",
+                "Press on the name of the contacts you want your alerts to be sent to.\n"
+                        + " \nWhen you're done, press Continue."
+                ,R.mipmap.first_time_contact1));
+
+        mList.add(new MyImage("Assign Contacts as Guardian Level 1",
+                "Click on the name of the contact(s) you wish to add as "+
+                        "Guardian level 1. These Guardians will be alerted when you "+
+                        "apply the \"Level 1\" pressure on your Silent Guardian companion"+
+                        " device.\n When you have added at least one contact as Level 1 Guardian, press continue."
+                ,R.mipmap.first_time_contact2));
+
+        mList.add(new MyImage("Assign Contacts as Guardian Level 2",
+                "Repeat the same process for your Guardian Level 2.\n Your Guardian Levels can share the same contacts if you choose to.\nSimply add the contacts again in Guardian Level 2."
+                ,R.mipmap.first_time_contact3));
+
+
+        mImageButtonTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mInfoDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                mInfoDialog.setContentView(R.layout.activity_tutorial);
+
+                //UI elements
+                ViewPager mScreenPager = mInfoDialog.findViewById(R.id.screen_viewpager);
+                TabLayout mTabIndicator  = mInfoDialog.findViewById(R.id.tab_indicator);
+                TextView  mSkip = mInfoDialog.findViewById(R.id.tv_skip);
+                final Button mDialogButton = mInfoDialog.findViewById(R.id.btn_get_started);
+
+                mSkip.setVisibility(View.INVISIBLE);
+
+
+                //decodeSampledBitmapFromResource(getResources(),R.drawable.guardians_act_info, 220, 220);
+                TutorialViewpagerAdapter mTutorialViewpagerAdapter = new TutorialViewpagerAdapter(getApplicationContext(),mList,false);
+                mScreenPager.setAdapter(mTutorialViewpagerAdapter);
+
+                // setup tablayout with viewpager
+                mTabIndicator.setupWithViewPager(mScreenPager);
+
+
+                mDialogButton.setText(R.string.end_tutorial_button_text);
+                // if button is clicked, close the custom dialog
+                mTabIndicator.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        if (tab.getPosition() == mList.size()-1) {
+                            mDialogButton.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+                    @Override//must have these two here
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                    }
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                    }
+                });
+                mDialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mInfoDialog.dismiss();
+
+                        loadCellPhoneContact_fragment dialog = new loadCellPhoneContact_fragment();
+                        dialog.setCancelable(false);
+                        dialog.show(getSupportFragmentManager(), "importAndroidContactFragment");
+
+                    }
+                });
+
+                mInfoDialog.show();
+            }
+        });
+
+    }
+
 
 }
 

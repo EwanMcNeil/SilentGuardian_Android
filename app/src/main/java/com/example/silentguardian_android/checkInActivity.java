@@ -3,8 +3,10 @@ package com.example.silentguardian_android;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.IntentCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -16,14 +18,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
+import com.example.silentguardian_android.Tutorial.MyImage;
+import com.example.silentguardian_android.Tutorial.TutorialViewpagerAdapter;
+import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -63,6 +71,8 @@ public class checkInActivity extends AppCompatActivity {
    protected BroadcastReceiver broadcastReceiver;
     protected messageGPSHelper SMSHelper;
 
+    protected ImageButton mButtonTutorial;
+
     private static final String TAG = "CheckIn";
 
     @Override
@@ -93,7 +103,7 @@ public class checkInActivity extends AppCompatActivity {
         minuteEditText = findViewById(R.id.minutesEditText);
         hourEditText = findViewById(R.id.hourEditText);
 
-
+        mButtonTutorial = findViewById(R.id.buttonTutorialCheckin);
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
         SMSHelper = new messageGPSHelper(this);
@@ -102,6 +112,9 @@ public class checkInActivity extends AppCompatActivity {
         sharePreferenceHelper.iAmSafe(false);
 
 
+
+        final Dialog mInfoDialog = new Dialog(checkInActivity.this, R.style.Theme_AppCompat);
+        loadActivityTutorial(mInfoDialog);
 
 
         IntentFilter intentFilter = new IntentFilter();
@@ -186,6 +199,7 @@ public class checkInActivity extends AppCompatActivity {
                             //iAmSafe=false;
                             //resetValue = false;
 
+                            sharePreferenceHelper.firstTimerDoneService(false);
                             //recreate();
                             //this works better for when the message is sent, can use the check in again afterwards.
                             finish();
@@ -199,6 +213,7 @@ public class checkInActivity extends AppCompatActivity {
                         Intent newintent = new Intent(checkInActivity.this, MainActivity.class);
                         startActivity(newintent);
 
+                        sharePreferenceHelper.firstTimerDoneService(false);
                     }
 
                     //not sure if i need an else here;
@@ -217,7 +232,9 @@ public class checkInActivity extends AppCompatActivity {
 
                     Log.d(TAG, "User has 5 mins to hit i am safe button " );
 
-                    finalTimer();
+
+                        finalTimer();
+
 
                 }
 
@@ -349,6 +366,8 @@ public class checkInActivity extends AppCompatActivity {
 
 
                     startService(intent);
+
+                    Log.d(TAG, "checking to see if the code gets this far when timer is clicked for firstrun crash");
                     //startActivity(intent);
                 }else Toast.makeText(getApplicationContext(), "No time indicated!", Toast.LENGTH_SHORT).show();
 
@@ -414,30 +433,89 @@ public class checkInActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //unregisterReceiver(bro);
-    }
-    /*
+/*
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
     }
 
  */
+    private void loadActivityTutorial( final Dialog mInfoDialog){
 
+        final List<MyImage> mList = new ArrayList<>();
+        mList.add(new MyImage("Going somewhere? Let your Guardians know!",
+                "Let your guardians know where you are going. If you do not Check-in with the App within a certain period of time, you rguardians will be alerted that you might be unsafe."
+                ,R.drawable.danger_button_tuto));
+
+
+        mList.add(new MyImage("Indicate your destination",
+                "Enter the address you're planning to go to."
+                ,R.drawable.click_feature));
+
+        mList.add(new MyImage("Indicate how long before checking-in",
+                "Set the time you have to check-in before the notification is sent to your Guardians."
+                ,R.drawable.main_menu_tut
+                ,false));
+
+
+        mButtonTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mInfoDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                mInfoDialog.setContentView(R.layout.activity_tutorial);
+                //UI elements
+                ViewPager mScreenPager = mInfoDialog.findViewById(R.id.screen_viewpager);
+                TabLayout mTabIndicator  = mInfoDialog.findViewById(R.id.tab_indicator);
+                TextView  mSkip = mInfoDialog.findViewById(R.id.tv_skip);
+                final Button mDialogButton = mInfoDialog.findViewById(R.id.btn_get_started);
+                mSkip.setVisibility(View.INVISIBLE);
+                //decodeSampledBitmapFromResource(getResources(),R.drawable.guardians_act_info, 220, 220);
+                TutorialViewpagerAdapter mTutorialViewpagerAdapter = new TutorialViewpagerAdapter(getApplicationContext(),mList,false);
+                mScreenPager.setAdapter(mTutorialViewpagerAdapter);
+                // setup tablayout with viewpager
+                mTabIndicator.setupWithViewPager(mScreenPager);
+                mDialogButton.setText(R.string.end_tutorial_button_text);
+                // if button is clicked, close the custom dialog
+                mTabIndicator.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        if (tab.getPosition() == mList.size()-1) {
+                            mDialogButton.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    @Override//must have these two here
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                    }
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                    }
+                });
+                mDialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mInfoDialog.dismiss();
+                    }
+                });
+                mInfoDialog.show();
+            }
+        });
+    }
 public void finalTimer()
 {
 
-    int secondIntegerTimeSet = 10;
-    Intent newintent = new Intent(checkInActivity.this, CheckinService.class);
-    Bundle extras = new Bundle();
+    if(sharePreferenceHelper.getresetTimerValue()==false) {
 
-    extras.putInt("secondTimeValue",secondIntegerTimeSet);
-    newintent.putExtras(extras);
+        int secondIntegerTimeSet = 10;
+        Intent newintent = new Intent(checkInActivity.this, CheckinService.class);
+        Bundle extras = new Bundle();
 
-    startService(newintent);
+        extras.putInt("secondTimeValue", secondIntegerTimeSet);
+        newintent.putExtras(extras);
+
+        startService(newintent);
+    }
 
 
 }

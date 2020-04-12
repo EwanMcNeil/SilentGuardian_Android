@@ -14,7 +14,7 @@
         android:layout_height="95dp"
 
         android:layout_marginTop="8dp"
-        android:background="@drawable/i_am_safe_image"
+        android:background="@drawable/redphone"
         app:layout_constraintEnd_toStartOf="@+id/guideline44"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline44"
@@ -99,7 +99,29 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.75" />
 
-    
+
+    <ImageButton
+        android:id="@+id/buttonTutorialMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00FFFFFF"
+        android:baselineAlignBottom="true"
+        android:foregroundGravity="center_horizontal"
+        android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline53"
+        app:layout_constraintEnd_toStartOf="@+id/guideline44"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline53"
+        app:srcCompat="@drawable/ic_info_black_24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline53"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9268897" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

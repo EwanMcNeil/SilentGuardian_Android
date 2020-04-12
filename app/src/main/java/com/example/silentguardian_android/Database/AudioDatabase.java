@@ -38,7 +38,7 @@ public class AudioDatabase extends SQLiteOpenHelper {
 
         String CREATE_TABLE_COURSE = "CREATE TABLE " + AudioConfig.TABLE_NAME + " (" + AudioConfig.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + AudioConfig.COLUMN_DATE + " TEXT NOT NULL, "
-                + AudioConfig.COLUMN_FILENAME + " TEXT NOT NULL) ";
+                + AudioConfig.COLUMN_FILENAME + " TEXT NOT NULL)";
 
 
         Log.d(TAG, CREATE_TABLE_COURSE);

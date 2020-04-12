@@ -119,6 +119,8 @@ public class AppTutorial extends AppCompatActivity {
     protected TextView mSkip;
     protected final List<MyImage> mList = new ArrayList<>();
     protected AnimationDrawable mZoomIn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,20 +173,25 @@ public class AppTutorial extends AppCompatActivity {
 
 
         //introduce device
-        mList.add(new MyImage("Quick access",
-                "Use the Silent Guardian companion device to reach your friends or family. ",R.mipmap.hand_holding_device2));
+        mList.add(new MyImage("Let your guardians know where you are, when you need it.",
+                "Use the Silent Guardian companion device to reach your friends or family."
+                +" Simply press and hold the button on the device until the LEDs turn on and blink rapidly."
+                ,R.mipmap.hand_holding_device2));
 
         //introduce guardians/bubble concept
         mList.add(new MyImage("Designate your Guardians",
                 "Create up to two separate groups of contacts, i.e. your Guardians in two distinct Guardian Levels, to reach in case of emergencies.",R.mipmap.group1_2_tutorial));
 
         //describe activation
-        mList.add(new MyImage("Let your guardians know where you are, when you need it.",
-                "Press and hold the button on the device so that the LED turns on and blinks rapidly.",R.mipmap.hand_pressing_device_pressure_1));
+        mList.add(new MyImage("Smart Companion",
+                "The device distinguishes pressure intensities:\n"
+                        +"The lower LED turns on when a soft pressure is applied: "
+                        +" This is Level 1. A harder press corresponds to Level 2. Give it a try!\n Press and hold at either pressure intensity until the LEDs blink to alert the corresponding Guardians."
+                ,R.mipmap.hand_pressing_device_pressure_1));
 
         //show view from guardian perspective
         mList.add(new MyImage("Your location is shared with your Guardians.",
-                "After activating your device, a text will be sent out to all your Guardians containing:\n-Location at the time of activation\n-Custom message you define.",
+                "After activating your device, a text will be sent out to all your Guardians containing:\n-your location at the time of pressing the device\n-your custom message.",
                 R.mipmap.hand_friend_receive_text_tiny));
 
         // setup viewpager

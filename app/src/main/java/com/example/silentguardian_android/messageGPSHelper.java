@@ -119,6 +119,10 @@ public class messageGPSHelper {
     //possibly within here call the local methods getlat and getlong
     public void sendMessage(String number, String message){
         sharePreferenceHelper.setMessageSent(1);
+        if(message == null){
+            message = "I am in danger ";
+        }
+
         try{
             vibrate();
             String messageOut = message + "My location is: " + messageLocationLink();

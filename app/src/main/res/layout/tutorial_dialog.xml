@@ -20,6 +20,7 @@
         android:id="@+id/guardianAcitivty_tutorial_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textAlignment="textStart"
         app:layout_constraintBottom_toTopOf="@+id/guideline48"
         app:layout_constraintEnd_toStartOf="@+id/guideline49"
         app:layout_constraintLeft_toRightOf="@+id/image"

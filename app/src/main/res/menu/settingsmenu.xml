@@ -9,14 +9,14 @@
     android:title="Edit your profile" />
 
 <item android:id="@+id/sendTestMessageDropDown"
-    android:title="Send Test Message" />
+    android:title="Need Help?" />
 <item
     android:id="@+id/switchLanguage"
     android:title="Switch Language" />
 
 <item
     android:id="@+id/thresholdsettingdropdown"
-    android:title="Configure Message Settings" />
+    android:title="Add Guardians" />
 
 
 
@@ -26,7 +26,7 @@
     <menu>
                <item
             android:id="@+id/checkIndropdown"
-            android:title="checkinActivity" />
+            android:title="Check In" />
 
         <item
             android:id="@+id/recordingsActivity"
