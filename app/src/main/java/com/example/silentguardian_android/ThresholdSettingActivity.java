@@ -497,15 +497,15 @@ public void loadContactMode(){
         final List<MyImage> mList = new ArrayList<>();
         mList.add(new MyImage("Add Contacts to the SilentGuardians App",
                 "Either manually add contacts by pressing the Add Contact button or import existing phone contacts by pressing Import Contacts."
-                ,R.drawable.guardians_act_info1));
+                ,R.mipmap.guardians_act_info1));
 
         mList.add(new MyImage("Assign Contacts as Guardians",
                 "After adding contacts, press the Setting icon to edit your Guardians. "
-                ,R.drawable.guardians_act_info));
+                ,R.mipmap.guardians_act_info));
 
         mList.add(new MyImage("Click on a contact to add them as a Guardian",
                 "Press the setting menu again to either to Add more contacts or Assign your Level 2 Guardians."
-                ,R.drawable.add_to_level));
+                ,R.mipmap.add_to_level));
 
 
         mImageButtonTutorial.setOnClickListener(new View.OnClickListener() {
