@@ -14,7 +14,7 @@
         android:layout_height="95dp"
 
         android:layout_marginTop="8dp"
-        android:background="@drawable/i_am_safe_image"
+        android:background="@drawable/redphone"
         app:layout_constraintEnd_toStartOf="@+id/guideline44"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline44"
