@@ -17,7 +17,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,18 +32,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.silentguardian_android.Bluetooth.DeviceService;
+import com.example.silentguardian_android.Database.AudioDatabase;
 import com.example.silentguardian_android.Database.DatabaseHelper;
 import com.example.silentguardian_android.Database.Person;
 import com.example.silentguardian_android.Database.SharePreferenceHelper;
 
 import com.example.silentguardian_android.Bluetooth.BluetoothMainActivity;
+import com.example.silentguardian_android.Database.audioFile;
 import com.example.silentguardian_android.Tutorial.MyImage;
 import com.example.silentguardian_android.Tutorial.TutorialViewpagerAdapter;
 import com.example.silentguardian_android.fragments.InsertPasswordCheckFragment;
 import com.example.silentguardian_android.fragments.sendMessageFragment;
 import com.google.android.material.tabs.TabLayout;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -53,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     protected SharePreferenceHelper sharePreferenceHelper;
     protected TextView iAmSafeText;
     protected ImageButton buttonTutorial;
-
+    MediaRecorder recorder = null;
 
 
     @Override
@@ -111,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, allClearActivity.class);
                     startActivity(intent);
                 }else{
+                    startRecording();
                     alertPressed();
 //                    sendMessageFragment dialog = new sendMessageFragment();
 //                    dialog.show(getSupportFragmentManager(), "sendmessage_fragment");
@@ -121,6 +129,45 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+
+    public void startRecording() {
+         AudioDatabase adb = new AudioDatabase(this);
+       String fileName = getExternalCacheDir().getAbsolutePath();
+        int num = adb.numberAudioObjects();
+        num = num +1;
+        String newfilename = fileName + "/audiorecordtest" + num + ".3gp";
+        Date currentTime = Calendar.getInstance().getTime();
+        String date = currentTime.toString();
+        audioFile file = new audioFile(date,newfilename);
+        adb.insertFile(file);
+
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setOutputFile(newfilename);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            recorder.prepare();
+        } catch (IOException e) {
+            Log.e("hiya", "prepare() failed");
+        }
+
+        recorder.start();
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        Log.i("tag", "This'll run 5000 milliseconds later");
+
+                            recorder.stop();
+                            recorder.release();
+                            recorder = null;
+
+
+                    }
+                },
+                15000);
+    }
 
 
     private void alertPressed() {
@@ -349,6 +396,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 }

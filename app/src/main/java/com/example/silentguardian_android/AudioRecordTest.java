@@ -96,7 +96,7 @@ public class AudioRecordTest extends AppCompatActivity {
         player = null;
     }
 
-    private void startRecording() {
+     public void startRecording() {
         int num = adb.numberAudioObjects();
         num = num +1;
         String newfilename = fileName + "/audiorecordtest" + num + ".3gp";
