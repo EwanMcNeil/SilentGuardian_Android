@@ -12,7 +12,6 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -49,7 +48,6 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class ThresholdSettingActivity extends AppCompatActivity {
 
@@ -65,7 +63,6 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected List<Person> mainList = null;
     protected Button add911GuardianButton;
     protected ImageButton mImageButtonTutorial;//used for tutorial
-    protected SharePreferenceHelper sharePreferenceHelper;
 
     //commenting out for now: MOVED TO MAIN ACTIVITY
     //protected Button allClearButton;
@@ -87,16 +84,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Next lines assure activity uses the right language, otherwise some activities or fragment aren't fully catching up
-        //Applying language start
-        sharePreferenceHelper = new SharePreferenceHelper(this);
-        String language = sharePreferenceHelper.languageReturn();
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-        //Applying language end
+
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -113,7 +102,7 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         mImageButtonTutorial = findViewById(R.id.imageButtonTutorial);
 
         if(!helper.getTutorialSeen() ){
-        //TODO maybe do a tutorial here
+            //TODO maybe do a tutorial here
             firstTimeTutorial(mInfoDialog);
             mImageButtonTutorial.performClick();//starting the first tutorial like this
             //loadcellphoneContact fragment moved into mDialogButton.onClick
@@ -320,71 +309,71 @@ public class ThresholdSettingActivity extends AppCompatActivity {
 
     public void loadContactsListView() {
 
-            DatabaseHelper dbhelper = new DatabaseHelper(this);
-            List<Person> people = dbhelper.getAllPeople();
-            mainList = people;
-            ArrayList<String> contactListText = new ArrayList<>();
+        DatabaseHelper dbhelper = new DatabaseHelper(this);
+        List<Person> people = dbhelper.getAllPeople();
+        mainList = people;
+        ArrayList<String> contactListText = new ArrayList<>();
 
-            for (int i = 0; i < people.size(); i++) {
-                String temp = "";
-                temp += people.get(i).getName() + '\n';
-                temp += people.get(i).getPhoneNumber() + '\n';
-
-
-                //dont think we need to display the threshold values
-                //or maybe we do
-                //temp += "Threshold: " + people.get(i).getThreshold();
-
-                //we don't need it, I had issues when I was implementing the listviews and going through activities so I wanted to make
-                //sure I had the right threshold in each activity
+        for (int i = 0; i < people.size(); i++) {
+            String temp = "";
+            temp += people.get(i).getName() + '\n';
+            temp += people.get(i).getPhoneNumber() + '\n';
 
 
-                contactListText.add(temp);
-            }
+            //dont think we need to display the threshold values
+            //or maybe we do
+            //temp += "Threshold: " + people.get(i).getThreshold();
 
-            ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1, contactListText);
+            //we don't need it, I had issues when I was implementing the listviews and going through activities so I wanted to make
+            //sure I had the right threshold in each activity
 
-            wholeContactsListView.setAdapter(arrayAdapter);
 
+            contactListText.add(temp);
         }
 
+        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, contactListText);
 
-        public void loadThresholdContactListView () {
-            DatabaseHelper dbhelper = new DatabaseHelper(this);
-            List<Person> people = dbhelper.getAllPeople();
-            //clearing the list
-            while(!thresholdList.isEmpty())
-                thresholdList.remove(0);
-            ArrayList<String> contactListText = new ArrayList<>();
+        wholeContactsListView.setAdapter(arrayAdapter);
 
-            Log.d("__DbHelper","ThresholdListView");
-            for (int i = 0; i < people.size(); i++) {
-                String temp = "";
-                Person tempPerson = new Person(people.get(i).getID(), people.get(i).getName(), people.get(i).getPhoneNumber(), people.get(i).getThresholdOne(), people.get(i).getThresholdTwo());
-                temp += people.get(i).getName() + '\n';
-                temp += people.get(i).getPhoneNumber() + '\n';
-                Log.d("__threshAc",temp+"\nT1: "+tempPerson.getThresholdOne()
-                        +"\nT2: "+tempPerson.getThresholdTwo());
-                if (thresholdVal == 1) {
-                    if (people.get(i).getThresholdOne() == 1) //because threshold One is set to One if they are added to list(boolean but int)
-                    {
-                        contactListText.add(temp);
-                        thresholdList.add(tempPerson);
-                    }
-                } if (thresholdVal == 2) {
-                    if (people.get(i).getThresholdTwo() == 1) {
-                        contactListText.add(temp);
-                        thresholdList.add(tempPerson);
-                    }
+    }
+
+
+    public void loadThresholdContactListView () {
+        DatabaseHelper dbhelper = new DatabaseHelper(this);
+        List<Person> people = dbhelper.getAllPeople();
+        //clearing the list
+        while(!thresholdList.isEmpty())
+            thresholdList.remove(0);
+        ArrayList<String> contactListText = new ArrayList<>();
+
+        Log.d("__DbHelper","ThresholdListView");
+        for (int i = 0; i < people.size(); i++) {
+            String temp = "";
+            Person tempPerson = new Person(people.get(i).getID(), people.get(i).getName(), people.get(i).getPhoneNumber(), people.get(i).getThresholdOne(), people.get(i).getThresholdTwo());
+            temp += people.get(i).getName() + '\n';
+            temp += people.get(i).getPhoneNumber() + '\n';
+            Log.d("__threshAc",temp+"\nT1: "+tempPerson.getThresholdOne()
+                    +"\nT2: "+tempPerson.getThresholdTwo());
+            if (thresholdVal == 1) {
+                if (people.get(i).getThresholdOne() == 1) //because threshold One is set to One if they are added to list(boolean but int)
+                {
+                    contactListText.add(temp);
+                    thresholdList.add(tempPerson);
                 }
-
-
+            } if (thresholdVal == 2) {
+                if (people.get(i).getThresholdTwo() == 1) {
+                    contactListText.add(temp);
+                    thresholdList.add(tempPerson);
+                }
             }
 
-            ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, contactListText);
-            threshHoldContactsListView.setAdapter(arrayAdapter);
+
         }
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, contactListText);
+        threshHoldContactsListView.setAdapter(arrayAdapter);
+    }
 
 
     ///code for the menu
@@ -430,16 +419,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.editmodedropdown:
                 if(contactMode){
-                   
-                    String currentThres = "Guardians Level " + thresholdVal;
-                    String currentThresFrench = "Gardiens Niveau " + thresholdVal;
-                    if(sharePreferenceHelper.languageReturn()=="en")
-                        thresholdTextview.setText(currentThres);
-                    else if(sharePreferenceHelper.languageReturn()=="fr")
-                        thresholdTextview.setText(currentThresFrench);
-                  
-                    loadThresholdMode();
 
+                    loadThresholdMode();
                 }
                 else{
 
@@ -469,45 +450,45 @@ public class ThresholdSettingActivity extends AppCompatActivity {
         }
     }
 
-public void loadThresholdMode(){
-    loadContactsListView();
-    thresholdVal = 1;
-    defineMessageButton.setVisibility(View.VISIBLE);
-    add911GuardianButton.setVisibility(View.VISIBLE);
-    thresholdTextview.setVisibility(View.VISIBLE);
-    String currentThres = "Guardians Level " + thresholdVal;
-    thresholdTextview.setText(currentThres);
-    thresholdTextview.setBackground(null);
-    threshHoldContactsListView.setVisibility(View.VISIBLE);
-    contactMode =false;
-    addContactButton.setVisibility(View.GONE);
-    importContactsButton.setVisibility(View.GONE);
+    public void loadThresholdMode(){
+        loadContactsListView();
+        thresholdVal = 1;
+        defineMessageButton.setVisibility(View.VISIBLE);
+        add911GuardianButton.setVisibility(View.VISIBLE);
+        thresholdTextview.setVisibility(View.VISIBLE);
+        String currentThres = "Guardians Level " + thresholdVal;
+        thresholdTextview.setText(currentThres);
+        thresholdTextview.setBackground(null);
+        threshHoldContactsListView.setVisibility(View.VISIBLE);
+        contactMode =false;
+        addContactButton.setVisibility(View.GONE);
+        importContactsButton.setVisibility(View.GONE);
 
-    //move tutorial button
-    activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
-    ConstraintSet constrainSet = new ConstraintSet();
-    constrainSet.clone(activityLayout);
-    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutRight,ConstraintSet.START,0);
-    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutRight,ConstraintSet.START,0);
-    constrainSet.applyTo(activityLayout);
-}
+        //move tutorial button
+        activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
+        ConstraintSet constrainSet = new ConstraintSet();
+        constrainSet.clone(activityLayout);
+        constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutRight,ConstraintSet.START,0);
+        constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutRight,ConstraintSet.START,0);
+        constrainSet.applyTo(activityLayout);
+    }
 
-public void loadContactMode(){
-    defineMessageButton.setVisibility(View.GONE);
-    add911GuardianButton.setVisibility(View.GONE);
-    thresholdTextview.setText("Click the three dots!");//reseting textview
-    threshHoldContactsListView.setVisibility(View.GONE);
-    contactMode = true;
-    addContactButton.setVisibility(View.VISIBLE);
-    importContactsButton.setVisibility(View.VISIBLE);
+    public void loadContactMode(){
+        defineMessageButton.setVisibility(View.GONE);
+        add911GuardianButton.setVisibility(View.GONE);
+        thresholdTextview.setText("Click the three dots!");//reseting textview
+        threshHoldContactsListView.setVisibility(View.GONE);
+        contactMode = true;
+        addContactButton.setVisibility(View.VISIBLE);
+        importContactsButton.setVisibility(View.VISIBLE);
 
-    activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
-    ConstraintSet constrainSet = new ConstraintSet();
-    constrainSet.clone(activityLayout);
-    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutLeft,ConstraintSet.START,0);
-    constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutLeft,ConstraintSet.START,0);
-    constrainSet.applyTo(activityLayout);
-}
+        activityLayout= findViewById(R.id.thresholdSettingActivityLayout);
+        ConstraintSet constrainSet = new ConstraintSet();
+        constrainSet.clone(activityLayout);
+        constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.END,R.id.guidelineTutLeft,ConstraintSet.START,0);
+        constrainSet.connect(mImageButtonTutorial.getId(),ConstraintSet.START,R.id.guidelineTutLeft,ConstraintSet.START,0);
+        constrainSet.applyTo(activityLayout);
+    }
 
     //helper function for that, could figure out a better way to structure this
     //for now id rather have it working
@@ -663,4 +644,3 @@ public void loadContactMode(){
 
 
 }
-
