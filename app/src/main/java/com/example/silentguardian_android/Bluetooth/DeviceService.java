@@ -364,6 +364,10 @@ public class DeviceService extends Service {
                                         //needs to be called here
                                     }
                                     sendOne = true;
+                                    if(!isrecording){
+                                        isrecording = true;
+                                        startRecording();
+                                    }
                                 }
                            Log.i("Count", "=========  "+ (counter++));
                             }
@@ -406,7 +410,7 @@ public class DeviceService extends Service {
                         stopRecording();
                     }
                 },
-                5000);
+                15000);
     }
 
     private void stopRecording() {
