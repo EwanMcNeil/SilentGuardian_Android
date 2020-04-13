@@ -169,7 +169,7 @@ public class AppTutorial extends AppCompatActivity {
 
         //Silent guardians description
         mList.add(new MyImage("The fastest way to call for help.",
-                "Silent Guardians is here to assists you, if ever you are unsafe or feel threatened.",R.mipmap.bubble_from_outside_title));
+                "Silent Guardians is here to assists you, if ever you are unsafe or feel threatened.",R.mipmap.silent_guardians_logo1));
 
 
         //introduce device

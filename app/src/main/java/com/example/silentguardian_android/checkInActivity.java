@@ -199,15 +199,19 @@ public class checkInActivity extends AppCompatActivity {
                             //iAmSafe=false;
                             //resetValue = false;
 
+
                             sharePreferenceHelper.firstTimerDoneService(false);
                             //recreate();
                             //this works better for when the message is sent, can use the check in again afterwards.
                             finish();
 
+
                         }
                     }
                     else if(sharePreferenceHelper.getiAmSafe())
                     {
+
+                        //sharePreferenceHelper.firstTimerDoneService(false);
                         Log.d(TAG, "testing to see if i enter the i am safe test ");
                         finish();
                         Intent newintent = new Intent(checkInActivity.this, MainActivity.class);
@@ -502,6 +506,8 @@ public class checkInActivity extends AppCompatActivity {
             }
         });
     }
+
+
 public void finalTimer()
 {
 
@@ -514,6 +520,8 @@ public void finalTimer()
         extras.putInt("secondTimeValue", secondIntegerTimeSet);
         newintent.putExtras(extras);
 
+        Log.d(TAG, "in final timer");
+
         startService(newintent);
     }
 
@@ -523,7 +531,7 @@ public void finalTimer()
 
     @Override
     protected void onStop() {
-        unregisterReceiver(broadcastReceiver);
+        //unregisterReceiver(broadcastReceiver);
         super.onStop();
     }
 }

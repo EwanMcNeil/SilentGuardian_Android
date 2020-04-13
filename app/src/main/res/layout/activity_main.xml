@@ -83,7 +83,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline44"
         app:layout_constraintTop_toTopOf="@+id/guideline40"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@mipmap/bubble_from_outside_title" />
+        app:srcCompat="@mipmap/silent_guardians_logo1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline45"
