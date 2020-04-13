@@ -345,19 +345,19 @@ public class MainActivity extends AppCompatActivity {
         final List<MyImage> mList = new ArrayList<>();
         mList.add(new MyImage("Send an alert",
                 "Alert your Guardians, Level 1 or Level 2, by either pressing the the Silent Guardians device or the I am in danger button on the main page of the App. "
-                ,R.drawable.danger_button_tuto));
+                ,R.mipmap.danger_button_tuto));
 
 
         mList.add(new MyImage("Features",
                 "Access your audio recordings and Check-In Guardian."
-                ,R.drawable.click_feature));
+                ,R.mipmap.click_feature));
 
         mList.add(new MyImage("Settings & Miscellaneous",
                 "Press the Setting Icon to modify your profile:\n"
                         +"Add/remove contact to the App\n"
                         +"Add/remove Guardians to/from your Guardian Levels\n"
                         +"Connect your Silent Guardian device"
-                ,R.drawable.main_menu_tut
+                ,R.mipmap.main_menu_tut
                 ,false));
 
 

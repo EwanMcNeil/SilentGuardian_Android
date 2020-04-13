@@ -449,16 +449,26 @@ public class checkInActivity extends AppCompatActivity {
         final List<MyImage> mList = new ArrayList<>();
         mList.add(new MyImage("Going somewhere? Let your Guardians know!",
                 "Let your guardians know where you are going. If you do not Check-in with the App within a certain period of time, you rguardians will be alerted that you might be unsafe."
-                ,R.drawable.danger_button_tuto));
+                ,R.mipmap.silent_guardians_logo1));
 
 
         mList.add(new MyImage("Indicate your destination",
                 "Enter the address you're planning to go to."
-                ,R.drawable.click_feature));
+                ,R.mipmap.check_n_address));
 
         mList.add(new MyImage("Indicate how long before checking-in",
                 "Set the time you have to check-in before the notification is sent to your Guardians."
-                ,R.drawable.main_menu_tut
+                ,R.mipmap.check_n_time
+                ,false));
+
+        mList.add(new MyImage("Timer notification",
+                "Keep track of how much time there is left in your timer without having to go to the App."
+                ,R.mipmap.check_n_notif
+                ,false));
+
+        mList.add(new MyImage("Check-in with Silent Guardian",
+                "Once your timer expires, you will have a grace period of 2 minutes to press the I am Safe button. Otherwise an alert will be sent to your guardians."
+                ,R.mipmap.check_n_time
                 ,false));
 
 

@@ -125,7 +125,6 @@ public class AppTutorial extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //check if its openened before or not
         if (new SharePreferenceHelper(this).getTutorialSeen()) {
             Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class );
             startActivity(mainActivity);
