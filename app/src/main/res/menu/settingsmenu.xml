@@ -17,6 +17,9 @@
 <item
     android:id="@+id/thresholdsettingdropdown"
     android:title="Add Guardians" />
+    <item
+        android:id="@+id/enableaudio"
+        android:title="Toggle Audio Recording" />
 
 
 

@@ -62,12 +62,10 @@ public class DeviceService extends Service {
     public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
     public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
     private int[] RGBFrame = {0,0,0};
-    private TextView isSerial;
-    private TextView mConnectionState;
-    private TextView mDataField;
+
     private String mDeviceName;
     private String mDeviceAddress;
-    //  private ExpandableListView mGattServicesList;
+
     private BluetoothLeService mBluetoothLeService;
     private boolean mConnected = false;
     private BluetoothGattCharacteristic characteristicTX;
@@ -93,7 +91,7 @@ public class DeviceService extends Service {
     private static String fileName = null;
     private MediaRecorder recorder = null;
 
-    private boolean isrecording = false;
+
 
     // Code to manage Service lifecycle.(NEW)
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -351,10 +349,9 @@ public class DeviceService extends Service {
                                         textHelper.sendMessage(thresholdOneNumbers[i],spHelper.ThresholdOneMessageReturn());
                                     }
                                     sendOne = true;
-                                    if(!isrecording){
-                                        isrecording = true;
+
                                         startRecording();
-                                    }
+
                                 }
                                 if(value==2) {
                                     for(int i = 0; i < thresholdTwoNumbers.length; i++) {
@@ -364,10 +361,8 @@ public class DeviceService extends Service {
                                         //needs to be called here
                                     }
                                     sendOne = true;
-                                    if(!isrecording){
-                                        isrecording = true;
                                         startRecording();
-                                    }
+
                                 }
                            Log.i("Count", "=========  "+ (counter++));
                             }
@@ -381,46 +376,50 @@ public class DeviceService extends Service {
 
 
 
-    private void startRecording() {
-        int num = adb.numberAudioObjects();
-        num = num +1;
-        String newfilename = fileName + "/audiorecordtest" + num + ".3gp";
-        Date currentTime = Calendar.getInstance().getTime();
-        String date = currentTime.toString();
-        audioFile file = new audioFile(date,newfilename);
-        adb.insertFile(file);
+    public void startRecording() {
+        final SharePreferenceHelper helper = new SharePreferenceHelper(this);
+        if(helper.checkifrecording() == false && helper.audioCheck() ==true) {
+            helper.recordingStart();
+            AudioDatabase adb = new AudioDatabase(this);
+            String fileName = getExternalCacheDir().getAbsolutePath();
+            int num = adb.numberAudioObjects();
+            num = num + 1;
+            String newfilename = fileName + "/audiorecordtest" + num + ".3gp";
+            Date currentTime = Calendar.getInstance().getTime();
+            String date = currentTime.toString();
+            audioFile file = new audioFile(date, newfilename);
+            adb.insertFile(file);
 
-        recorder = new MediaRecorder();
-        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        recorder.setOutputFile(newfilename);
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            recorder = new MediaRecorder();
+            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            recorder.setOutputFile(newfilename);
+            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
-        try {
-            recorder.prepare();
-        } catch (IOException e) {
-            Log.e("here", "prepare() failed");
+            try {
+                recorder.prepare();
+            } catch (IOException e) {
+                Log.e("hiya", "prepare() failed");
+            }
+
+            recorder.start();
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            Log.i("tag", "This'll run 5000 milliseconds later");
+
+                            recorder.stop();
+                            recorder.release();
+                            recorder = null;
+                            helper.recordingStop();
+
+                        }
+                    },
+                    5000);
         }
-
-        recorder.start();
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        Log.i("tag", "This'll run 5000 milliseconds later");
-                        stopRecording();
-                    }
-                },
-                15000);
     }
 
-    private void stopRecording() {
-        if(recorder != null) {
-            recorder.stop();
-            recorder.release();
-            isrecording = false;
-            recorder = null;
-        }
-    }
+
 
 
    private void noDevice(){

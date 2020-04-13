@@ -98,6 +98,16 @@ public class InsertPasswordCheckFragment extends DialogFragment {
                             startActivity(intent);
                             dismiss();
                             return;
+                        case "enableAudio":
+                            SharePreferenceHelper helper = new SharePreferenceHelper(getContext());
+                            if(helper.audioCheck()==true){
+                                helper.disableAudio();
+                                Toast.makeText(getContext()," Audio Recording has been disable", Toast.LENGTH_LONG).show();
+                            }
+                            else{
+                                helper.enableAudio();
+                                Toast.makeText(getContext()," Audio Recording has been enabled", Toast.LENGTH_LONG).show();
+                            }
                         default:
                             dismiss();
 

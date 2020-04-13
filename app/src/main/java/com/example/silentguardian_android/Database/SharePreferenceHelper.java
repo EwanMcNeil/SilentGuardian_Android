@@ -291,7 +291,50 @@ public class SharePreferenceHelper extends AppCompatActivity {
 
     }
 
+    public void disableAudio(){
 
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("audioenable", false);
+        editor.commit();
+
+    }
+
+    public void enableAudio(){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("audioenable", true);
+        editor.commit();
+
+    }
+
+    public boolean audioCheck(){
+        boolean value = sharedPreferences.getBoolean("audioenable", true);
+
+        return value;
+
+    }
+
+
+
+
+    public void recordingStart(){
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("recording", true);
+        editor.commit();
+
+    }
+
+    public void recordingStop(){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("recording", false);
+        editor.commit();
+    }
+
+
+    public boolean checkifrecording(){
+        boolean value = sharedPreferences.getBoolean("recording", false);
+        return value;
+    }
 
 
 }

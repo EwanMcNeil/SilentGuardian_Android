@@ -131,42 +131,46 @@ public class MainActivity extends AppCompatActivity {
         }
 
     public void startRecording() {
-         AudioDatabase adb = new AudioDatabase(this);
-       String fileName = getExternalCacheDir().getAbsolutePath();
-        int num = adb.numberAudioObjects();
-        num = num +1;
-        String newfilename = fileName + "/audiorecordtest" + num + ".3gp";
-        Date currentTime = Calendar.getInstance().getTime();
-        String date = currentTime.toString();
-        audioFile file = new audioFile(date,newfilename);
-        adb.insertFile(file);
+        final SharePreferenceHelper helper = new SharePreferenceHelper(this);
+        if(helper.checkifrecording() == false && helper.audioCheck() ==true) {
+            helper.recordingStart();
+            AudioDatabase adb = new AudioDatabase(this);
+            String fileName = getExternalCacheDir().getAbsolutePath();
+            int num = adb.numberAudioObjects();
+            num = num + 1;
+            String newfilename = fileName + "/audiorecordtest" + num + ".3gp";
+            Date currentTime = Calendar.getInstance().getTime();
+            String date = currentTime.toString();
+            audioFile file = new audioFile(date, newfilename);
+            adb.insertFile(file);
 
-        recorder = new MediaRecorder();
-        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        recorder.setOutputFile(newfilename);
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            recorder = new MediaRecorder();
+            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            recorder.setOutputFile(newfilename);
+            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
-        try {
-            recorder.prepare();
-        } catch (IOException e) {
-            Log.e("hiya", "prepare() failed");
-        }
+            try {
+                recorder.prepare();
+            } catch (IOException e) {
+                Log.e("hiya", "prepare() failed");
+            }
 
-        recorder.start();
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        Log.i("tag", "This'll run 5000 milliseconds later");
+            recorder.start();
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            Log.i("tag", "This'll run 5000 milliseconds later");
 
                             recorder.stop();
                             recorder.release();
                             recorder = null;
+                            helper.recordingStop();
 
-
-                    }
-                },
-                15000);
+                        }
+                    },
+                    5000);
+        }
     }
 
 
@@ -304,6 +308,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.recordingsActivity:
                 intent = new Intent(MainActivity.this, AudioRecordTest.class);
                 startActivity(intent);
+                return true;
+            case R.id.enableaudio:
+                args.putString("intent","enableAudio");
+                dialog.setArguments(args);
+                dialog.show(getSupportFragmentManager(), "password");
 
             default:
                 return super.onOptionsItemSelected(item);
