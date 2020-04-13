@@ -294,6 +294,8 @@ public class ThresholdSettingActivity extends AppCompatActivity {
                 DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
                 dbhelper.insertPerson(new Person("Police", "123", 0, 1));
                 Log.d(TAG, "police contact has been placed ");
+                loadThresholdContactListView();
+
 
             }
         });
