@@ -13,11 +13,11 @@
         android:layout_width="220dp"
         android:layout_height="203dp"
 
-        android:layout_marginBottom="160dp"
+        android:layout_marginBottom="180dp"
         android:background="@drawable/redbutton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline44"
-        app:layout_constraintHorizontal_bias="0.427"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="@+id/guideline44" />
 
     <androidx.constraintlayout.widget.Guideline
