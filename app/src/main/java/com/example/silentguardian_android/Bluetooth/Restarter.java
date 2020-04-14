@@ -11,7 +11,7 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
-import com.example.silentguardian_android.Activities.MainActivity;
+import com.example.silentguardian_android.Activities.mainActivity;
 import com.example.silentguardian_android.R;
 
 
@@ -21,11 +21,11 @@ public class Restarter extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.i("Broadcast Listened", "Service tried to stop");
 
-        Intent newintent = new Intent(context, MainActivity.class);
+        Intent newintent = new Intent(context, mainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, newintent, 0);
 
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
 
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "restarterNotify")
@@ -47,17 +47,15 @@ public class Restarter extends BroadcastReceiver {
             notificationManager.createNotificationChannel(channel);
 
 
-
             // notificationId is a unique int for each notification that you must define
             notificationManager.notify(15, builder.build());
-        }
-        else {
+        } else {
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                     .setSmallIcon(R.drawable.ic_launcher_foreground) // notification icon
                     .setContentTitle("Notification!") // title for notification
                     .setContentText("Hello word") // message for notification
                     .setAutoCancel(true); // clear notification after click
-            Intent intentNotify = new Intent(context, MainActivity.class);
+            Intent intentNotify = new Intent(context, mainActivity.class);
             PendingIntent pi = PendingIntent.getActivity(context, 0, intentNotify, 0);
             mBuilder.setContentIntent(pi);
             NotificationManager mNotificationManager =

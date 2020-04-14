@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:textAlignment="viewEnd"
-    tools:context=".Activities.allClearActivity">
+    tools:context=".Activities.allclearActivity">
 
     <Button
         android:id="@+id/thresholdTwoAllClearButton"

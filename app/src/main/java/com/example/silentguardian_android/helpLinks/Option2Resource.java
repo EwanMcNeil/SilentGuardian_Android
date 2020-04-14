@@ -14,13 +14,22 @@ import android.widget.Toast;
 
 import com.example.silentguardian_android.R;
 
-/**RESOURCE FOR MISSING PERSON*/
+/**
+ * RESOURCE FOR MISSING PERSON
+ */
 public class Option2Resource extends AppCompatActivity {
 
     protected TextView phone1_option2;
     protected TextView phone2_option2;
-    protected TextView url1_option2; /**https://www.canadianhumantraffickinghotline.ca*/
-    protected TextView url2_option2; /**http://www.afpad.ca*/
+    protected TextView url1_option2;
+    /**
+     * https://www.canadianhumantraffickinghotline.ca
+     */
+    protected TextView url2_option2;
+
+    /**
+     * http://www.afpad.ca
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,30 +42,29 @@ public class Option2Resource extends AppCompatActivity {
         url2_option2 = findViewById(R.id.url2_option2);
 
 
-
         /**activating first phone number*/
 
-    phone1_option2.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-         Intent callIntent = new Intent(Intent.ACTION_CALL);
-         callIntent.setData(Uri.parse("tel:18339001010"));
+        phone1_option2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:18339001010"));
 
-         /**Must check permission*/
-            if (ActivityCompat.checkSelfPermission(Option2Resource.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(Option2Resource.this, new String[]{Manifest.permission.CALL_PHONE},10);
-                return;
-            }
+                /**Must check permission*/
+                if (ActivityCompat.checkSelfPermission(Option2Resource.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(Option2Resource.this, new String[]{Manifest.permission.CALL_PHONE}, 10);
+                    return;
+                }
 
-            /**if you do have a permission*/
-            else {
-                 try{    startActivity(callIntent);
+                /**if you do have a permission*/
+                else {
+                    try {
+                        startActivity(callIntent);
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(getApplicationContext(), "cannot find your activity", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
-                 catch(android.content.ActivityNotFoundException ex){
-                     Toast.makeText(getApplicationContext(),"cannot find your activity",Toast.LENGTH_SHORT).show();
-                 }
-            }
-        }
         });
 
         /**activating second phone number*/
@@ -68,16 +76,16 @@ public class Option2Resource extends AppCompatActivity {
 
                 /**Must check permission*/
                 if (ActivityCompat.checkSelfPermission(Option2Resource.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(Option2Resource.this, new String[]{Manifest.permission.CALL_PHONE},10);
+                    ActivityCompat.requestPermissions(Option2Resource.this, new String[]{Manifest.permission.CALL_PHONE}, 10);
                     return;
                 }
 
                 /**if you do have a permission*/
                 else {
-                    try{    startActivity(callIntent);
-                    }
-                    catch(android.content.ActivityNotFoundException ex){
-                        Toast.makeText(getApplicationContext(),"cannot find your activity",Toast.LENGTH_SHORT).show();
+                    try {
+                        startActivity(callIntent);
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(getApplicationContext(), "cannot find your activity", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -101,7 +109,7 @@ public class Option2Resource extends AppCompatActivity {
 
     }
 
-    public void clicking(String url){
+    public void clicking(String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
         startActivity(intent);

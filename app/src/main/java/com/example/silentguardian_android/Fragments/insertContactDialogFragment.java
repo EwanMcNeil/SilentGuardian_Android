@@ -57,7 +57,7 @@ public class insertContactDialogFragment extends DialogFragment {
                 if (!(name.equals(""))) {
                     DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
                     dbhelper.insertPerson(new Person(name, number, 0, 0));
-                    ((thresholdActivity)getActivity()).loadContactsListView();
+                    ((thresholdActivity) getActivity()).loadContactsListView();
                     getDialog().dismiss();
 
                 }

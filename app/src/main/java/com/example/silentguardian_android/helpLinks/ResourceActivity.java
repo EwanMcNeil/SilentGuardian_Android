@@ -21,35 +21,35 @@ public class ResourceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resource);
 
-    option1Button = findViewById(R.id.option1Button);
-    option2Button = findViewById(R.id.option2Button);
-    option3Button = findViewById(R.id.option3Button);
+        option1Button = findViewById(R.id.option1Button);
+        option2Button = findViewById(R.id.option2Button);
+        option3Button = findViewById(R.id.option3Button);
 
-    option1Button.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(ResourceActivity.this, Option1Resource.class);
-            startActivity(intent);
-        }
-    });
+        option1Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ResourceActivity.this, Option1Resource.class);
+                startActivity(intent);
+            }
+        });
 
-    option2Button.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(ResourceActivity.this, Option2Resource.class);
-            startActivity(intent);
+        option2Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ResourceActivity.this, Option2Resource.class);
+                startActivity(intent);
 
-        }
-    });
+            }
+        });
 
-    option3Button.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(ResourceActivity.this, Option3Resource.class);
-            startActivity(intent);
+        option3Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ResourceActivity.this, Option3Resource.class);
+                startActivity(intent);
 
-        }
-    });
+            }
+        });
 
     }
 }

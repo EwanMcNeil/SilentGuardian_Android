@@ -31,7 +31,7 @@ import com.example.silentguardian_android.Helpers.DatabaseHelper;
 import com.example.silentguardian_android.Helpers.Person;
 import com.example.silentguardian_android.Helpers.SharePreferenceHelper;
 import com.example.silentguardian_android.Helpers.audioFile;
-import com.example.silentguardian_android.Activities.MainActivity;
+import com.example.silentguardian_android.Activities.mainActivity;
 import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.Helpers.messageGPSHelper;
 
@@ -50,13 +50,13 @@ public class DeviceService extends Service {
 
 
     ///objects from DeviceControlActivity
-    private final static String TAG ="DeviceService";
+    private final static String TAG = "DeviceService";
     private final static int THREAD_DELAY = 1000;
-    private static final int  THREAD_PERIOD = 10;
+    private static final int THREAD_PERIOD = 10;
 
     public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
     public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
-    private int[] RGBFrame = {0,0,0};
+    private int[] RGBFrame = {0, 0, 0};
 
     private String mDeviceName;
     private String mDeviceAddress;
@@ -81,11 +81,10 @@ public class DeviceService extends Service {
 
     //end objects from deviceControlActivity
 
-    public int counter=0;
+    public int counter = 0;
     private AudioDatabase adb;
     private static String fileName = null;
     private MediaRecorder recorder = null;
-
 
 
     // Code to manage Service lifecycle.(NEW)
@@ -109,7 +108,6 @@ public class DeviceService extends Service {
     };
 
 
-
     //NEW
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
 
@@ -121,11 +119,11 @@ public class DeviceService extends Service {
                 mConnected = true;
                 //updateConnectionState(R.string.connected);
 
-            }else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
+            } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
-                unregisterReceiver( mGattUpdateReceiver);
+                unregisterReceiver(mGattUpdateReceiver);
                 noDevice();
-            }else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
+            } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 Log.e(TAG, "GATTSERVICESlaunch");
                 // Show all the supported services and characteristics on the user interface.
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
@@ -153,7 +151,7 @@ public class DeviceService extends Service {
                     LIST_NAME, SampleGattAttributes.lookup(uuid, unknownServiceString));
 
             // If the service exists for HM 10 Serial, say so.
-          //  if(SampleGattAttributes.lookup(uuid, unknownServiceString) == "HM 10 Serial") { isSerial.setText("Yes, serial :-)"); } else {  isSerial.setText("No, serial :-("); }
+            //  if(SampleGattAttributes.lookup(uuid, unknownServiceString) == "HM 10 Serial") { isSerial.setText("Yes, serial :-)"); } else {  isSerial.setText("No, serial :-("); }
             currentServiceData.put(LIST_UUID, uuid);
             gattServiceData.add(currentServiceData);
 
@@ -181,23 +179,23 @@ public class DeviceService extends Service {
         thresholdOnePeople = dbHelper.getThresholdOne();
         thresholdOneNumbers = new String[thresholdOnePeople.size()];
 
-        for(int i = 0; i < thresholdOnePeople.size(); i++){
+        for (int i = 0; i < thresholdOnePeople.size(); i++) {
             thresholdOneNumbers[i] = thresholdOnePeople.get(i).getPhoneNumber();
         }
 
         List<Person> thresholdTwoPeople;
         thresholdTwoPeople = dbHelper.getThresholdTwo();
         thresholdTwoNumbers = new String[thresholdTwoPeople.size()];
-        for(int i = 0; i < thresholdTwoPeople.size(); i++){
+        for (int i = 0; i < thresholdTwoPeople.size(); i++) {
             thresholdTwoNumbers[i] = thresholdTwoPeople.get(i).getPhoneNumber();
         }
 
         super.onCreate();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O)
             startMyOwnForeground();
-        else{
-           // startForeground(1, new Notification());
-            Intent notificationIntent = new Intent(this , MainActivity.class);
+        else {
+            // startForeground(1, new Notification());
+            Intent notificationIntent = new Intent(this, mainActivity.class);
             final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
             final Notification[] notification = {new NotificationCompat.Builder(this, "CHANNEL_ID_BLUETOOTH")
@@ -213,8 +211,7 @@ public class DeviceService extends Service {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private void startMyOwnForeground()
-    {
+    private void startMyOwnForeground() {
         Log.e(TAG, "startMyOwnForeground");
         String NOTIFICATION_CHANNEL_ID = "example.permanence";
         String channelName = "Background Service";
@@ -272,7 +269,7 @@ public class DeviceService extends Service {
         broadcastIntent.setAction("restartservice");
         broadcastIntent.setClass(this, Restarter.class);
         broadcastIntent.putExtra("name", mDeviceName);
-        broadcastIntent.putExtra("address",mDeviceAddress);
+        broadcastIntent.putExtra("address", mDeviceAddress);
         this.sendBroadcast(broadcastIntent);
 
 
@@ -285,16 +282,17 @@ public class DeviceService extends Service {
 
     private Timer timer;
     private TimerTask timerTask;
+
     public void startTimer() {
         Log.e(TAG, "timer");
         timer = new Timer();
         timerTask = new TimerTask() {
             public void run() {
                 Log.d(TAG, String.valueOf(mConnected));
-                if(characteristicTX == null) {
+                if (characteristicTX == null) {
                     Log.d(TAG, "TX NULL");
                 }
-                if(mConnected && characteristicTX != null)
+                if (mConnected && characteristicTX != null)
                     makeChange();
 
             }
@@ -332,34 +330,34 @@ public class DeviceService extends Service {
                 Log.d(TAG, "Value: " + Integer.toString(value));
                 Log.d(TAG, "Value=" + value);
                 //code for sending one text message
-                if((value == 1 || value == 2) && !sendOne){
+                if ((value == 1 || value == 2) && !sendOne) {
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
-                            if(!sendOne) {
+                            if (!sendOne) {
                                 messageGPSHelper textHelper = new messageGPSHelper(getApplicationContext());
                                 SharePreferenceHelper spHelper = new SharePreferenceHelper(getApplicationContext());
-                                if(value==1) {
-                                    for(int i = 0; i < thresholdOneNumbers.length; i++) {
-                                        textHelper.sendMessage(thresholdOneNumbers[i],spHelper.ThresholdOneMessageReturn());
+                                if (value == 1) {
+                                    for (int i = 0; i < thresholdOneNumbers.length; i++) {
+                                        textHelper.sendMessage(thresholdOneNumbers[i], spHelper.ThresholdOneMessageReturn());
                                     }
                                     sendOne = true;
 
-                                        startRecording();
+                                    startRecording();
 
                                 }
-                                if(value==2) {
-                                    for(int i = 0; i < thresholdTwoNumbers.length; i++) {
-                                        Log.d("messages",thresholdTwoNumbers[i]);
-                                        textHelper.sendMessage(thresholdTwoNumbers[i],spHelper.ThresholdTwoMessageReturn());
+                                if (value == 2) {
+                                    for (int i = 0; i < thresholdTwoNumbers.length; i++) {
+                                        Log.d("messages", thresholdTwoNumbers[i]);
+                                        textHelper.sendMessage(thresholdTwoNumbers[i], spHelper.ThresholdTwoMessageReturn());
                                         //startRecording();
                                         //needs to be called here
                                     }
                                     sendOne = true;
-                                        startRecording();
+                                    startRecording();
 
                                 }
-                           Log.i("Count", "=========  "+ (counter++));
+                                Log.i("Count", "=========  " + (counter++));
                             }
                         }
                     });
@@ -370,10 +368,9 @@ public class DeviceService extends Service {
     }
 
 
-
     public void startRecording() {
         final SharePreferenceHelper helper = new SharePreferenceHelper(this);
-        if(helper.checkifrecording() == false && helper.audioCheck() ==true) {
+        if (helper.checkifrecording() == false && helper.audioCheck() == true) {
             helper.recordingStart();
             AudioDatabase adb = new AudioDatabase(this);
             String fileName = getExternalCacheDir().getAbsolutePath();
@@ -415,12 +412,9 @@ public class DeviceService extends Service {
     }
 
 
-
-
-   private void noDevice(){
-       this.stopSelf();
-   }
-
+    private void noDevice() {
+        this.stopSelf();
+    }
 
 
 }

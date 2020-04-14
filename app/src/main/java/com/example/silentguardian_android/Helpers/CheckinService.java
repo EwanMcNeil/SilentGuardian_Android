@@ -15,9 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-import com.example.silentguardian_android.Activities.checkInActivity;
-import com.example.silentguardian_android.Helpers.SharePreferenceHelper;
-import com.example.silentguardian_android.Helpers.messageGPSHelper;
+import com.example.silentguardian_android.Activities.checkinActivity;
 import com.example.silentguardian_android.R;
 
 import java.util.Timer;
@@ -28,10 +26,9 @@ import static java.util.ResourceBundle.getBundle;
 public class CheckinService extends Service {
 
     //Integer Hours;
-   // Integer Minutes;
+    // Integer Minutes;
     //Integer Seconds;
-    Boolean firstTimerDone= false;
-
+    Boolean firstTimerDone = false;
 
 
     private static final String TAG = "CheckIn";
@@ -71,11 +68,9 @@ public class CheckinService extends Service {
         Bundle bundle = intent.getExtras();
 
 
-
         //trying something out
         //had success in sending the dta through the method with just one value (seconds time)
         //will try to send the others now
-
 
 
         final Integer[] secondTimeRemaining = {bundle.getInt("secondTimeValue")};
@@ -93,8 +88,7 @@ public class CheckinService extends Service {
  */
 
 
-
-        Log.d(TAG, "Checking total seconds = " +bundle.getInt("secondTimeValue"));
+        Log.d(TAG, "Checking total seconds = " + bundle.getInt("secondTimeValue"));
         //final Integer[] minuteTimeRemaining = {bundle.getInt("minuteTimeValue")};
         //final Integer[] hourTimeRemaining = {bundle.getInt("hourTimeValue")};
 
@@ -106,61 +100,51 @@ public class CheckinService extends Service {
 
          */
         Integer Hours = bundle.getInt("secondTimeValue") / 3600;
-        Integer Minutes = ((bundle.getInt("secondTimeValue")) - (Hours*3600)) / 60;
-        Integer Seconds = ((bundle.getInt("secondTimeValue")) - (Hours*3600)) - (Minutes*60);
-        Log.d(TAG, "Checking Hours = " +Hours + " checking minutes = " +Minutes + " checking Seconds = " +Seconds);
+        Integer Minutes = ((bundle.getInt("secondTimeValue")) - (Hours * 3600)) / 60;
+        Integer Seconds = ((bundle.getInt("secondTimeValue")) - (Hours * 3600)) - (Minutes * 60);
+        Log.d(TAG, "Checking Hours = " + Hours + " checking minutes = " + Minutes + " checking Seconds = " + Seconds);
 
 //trying to use shared preferences to stop timer ONCE AND FOR ALL
 
 
-            //this is the Seconds Timer
-            final Timer secondstimer = new Timer();
-            secondstimer.scheduleAtFixedRate(new TimerTask() {
-                @RequiresApi(api = Build.VERSION_CODES.M)
-                @Override
-                public void run() {
+        //this is the Seconds Timer
+        final Timer secondstimer = new Timer();
+        secondstimer.scheduleAtFixedRate(new TimerTask() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void run() {
 
-                    Log.d(TAG, "Reached inside timer function ");
+                Log.d(TAG, "Reached inside timer function ");
 
-                    Intent localintent = new Intent();
-                    localintent.setAction("Counter");
+                Intent localintent = new Intent();
+                localintent.setAction("Counter");
 
-                    //trying to use shared preferences to stop timer ONCE AND FOR ALL
-                    if(sharePreferenceHelper.getresetTimerValue()==false)
-                    {
+                //trying to use shared preferences to stop timer ONCE AND FOR ALL
+                if (sharePreferenceHelper.getresetTimerValue() == false) {
 
-                        secondTimeRemaining[0]--;
+                    secondTimeRemaining[0]--;
 
-                        NotificationUpdate(secondTimeRemaining[0]);
+                    NotificationUpdate(secondTimeRemaining[0]);
 
-                        if (secondTimeRemaining[0] <= 0) {
-                            secondstimer.cancel();
-                        }
-                        localintent.putExtra("TimeRemaining", secondTimeRemaining[0]);
-                        sendBroadcast(localintent);
-                    }
-
-
-
-                    else if (sharePreferenceHelper.getresetTimerValue()==true)
-                    {
-
-                        Log.d(TAG, "Checking to see if i entered the reset timer loop in the service class ");
+                    if (secondTimeRemaining[0] <= 0) {
                         secondstimer.cancel();
-                        secondTimeRemaining[0]=0;
-                        localintent.putExtra("TimeRemaining", secondTimeRemaining[0]);
-                        sendBroadcast(localintent);
-                        stopSelf();
                     }
+                    localintent.putExtra("TimeRemaining", secondTimeRemaining[0]);
+                    sendBroadcast(localintent);
+                } else if (sharePreferenceHelper.getresetTimerValue() == true) {
 
-
+                    Log.d(TAG, "Checking to see if i entered the reset timer loop in the service class ");
+                    secondstimer.cancel();
+                    secondTimeRemaining[0] = 0;
+                    localintent.putExtra("TimeRemaining", secondTimeRemaining[0]);
+                    sendBroadcast(localintent);
+                    stopSelf();
                 }
-                // dont want any delay, the period is 1000ms, means 1 second
-            }, 0, 1000);
 
 
-
-
+            }
+            // dont want any delay, the period is 1000ms, means 1 second
+        }, 0, 1000);
 
 
         return super.onStartCommand(intent, flags, startId);
@@ -168,27 +152,20 @@ public class CheckinService extends Service {
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void NotificationUpdate(Integer timeLeft)
-    {
+    public void NotificationUpdate(Integer timeLeft) {
         Log.d(TAG2, "notificationupdate");
-        Integer Hours = ((timeLeft)/3600);
-        Integer Minutes = (timeLeft - (Hours*3600))/60;
-        Integer Seconds = (timeLeft - (Hours*3600))- (Minutes *60);
+        Integer Hours = ((timeLeft) / 3600);
+        Integer Minutes = (timeLeft - (Hours * 3600)) / 60;
+        Integer Seconds = (timeLeft - (Hours * 3600)) - (Minutes * 60);
 
         String notificationHours = Integer.toString(Hours);
         String notificationMinutes = Integer.toString(Minutes);
         String notificationSeconds = Integer.toString(Seconds);
 
 
-
-
-
-        try
-        {
-            Intent notificationIntent = new Intent(this , checkInActivity.class);
+        try {
+            Intent notificationIntent = new Intent(this, checkinActivity.class);
             final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-
-
 
 
             //this notifcation is showing during the time between first timer going off and before last timer goes off
@@ -222,12 +199,10 @@ public class CheckinService extends Service {
                  */
 
 
-
-
             }
 
             //This is the last notification: tells the users the messages have been sent
-            if (Hours ==0 & Minutes ==0 & Seconds ==0 & sharePreferenceHelper.getfirstTimerDoneService()) {
+            if (Hours == 0 & Minutes == 0 & Seconds == 0 & sharePreferenceHelper.getfirstTimerDoneService()) {
                 Log.d(TAG2, "fourth if");
                 final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setContentTitle("Missed Check missed: Messages sent to Guardians")
@@ -258,14 +233,11 @@ public class CheckinService extends Service {
                 //firstTimerDone= false;
 
 
-
             }
 
 
-
             //this notification tells the user to check in because their first timer has gone off
-            if (Hours ==0 & Minutes ==0 & Seconds ==0 & !sharePreferenceHelper.getfirstTimerDoneService())
-            {
+            if (Hours == 0 & Minutes == 0 & Seconds == 0 & !sharePreferenceHelper.getfirstTimerDoneService()) {
 
                 Log.d(TAG2, "seventh if");
                 sharePreferenceHelper.firstTimerDoneService(true);
@@ -273,7 +245,7 @@ public class CheckinService extends Service {
 
                 messageGPSHelper.vibrate();
 
-                final Notification[] notification = {new NotificationCompat.Builder(this , CHANNEL_ID)
+                final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setContentTitle("Please Check-in with Silent Guardians")
                         .setContentText("Time Remaining Until Guardians Alerted: " + notificationHours + ":" + notificationMinutes + ":" + notificationSeconds)
                         .setSmallIcon(R.drawable.ic_launcher_foreground)
@@ -281,7 +253,7 @@ public class CheckinService extends Service {
                         .setPriority(NotificationCompat.PRIORITY_MAX)
                         .build()};
 
-                        startForeground(1,notification[0]);
+                startForeground(1, notification[0]);
 
                         /*
                 NotificationChannel notificationChannel = null;
@@ -302,29 +274,24 @@ public class CheckinService extends Service {
             }
 
 
-
-
-
-
-
             //this is when the notification just shows the regular countdown
-             if((Hours>0 || Minutes>0 || Seconds>0) & !sharePreferenceHelper.getfirstTimerDoneService()){
-                 Log.d(TAG2, "tenth if");
+            if ((Hours > 0 || Minutes > 0 || Seconds > 0) & !sharePreferenceHelper.getfirstTimerDoneService()) {
+                Log.d(TAG2, "tenth if");
 
 
-                 NotificationChannel notificationChannel = null;
-                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                     notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_LOW);
-                     notificationChannel.setSound(null, null);
-                     notificationChannel.enableVibration(false);
-                     Log.d(TAG2, "11 if");
-                 }
-                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
-                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel notificationChannel = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    notificationChannel = new NotificationChannel(CHANNEL_ID, "My Counter Service", NotificationManager.IMPORTANCE_LOW);
+                    notificationChannel.setSound(null, null);
+                    notificationChannel.enableVibration(false);
+                    Log.d(TAG2, "11 if");
+                }
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-                     Log.d(TAG2, "12 if");
-                     notificationManager.createNotificationChannel(notificationChannel);
-                 }
+                    Log.d(TAG2, "12 if");
+                    notificationManager.createNotificationChannel(notificationChannel);
+                }
 
 /*
                  NotificationChannel notificationChannel = null;
@@ -343,9 +310,7 @@ public class CheckinService extends Service {
  */
 
 
-
-
-                 Log.d(TAG, "Reached remaining time section");
+                Log.d(TAG, "Reached remaining time section");
                 //regular notification to show the user how much time is left on the timer
 
                 final Notification[] notification = {new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -378,14 +343,10 @@ public class CheckinService extends Service {
 */
 
 
-             }
+            }
 
 
-
-
-
-
-                 //startForeground(1, notification[0]);
+            //startForeground(1, notification[0]);
 
             /*
                 NotificationChannel notificationChannel = null;
@@ -402,13 +363,7 @@ public class CheckinService extends Service {
              */
 
 
-
-
-
-
-        }
-
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -428,11 +383,6 @@ public class CheckinService extends Service {
     }
 
      */
-
-
-
-
-
 
 
 }

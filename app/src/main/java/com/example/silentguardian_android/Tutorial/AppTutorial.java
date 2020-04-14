@@ -95,7 +95,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.silentguardian_android.Helpers.SharePreferenceHelper;
-import com.example.silentguardian_android.Activities.MainActivity;
 import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.Activities.profileActivity;
 import com.google.android.material.tabs.TabLayout;
@@ -122,7 +121,7 @@ public class AppTutorial extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (new SharePreferenceHelper(this).getTutorialSeen()) {
-            Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class );
+            Intent mainActivity = new Intent(getApplicationContext(), com.example.silentguardian_android.Activities.mainActivity.class );
             startActivity(mainActivity);
             finish();
         }

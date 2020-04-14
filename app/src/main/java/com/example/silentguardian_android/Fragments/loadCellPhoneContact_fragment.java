@@ -1,7 +1,6 @@
 package com.example.silentguardian_android.Fragments;
 
 
-
 import android.content.ContentResolver;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -63,12 +62,12 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
         androidContactListview = view.findViewById(R.id.cellPhoneContactLV);
         closeButton = view.findViewById(R.id.closeButtonAndroidContact);
         androidContactTV = view.findViewById(R.id.androidListTV);
-        manualAdd =view.findViewById(R.id.manualaddcontactButton);
+        manualAdd = view.findViewById(R.id.manualaddcontactButton);
 
         ContentResolver resolver = getActivity().getContentResolver();
         Cursor cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
 
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             String contactPhone = "";
             String contactID = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
             String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
@@ -83,7 +82,7 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
                 }
                 phoneCursor.close();
             }
-            Person tempPerson = new Person(contactName,contactPhone);
+            Person tempPerson = new Person(contactName, contactPhone);
             androidPersonList.add(tempPerson);
         }
         mainAndroidPersonList = androidPersonList;
@@ -100,14 +99,14 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
         androidContactListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Bundle bundle = new Bundle();
+                Bundle bundle = new Bundle();
 
-                Person selectedPerson = new Person(mainAndroidPersonList.get(position).getName(), mainAndroidPersonList.get(position).getPhoneNumber(),0,0);
+                Person selectedPerson = new Person(mainAndroidPersonList.get(position).getName(), mainAndroidPersonList.get(position).getPhoneNumber(), 0, 0);
 
                 DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
                 List<Person> currentContacts = dbhelper.getAllPeople();
-                for(Person n : currentContacts) {
-                    Log.d("__insertFrag",n.getName());
+                for (Person n : currentContacts) {
+                    Log.d("__insertFrag", n.getName());
 
                     if (n.equals(selectedPerson)) {
 
@@ -118,7 +117,7 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
 
                 dbhelper.insertPerson(selectedPerson);
                 Toast.makeText(getContext(), "Contact Added successfully!", Toast.LENGTH_LONG).show();
-                ((thresholdActivity)getActivity()).loadContactsListView();
+                ((thresholdActivity) getActivity()).loadContactsListView();
 
 
             }
@@ -129,15 +128,14 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
             public void onClick(View view) {
                 DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
 
-                if(dbhelper.checkifEmpty()) {
+                if (dbhelper.checkifEmpty()) {
                     SharePreferenceHelper helper = new SharePreferenceHelper(getContext());
                     if (!helper.getTutorialSeen()) {
                         ((thresholdActivity) getActivity()).loadThresholdMode();
                     }
-                                           
+
                     getDialog().dismiss();
-                }
-                else{
+                } else {
                     Toast.makeText(getContext(), "Please add contacts before proceeding", Toast.LENGTH_LONG).show();
                 }
 
@@ -146,11 +144,12 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
         });
         return view;
     }
-    public void loadAndroidContactListView(){
+
+    public void loadAndroidContactListView() {
 
         ArrayList<String> contactListText = new ArrayList<>();
 
-        for(int i = 0;i < mainAndroidPersonList.size(); i++ ){
+        for (int i = 0; i < mainAndroidPersonList.size(); i++) {
             String temp = "";
             temp += mainAndroidPersonList.get(i).getName() + '\n';
             temp += mainAndroidPersonList.get(i).getPhoneNumber() + '\n';

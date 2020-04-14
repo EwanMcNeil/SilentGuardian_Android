@@ -41,13 +41,12 @@ public class playbackActivity extends AppCompatActivity {
     private MediaRecorder recorder = null;
 
 
-    private MediaPlayer   player = null;
-    boolean mStartPlaying = true;
+    private MediaPlayer player = null;
     // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted = false;
     boolean mStartRecording = true;
 
-    private String [] permissions = {Manifest.permission.RECORD_AUDIO};
+    private String[] permissions = {Manifest.permission.RECORD_AUDIO};
 
     private ListView files;
     private AudioDatabase adb;
@@ -56,12 +55,12 @@ public class playbackActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
+        switch (requestCode) {
             case REQUEST_RECORD_AUDIO_PERMISSION:
-                permissionToRecordAccepted  = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                permissionToRecordAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 break;
         }
-        if (!permissionToRecordAccepted ) finish();
+        if (!permissionToRecordAccepted) finish();
 
     }
 
@@ -72,7 +71,6 @@ public class playbackActivity extends AppCompatActivity {
             stopRecording();
         }
     }
-
 
 
     private void startPlaying(String input) {
@@ -91,13 +89,13 @@ public class playbackActivity extends AppCompatActivity {
         player = null;
     }
 
-     public void startRecording() {
+    public void startRecording() {
         int num = adb.numberAudioObjects();
-        num = num +1;
+        num = num + 1;
         String newfilename = fileName + "/audiorecordtest" + num + ".3gp";
         Date currentTime = Calendar.getInstance().getTime();
         String date = currentTime.toString();
-        audioFile file = new audioFile(date,newfilename);
+        audioFile file = new audioFile(date, newfilename);
         adb.insertFile(file);
 
         recorder = new MediaRecorder();
@@ -125,14 +123,13 @@ public class playbackActivity extends AppCompatActivity {
     }
 
     private void stopRecording() {
-        if(recorder != null) {
+        if (recorder != null) {
             recorder.stop();
             recorder.release();
             recorder = null;
             loadListView();
         }
     }
-
 
 
     @Override
@@ -151,7 +148,6 @@ public class playbackActivity extends AppCompatActivity {
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
         //Applying language end
-
 
 
         // Record to the external cache directory for visibility
@@ -175,9 +171,6 @@ public class playbackActivity extends AppCompatActivity {
 
             }
         });
-
-
-
 
 
         recordButton.setOnClickListener(new View.OnClickListener() {
@@ -216,7 +209,7 @@ public class playbackActivity extends AppCompatActivity {
 
     public void loadListView() {
 
-       AudioDatabase dbhelper = new AudioDatabase(this);
+        AudioDatabase dbhelper = new AudioDatabase(this);
         List<audioFile> audioFiles = dbhelper.getAllfiles();
         AllaudioFiles = audioFiles;
         ArrayList<String> fileListText = new ArrayList<>();
@@ -230,11 +223,11 @@ public class playbackActivity extends AppCompatActivity {
         }
 
         ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,  fileListText);
+                android.R.layout.simple_list_item_1, fileListText);
 
-       files.setAdapter(arrayAdapter);
+        files.setAdapter(arrayAdapter);
 
     }
 
- 
+
 }

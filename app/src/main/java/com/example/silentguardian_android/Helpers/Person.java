@@ -28,11 +28,11 @@ public class Person {
         thresholdTwo = thresholdTwo1;
 
     }
+
     public Person(String name, String phoneNumber) {
         Name = name;
         PhoneNumber = phoneNumber;
     }
-
 
 
     public int getThresholdOne() {
@@ -51,7 +51,6 @@ public class Person {
         this.thresholdTwo = thresholdTwo;
     }
 
-    
 
     public int getID() {
         return ID;
@@ -78,8 +77,8 @@ public class Person {
     }
 
 
-    public Person getPerson(){
-        Person temp = new Person(ID, Name, PhoneNumber, thresholdOne,thresholdTwo);
+    public Person getPerson() {
+        Person temp = new Person(ID, Name, PhoneNumber, thresholdOne, thresholdTwo);
         return temp;
     }
 
@@ -87,14 +86,14 @@ public class Person {
     public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
-        if(this == null)
+        if (this == null)
             return false;
-        if(obj == null || (obj.getClass()!= this.getClass()))
+        if (obj == null || (obj.getClass() != this.getClass()))
             return false;
 
         Person temp = (Person) obj;
         return
-                 Name.equals(temp.Name)
-                & PhoneNumber.equals(temp.PhoneNumber);
+                Name.equals(temp.Name)
+                        & PhoneNumber.equals(temp.PhoneNumber);
     }
 }

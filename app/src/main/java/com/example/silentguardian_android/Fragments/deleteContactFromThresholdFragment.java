@@ -26,9 +26,9 @@ import java.util.Locale;
 public class deleteContactFromThresholdFragment extends DialogFragment {
     public static final String TAG = "__deleteContact";
     protected TextView nameFragmentTV;
-    protected  TextView phoneFragmentTV;
+    protected TextView phoneFragmentTV;
     protected Button DeleteFromThresholdButton;
-    protected  Button cancelButton;
+    protected Button cancelButton;
     int selectedContactID;
     int thresholdVal = 0;
     protected SharePreferenceHelper sharePreferenceHelper;
@@ -36,6 +36,7 @@ public class deleteContactFromThresholdFragment extends DialogFragment {
     ArrayList<Person> contactArrayList = new ArrayList<>();
 
     Person selectedPerson = new Person("Dummy", "5145555555");
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,24 +61,24 @@ public class deleteContactFromThresholdFragment extends DialogFragment {
         Bundle bundle = getArguments();
         thresholdVal = bundle.getInt("ThresholdNumber");
         selectedContactID = bundle.getInt("contactSelectedName");
-        Log.d("__Thres","Contact name received: "+ selectedContactID);
+        Log.d("__Thres", "Contact name received: " + selectedContactID);
 
         DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
         List<Person> people = dbhelper.getAllPeople();
 
 
-        for(int i = 0;i < people.size(); i++ ){
+        for (int i = 0; i < people.size(); i++) {
             Person temp;
             temp = people.get(i);
             contactArrayList.add(temp);
         }
-        for(int j = 0;j < contactArrayList.size(); j++ ){
-            if(contactArrayList.get(j).getID()== selectedContactID)
+        for (int j = 0; j < contactArrayList.size(); j++) {
+            if (contactArrayList.get(j).getID() == selectedContactID)
                 selectedPerson = contactArrayList.get(j);
         }
 
-        nameFragmentTV.setText("Name: " +selectedPerson.getName());
-        phoneFragmentTV.setText("Phone Number: " +selectedPerson.getPhoneNumber() + "\n ThresholD Value:" + String.valueOf(thresholdVal));
+        nameFragmentTV.setText("Name: " + selectedPerson.getName());
+        phoneFragmentTV.setText("Phone Number: " + selectedPerson.getPhoneNumber() + "\n ThresholD Value:" + String.valueOf(thresholdVal));
 
         DeleteFromThresholdButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,19 +87,18 @@ public class deleteContactFromThresholdFragment extends DialogFragment {
 
                 String name = selectedPerson.getName();
                 String number = selectedPerson.getPhoneNumber();
-                Log.d("__dbDebug","selected person id: " + selectedPerson.getID());
+                Log.d("__dbDebug", "selected person id: " + selectedPerson.getID());
                 Person tempPerson = new Person(null, null);
                 //its making me intialize like this may cause issues
-                if(thresholdVal == 1) {
+                if (thresholdVal == 1) {
                     tempPerson = new Person(selectedPerson.getID(), name, number, 0, selectedPerson.getThresholdTwo());
-                } else if (thresholdVal == 2){
+                } else if (thresholdVal == 2) {
                     tempPerson = new Person(selectedPerson.getID(), name, number, selectedPerson.getThresholdOne(), 0);
-                }
-                else Log.d("__dbDebug","Threshold val has weird value");
+                } else Log.d("__dbDebug", "Threshold val has weird value");
 
                 DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
                 dbhelper.updatePerson(tempPerson);
-                ((thresholdActivity)getActivity()).loadThresholdContactListView();
+                ((thresholdActivity) getActivity()).loadThresholdContactListView();
                 getDialog().dismiss();
 
             }
@@ -124,24 +124,24 @@ public class deleteContactFromThresholdFragment extends DialogFragment {
         Bundle bundle = getArguments();
         thresholdVal = bundle.getInt("ThresholdNumber");
         selectedContactID = bundle.getInt("contactSelected");
-        Log.d("__Thres","Contact id received: "+ selectedContactID);
+        Log.d("__Thres", "Contact id received: " + selectedContactID);
 
         DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
         List<Person> people = dbhelper.getAllPeople();
 
 
-        for(int i = 0;i < people.size(); i++ ){
+        for (int i = 0; i < people.size(); i++) {
             Person temp;
             temp = people.get(i);
             contactArrayList.add(temp);
         }
-        for(int j = 0;j < contactArrayList.size(); j++ ){
-            if(contactArrayList.get(j).getID()==selectedContactID )
+        for (int j = 0; j < contactArrayList.size(); j++) {
+            if (contactArrayList.get(j).getID() == selectedContactID)
                 selectedPerson = contactArrayList.get(j);
         }
 
-        nameFragmentTV.setText("Name: " +selectedPerson.getName());
-        phoneFragmentTV.setText("Phone Number: " +selectedPerson.getPhoneNumber() + "\n ThresholD Value:" + String.valueOf(thresholdVal));
+        nameFragmentTV.setText("Name: " + selectedPerson.getName());
+        phoneFragmentTV.setText("Phone Number: " + selectedPerson.getPhoneNumber() + "\n ThresholD Value:" + String.valueOf(thresholdVal));
     }
 
     @Override
@@ -150,23 +150,23 @@ public class deleteContactFromThresholdFragment extends DialogFragment {
         Bundle bundle = getArguments();
         thresholdVal = bundle.getInt("ThresholdNumber");
         selectedContactID = bundle.getInt("contactSelected");
-        Log.d("__Thres","Contact name received: "+ selectedContactID);
+        Log.d("__Thres", "Contact name received: " + selectedContactID);
 
         DatabaseHelper dbhelper = new DatabaseHelper(getActivity());
         List<Person> people = dbhelper.getAllPeople();
 
 
-        for(int i = 0;i < people.size(); i++ ){
+        for (int i = 0; i < people.size(); i++) {
             Person temp;
             temp = people.get(i);
             contactArrayList.add(temp);
         }
-        for(int j = 0;j < contactArrayList.size(); j++ ){
-            if(contactArrayList.get(j).getID()==selectedContactID )
+        for (int j = 0; j < contactArrayList.size(); j++) {
+            if (contactArrayList.get(j).getID() == selectedContactID)
                 selectedPerson = contactArrayList.get(j);
         }
 
-        nameFragmentTV.setText("Name: " +selectedPerson.getName());
-        phoneFragmentTV.setText("Phone Number: " +selectedPerson.getPhoneNumber() + "\n ThresholD Value:" + String.valueOf(thresholdVal));
+        nameFragmentTV.setText("Name: " + selectedPerson.getName());
+        phoneFragmentTV.setText("Phone Number: " + selectedPerson.getPhoneNumber() + "\n ThresholD Value:" + String.valueOf(thresholdVal));
     }
 }

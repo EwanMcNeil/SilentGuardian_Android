@@ -17,7 +17,6 @@ import java.util.List;
 public class AudioDatabase extends SQLiteOpenHelper {
 
 
-
     private Context context;
 
     private static final String TAG = "AudioDatabase";
@@ -56,8 +55,7 @@ public class AudioDatabase extends SQLiteOpenHelper {
     }
 
 
-    public long insertFile(audioFile file)
-    {
+    public long insertFile(audioFile file) {
         Log.d(TAG, "insertFile");
         long id = -1;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -69,26 +67,22 @@ public class AudioDatabase extends SQLiteOpenHelper {
 
         ///threshold value is intalized to zero
 
-        try{
+        try {
 
-            id = db.insertOrThrow(AudioConfig.TABLE_NAME,null, contentValues); //will create autoincremented ID and return it
+            id = db.insertOrThrow(AudioConfig.TABLE_NAME, null, contentValues); //will create autoincremented ID and return it
 
-        }
-        catch(SQLiteException e)
-        {
+        } catch (SQLiteException e) {
             Log.d(TAG, "Execption: " + e);
             Toast.makeText(context, "Operation failed" + e, Toast.LENGTH_LONG).show();
 
-        }
-        finally //if everything works fine this will execute or not
+        } finally //if everything works fine this will execute or not
         {
             db.close();
         }
         return id;
     }
 
-    public List<audioFile> getAllfiles()
-    {
+    public List<audioFile> getAllfiles() {
         SQLiteDatabase db = this.getReadableDatabase(); //open database in readmode
         Cursor cursor = null;
         Log.d(TAG, "getallfiles");
@@ -96,30 +90,26 @@ public class AudioDatabase extends SQLiteOpenHelper {
         try {
             cursor = db.query(AudioConfig.TABLE_NAME, null, null, null, null, null, null);
 
-            if(cursor != null)
-            {
-                if(cursor.moveToFirst())
-                {
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
                     java.util.List<com.example.silentguardian_android.Helpers.audioFile> audioFiles = new ArrayList<>();
 
-                    do{
+                    do {
                         int id = cursor.getInt(cursor.getColumnIndex(AudioConfig.COLUMN_ID));
                         String Date = cursor.getString(cursor.getColumnIndex(AudioConfig.COLUMN_DATE));
                         String File = cursor.getString(cursor.getColumnIndex((AudioConfig.COLUMN_FILENAME)));
-                        audioFiles.add(new com.example.silentguardian_android.Helpers.audioFile(id,Date,File)); //makes a new course and add its to the list
-                    }while(cursor.moveToNext());
+                        audioFiles.add(new com.example.silentguardian_android.Helpers.audioFile(id, Date, File)); //makes a new course and add its to the list
+                    } while (cursor.moveToNext());
 
                     return audioFiles;
                 }
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
 
             Log.d(TAG, "EXCEPTION" + e);
             Toast.makeText(context, "OPERATION FAILED: " + e, Toast.LENGTH_LONG).show();
-        }
-        finally {
-            if(cursor != null){
+        } finally {
+            if (cursor != null) {
                 cursor.close();
             }
             db.close();
@@ -129,7 +119,7 @@ public class AudioDatabase extends SQLiteOpenHelper {
     }
 
 
-    public int numberAudioObjects(){
+    public int numberAudioObjects() {
         int output = 0;
         SQLiteDatabase db = this.getReadableDatabase(); //open database in readmode
         Cursor cursor = null;
@@ -139,27 +129,23 @@ public class AudioDatabase extends SQLiteOpenHelper {
         try {
             cursor = db.query(AudioConfig.TABLE_NAME, null, null, null, null, null, null);
 
-            if(cursor != null)
-            {
-                if(cursor.moveToFirst())
-                {
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
 
 
-                    do{
-                       output++;
-                    }while(cursor.moveToNext());
+                    do {
+                        output++;
+                    } while (cursor.moveToNext());
 
                     return output;
                 }
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
 
             Log.d(TAG, "EXCEPTION" + e);
             Toast.makeText(context, "countfailed: " + e, Toast.LENGTH_LONG).show();
-        }
-        finally {
-            if(cursor != null){
+        } finally {
+            if (cursor != null) {
                 cursor.close();
             }
             db.close();

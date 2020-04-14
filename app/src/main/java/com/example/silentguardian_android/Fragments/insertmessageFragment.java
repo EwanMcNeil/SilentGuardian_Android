@@ -19,7 +19,7 @@ import com.example.silentguardian_android.R;
 
 import java.util.Locale;
 
-public class InsertThresholdMessageDialogFragment extends DialogFragment {
+public class insertmessageFragment extends DialogFragment {
 
     private static final String TAG = "Threshold Message Check";
 
@@ -57,7 +57,6 @@ public class InsertThresholdMessageDialogFragment extends DialogFragment {
         ThresholdValue = getArguments().getInt("threshold number");
 
 
-
         saveMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,17 +64,14 @@ public class InsertThresholdMessageDialogFragment extends DialogFragment {
                 String temp_message = userDefinedThresholdMessage.getText().toString();
 
 
-
-                if (ThresholdValue == 1){
+                if (ThresholdValue == 1) {
 
                     sharePreferenceHelper.saveThresholdOneMessage(temp_message);
-                    Toast.makeText(getContext()," Threshold One message = " + sharePreferenceHelper.ThresholdOneMessageReturn(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), " Threshold One message = " + sharePreferenceHelper.ThresholdOneMessageReturn(), Toast.LENGTH_LONG).show();
 
-                }
-
-                else {
+                } else {
                     sharePreferenceHelper.saveThresholdTwoMessage(temp_message);
-                    Toast.makeText(getContext()," Threshold Two message = " + sharePreferenceHelper.ThresholdTwoMessageReturn(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), " Threshold Two message = " + sharePreferenceHelper.ThresholdTwoMessageReturn(), Toast.LENGTH_LONG).show();
                 }
 
 
@@ -95,8 +91,6 @@ public class InsertThresholdMessageDialogFragment extends DialogFragment {
                 getDialog().dismiss();
             }
         });
-
-
 
 
         return view;

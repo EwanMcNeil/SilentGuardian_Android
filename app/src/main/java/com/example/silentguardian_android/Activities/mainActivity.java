@@ -47,8 +47,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
-
+public class mainActivity extends AppCompatActivity {
 
 
     protected ImageButton allclearImageButton;
@@ -64,10 +63,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
         sharePreferenceHelper = new SharePreferenceHelper(this);
         //initializing the sentmessage
-        if(sharePreferenceHelper.getMessageSent() == 2){
+        if (sharePreferenceHelper.getMessageSent() == 2) {
             sharePreferenceHelper.setMessageSent(0);
         }
 
@@ -78,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         buttonTutorial = findViewById(R.id.buttonTutorialMain);
 
         iAmSafeText = findViewById(R.id.iAmSafeTextView);
-        sharePreferenceHelper = new SharePreferenceHelper(this);
 
         //permission check
         int PERMISSION_ALL = 1;
@@ -92,14 +89,13 @@ public class MainActivity extends AppCompatActivity {
                 android.Manifest.permission.FOREGROUND_SERVICE
         };
         ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
-        final Dialog mInfoDialog = new Dialog(MainActivity.this, R.style.Theme_AppCompat);
+        final Dialog mInfoDialog = new Dialog(mainActivity.this, R.style.Theme_AppCompat);
         loadActivityTutorial(mInfoDialog);
-
 
 
         //if the user doesn't have an account existing, this if statement takes them to profile activity to create first profile
         if (sharePreferenceHelper.userNameReturn() == null) {
-            Intent intent = new Intent(MainActivity.this, profileActivity.class);
+            Intent intent = new Intent(mainActivity.this, profileActivity.class);
             startActivity(intent);
 
         }
@@ -108,11 +104,11 @@ public class MainActivity extends AppCompatActivity {
         allclearImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               int recent = sharePreferenceHelper.getMessageSent();
-                if(recent == 1) {
-                    Intent intent = new Intent(MainActivity.this, allClearActivity.class);
+                int recent = sharePreferenceHelper.getMessageSent();
+                if (recent == 1) {
+                    Intent intent = new Intent(mainActivity.this, allclearActivity.class);
                     startActivity(intent);
-                }else{
+                } else {
                     startRecording();
                     alertPressed();
 //                    sendMessageFragment dialog = new sendMessageFragment();
@@ -122,12 +118,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-        }
+    }
 
     public void startRecording() {
         final SharePreferenceHelper helper = new SharePreferenceHelper(this);
-        if(helper.checkifrecording() == false && helper.audioCheck() ==true) {
+        if (helper.checkifrecording() == false && helper.audioCheck() == true) {
             helper.recordingStart();
             AudioDatabase adb = new AudioDatabase(this);
             String fileName = getExternalCacheDir().getAbsolutePath();
@@ -184,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         int Size = thresholdOnePeople.size();
         messageGPSHelper textHelper = new messageGPSHelper(this);
 
-        for(int i = 0; i < Size; i++) {
+        for (int i = 0; i < Size; i++) {
             textHelper.sendMessage(thresholdOneNumbers[i], "test");
         }
 
@@ -193,8 +188,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-        @Override
+    @Override
     protected void onResume() {
         super.onResume();
     }
@@ -208,11 +202,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-     updateAllClearButton();
+        updateAllClearButton();
 
-     if(!(isMyServiceRunning(DeviceService.class))){
-         Toast.makeText(this, "Please connect a device", Toast.LENGTH_LONG).show();
-     }
+        if (!(isMyServiceRunning(DeviceService.class))) {
+            Toast.makeText(this, "Please connect a device", Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -226,19 +220,18 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public void updateAllClearButton(){
+    public void updateAllClearButton() {
         int output = sharePreferenceHelper.getMessageSent();
 
 
-        if(output == 0){
+        if (output == 0) {
 
             iAmSafeText.setText("SOS");
             allclearImageButton.setBackgroundResource(R.drawable.redphone);
 
 
             //needs to be changed to somthing else
-        }
-        else{
+        } else {
 
             iAmSafeText.setText("I am safe");
             allclearImageButton.setBackgroundResource(R.drawable.greenphone);
@@ -261,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -271,18 +265,18 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.bluetoothSettingsdropdown:
 
-                args.putString("intent","bluetooth");
+                args.putString("intent", "bluetooth");
                 dialog.setArguments(args);
                 dialog.show(getSupportFragmentManager(), "password");
                 return true;
             case R.id.profileSettingdropdown:
-                args.putString("intent","profile");
+                args.putString("intent", "profile");
                 dialog.setArguments(args);
                 dialog.show(getSupportFragmentManager(), "password");
                 return true;
 
             case R.id.sendTestMessageDropDown:
-                Intent intentnew = new Intent(MainActivity.this, ResourceActivity.class);
+                Intent intentnew = new Intent(mainActivity.this, ResourceActivity.class);
                 startActivity(intentnew);
                 return true;
             case R.id.switchLanguage:
@@ -290,22 +284,22 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.thresholdsettingdropdown:
                 //checking if password matches from user to sharedpreferences
-                args.putString("intent","threshold");
+                args.putString("intent", "threshold");
                 dialog.setArguments(args);
                 dialog.show(getSupportFragmentManager(), "password");
                 return true;
 
             case R.id.checkIndropdown:
-                intent = new Intent(MainActivity.this, checkInActivity.class);
+                intent = new Intent(mainActivity.this, checkinActivity.class);
                 startActivity(intent);
                 return true;
 
             case R.id.recordingsActivity:
-                intent = new Intent(MainActivity.this, playbackActivity.class);
+                intent = new Intent(mainActivity.this, playbackActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.enableaudio:
-                args.putString("intent","enableAudio");
+                args.putString("intent", "enableAudio");
                 dialog.setArguments(args);
                 dialog.show(getSupportFragmentManager(), "password");
 
@@ -314,9 +308,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void switchLanguage(){
+    private void switchLanguage() {
         String current = Locale.getDefault().getLanguage();
-        if(current == "fr"){
+        if (current == "fr") {
             Locale locale = new Locale("en");
             Locale.setDefault(locale);
             Configuration config = new Configuration();
@@ -324,8 +318,7 @@ public class MainActivity extends AppCompatActivity {
             getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
             sharePreferenceHelper.saveLanguage("en");
             recreate();
-        }
-        else if(current == "en"){
+        } else if (current == "en") {
             Locale locale = new Locale("fr");
             Locale.setDefault(locale);
             Configuration config = new Configuration();
@@ -335,25 +328,26 @@ public class MainActivity extends AppCompatActivity {
             recreate();
         }
     }
-    private void loadActivityTutorial( final Dialog mInfoDialog){
+
+    private void loadActivityTutorial(final Dialog mInfoDialog) {
 
         final List<MyImage> mList = new ArrayList<>();
         mList.add(new MyImage("Send an alert",
                 "Alert your Guardians, Level 1 or Level 2, by either pressing the the Silent Guardians device or the I am in danger button on the main page of the App. "
-                ,R.mipmap.danger_button_tuto));
+                , R.mipmap.danger_button_tuto));
 
 
         mList.add(new MyImage("Features",
                 "Access your audio recordings and Check-In Guardian."
-                ,R.mipmap.click_feature));
+                , R.mipmap.click_feature));
 
         mList.add(new MyImage("Settings & Miscellaneous",
                 "Press the Setting Icon to modify your profile:\n"
-                        +"Add/remove contact to the App\n"
-                        +"Add/remove Guardians to/from your Guardian Levels\n"
-                        +"Connect your Silent Guardian device"
-                ,R.mipmap.main_menu_tut
-                ,false));
+                        + "Add/remove contact to the App\n"
+                        + "Add/remove Guardians to/from your Guardian Levels\n"
+                        + "Connect your Silent Guardian device"
+                , R.mipmap.main_menu_tut
+                , false));
 
 
         buttonTutorial.setOnClickListener(new View.OnClickListener() {
@@ -365,12 +359,12 @@ public class MainActivity extends AppCompatActivity {
                 mInfoDialog.setContentView(R.layout.activity_tutorial);
                 //UI elements
                 ViewPager mScreenPager = mInfoDialog.findViewById(R.id.screen_viewpager);
-                TabLayout mTabIndicator  = mInfoDialog.findViewById(R.id.tab_indicator);
-                TextView  mSkip = mInfoDialog.findViewById(R.id.tv_skip);
+                TabLayout mTabIndicator = mInfoDialog.findViewById(R.id.tab_indicator);
+                TextView mSkip = mInfoDialog.findViewById(R.id.tv_skip);
                 final Button mDialogButton = mInfoDialog.findViewById(R.id.btn_get_started);
                 mSkip.setVisibility(View.INVISIBLE);
                 //decodeSampledBitmapFromResource(getResources(),R.drawable.guardians_act_info, 220, 220);
-                TutorialViewpagerAdapter mTutorialViewpagerAdapter = new TutorialViewpagerAdapter(getApplicationContext(),mList,false);
+                TutorialViewpagerAdapter mTutorialViewpagerAdapter = new TutorialViewpagerAdapter(getApplicationContext(), mList, false);
                 mScreenPager.setAdapter(mTutorialViewpagerAdapter);
                 // setup tablayout with viewpager
                 mTabIndicator.setupWithViewPager(mScreenPager);
@@ -379,13 +373,15 @@ public class MainActivity extends AppCompatActivity {
                 mTabIndicator.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
-                        if (tab.getPosition() == mList.size()-1) {
+                        if (tab.getPosition() == mList.size() - 1) {
                             mDialogButton.setVisibility(View.VISIBLE);
                         }
                     }
+
                     @Override//must have these two here
                     public void onTabUnselected(TabLayout.Tab tab) {
                     }
+
                     @Override
                     public void onTabReselected(TabLayout.Tab tab) {
                     }
@@ -400,7 +396,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
 }

@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.silentguardian_android.Helpers.SharePreferenceHelper;
-import com.example.silentguardian_android.Activities.MainActivity;
+import com.example.silentguardian_android.Activities.mainActivity;
 import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.Tutorial.MyImage;
 import com.example.silentguardian_android.Tutorial.TutorialViewpagerAdapter;
@@ -70,7 +70,7 @@ public class BluetoothMainActivity extends ListActivity {
         mInfoDialog = new Dialog(BluetoothMainActivity.this, R.style.Theme_AppCompat);
         mtutorialSlides = loadTutorial();
 
-        if(!helper.getTutorialSeen()){
+        if (!helper.getTutorialSeen()) {
             startActivityTutorial();
         }
         helper.setTutorialSeen(true);
@@ -83,7 +83,7 @@ public class BluetoothMainActivity extends ListActivity {
 
         ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
-       // setContentView(R.layout.listitem_device);
+        // setContentView(R.layout.listitem_device);
         getActionBar().setTitle(R.string.title_devices);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         mHandler = new Handler();
@@ -92,7 +92,7 @@ public class BluetoothMainActivity extends ListActivity {
         // selectively disable BLE-related features.
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class );
+            Intent intent = new Intent(getApplicationContext(), mainActivity.class);
             startActivity(intent);
             return;
         }
@@ -107,7 +107,7 @@ public class BluetoothMainActivity extends ListActivity {
         //emulators should go to main now
         if (mBluetoothAdapter == null) {
             Toast.makeText(this, R.string.error_bluetooth_not_supported, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class );
+            Intent intent = new Intent(getApplicationContext(), mainActivity.class);
             startActivity(intent);
             return;
         }
@@ -128,7 +128,7 @@ public class BluetoothMainActivity extends ListActivity {
             menu.findItem(R.id.menu_stop).setVisible(true);
             menu.findItem(R.id.menu_scan).setVisible(false);
             //menu.findItem(R.id.menu_refresh).setActionView(
-                 //   R.layout.actionbar_indeterminate_progress);
+            //   R.layout.actionbar_indeterminate_progress);
         }
         return true;
     }
@@ -144,10 +144,10 @@ public class BluetoothMainActivity extends ListActivity {
                 scanLeDevice(false);
                 break;
             case android.R.id.home:
-                    onBackPressed();
-                    break;
+                onBackPressed();
+                break;
             case R.id.menu_gotoMain:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class );
+                Intent intent = new Intent(getApplicationContext(), mainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tutorialButton:
@@ -156,19 +156,20 @@ public class BluetoothMainActivity extends ListActivity {
         }
         return true;
     }
-    private void startActivityTutorial(){
 
-       mInfoDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+    private void startActivityTutorial() {
+
+        mInfoDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mInfoDialog.setContentView(R.layout.activity_tutorial);
         //UI elements
         ViewPager mScreenPager = mInfoDialog.findViewById(R.id.screen_viewpager);
-        TabLayout mTabIndicator  = mInfoDialog.findViewById(R.id.tab_indicator);
-        TextView  mSkip = mInfoDialog.findViewById(R.id.tv_skip);
+        TabLayout mTabIndicator = mInfoDialog.findViewById(R.id.tab_indicator);
+        TextView mSkip = mInfoDialog.findViewById(R.id.tv_skip);
         final Button mDialogButton = mInfoDialog.findViewById(R.id.btn_get_started);
         mSkip.setVisibility(View.INVISIBLE);
         //decodeSampledBitmapFromResource(getResources(),R.drawable.guardians_act_info, 220, 220);
-        TutorialViewpagerAdapter mTutorialViewpagerAdapter = new TutorialViewpagerAdapter(getApplicationContext(),mtutorialSlides,false);
+        TutorialViewpagerAdapter mTutorialViewpagerAdapter = new TutorialViewpagerAdapter(getApplicationContext(), mtutorialSlides, false);
         mScreenPager.setAdapter(mTutorialViewpagerAdapter);
         // setup tablayout with viewpager
         mTabIndicator.setupWithViewPager(mScreenPager);
@@ -176,11 +177,17 @@ public class BluetoothMainActivity extends ListActivity {
         mTabIndicator.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == mtutorialSlides.size()-1)
+                if (tab.getPosition() == mtutorialSlides.size() - 1)
                     mDialogButton.setVisibility(View.VISIBLE);
             }
-            @Override public void onTabUnselected(TabLayout.Tab tab) { }
-            @Override public void onTabReselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
         mDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,23 +197,25 @@ public class BluetoothMainActivity extends ListActivity {
         });
         mInfoDialog.show();
     }
-    private List<MyImage> loadTutorial(){
+
+    private List<MyImage> loadTutorial() {
         List<MyImage> mList = new ArrayList<>();
         mList.add(new MyImage("Turn on your Silent Guardian device",
                 "Press on the rocker button on the device to power it on."
-                ,R.mipmap.blue1));
+                , R.mipmap.blue1));
 
 
         mList.add(new MyImage("Wait for detection",
                 "Wait until the device's name shows up on the screen. If it does not, press on Scan to start scanning for the device."
-                ,R.mipmap.blue2));
+                , R.mipmap.blue2));
 
         mList.add(new MyImage("Pair your device",
                 "Press on the device's name to initiate the pairing process."
-                ,R.mipmap.blue3));
+                , R.mipmap.blue3));
 
         return mList;
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -224,7 +233,6 @@ public class BluetoothMainActivity extends ListActivity {
         mLeDeviceListAdapter = new LeDeviceListAdapter();
         setListAdapter(mLeDeviceListAdapter);
         scanLeDevice(true);
-
 
 
     }
@@ -249,34 +257,32 @@ public class BluetoothMainActivity extends ListActivity {
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Log.i ("Service status", "beforeNull");
+        Log.i("Service status", "beforeNull");
         final BluetoothDevice device = mLeDeviceListAdapter.getDevice(position);
         if (device == null) return;
 
-        if(isMyServiceRunning(DeviceService.class)){
+        if (isMyServiceRunning(DeviceService.class)) {
             Toast.makeText(getApplicationContext(), "Error the device: " + device.getName() + " is already connected", Toast.LENGTH_LONG).show();
             return;
         }
 
-        if(!device.getName().equals("Silent_Guardians")){
-            Toast.makeText(getApplicationContext(), device.getName()+ " is not a compatible Device", Toast.LENGTH_LONG).show();
+        if (!device.getName().equals("Silent_Guardians")) {
+            Toast.makeText(getApplicationContext(), device.getName() + " is not a compatible Device", Toast.LENGTH_LONG).show();
             return;
         }
-        Log.i ("Service status", "passedNull");
+        Log.i("Service status", "passedNull");
 
         mServiceIntent.putExtra("DEVICE_NAME", device.getName());
         mServiceIntent.putExtra("DEVICE_ADDRESS", device.getAddress());
         if (!isMyServiceRunning(mYourService.getClass())) {
             startService(mServiceIntent);
-            Log.i ("Service status", "passedIf");
+            Log.i("Service status", "passedIf");
         }
 
 
+        Toast.makeText(getApplicationContext(), device.getName() + " Your device has been sucessfully connected", Toast.LENGTH_LONG).show();
 
-
-        Toast.makeText(getApplicationContext(), device.getName()+ " Your device has been sucessfully connected", Toast.LENGTH_LONG).show();
-
-        Intent intent = new Intent(this, MainActivity.class );
+        Intent intent = new Intent(this, mainActivity.class);
         startActivity(intent);
 
     }
@@ -315,7 +321,7 @@ public class BluetoothMainActivity extends ListActivity {
         }
 
         public void addDevice(BluetoothDevice device) {
-            if(device.getName() != null) {
+            if (device.getName() != null) {
                 if (!mLeDevices.contains(device)) {
                     deviceCount++;
                     mLeDevices.add(device);
@@ -397,11 +403,11 @@ public class BluetoothMainActivity extends ListActivity {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i ("Service status", "Running");
+                Log.i("Service status", "Running");
                 return true;
             }
         }
-        Log.i ("Service status", "Not running");
+        Log.i("Service status", "Not running");
         return false;
     }
 

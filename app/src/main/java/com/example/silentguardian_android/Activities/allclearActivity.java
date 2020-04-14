@@ -18,7 +18,7 @@ import com.example.silentguardian_android.R;
 import java.util.List;
 import java.util.Locale;
 
-public class allClearActivity extends AppCompatActivity {
+public class allclearActivity extends AppCompatActivity {
 
     private static final String TAG = "AllClearCheck";
 
@@ -47,26 +47,25 @@ public class allClearActivity extends AppCompatActivity {
         //Applying language end
 
 
-
         thresholdOneallClearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-             //creating db object to use the functions
+                //creating db object to use the functions
                 DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
                 List<Person> people = dbhelper.getThresholdOne();
 
 
                 ////create loop that will message the "I am Safe" message to all guardians who are in threshold one
-                for(int i = 0;i < people.size(); i++ ){
+                for (int i = 0; i < people.size(); i++) {
 
                     String temp = " ";
 
                     temp = people.get(i).getPhoneNumber();
 
-                    String message ="I am safe, all clear ";
+                    String message = "I am safe, all clear ";
 
-                    SMSHelper.sendAllClearMessage(temp,message);
+                    SMSHelper.sendAllClearMessage(temp, message);
 
                     Log.d(TAG, "All Clear Message " + i + " has been sent. ");
                 }
@@ -79,28 +78,27 @@ public class allClearActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-             //creating db object to use the functions
+                //creating db object to use the functions
                 DatabaseHelper dbhelper = new DatabaseHelper(getBaseContext());
                 List<Person> people = dbhelper.getThresholdTwo();
 
 
                 ////create loop that will message the "I am Safe" message to all guardians who are in threshold two
-                for(int i = 0;i < people.size(); i++ ){
+                for (int i = 0; i < people.size(); i++) {
 
                     String temp = " ";
 
                     temp = people.get(i).getPhoneNumber();
 
-                    String message ="I am safe, all clear ";
+                    String message = "I am safe, all clear ";
 
-                    SMSHelper.sendAllClearMessage(temp,message);
+                    SMSHelper.sendAllClearMessage(temp, message);
 
                     Log.d(TAG, "All Clear Message " + i + " has been sent. ");
                 }
 
             }
         });
-
 
 
     }

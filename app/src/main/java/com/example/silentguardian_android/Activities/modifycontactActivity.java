@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class modifyContactActivity extends AppCompatActivity {
+public class modifycontactActivity extends AppCompatActivity {
     protected EditText nameEditText;
     protected EditText numberEditText;
     protected Button deleteButton;
@@ -53,18 +53,18 @@ public class modifyContactActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancelDeleteFragButton);
         saveChanges = findViewById(R.id.saveChangesButton);
         //get intent which contains the course ID
-        Intent IDContactDelete =getIntent();
+        Intent IDContactDelete = getIntent();
         idContactDelete = IDContactDelete.getIntExtra("IdContactToDelete", 0);
         DatabaseHelper dbhelper = new DatabaseHelper(this);
         List<Person> people = dbhelper.getAllPeople();
 
-        for(int i = 0;i < people.size(); i++ ){
+        for (int i = 0; i < people.size(); i++) {
             Person temp;
             temp = people.get(i);
             contactArrayList.add(temp);
         }
-        for(int j = 0;j < contactArrayList.size(); j++ ){
-            if(contactArrayList.get(j).getID() == idContactDelete)
+        for (int j = 0; j < contactArrayList.size(); j++) {
+            if (contactArrayList.get(j).getID() == idContactDelete)
                 selectedPerson = contactArrayList.get(j);
         }
 
@@ -74,11 +74,11 @@ public class modifyContactActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseHelper dbhelper = new DatabaseHelper(modifyContactActivity.this);
+                DatabaseHelper dbhelper = new DatabaseHelper(modifycontactActivity.this);
                 dbhelper.deletePerson(selectedPerson.getID());
-              //  Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, contactActivity.class);
-               // startActivity(intentDeletedContactToBubble);
-                modifyContactActivity.this.finish();
+                //  Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, contactActivity.class);
+                // startActivity(intentDeletedContactToBubble);
+                modifycontactActivity.this.finish();
             }
         });
 
@@ -88,26 +88,25 @@ public class modifyContactActivity extends AppCompatActivity {
                 String name = nameEditText.getText().toString();
                 String number = numberEditText.getText().toString();
 
-                Person tempPerson = new Person(selectedPerson.getID(),name, number, selectedPerson.getThresholdOne(), selectedPerson.getThresholdTwo());
+                Person tempPerson = new Person(selectedPerson.getID(), name, number, selectedPerson.getThresholdOne(), selectedPerson.getThresholdTwo());
 
 
                 if (!(name.equals(""))) {
-                    DatabaseHelper dbhelper = new DatabaseHelper(modifyContactActivity.this);
+                    DatabaseHelper dbhelper = new DatabaseHelper(modifycontactActivity.this);
                     dbhelper.updatePerson(tempPerson);
+                } else {
+                    Toast.makeText(modifycontactActivity.this, "Database not updated!", Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    Toast.makeText(modifyContactActivity.this,"Database not updated!",Toast.LENGTH_SHORT).show();
-                }
-               Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, thresholdActivity.class);
-              startActivity(intentDeletedContactToBubble);
+                Intent intentDeletedContactToBubble = new Intent(modifycontactActivity.this, thresholdActivity.class);
+                startActivity(intentDeletedContactToBubble);
             }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent intentDeletedContactToBubble = new Intent(modifyContactActivity.this, thresholdActivity.class);
-               startActivity(intentDeletedContactToBubble);
+                Intent intentDeletedContactToBubble = new Intent(modifycontactActivity.this, thresholdActivity.class);
+                startActivity(intentDeletedContactToBubble);
 
             }
         });

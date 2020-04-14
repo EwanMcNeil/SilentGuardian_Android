@@ -43,7 +43,7 @@
 
         <activity
             android:name=".helpLinks.ResourceActivity"
-            android:parentActivityName=".Activities.MainActivity" />
+            android:parentActivityName=".Activities.mainActivity" />
 
         <activity android:name=".Tutorial.AppTutorial"
             android:screenOrientation = "portrait"
@@ -58,7 +58,7 @@
 
         <service android:name=".Helpers.CheckinService" />
 
-        <activity android:name=".Activities.checkInActivity" />
+        <activity android:name=".Activities.checkinActivity" />
 
         <receiver
             android:name=".Bluetooth.Restarter"
@@ -70,13 +70,13 @@
         </receiver>
 
         <activity
-            android:name=".Activities.allClearActivity"
+            android:name=".Activities.allclearActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.playbackActivity"
             android:screenOrientation = "portrait"/>
         <activity
-            android:name=".Activities.modifyContactActivity"
+            android:name=".Activities.modifycontactActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Bluetooth.BluetoothMainActivity"
@@ -101,10 +101,10 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.silentguardian_android.Activities.MainActivity" />
+                android:value="com.example.silentguardian_android.Activities.mainActivity" />
         </activity>
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activities.mainActivity"
             android:screenOrientation="portrait" />
     </application>
 

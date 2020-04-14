@@ -21,7 +21,6 @@ import com.example.silentguardian_android.Helpers.SharePreferenceHelper;
 import java.util.List;
 
 
-
 ///MessagerGPSHElper has the functions to get GPS coordinates and to send a SMS message with a configureable message
 
 
@@ -53,9 +52,8 @@ public class messageGPSHelper {
         }
 
 
-
         Location location = getLastKnownLocation();
-        if(location == null){
+        if (location == null) {
             return 88.0;
         }
 
@@ -68,7 +66,7 @@ public class messageGPSHelper {
     //function to return the latitude of the current location
     protected double getLat() {
 
-        LocationManager lm = (LocationManager)  mContext.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager lm = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -77,7 +75,7 @@ public class messageGPSHelper {
         }
 
         Location location = getLastKnownLocation();
-        if(location == null){
+        if (location == null) {
             return 88.0;
         }
 
@@ -110,24 +108,21 @@ public class messageGPSHelper {
     }
 
 
-
-
     //takes in a phone number and a string to send a message
     //possibly within here call the local methods getlat and getlong
-    public void sendMessage(String number, String message){
+    public void sendMessage(String number, String message) {
         sharePreferenceHelper.setMessageSent(1);
-        if(message == null){
+        if (message == null) {
             message = "I am in danger ";
         }
 
-        try{
+        try {
             vibrate();
             String messageOut = message + "My location is: " + messageLocationLink();
             SmsManager smgr = SmsManager.getDefault();
-            smgr.sendTextMessage(number,null,messageOut, null,null);
+            smgr.sendTextMessage(number, null, messageOut, null, null);
             Toast.makeText(mContext, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(mContext, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
         }
 
@@ -135,36 +130,33 @@ public class messageGPSHelper {
 
     //creating function to call to send the all clear message (Hard coded message for now)
     //changed this to static because of non-static error due to "all clear" function
-    public void sendAllClearMessage(String number, String message){
+    public void sendAllClearMessage(String number, String message) {
         sharePreferenceHelper.setMessageSent(0);
-        try{
+        try {
             vibrate();
             String messageOut = message;
             SmsManager smgr = SmsManager.getDefault();
-            smgr.sendTextMessage(number,null,messageOut, null,null);
+            smgr.sendTextMessage(number, null, messageOut, null, null);
             Toast.makeText(mContext, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception e){
-         Toast.makeText(mContext, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(mContext, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
         }
 
     }
 
 
-
-
     //local location link to create the link for google maps
-    protected String messageLocationLink(){
+    protected String messageLocationLink() {
 
-        double  latitude =  getLat();
+        double latitude = getLat();
         double longitude = getLong();
-        String output = "https://www.google.com/maps/search/?api=1&query=" +latitude + "," +longitude;
+        String output = "https://www.google.com/maps/search/?api=1&query=" + latitude + "," + longitude;
 
         return output;
     }
 
     /// was not static before, made it static to use in the check in service
-    static protected void vibrate(){
+    static protected void vibrate() {
 
         Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
@@ -176,8 +168,6 @@ public class messageGPSHelper {
         }
 
     }
-
-
 
 
 }

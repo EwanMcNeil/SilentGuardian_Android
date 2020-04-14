@@ -30,16 +30,17 @@ public class SampleGattAttributes {
 
     public static String SEND_MESSAGE_CHAR = "19b10012-e8f2-537e-4f6c-d104768a1214";
     public static String SEND_MESSAGE_SERVICE = "19b10010-e8f2-537e-4f6c-d104768a1214";
+
     static {
         // Sample Services.
         attributes.put("0000ffe0-0000-1000-8000-00805f9b34fb", "HM 10 Serial");
         attributes.put("00001800-0000-1000-8000-00805f9b34fb", "Device Information Service");
         // Sample Characteristics.
-        attributes.put(HM_RX_TX,"RX/TX data");
+        attributes.put(HM_RX_TX, "RX/TX data");
         attributes.put("00002a29-0000-1000-8000-00805f9b34fb", "Manufacturer Name String");
 
         attributes.put(SEND_MESSAGE_SERVICE, "Silent Guardian Service");
-        attributes.put(SEND_MESSAGE_CHAR,"message");
+        attributes.put(SEND_MESSAGE_CHAR, "message");
 
     }
 

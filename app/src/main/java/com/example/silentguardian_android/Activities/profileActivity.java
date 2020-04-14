@@ -90,7 +90,7 @@ public class profileActivity extends AppCompatActivity {
         //instantiating the sharepreferences helper
         sharePreferenceHelper = new SharePreferenceHelper(this);
 
-        if(!(new SharePreferenceHelper(getApplicationContext()).getTutorialSeen())) {
+        if (!(new SharePreferenceHelper(getApplicationContext()).getTutorialSeen())) {
             cancelButton.setVisibility(View.GONE);
             saveButton.setText("Continue");//bilingual
         }
@@ -101,31 +101,31 @@ public class profileActivity extends AppCompatActivity {
 
                 String temp_name = userEditText.getText().toString();
                 String temp_password = passwordEditText.getText().toString();
-                if(temp_name.length()>1 && temp_password.length()>0){
+                if (temp_name.length() > 1 && temp_password.length() > 0) {
                     sharePreferenceHelper.saveProfile(temp_name, temp_password);
 
                     // after entering information, go back into the main activity
 
-                    if(!(new SharePreferenceHelper(getApplicationContext()).getTutorialSeen())) {
-                        Intent intent = new Intent(getApplicationContext(), thresholdActivity.class );
+                    if (!(new SharePreferenceHelper(getApplicationContext()).getTutorialSeen())) {
+                        Intent intent = new Intent(getApplicationContext(), thresholdActivity.class);
                         startActivity(intent);
                         finish();
-                    }
-                    else {
-                        Intent intent = new Intent(profileActivity.this, MainActivity.class);
+                    } else {
+                        Intent intent = new Intent(profileActivity.this, mainActivity.class);
                         startActivity(intent);
                     }
-                }
-                else Toast.makeText(getApplicationContext(), "Invalid Input !", Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(getApplicationContext(), "Invalid Input !", Toast.LENGTH_SHORT).show();
             }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!sharePreferenceHelper.passwordReturn().equals("it s null"))//TODO HAVE TO CHANGE SHAREDPREF
+                if (!sharePreferenceHelper.passwordReturn().equals("it s null"))//TODO HAVE TO CHANGE SHAREDPREF
                     finish();
-                else Toast.makeText(getApplicationContext(), "Create a profile first !", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getApplicationContext(), "Create a profile first !", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -135,7 +135,7 @@ public class profileActivity extends AppCompatActivity {
     }
 
 
-    public void devbypass(){
+    public void devbypass() {
 
         SharePreferenceHelper helper = new SharePreferenceHelper(getApplicationContext());
         helper.setTutorialSeen(true);
@@ -147,7 +147,7 @@ public class profileActivity extends AppCompatActivity {
         Person bob = new Person("bob", Integer.toString(9999999), 1, 1);
         dbhelper.insertPerson(bob);
 
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class );
+        Intent intent = new Intent(getApplicationContext(), mainActivity.class);
         startActivity(intent);
 
     }

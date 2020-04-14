@@ -39,7 +39,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        View view = inflater.inflate(R.layout.fragment_check_login_credentials, container,false);
+        View view = inflater.inflate(R.layout.fragment_check_login_credentials, container, false);
 
         //Next lines assure activity uses the right language, otherwise some activities or fragment aren't fully catching up
         //Applying language start
@@ -59,8 +59,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
         sharePreferenceHelper = new SharePreferenceHelper(getContext());
 
 
-
-        Toast.makeText(getContext(),inputIntent, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), inputIntent, Toast.LENGTH_LONG).show();
 
 
         saveTempPasswordButton.setOnClickListener(new View.OnClickListener() {
@@ -73,13 +72,12 @@ public class InsertPasswordCheckFragment extends DialogFragment {
                 Log.d(TAG, "password = " + sharePreferenceHelper.passwordReturn());
 
 
-
                 //authentication statement, upon success will allow access to the threshold activity
-                if(tempPasswordCheck.equals(sharePreferenceHelper.passwordReturn())){
+                if (tempPasswordCheck.equals(sharePreferenceHelper.passwordReturn())) {
                     Log.d(TAG, "entered if statement");
 
                     Intent intent;
-                    switch (inputIntent){
+                    switch (inputIntent) {
                         case "bluetooth":
                             intent = new Intent(getActivity(), BluetoothMainActivity.class);
                             Log.d(TAG, "blue");
@@ -98,13 +96,12 @@ public class InsertPasswordCheckFragment extends DialogFragment {
                             return;
                         case "enableAudio":
                             SharePreferenceHelper helper = new SharePreferenceHelper(getContext());
-                            if(helper.audioCheck()==true){
+                            if (helper.audioCheck() == true) {
                                 helper.disableAudio();
-                                Toast.makeText(getContext()," Audio Recording has been disable", Toast.LENGTH_LONG).show();
-                            }
-                            else{
+                                Toast.makeText(getContext(), " Audio Recording has been disable", Toast.LENGTH_LONG).show();
+                            } else {
                                 helper.enableAudio();
-                                Toast.makeText(getContext()," Audio Recording has been enabled", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), " Audio Recording has been enabled", Toast.LENGTH_LONG).show();
                             }
                         default:
                             dismiss();
@@ -115,10 +112,9 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
                 //if authentication fails, keeps them stuck until correct password is entered...
                 else {
-                    Toast.makeText(getContext()," Authentication Failed: Incorrect Password, Try Again ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), " Authentication Failed: Incorrect Password, Try Again ", Toast.LENGTH_LONG).show();
                     //getDialog().dismiss();
                 }
-
 
 
             }

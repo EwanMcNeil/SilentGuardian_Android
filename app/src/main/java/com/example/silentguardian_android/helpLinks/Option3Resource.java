@@ -17,10 +17,23 @@ import com.example.silentguardian_android.R;
 
 public class Option3Resource extends AppCompatActivity {
 
-    protected TextView phone1_option3;   /**1-888-933-9007*/
-    protected TextView phone2_option3;   /**1-888-595-5580*/
-    protected TextView phone3_option3;   /**1-800-595-5580*/
-    protected TextView phone4_option3;   /**1-800-363-9010*/
+    protected TextView phone1_option3;
+    /**
+     * 1-888-933-9007
+     */
+    protected TextView phone2_option3;
+    /**
+     * 1-888-595-5580
+     */
+    protected TextView phone3_option3;
+    /**
+     * 1-800-595-5580
+     */
+    protected TextView phone4_option3;
+
+    /**
+     * 1-800-363-9010
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +55,16 @@ public class Option3Resource extends AppCompatActivity {
 
                 /**Must check permission*/
                 if (ActivityCompat.checkSelfPermission(Option3Resource.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(Option3Resource.this, new String[]{Manifest.permission.CALL_PHONE},10);
+                    ActivityCompat.requestPermissions(Option3Resource.this, new String[]{Manifest.permission.CALL_PHONE}, 10);
                     return;
                 }
 
                 /**if you do have a permission*/
                 else {
-                    try{    startActivity(callIntent);
-                    }
-                    catch(android.content.ActivityNotFoundException ex){
-                        Toast.makeText(getApplicationContext(),"cannot find your activity",Toast.LENGTH_SHORT).show();
+                    try {
+                        startActivity(callIntent);
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(getApplicationContext(), "cannot find your activity", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -66,16 +79,16 @@ public class Option3Resource extends AppCompatActivity {
 
                 /**Must check permission*/
                 if (ActivityCompat.checkSelfPermission(Option3Resource.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(Option3Resource.this, new String[]{Manifest.permission.CALL_PHONE},10);
+                    ActivityCompat.requestPermissions(Option3Resource.this, new String[]{Manifest.permission.CALL_PHONE}, 10);
                     return;
                 }
 
                 /**if you do have a permission*/
                 else {
-                    try{    startActivity(callIntent);
-                    }
-                    catch(android.content.ActivityNotFoundException ex){
-                        Toast.makeText(getApplicationContext(),"cannot find your activity",Toast.LENGTH_SHORT).show();
+                    try {
+                        startActivity(callIntent);
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(getApplicationContext(), "cannot find your activity", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -90,16 +103,16 @@ public class Option3Resource extends AppCompatActivity {
 
                 /**Must check permission*/
                 if (ActivityCompat.checkSelfPermission(Option3Resource.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(Option3Resource.this, new String[]{Manifest.permission.CALL_PHONE},10);
+                    ActivityCompat.requestPermissions(Option3Resource.this, new String[]{Manifest.permission.CALL_PHONE}, 10);
                     return;
                 }
 
                 /**if you do have a permission*/
                 else {
-                    try{    startActivity(callIntent);
-                    }
-                    catch(android.content.ActivityNotFoundException ex){
-                        Toast.makeText(getApplicationContext(),"cannot find your activity",Toast.LENGTH_SHORT).show();
+                    try {
+                        startActivity(callIntent);
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(getApplicationContext(), "cannot find your activity", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -114,16 +127,16 @@ public class Option3Resource extends AppCompatActivity {
 
                 /**Must check permission*/
                 if (ActivityCompat.checkSelfPermission(Option3Resource.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(Option3Resource.this, new String[]{Manifest.permission.CALL_PHONE},10);
+                    ActivityCompat.requestPermissions(Option3Resource.this, new String[]{Manifest.permission.CALL_PHONE}, 10);
                     return;
                 }
 
                 /**if you do have a permission*/
                 else {
-                    try{    startActivity(callIntent);
-                    }
-                    catch(android.content.ActivityNotFoundException ex){
-                        Toast.makeText(getApplicationContext(),"cannot find your activity",Toast.LENGTH_SHORT).show();
+                    try {
+                        startActivity(callIntent);
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(getApplicationContext(), "cannot find your activity", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
