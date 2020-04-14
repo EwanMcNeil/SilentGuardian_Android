@@ -17,14 +17,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:text="@string/for_more_resources_click_on_the_following"
+
         android:textSize="14sp"
         android:layout_margin="10dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline59"
         app:layout_constraintEnd_toStartOf="@+id/guideline62"
         app:layout_constraintStart_toStartOf="@+id/guideline62"
         app:layout_constraintTop_toTopOf="@+id/guideline59" />
-
+    <!-- android:text="@string/for_more_resources_click_on_the_following" -->
     <Button
         android:id="@+id/option1Button"
         android:layout_width="wrap_content"

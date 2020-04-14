@@ -9,11 +9,19 @@
     <!-- TextViews -->
     <!-- General -->
     <string name="save">sauvegarder</string>
-    <string name="features">Features</string>
     <string name="cancel">Annuler</string>
     <string name="enterPW">Entrez votre mot de passe</string>
     <string name="enter">Entrer</string>
     <string name="close">Fermer</string>
+    <!-- Main top bar menu -->
+    <string name="features">Features</string>
+    <string name="switchLanguage">Changer de langue</string>
+    <string name="editProfile">Modifier votre profil</string>
+    <string name="needHelp">Besoin d\'aide?</string>
+    <string name="connectDevice">Connecter mon appareil</string>
+    <string name="addGuardians">Ajouter des gardiens</string>
+    <string name="recordings">Mes enregistrements</string>
+    <string name="checkInMenu">Prochain déplacement</string>
     <!-- User defined message fragment -->
     <string name="enterMessage">Entrez votre message</string>
     <!-- Import contact from phone fragment -->
@@ -59,6 +67,36 @@
     <string name="seconds">Secondes</string>
     <string name="startTimer">Commencer Chronomètre</string>
     <string name="resetTimer">Réinitialiser Chronomètre</string>
+    <!-- Resource activity -->
+    <string name="ressources">Pour plus de ressources, utiliser les liens suivants:</string>
+    <string name="criminalAct">Victime d\'un acte criminel?</string>
+    <string name="missingPerson">Personne disparue?</string>
+    <string name="helpLine">Service d\'assistance</string>
+    <!-- Resource one -->
+    <string name="victimAct">Victime d\'un Acte Criminel</string>
+
+    <string name="crisis">Centre d\'Intervention de Crises</string>
+    <string name="ivac">IVAC (Indemnisation des Victimes d\'Actes Criminels)</string>
+    <string name="immigrants">Immigrants et Réfugiés</string>
+    <!-- Resource two -->
+    <string name="missingNumber">Personne disparue (numéro sans frais)</string>
+    <string name="canadianHuman">Ligne d\'assistance canadienne sur la traite des êtres humains</string>
+    <string name="murdered">Personnes assassinées ou disparues \ n (Association pour les familles de personnes assassinées ou disparues)</string>
+    <!-- Resource three -->
+    <string name="helplineFreeNumber">Assistance téléphonique (numéro sans frais)</string>
+    <string name="sexualAssault">Service d\'assistance téléphonique provincial en cas d\'agression sexuelle</string>
+    <string name="seniors">Aînés (Service d\'assistance téléphonique aux personnes âgées maltraitées)</string>
+    <string name="suicide">S.O.S Suicide Jeunesse</string>
+    <string name="domesticViolence">S.O.S Violence domestique</string>
+    <!-- Toast messages -->
+    <string name="noTime">Aucune heure indiqué!</string>
+    <string name="addressSaved">Adresse enregistrée!</string>
+    <string name="checkInSaved">Prochain déplacement enregistré!</string>
+    <string name="contactexist">Contacte déjà enregistré</string>
+    <string name="contactAdded">Contact ajouté avec succès!</string>
+    <string name="thresholdOneMessage">Message niveau un = </string>
+    <string name="thresholdTwoMessage">Message niveau deux = </string>
+    <string name="pleaseAddContact">SVP ajuter un contact avant de continuer</string>
     <!-- TextViews -->
 
     <!-- Bluetooth -->

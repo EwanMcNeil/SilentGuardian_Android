@@ -50,9 +50,10 @@ import java.util.Locale;
 public class mainActivity extends AppCompatActivity {
 
 
-    protected ImageButton allclearImageButton;
-    protected SharePreferenceHelper sharePreferenceHelper;
-    protected ImageButton buttonTutorial;
+    private static SharePreferenceHelper sharePreferenceHelper;
+    protected static ImageButton allclearImageButton;
+   // protected SharePreferenceHelper sharePreferenceHelper;
+    protected static ImageButton buttonTutorial;
     MediaRecorder recorder = null;
 
 
@@ -165,7 +166,7 @@ public class mainActivity extends AppCompatActivity {
 
     private void alertPressed() {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
-
+        SharePreferenceHelper spHelper = new SharePreferenceHelper(this);
 
         List<Person> thresholdOnePeople;
         thresholdOnePeople = dbHelper.getThresholdOne();
@@ -179,7 +180,7 @@ public class mainActivity extends AppCompatActivity {
         messageGPSHelper textHelper = new messageGPSHelper(this);
 
         for (int i = 0; i < Size; i++) {
-            textHelper.sendMessage(thresholdOneNumbers[i], "test");
+            textHelper.sendMessage(thresholdOneNumbers[i], spHelper.ThresholdOneMessageReturn());
         }
 
         updateAllClearButton();
@@ -219,7 +220,9 @@ public class mainActivity extends AppCompatActivity {
         return false;
     }
 
-    public void updateAllClearButton() {
+
+
+    public static void updateAllClearButton() {
         int output = sharePreferenceHelper.getMessageSent();
 
 

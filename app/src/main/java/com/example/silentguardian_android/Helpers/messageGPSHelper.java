@@ -12,10 +12,12 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.telephony.SmsManager;
 import android.widget.Toast;
-
+import com.example.silentguardian_android.Activities.mainActivity;
 
 import androidx.core.app.ActivityCompat;
 
+import com.example.silentguardian_android.Activities.mainActivity;
+import com.example.silentguardian_android.Activities.thresholdActivity;
 import com.example.silentguardian_android.Helpers.SharePreferenceHelper;
 
 import java.util.List;
@@ -115,6 +117,7 @@ public class messageGPSHelper {
         if (message == null) {
             message = "I am in danger ";
         }
+        mainActivity.updateAllClearButton();
 
         try {
             vibrate();

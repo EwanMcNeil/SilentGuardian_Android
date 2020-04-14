@@ -7,11 +7,19 @@
     <!-- TextViews -->
     <!-- General -->
     <string name="save">save</string>
-    <string name="features">Features</string>
     <string name="cancel">Cancel</string>
     <string name="enterPW">Enter your password</string>
     <string name="enter">Enter</string>
     <string name="close">Close</string>
+    <!-- Main top bar menu -->
+    <string name="features">Features</string>
+    <string name="switchLanguage">Switch Language</string>
+    <string name="editProfile">Edit your profile</string>
+    <string name="needHelp">Need Help?</string>
+    <string name="connectDevice">Connect your device</string>
+    <string name="addGuardians">Add Guardians</string>
+    <string name="recordings">My recordings</string>
+    <string name="checkInMenu">Check In</string>
     <!-- User defined message fragment -->
     <string name="enterMessage">Enter your message</string>
     <!-- Import contact from phone fragment -->
@@ -57,6 +65,36 @@
     <string name="seconds">Seconds</string>
     <string name="startTimer">Start Timer</string>
     <string name="resetTimer">Reset Timer</string>
+    <!-- Resource activity -->
+    <string name="ressources">For more resources, click the following:</string>
+    <string name="criminalAct">Victim of a criminal act?</string>
+    <string name="missingPerson">Missing Person?</string>
+    <string name="helpLine">Helpline</string>
+    <!-- Resource one -->
+    <string name="victimAct">Victim of a Criminal Act</string>
+    <string name="crisis">Crisis Intervention Center</string>
+    <string name="ivac">IVAC (Compensation for Victims of Criminal Acts)</string>
+    <string name="immigrants">Immigrants and refugees</string>
+    <!-- Resource two -->
+    <string name="missingNumber">Missing Person (toll-free number)</string>
+    <string name="canadianHuman">Canadian Human Trafficking Hotline</string>
+    <string name="murdered">Murdered or missing people\n(Association for families of murdered or missing people)</string>
+    <!-- Resource three -->
+    <string name="helplineFreeNumber">Helpline (toll-free number)</string>
+    <string name="sexualAssault">Sexual Assault Provincial Helpline</string>
+    <string name="seniors">Seniors (Elder Mistreatment Helpline)</string>
+    <string name="suicide">S.O.S Suicide Jeunesse</string>
+    <string name="domesticViolence">S.O.S Domestic Violence</string>
+    <!-- Toast messages -->
+    <string name="noTime">No time indicated!</string>
+    <string name="addressSaved">Address has been saved!</string>
+    <string name="checkInSaved">Check-in has been registered!</string>
+    <string name="contactexist">Contact Already exists</string>
+    <string name="contactAdded">Contact Added successfully!</string>
+    <string name="thresholdOneMessage">Level One message = </string>
+    <string name="thresholdTwoMessage">Level Two message = </string>
+    <string name="pleaseAddContact">Please add contacts before proceeding</string>
+
     <!-- TextViews -->
 
     <!-- Bluetooth -->
@@ -95,6 +133,5 @@
     <string name="end_tutorial_button_text">Got it!</string>
     <string name="tutorial_create_profile">Create my profile</string>
     <string name="skip">Skip</string>
-    <string name="for_more_resources_click_on_the_following">For more resources, click on the following:</string>
 
 </resources>
