@@ -83,25 +83,21 @@ package com.example.silentguardian_android.Tutorial;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.silentguardian_android.Database.SharePreferenceHelper;
-import com.example.silentguardian_android.MainActivity;
+import com.example.silentguardian_android.Helpers.SharePreferenceHelper;
+import com.example.silentguardian_android.Activities.MainActivity;
 import com.example.silentguardian_android.R;
-import com.example.silentguardian_android.profileActivity;
+import com.example.silentguardian_android.Activities.profileActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

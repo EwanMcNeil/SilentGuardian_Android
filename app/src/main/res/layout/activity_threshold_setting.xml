@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".ThresholdSettingActivity">
+    tools:context=".Activities.thresholdActivity">
 
 
     <Button

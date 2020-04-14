@@ -27,8 +27,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.silentguardian_android.Database.SharePreferenceHelper;
-import com.example.silentguardian_android.MainActivity;
+import com.example.silentguardian_android.Helpers.SharePreferenceHelper;
+import com.example.silentguardian_android.Activities.MainActivity;
 import com.example.silentguardian_android.R;
 import com.example.silentguardian_android.Tutorial.MyImage;
 import com.example.silentguardian_android.Tutorial.TutorialViewpagerAdapter;
@@ -36,7 +36,6 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
@@ -265,8 +264,8 @@ public class BluetoothMainActivity extends ListActivity {
         }
         Log.i ("Service status", "passedNull");
 
-        mServiceIntent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_NAME, device.getName());
-        mServiceIntent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_ADDRESS, device.getAddress());
+        mServiceIntent.putExtra("DEVICE_NAME", device.getName());
+        mServiceIntent.putExtra("DEVICE_ADDRESS", device.getAddress());
         if (!isMyServiceRunning(mYourService.getClass())) {
             startService(mServiceIntent);
             Log.i ("Service status", "passedIf");

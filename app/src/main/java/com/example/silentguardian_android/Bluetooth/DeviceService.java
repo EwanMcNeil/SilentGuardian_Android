@@ -1,7 +1,6 @@
 package com.example.silentguardian_android.Bluetooth;
 
 
-import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -21,24 +20,20 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.os.Vibrator;
 import android.util.Log;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-import com.example.silentguardian_android.AudioRecordTest;
-import com.example.silentguardian_android.Database.AudioDatabase;
-import com.example.silentguardian_android.Database.DatabaseHelper;
-import com.example.silentguardian_android.Database.Person;
-import com.example.silentguardian_android.Database.SharePreferenceHelper;
-import com.example.silentguardian_android.Database.audioFile;
-import com.example.silentguardian_android.MainActivity;
+import com.example.silentguardian_android.Helpers.AudioDatabase;
+import com.example.silentguardian_android.Helpers.DatabaseHelper;
+import com.example.silentguardian_android.Helpers.Person;
+import com.example.silentguardian_android.Helpers.SharePreferenceHelper;
+import com.example.silentguardian_android.Helpers.audioFile;
+import com.example.silentguardian_android.Activities.MainActivity;
 import com.example.silentguardian_android.R;
-import com.example.silentguardian_android.checkInActivity;
-import com.example.silentguardian_android.messageGPSHelper;
+import com.example.silentguardian_android.Helpers.messageGPSHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;

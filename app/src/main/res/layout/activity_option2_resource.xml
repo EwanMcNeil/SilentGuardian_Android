@@ -5,7 +5,7 @@
     android:id="@+id/activity_option3_resource"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Option2Resource"
+    tools:context=".helpLinks.Option2Resource"
     android:padding="10dp"
     >
 
