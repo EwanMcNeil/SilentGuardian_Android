@@ -67,11 +67,11 @@ public class insertmessageFragment extends DialogFragment {
                 if (ThresholdValue == 1) {
 
                     sharePreferenceHelper.saveThresholdOneMessage(temp_message);
-                    Toast.makeText(getContext(), " Threshold One message = " + sharePreferenceHelper.ThresholdOneMessageReturn(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), R.string.thresholdOneMessage + sharePreferenceHelper.ThresholdOneMessageReturn(), Toast.LENGTH_LONG).show();
 
                 } else {
                     sharePreferenceHelper.saveThresholdTwoMessage(temp_message);
-                    Toast.makeText(getContext(), " Threshold Two message = " + sharePreferenceHelper.ThresholdTwoMessageReturn(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), R.string.thresholdTwoMessage + sharePreferenceHelper.ThresholdTwoMessageReturn(), Toast.LENGTH_LONG).show();
                 }
 
 

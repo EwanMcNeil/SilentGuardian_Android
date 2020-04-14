@@ -98,10 +98,10 @@ public class InsertPasswordCheckFragment extends DialogFragment {
                             SharePreferenceHelper helper = new SharePreferenceHelper(getContext());
                             if (helper.audioCheck() == true) {
                                 helper.disableAudio();
-                                Toast.makeText(getContext(), " Audio Recording has been disable", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), R.string.audioDisable, Toast.LENGTH_LONG).show();
                             } else {
                                 helper.enableAudio();
-                                Toast.makeText(getContext(), " Audio Recording has been enabled", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), R.string.audioEnable, Toast.LENGTH_LONG).show();
                             }
                         default:
                             dismiss();
@@ -112,7 +112,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
                 //if authentication fails, keeps them stuck until correct password is entered...
                 else {
-                    Toast.makeText(getContext(), " Authentication Failed: Incorrect Password, Try Again ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), R.string.authentification, Toast.LENGTH_LONG).show();
                     //getDialog().dismiss();
                 }
 

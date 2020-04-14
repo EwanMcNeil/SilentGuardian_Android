@@ -369,7 +369,7 @@ public class checkinActivity extends AppCompatActivity {
                 String temp_address = EditaddressText.getText().toString();
                 if (temp_address.length() > 0) {
                     sharePreferenceHelper.saveCheckInAddress(temp_address);
-                    Toast.makeText(getApplicationContext(), "Address has been saved!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.addressSaved, Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -381,7 +381,7 @@ public class checkinActivity extends AppCompatActivity {
 
                 sharePreferenceHelper.iAmSafe(true);
                 Log.d(TAG, "User has hit the check in button");
-                Toast.makeText(getApplicationContext(), "Check-in has been registered!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.checkInSaved, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -407,7 +407,7 @@ public class checkinActivity extends AppCompatActivity {
 
 
                 } else
-                    Toast.makeText(getApplicationContext(), "No time indicated!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.noTime, Toast.LENGTH_SHORT).show();
 
 
             }

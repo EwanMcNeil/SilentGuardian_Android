@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:padding="10dp"
-        android:text="Victim of a Criminal Act"
+        android:text="@string/victimAct"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/item1_option1"
@@ -64,7 +64,7 @@
         android:id="@+id/item2_option1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Crisis Intervention Center"
+        android:text="@string/crisis"
         android:textColor="#1aa260"
         android:textSize="16sp"
 
@@ -92,7 +92,7 @@
         android:id="@+id/item3_option1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="IVAC (Compensation for Victims of Criminal Acts)"
+        android:text="@string/ivac"
         android:textColor="#1aa260"
         android:textSize="16sp"
 
@@ -124,7 +124,7 @@
         android:id="@+id/item4_option1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Immigrants and refugees"
+        android:text="@string/immigrants"
         android:textColor="#1aa260"
         android:textSize="16sp"
 
