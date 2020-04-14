@@ -110,13 +110,13 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
 
                     if (n.equals(selectedPerson)) {
 
-                        Toast.makeText(getContext(), "Contact Already exists", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), R.string.contactexist, Toast.LENGTH_LONG).show();
                         return;//do not insert
                     }
                 }
 
                 dbhelper.insertPerson(selectedPerson);
-                Toast.makeText(getContext(), "Contact Added successfully!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.contactAdded, Toast.LENGTH_LONG).show();
                 ((thresholdActivity) getActivity()).loadContactsListView();
 
 
@@ -136,7 +136,7 @@ public class loadCellPhoneContact_fragment extends DialogFragment {
 
                     getDialog().dismiss();
                 } else {
-                    Toast.makeText(getContext(), "Please add contacts before proceeding", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), R.string.pleaseAddContact, Toast.LENGTH_LONG).show();
                 }
 
 

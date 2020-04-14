@@ -205,7 +205,7 @@ public class mainActivity extends AppCompatActivity {
         updateAllClearButton();
 
         if (!(isMyServiceRunning(DeviceService.class))) {
-            Toast.makeText(this, "Please connect a device", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.connectDevice, Toast.LENGTH_LONG).show();
         }
 
     }

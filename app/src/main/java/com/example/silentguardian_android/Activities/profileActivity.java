@@ -115,7 +115,7 @@ public class profileActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 } else
-                    Toast.makeText(getApplicationContext(), "Invalid Input !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.invslidInput, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -125,7 +125,7 @@ public class profileActivity extends AppCompatActivity {
                 if (!sharePreferenceHelper.passwordReturn().equals("it s null"))//TODO HAVE TO CHANGE SHAREDPREF
                     finish();
                 else
-                    Toast.makeText(getApplicationContext(), "Create a profile first !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.createProfile, Toast.LENGTH_SHORT).show();
 
             }
         });

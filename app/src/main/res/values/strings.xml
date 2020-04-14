@@ -94,7 +94,11 @@
     <string name="thresholdOneMessage">Level One message = </string>
     <string name="thresholdTwoMessage">Level Two message = </string>
     <string name="pleaseAddContact">Please add contacts before proceeding</string>
-
+    <string name="createProfile">Create a profile first !</string>
+    <string name="invslidInput">Invalid Input !</string>
+    <string name="audioDisable">Audio Recording has been disable</string>
+    <string name="audioEnable">Audio Recording has been enabled</string>
+    <string name="authentification">Authentication Failed: Incorrect Password, Try Again</string>
     <!-- TextViews -->
 
     <!-- Bluetooth -->

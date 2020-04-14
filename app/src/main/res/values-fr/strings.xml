@@ -97,6 +97,11 @@
     <string name="thresholdOneMessage">Message niveau un = </string>
     <string name="thresholdTwoMessage">Message niveau deux = </string>
     <string name="pleaseAddContact">SVP ajuter un contact avant de continuer</string>
+    <string name="createProfile">Créer un profile pour continuer!</string>
+    <string name="invslidInput">Entré invalide!</string>
+    <string name="audioDisable">Enregistrement Audio désactivé</string>
+    <string name="audioEnable">Enregistrement audio activé</string>
+    <string name="authentification">Authentification échouée: Mauvais mot depasse, essayez de nouveau</string>
     <!-- TextViews -->
 
     <!-- Bluetooth -->
