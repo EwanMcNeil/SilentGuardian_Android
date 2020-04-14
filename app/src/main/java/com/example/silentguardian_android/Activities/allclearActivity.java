@@ -3,6 +3,7 @@ package com.example.silentguardian_android.Activities;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,7 +46,7 @@ public class allclearActivity extends AppCompatActivity {
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
         //Applying language end
-
+        final Intent intent = new Intent(this, mainActivity.class);
 
         thresholdOneallClearButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +71,7 @@ public class allclearActivity extends AppCompatActivity {
                     Log.d(TAG, "All Clear Message " + i + " has been sent. ");
                 }
 
-
+                startActivity(intent);
             }
         });
 
@@ -96,6 +97,9 @@ public class allclearActivity extends AppCompatActivity {
 
                     Log.d(TAG, "All Clear Message " + i + " has been sent. ");
                 }
+
+
+                startActivity(intent);
 
             }
         });
