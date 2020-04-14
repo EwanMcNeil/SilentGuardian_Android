@@ -52,7 +52,6 @@ public class mainActivity extends AppCompatActivity {
 
     protected ImageButton allclearImageButton;
     protected SharePreferenceHelper sharePreferenceHelper;
-    protected TextView iAmSafeText;
     protected ImageButton buttonTutorial;
     MediaRecorder recorder = null;
 
@@ -75,7 +74,7 @@ public class mainActivity extends AppCompatActivity {
 
         buttonTutorial = findViewById(R.id.buttonTutorialMain);
 
-        iAmSafeText = findViewById(R.id.iAmSafeTextView);
+
 
         //permission check
         int PERMISSION_ALL = 1;
@@ -226,15 +225,15 @@ public class mainActivity extends AppCompatActivity {
 
         if (output == 0) {
 
-            iAmSafeText.setText("SOS");
-            allclearImageButton.setBackgroundResource(R.drawable.redphone);
+
+            allclearImageButton.setBackgroundResource(R.drawable.redbutton);
 
 
             //needs to be changed to somthing else
         } else {
 
-            iAmSafeText.setText("I am safe");
-            allclearImageButton.setBackgroundResource(R.drawable.greenphone);
+
+            allclearImageButton.setBackgroundResource(R.drawable.greenbutton);
 
         }
 

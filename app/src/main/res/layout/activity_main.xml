@@ -10,34 +10,15 @@
     <ImageButton
         android:id="@+id/safeimageButton"
 
-        android:layout_width="113dp"
-        android:layout_height="95dp"
+        android:layout_width="220dp"
+        android:layout_height="203dp"
 
-        android:layout_marginTop="8dp"
-        android:background="@drawable/redphone"
+        android:layout_marginBottom="160dp"
+        android:background="@drawable/redbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline44"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline44"
-        app:layout_constraintTop_toBottomOf="@+id/iAmSafeTextView" />
-
-    <TextView
-        android:id="@+id/iAmSafeTextView"
-        android:layout_width="wrap_content"
-
-        android:text="@string/iAmSafe"
-
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-
-        android:textAlignment="center"
-
-        android:textSize="18sp"
-
-        app:layout_constraintBottom_toTopOf="@+id/guideline42"
-        app:layout_constraintEnd_toStartOf="@+id/guideline44"
-        app:layout_constraintStart_toStartOf="@+id/guideline44"
-        app:layout_constraintTop_toTopOf="@+id/guideline42" />
+        app:layout_constraintHorizontal_bias="0.427"
+        app:layout_constraintStart_toStartOf="@+id/guideline44" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline40"
@@ -80,9 +61,10 @@
         android:layout_height="199dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline40"
         app:layout_constraintEnd_toStartOf="@+id/guideline44"
+        app:layout_constraintHorizontal_bias="0.759"
         app:layout_constraintStart_toStartOf="@+id/guideline44"
         app:layout_constraintTop_toTopOf="@+id/guideline40"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.613"
         app:srcCompat="@mipmap/silent_guardians_logo1" />
 
     <androidx.constraintlayout.widget.Guideline
