@@ -172,9 +172,18 @@ public class AppTutorial extends AppCompatActivity {
                 +" Simply press and hold the button on the device until the LEDs turn on and blink rapidly."
                 ,R.mipmap.hand_holding_device2));
 
+        //introduce device
+        mList.add(new MyImage("Levels of Emergency",
+                "Silent Guardian lets you create two distinct groups of contact to "
+                        +"reach in case of emergency. On occasions when you feel uncomfortable or worried "
+                        +"you should contact your LEVEL 1 group. In case of imminent danger"
+                        +" or accident you should contact your LEVEL 2."
+                ,R.mipmap.hand_holding_device2));
+
+
         //introduce guardians/bubble concept
         mList.add(new MyImage("Designate your Guardians",
-                "Create up to two separate groups of contacts, i.e. your Guardians in two distinct Guardian Levels, to reach in case of emergencies.",R.mipmap.group1_2_tutorial));
+                "Create two separate groups of contacts, i.e. your Guardians in two distinct Guardian Levels, to reach in case of emergencies.",R.mipmap.group1_2_tutorial));
 
         //describe activation
         mList.add(new MyImage("Smart Companion",
