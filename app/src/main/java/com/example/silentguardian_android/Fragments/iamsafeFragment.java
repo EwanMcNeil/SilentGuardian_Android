@@ -42,8 +42,8 @@ public class iamsafeFragment extends DialogFragment {
 
 
         SMSHelper = new messageGPSHelper(getContext());
-        thresholdOneallClearButton = view.findViewById(R.id.safebutton1frag);
-        thresholdTwoallClearButton = view.findViewById(R.id.safebutton2frag);
+        thresholdOneallClearButton = view.findViewById(R.id.safebutton2frag);
+        thresholdTwoallClearButton = view.findViewById(R.id.safebutton1frag);
         //Next lines assure activity uses the right language, otherwise some activities or fragment aren't fully catching up
         //Applying language start
         sharePreferenceHelper = new SharePreferenceHelper(getContext());
