@@ -58,8 +58,7 @@ public class InsertPasswordCheckFragment extends DialogFragment {
 
         sharePreferenceHelper = new SharePreferenceHelper(getContext());
 
-
-        Toast.makeText(getContext(), inputIntent, Toast.LENGTH_LONG).show();
+        
 
 
         saveTempPasswordButton.setOnClickListener(new View.OnClickListener() {
