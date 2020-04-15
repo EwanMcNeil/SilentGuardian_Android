@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.silentguardian_android.Bluetooth.DeviceService;
+import com.example.silentguardian_android.Fragments.iamsafeFragment;
 import com.example.silentguardian_android.Helpers.AudioDatabase;
 import com.example.silentguardian_android.Helpers.DatabaseHelper;
 import com.example.silentguardian_android.Helpers.Person;
@@ -106,8 +107,10 @@ public class mainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int recent = sharePreferenceHelper.getMessageSent();
                 if (recent == 1) {
-                    Intent intent = new Intent(mainActivity.this, allclearActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(mainActivity.this, allclearActivity.class);
+//                    startActivity(intent);
+                   iamsafeFragment dialog = new  iamsafeFragment();
+                    dialog.show(getSupportFragmentManager(), "safe frag");
                 } else {
                     startRecording();
                     alertPressed();
