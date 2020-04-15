@@ -28,7 +28,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="209dp"
-        android:autolink="all"
+        android:autoLink="all"
         android:clickable="true"
         android:text="https://www.textwith911.ca/en/how-to-make-a-t9-1-1-call/"
         android:textSize="24sp" />
