@@ -138,9 +138,19 @@
     <!-- Menu items -->
 
     <!-- Tutorials items -->
-    <string name="guardian_activity_tutorial_title">Press the top-right icon to assign your contacts to your Guardian Levels !</string>
-    <string name="end_tutorial_button_text">Got it!</string>
-    <string name="tutorial_create_profile">Create my profile</string>
-    <string name="skip">Skip</string>
+    <string name="guardian_activity_tutorial_title">Appuye sur le bouton en haut a droite pour ajouter un guardien</string>
+    <string name="end_tutorial_button_text">Suivant</string>
+    <string name="tutorial_create_profile">Créer mon profil</string>
+    <string name="skip">Passer</string>
+    <string name="connect_your_device">Connect ton appareil</string>
+    <string name="edit_your_profile">Change mon profil</string>
+    <string name="need_help">Besoin d\'aide?</string>
+    <string name="settings">Réglages</string>
+    <string name="switch_language">Changer de langue</string>
+    <string name="toggle_audio_recording">Activer/Desactiver enregistrement audio</string>
+    <string name="add_guardians">Ajouter un Guardien</string>
+    <string name="features_main">Fonctionnalitées</string>
+    <string name="check_in">Check-in</string>
+    <string name="my_recordings">Mes enregistrements</string>
     <!-- Tutorials items -->
 </resources>

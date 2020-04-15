@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:title="Settings">
+    android:title="@string/settings">
 
 <item android:id="@+id/bluetoothSettingsdropdown"
-    android:title="Connect your device" />
+    android:title="@string/connect_your_device" />
 <item android:id="@+id/profileSettingdropdown"
-    android:title="Edit your profile" />
+    android:title="@string/edit_your_profile" />
 
 <item android:id="@+id/sendTestMessageDropDown"
-    android:title="Need Help?" />
+    android:title="@string/need_help" />
 <item
     android:id="@+id/switchLanguage"
-    android:title="Switch Language" />
+    android:title="@string/switch_language" />
 
 <item
     android:id="@+id/thresholdsettingdropdown"
-    android:title="Add Guardians" />
+    android:title="@string/add_guardians" />
     <item
         android:id="@+id/enableaudio"
-        android:title="Toggle Audio Recording" />
+        android:title="@string/toggle_audio_recording" />
 
 
 
     <item android:id="@+id/featuresDropdown"
-        android:title="features"
+        android:title="@string/features_main"
         app:showAsAction="always">
     <menu>
                <item
             android:id="@+id/checkIndropdown"
-            android:title="Check In" />
+            android:title="@string/check_in" />
 
         <item
             android:id="@+id/recordingsActivity"
-            android:title="My Recordings" />
+            android:title="@string/my_recordings" />
 
 
 

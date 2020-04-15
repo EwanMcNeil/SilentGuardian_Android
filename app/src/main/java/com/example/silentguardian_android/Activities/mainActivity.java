@@ -315,7 +315,7 @@ public class mainActivity extends AppCompatActivity {
 
     private void switchLanguage() {
         String current = Locale.getDefault().getLanguage();
-        if (current == "fr") {
+        if (current.equals("fr")) {
             Locale locale = new Locale("en");
             Locale.setDefault(locale);
             Configuration config = new Configuration();
@@ -323,7 +323,7 @@ public class mainActivity extends AppCompatActivity {
             getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
             sharePreferenceHelper.saveLanguage("en");
             recreate();
-        } else if (current == "en") {
+        } else if (current.equals("en")) {
             Locale locale = new Locale("fr");
             Locale.setDefault(locale);
             Configuration config = new Configuration();

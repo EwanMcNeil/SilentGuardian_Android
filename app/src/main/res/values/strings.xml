@@ -137,5 +137,15 @@
     <string name="end_tutorial_button_text">Got it!</string>
     <string name="tutorial_create_profile">Create my profile</string>
     <string name="skip">Skip</string>
+    <string name="connect_your_device">Connect your device</string>
+    <string name="edit_your_profile">Edit your profile</string>
+    <string name="need_help">Need Help?</string>
+    <string name="settings">Settings</string>
+    <string name="switch_language">Switch Language</string>
+    <string name="toggle_audio_recording">Toggle Audio Recording</string>
+    <string name="add_guardians">Add Guardians</string>
+    <string name="features_main">features</string>
+    <string name="check_in">Check In</string>
+    <string name="my_recordings">My Recordings</string>
 
 </resources>
