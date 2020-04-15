@@ -229,14 +229,14 @@ public class mainActivity extends AppCompatActivity {
         if (output == 0) {
 
 
-            allclearImageButton.setBackgroundResource(R.drawable.redbutton);
+            allclearImageButton.setBackgroundResource(R.drawable.redbutton_3);
 
 
             //needs to be changed to somthing else
         } else {
 
 
-            allclearImageButton.setBackgroundResource(R.drawable.greenbutton);
+            allclearImageButton.setBackgroundResource(R.drawable.greenbutton_3);
 
         }
 
