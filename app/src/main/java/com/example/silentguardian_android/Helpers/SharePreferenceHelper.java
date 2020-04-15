@@ -103,14 +103,14 @@ public class SharePreferenceHelper extends AppCompatActivity {
 
     //functions to get the messages set for each thresholds
     public String ThresholdOneMessageReturn() {
-        String ThresholdMessage = sharedPreferences.getString("Threshold One Message", null);
+        String ThresholdMessage = sharedPreferences.getString("Threshold One Message", "I am feeling unsafe");
 
         return ThresholdMessage;
     }
 
 
     public String ThresholdTwoMessageReturn() {
-        String ThresholdMessage = sharedPreferences.getString("Threshold Two Message", null);
+        String ThresholdMessage = sharedPreferences.getString("Threshold Two Message", "I am in danger");
 
         return ThresholdMessage;
     }
